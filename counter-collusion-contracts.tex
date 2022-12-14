@@ -1,0 +1,44 @@
+% !TEX root =main.tex
+
+
+\section{Counter Collusion Contracts}\label{appendix::Counter-Collusion-Contracts}
+
+In this section, we present Prisoner’s Contract (\SCpc), Colluder’s Contract (\SCcc), Traitor’s Contract (\SCtc) originally proposed by Dong \textit{et al.} \cite{dong2017betrayal}. As we previously stated, we have slightly adjusted the contracts.  We will highlight the adjustments in blue. For the sake of completeness, below we restate the parameters used in these contracts and their relation. 
+
+
+\begin{itemize}
+\item[$\bullet$] $\bc$: the bribe paid by the ringleader of the collusion to the other
+server in the collusion agreement, in \SCcc.
+%
+\item[$\bullet$] $\cc$: a server’s cost for computing the task.
+%
+\item[$\bullet$] $\chc$: the fee paid to invoke an auditor for recomputing a task and resolving
+disputes.
+%
+\item[$\bullet$] $\dc$: the deposit a server needs to pay to be eligible for getting the job.
+%
+\item[$\bullet$] $\tc$: the deposit the colluding parties need to pay in the collusion agreement, in \SCcc.
+%
+\item[$\bullet$] $\wc$: the amount that a server receives for completing the task.
+%
+\item[$\bullet$] $\wc \geq \cc$: the server would not accept underpaid jobs.
+%
+\item[$\bullet$] $\chc > 2\wc$: If it does not hold, then there would be no need to use the servers and the auditor would do the computation.
+%
+\item [$\bullet$] $(pk,sk)$: an asymmetric-key encryption's public-private key pair belonging to the auditor. 
+\end{itemize}
+\noindent The following relations need to hold when setting the contracts
+in order for the desirable equilibria to hold:
+%
+(i) $\dc>\cc+\chc$, (ii) $\bc<\cc$, and (iii) $\tc<\wc-\cc + 2\dc - \chc -\bc$.
+
+
+
+
+
+\input{Peisoner-contract.tex}
+
+\input{Colluder-contract.tex}
+
+\input{Traitor-contract.tex}
+

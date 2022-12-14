@@ -1,0 +1,57 @@
+% !TEX root =main.tex
+
+
+
+
+\begin{figure}[ht]%[!htbp]
+\setlength{\fboxsep}{1pt}
+\begin{center}
+    \begin{tcolorbox}[enhanced,width=5.5in, 
+    drop fuzzy shadow southwest,
+    colframe=black,colback=white]
+
+
+\small{
+
+\begin{enumerate}
+\item[$\bullet$]    {Parties.} A set of clients $\{    A_{\st 1},...,  A_{\st m}\}$.
+%
+\item[$\bullet$]    {Input.}  $m$: the total number of participants, $adr$: a deployed smart contract's address, and $b$: the total number of vectors. Let $b'=b-1$. 
+%
+\item[$\bullet$]   {Output.}  $k$: a secret key that generates $b$ vectors $[z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle 0,m}],...,[z_{\scriptscriptstyle b',1},...,z_{\scriptscriptstyle b',m}]$ of pseudorandom values, $h$: hash of the key,  $g$: a Merkle tree's root, and a vector of signed messages. 
+
+
+%, such that the sum of each vector's elements equals zero: $\sum\limits^{\scriptscriptstyle m}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}=0$. 
+
+
+\item {\textbf{Coin-tossing.} $\ct (in_{\st 1},..., in_{\st m})\rightarrow k$}. 
+
+All participants run a coin-tossing protocol to agree on $\mathtt{PRF}$'s key, $k$.
+\item\label{ZSPA:val-gen}  {\textbf{Encoding.} $\mathtt{Encode}(k, m)\rightarrow (g,q)$}.
+
+ One of the parties takes the following steps:  
+\begin{enumerate}
+
+\item for every $i$ (where $0\leq i \leq b'$), generates $m$ pseudorandom values as follows. 
+%
+ $$\forall j, 1\leq j \leq m-1: z_{\scriptscriptstyle i,j}=\mathtt{PRF}(k,i||j), \hspace{5mm} z_{\scriptscriptstyle i,m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}$$
+%
+\item   constructs a Merkel tree on top of all pseudorandom values,  $\mkgen(z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle b',m})\rightarrow g$. 
+
+\item sends the Merkel tree's root: $g$,   and the key's hash: $q=\mathtt {H}(k)$ to $adr$. 
+
+\end{enumerate}
+
+\item\label{ZSPA:verify}{\textbf{Verification.} $\mathtt{Verify}(k, g, q, m)\rightarrow (a, s)$}. 
+
+Each party checks if, all $z_{\scriptscriptstyle i,j}$ values, the root $g$, and key's hash $q$ have been correctly generated, by retaking  step \ref{ZSPA:val-gen}. If the checks pass, it sets $a=1$,  sets $s$ to a singed ``approved'' message, and sends $s$ to $adr$. Otherwise, it aborts by returning $a=0$ and $s = \bot$. 
+
+
+ \end{enumerate}
+}
+ \end{tcolorbox}
+\end{center}
+\caption{Zero-sum Pseudorandom Values Agreement (\zspa) } 
+\label{fig:ZSPA}
+\end{figure}
+

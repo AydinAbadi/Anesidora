@@ -1,0 +1,258 @@
+% !TEX root =main.tex
+
+
+\subsection{Proof of \fpsi}\label{sec::F-PSI-proof}
+
+
+
+In this section, we prove Theorem \ref{theorem::F-PSI-security}, i.e., the security of \fpsi. 
+
+
+\begin{proof}
+%
+We prove Theorem  \ref{theorem::F-PSI-security} by considering the case where each party is corrupt, at a time.
+
+\
+
+\noindent\textbf{Case 1: Corrupt $m-1$ clients in $\{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}$}.  Let $P'$ be a set of at most $m-1$ corrupt clients, where $P'\subset \{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}$. Let set $\hat P$ be defined as follows: $\hat P=\{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}\setminus P'$. Also, let $\mathsf{Sim}^{\st\fpsi}_{\st A}$ be the simulator, which uses a subroutine adversary, $\mathcal{A}$.  Below, we explain how $\mathsf{Sim}^{\st \fpsi}_{\st A}$ (which receives the input sets of honest dealer $D$ and honest client(s) in $\hat P$) works. 
+
+
+\begin{enumerate}
+%
+\item constructs and deploys a smart contract. It sends the contract's address to $\mathcal{A}$. 
+%
+\item simulates \ct and receives the output value, $ {mk}$, from its functionality, $f_{\st \ct}$.
+%
+\item\label{sim::ZSPA-A-invocation} simulates \zspaa for each bin and receives the output value, $( k,  g,  q)$, from its functionality, $f^{\st \zspaa}$.
+%
+\item deposits in the contract the total amount of $(\yc+\chc)\cdot (m-|P'|+1)$ coins on behalf of $D$ and honest client(s) in $\hat P$. It sends to $\mathcal{A}$ the amount deposited in the contract. 
+%
+\item checks if $\mathcal{A}$ has deposited $(\yc+\chc)\cdot |P'|$ amount. If the check fails, it instructs the ledger to refund the coins that every party deposited and sends message $abort_{\st 1}$ to TTP (and accordingly to all parties); it outputs whatever $\mathcal{A}$ outputs and then halts. 
+
+%
+\item picks a random polynomial ${\bm\zeta}$ of degree $1$, for each bin. Also, $\mathsf{Sim}^{\st \fpsi}_{\st A}$, for each client $  {  C}\in \{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}$ allocates to each bin two random polynomials: (${\bm\omega}^{ \st {  {(D,C)}}}, {\bm\rho}^{ \st {  {(D,C)}}}$) of degree $d$ and   two random polynomials: (${\bm\gamma}^{ \st {  {(D,C)}}}$, ${\bm\delta}^{ \st {  {(D,C)}}}$) of degree $3d+1$. Moreover, $\mathsf{Sim}^{\st \fpsi}_{\st A}$ for every honest client $C'\in \hat P$, for each bin, picks two random polynomials: (${\bm\omega}^{ \st {  {(C',D)}}}$, ${\bm\rho}^{ \st {  {(C',D)}}}$) of degree $d$. %Note, all polynomials are picked from $\mathbb{F}_{\st p}[X]$. 
+%
+\item\label{F-PSI::sim-A-first-VOPR-invocation} simulates \vopr using inputs ${\bm\zeta} \cdot {\bm\omega}^{ \st {  {(D,C)}}}$ and ${\bm\gamma}^{ \st {  {(D,C)}}}$ for each bin. Accordingly, it receives the inputs of clients $C''\in P'$, i.e., ${\bm\omega}^{ \st {  {(C'',D)}}}\cdot {\bm\pi}^{ \st {  {(C'')}}}$, from its functionality $f^{\st \vopr}$, for each bin.  
+%
+%\item receives from $\mathcal{A}$ the outputs of VOPR for every client $C'' \in P'$. It ensures the output for every $C''$ has been provided. Otherwise, it halts.  
+%
+\item extracts the roots of polynomial ${\bm\omega}^{ \st {  {(C'',D)}}}\cdot {\bm\pi}^{ \st {  {(C'')}}}$ for each bin and appends those roots that are in the sets universe to a new set $S^{\st(C'')}$. 
+%
+\item simulates  \vopr again using inputs ${\bm\zeta}\cdot {\bm \rho}^{ \st {  {(D,C)}}}\cdot {\bm\pi}^{ \st {  {(D)}}}$ and ${\bm\delta}^{ \st {  {(D,C)}}}$, for each bin. %It receives the inputs of clients $C''\in P'$, i.e., $ {\bm\rho}^{ \st {  {(C'',D)}}}$, from $f^{\st \text{VOPR}}$, for each bin. 
+%
+\item sends to TTP the input sets of all parties; namely, (i) client $D$'s input set: $S^{\st (D)}$, (ii) honest clients' input sets: $S^{\st (C')}$ for all $C'$ in $\hat P$, and (iii) $\mathcal{A}$'s input sets: $S^{\st(C'')}$, for all $C''$ in $P'$.  For each bin, it receives the intersection set, $S_{\st\cap}$, from TTP. 
+%
+\item represents the intersection set for each bin as a polynomial, ${\bm \pi}$, as follows: ${\bm \pi}=\prod\limits^{\st |S_{\st\cap}|}_{\st i=1 }(x-s_{\st i})$, where $s_{\st i}\in S_{\st\cap}$. 
+
+%
+\item constructs polynomials ${\bm\theta}^{ \st {  {(C')}}}_{\st 1}={\bm\zeta} \cdot {\bm\omega}^{ \st {  {(D,C')}}}\cdot {\bm\omega}^{ \st {  {(C',D)}}}\cdot {\bm\pi}+{\bm\gamma}^{ \st {  {(D,C')}}}, {\bm\theta}^{ \st {  {(C')}}}_{\st 2}=  {\bm\zeta} \cdot  {\bm\rho}^{ \st {  {(D,C')}}}\cdot  {\bm\rho}^{ \st {  {(C',D)}}}\cdot  {\bm\pi}+  {\bm\delta}^{ \st {  {(D,C')}}}$, and $ {\bm\nu}^{ \st {  {(C')}} }=  {\bm\theta}^{ \st {  {(C')}}}_{\st 1}+ {\bm\theta}^{ \st {  {(C')}}}_{\st 2}+ {\bm \tau}^{ \st {  {(C')}} }$, for each bin and each honest client $C'\in\hat P$, where $ {\bm\tau}^{ \st {  {(C)}}}=\sum\limits^{\st 3d+2}_{\st i=0}z_{\st i,c}\cdot x^{\st i}$ and each $z_{\st i,c}$ is derived from $  k$. 
+%
+\item sends to $\mathcal{A}$ polynomial  $ {\bm\nu}^{ \st {  {(C')}} }$ for each bin and each client $C'$. 
+%
+\item\label{F-PSI::sim-A-receive-nu-from-adv} receives $ {\bm\nu}^{ \st {  {(C'')}} }$  from $\mathcal{A}$, for each bin and each client $C''\in P'$. It ensures that the output for every $C''$ has been provided. Otherwise, it halts. 
+%
+\item if there is any abort within steps \ref{F-PSI::sim-A-first-VOPR-invocation}--\ref{F-PSI::sim-A-receive-nu-from-adv}, then it sends $abort_{\st 2}$ to TTP and instructs the ledger to refund the coins that every party deposited.  It outputs whatever $\mathcal{A}$ outputs and then halts. 
+%
+\item constructs polynomial  $ {\bm\nu}^{ \st {  {(D)}}}= {\bm\zeta} \cdot   {\bm\omega'}^{ \st {  {(D)}}}\cdot  {\bm\pi} - \sum\limits^{ \st {   A}_{ \st {   m}}}_{  \st {  {C }= }  \st {   A}_{ \st {  1}}}( {\bm\gamma}^{ \st {  {(D,C)}}} +  {\bm\delta}^{ \st {  {(D,C)}}}) +  {\bm\zeta} \cdot  {\bm\gamma'}$ for each bin, where $ {\bm\omega'}^{ \st {  {(D)}}}$ is a fresh random polynomial of degree $d$ and $ {\bm\gamma'}$ is a pseudorandom polynomial derived from $  {mk}$.
+%
+\item sends to $\mathcal{A}$ polynomials $ {\bm\nu}^{ \st {  {(D)}}}$ and $ {\bm\zeta}$ for each bin. 
+%
+\item given each $ {\bm\nu}^{ \st {  {(C'')}} }$, computes polynomial $ {\bm\phi'}$ as follows $ {\bm\phi'} = \sum\limits_{\st \forall C''\in P'} {\bm\nu}^{ \st {  {(C'')}} }- \sum\limits_{\st \forall C''\in P'}( {\bm\gamma}^{ \st {  {(D,C'')}}} +  {\bm\delta}^{ \st {  {(D,C'')}}})$, for every bin. Then, $\mathsf{Sim}^{\st \fpsi}_{\st A}$ checks whether  $ {\bm\zeta}$  divides ${\bm\phi'}$, for every bin. If the check passes, it sets $Flag=True$. Otherwise, it sets $Flag=False$. 
+%
+\item if $Flag=True$:
+
+\begin{enumerate}
+%
+ \item instructs the ledger to send back each party's deposit, i.e., $\yc+\chc$ amount. It sends a message $deliver$ to TTP.  
+ %
+ \item outputs whatever $\mathcal{A}$ outputs and then halts. 
+ %
+ \end{enumerate}
+%
+\item if $Flag=False$: 
+%
+\begin{enumerate}
+%
+ \item receives $|P'|$ keys of the $\mathtt{PRF}$ from $\mathcal{A}$, i.e., $\vv k'=[   k'_{\st 1}, ...,   k'_{\st |P'|}]$, for every bin. %, which should be the output of $f^{\st \text{ZSPA-A}}$ in step \ref{sim::ZSPA-A-invocation} above. 
+%
+\item checks whether the following equation holds: $  k'_{\st j}=  k$, for every $  k'_{\st j}\in\vv k'$. Note that $  k$ is the output of $f^{\st \zspaa}$ generated in step \ref{sim::ZSPA-A-invocation}. It constructs an empty list $  L'$ and appends to it the indices (e.g., $j$) of the keys that do not pass the above check. 
+%
+\item simulates \zspaa and receives from $f^{\st \zspaa}$ the output that contains a vector of random polynomials, $\vv{\mu}'$, for each valid key. 
+%
+\item sends to  $\mathcal{A}$, the list $  L'$ and vector  $\vv{\mu}'$, for every bin. 
+%
+\item  for each bin of client $  {  C}$ whose index (or ID) is not in $  L'$ computes polynomial $ {\bm\chi}^{ \st {  {(D, C)}}}$ as follows: 
+ %
+ $ {\bm\chi}^{ \st {  {(D, C)}}}= {\bm\zeta}\cdot  {\bm\eta}^{ \st {  {(D,C)}}}-( {\bm\gamma}^{ \st {  {(D,C)}}}+ {\bm\delta}^{ \st {  {(D,C)}}})$,   where $ {\bm\eta}^{ \st {  {(D,C)}}}$ is a fresh random polynomial of degree $3d+1$. Note, $C$ includes both honest and corrupt clients, except those clients whose index is in  $  L'$. $\mathsf{Sim}^{\st \fpsi}_{\st A}$ sends every polynomial $ {\bm\chi}^{ \st {  {(D, C)}}}$ to  $\mathcal{A}$. 
+ %
+ \item given each $ {\bm\nu}^{ \st {  {(C'')}} }$ (by $\mathcal{A}$ in step \ref{F-PSI::sim-A-receive-nu-from-adv}), computes polynomial $ {\bm\phi'}^{ \st {  {(C'')}} }$ as follows: ${\bm\phi'}^{ \st {  {(C'')}} } =  {\bm\nu}^{ \st {  {(C'')}} }-  {\bm\gamma}^{ \st {  {(D,C'')}}} -  {\bm\delta}^{ \st {  {(D,C'')}}}$, for every bin. Then, $\mathsf{Sim}^{\st \fpsi}_{\st A}$ checks whether  $ {\bm\zeta}$  divides $ {\bm\phi'}^{ \st {  {(C'')}} }$, for every bin. It appends the index of those clients that did not pass the above check to a new list, $  L''$. Note that $  L'\cap   L''=\bot$.
+%
+\item if  $  L'$ or $  L''$ is not empty, then it instructs the ledger: (i) to refund the coins of those parties whose index is not in $  L'$ and $  L''$, (ii) to retrieve $\chc$ amount from the adversary (i.e., one of the parties whose index is in one of the lists) and send the $\chc$ amount to the auditor, and (iii) to compensate each honest party (whose index is not in the two lists)  $\frac{m'\cdot (\yc+\chc)-\chc}{m-m'}$ amount, where $m'=|  L'|+|  L''|$.  Then, it sends  message $abort_{\st 3}$ to TTP. 
+%
+\item outputs whatever $\mathcal{A}$ outputs and halts. 
+ %
+ \end{enumerate}
+%
+\end{enumerate}
+
+Next, we show that the real and ideal models are computationally indistinguishable. We first focus on the adversary’s output. In the real and ideal models, the adversary sees the transcripts of ideal calls to $f_{\st \ct}$ as well as this functionality outputs, i.e., $mk$. Due to the security of \ct (as we are in the $f_{\st \ct}$-hybrid world), the transcripts of $f_{\st \ct}$ in both models have identical distribution, so have the random output of $f_{\st \ct}$, i.e., $mk$. The same holds for (the transcripts and) outputs (i.e., $(  k,   g,   q)$) of $f^{\st \zspaa}$ that the adversary observes in the two models. Also, the deposit amount is identical in both models. Thus, in the case where $abort_{\st 1}$ is disseminated at this point; the adversary's output distribution in both models is identical. 
+
+
+
+The adversary also observes (the transcripts and) outputs of ideal calls to $f^{\st \vopr}$ in both models, i.e., output ($\bm\theta^{ \st {  {(C'')}}}_{\st 1}=\bm\zeta \cdot \bm\omega^{ \st {  {(D, C'')}}}\cdot \bm\omega^{ \st {  {(C'', D)}}}\cdot \bm\pi^{ \st {  {(C'')}}}+\bm\gamma^{ \st {  {(D,C'')}}}, \bm\theta^{ \st {  {(C'')}}}_{\st 2}=\bm\zeta \cdot \bm\rho^{ \st {  {(D, C'')}}}\cdot \bm\rho^{ \st {  {(C'',D)}}}\cdot \bm\pi^{ \st {  {(D)}}}+\bm\delta^{ \st {  {(D, C'')}}}$) for each corrupted client $C''$. However, due to the security of \vopr, the $\mathcal{A}$'s view, regarding \vopr, in both models have identical distribution.  
+%
+In the real model, the adversary observes the polynomial ${\bm\nu}^{ \st {  {(C)}}}$ that each honest client $C$ stores in the smart contract. Nevertheless, this is a blinded polynomial comprising of two uniformly random blinding polynomials (i.e., $\bm\gamma^{ \st {  {(D,C)}}}$ and $\bm\delta^{ \st {  {(D,C)}}}$) unknown to the adversary. In the ideal model, $\mathcal{A}$ is given polynomial  $ {\bm\nu}^{ \st {  {(C')}}}$ for each honest client $C'$. This polynomial has also been blinded via two uniformly random polynomials (i.e., $ {\bm\gamma}^{ \st {  {(D, C')}}}$ and $ {\bm\delta}^{ \st {  {(D, C')}}}$) unknown to $\mathcal{A}$. Thus, ${\bm\nu}^{ \st {  {(C)}}}$ in the real model and $ {\bm\nu}^{ \st {  {(C)}}}$ in the ideal model have identical distributions. As a result, in the case where $abort_{\st 2}$ is disseminated at this point; the adversary's output distribution in both models is identical. 
+
+
+
+Furthermore, in the real world, the adversary observes polynomials ${\bm\zeta}$ and  $\bm\nu^{ \st {  {(D)}}}$  that  $D$ stores in the smart contract. Nevertheless, ${\bm\zeta}$ is a uniformly random polynomial, also polynomial $\bm\nu^{ \st {  {(D)}}}$ has been blinded; its blinding factors are the additive inverse of  the sum of the random polynomials $\bm\gamma^{ \st {  {(D,C)}}}$ and $\bm\delta^{ \st {  {(D,C)}}}$ unknown to the adversary, for every client $C\in \{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}$ and  $D$. In the ideal model, $\mathcal{A}$ is given $ {\bm\zeta}$ and $ {\bm\nu}^{ \st {  {(D)}}}$, where the former is a random polynomial and the latter is a blinded polynomial that has been blinded with the additive inverse of the sum of random polynomials $ {\bm\gamma}^{ \st {  {(D,C)}}}$ and $ {\bm\delta}^{ \st {  {(D,C)}}}$ unknown to it,  for all client $C$. Therefore,  (${\bm\zeta}, \bm\nu^{ \st {  {(D)}}}$)  in the real model and  ($ {\bm\zeta},  {\bm\nu}^{ \st {  {(D)}}}$) in the ideal model component-wise have identical distribution. 
+
+
+
+Also, the sum of less than $m+1$ blinded polynomials ${\bm\nu}^{\st (A_{\st 1})},...,{\bm\nu}^{\st (A_{\st m})}, \bm\nu^{ \st {  {(D)}}}$   in the real model has identical distribution to the sum of less than $m+1$ blinded polynomials $ {\bm\nu}^{\st (A_{\st 1})},...,  {\bm\nu}^{\st (A_{\st m})},  {\bm\nu}^{ \st {  {(D)}}}$ in the ideal model, as such a combination would still be blinded by a set of random blinding polynomials unknown to the adversary. Now we discuss why the two polynomials $\frac{\bm\phi}{\bm\zeta}- \bm\gamma'$ in the real model and $\frac{ {\bm\phi}} { {\bm\zeta}}-  {\bm\gamma'}$ in the ideal model are indistinguishable. Note that we divide and then subtract  polynomials ${\bm\phi}$ because the adversary already knows (and must know) polynomials $(\bm\zeta, \bm\gamma')$. In the real model, polynomial $\frac{\bm\phi}{\bm\zeta}- \bm\gamma'$ has the following form: 
+%
+\begin{equation}\label{equ::-corrupt-A-real-world-phi}
+%
+ \frac{\bm\phi}{\bm\zeta}- \bm\gamma'=  \bm\omega'^{ \st {  {(D)}}}\cdot \bm\pi^{ \st {  {(D)}} } +\sum\limits^{ \st {   A}_{ \st {   m}}}_{ \st {  {C }= }  \st {   A}_{ \st {  1}}}(\bm\omega^{ \st {  {(D,C)}}} \cdot \bm\omega^{ \st {  {(C,D)}}}\cdot \bm\pi^{ \st {  (C)}}) +\bm\pi^{ \st {  {(D)}}}\cdot\sum\limits^{ \st {   A}_{ \st {   m}}}_{ \st {  {C }= }  \st {   A}_{ \st {  1}}}(\bm\rho^{ \st {  {(D,C)}}} \cdot \bm\rho^{ \st {  {(C,D)}}})=\bm\mu\cdot gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})
+ %
+\end{equation}
+In Equation \ref{equ::-corrupt-A-real-world-phi}, every element of   $[\bm\omega'^{ \st {  {(D)}}},..., \bm\omega^{ \st {  {(D,C)}}}, \bm\rho^{ \st {  {(D,C)}}}]$ is a uniformly random polynomial for every  client $C\in \{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}$  (including corrupt ones) and client $D$; because it has been picked by (in this case honest) client $D$. Thus,  as shown in Section \ref{sec::poly-rep}, $\frac{\bm\phi}{\bm\zeta}- \bm\gamma'$ has the form $\bm\mu\cdot gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})$, where $\bm\mu$ is a uniformly random polynomial and $gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})$ represents the intersection of the input sets. 
+
+In the ideal model, $\mathcal{A}$ can construct polynomial $ {\bm\phi}$ using its (well-formed) inputs $ {\bm\nu}^{ \st {  {(C'')}} }$ and polynomials $ {\bm\nu}^{ \st {  {(C')}} }$ that the simulator has sent to it, for all $C'\in\hat P$ and all $C''\in P'$. Thus, in the ideal model, polynomial $\frac{ {\bm\phi}}{\bm\zeta}-  {\bm\gamma'}$ has the following form:
+%
+\begin{equation}\label{equ::-corrupt-A-ideal-world-phi}
+\begin{split}
+%
+\frac{ {\bm\phi}}{\bm\zeta}-  {\bm\gamma'}  = &\  { \bm\pi}\cdot\Big(\sum\limits_{\st \forall C'\in \hat P}(\bm\omega^{ \st {  {(D, C')}}} \cdot \bm\omega^{ \st {  {(C', D)}}}) + \sum\limits_{\st \forall C'\in \hat P}(\bm\rho^{ \st {  {(D, C')}}} \cdot \bm\rho^{ \st {  {(C', D)}}})\Big)+\\+ & \Big(\sum\limits_{\st \forall C''\in P'}(\bm\omega^{ \st {  {(D,C'')}}} \cdot \bm\omega^{ \st {  {(C'',D)}}}\cdot \bm\pi^{ \st {  (C'')}}) +\bm\pi^{ \st {  {(D)}}}\cdot\sum\limits_{\st \forall C''\in P'} (\bm\rho^{ \st {  {(D, C'')}}} \cdot \bm\rho^{ \st {  {(C'',D)}}})\Big) \\  =  &\ {\bm\mu}\cdot gcd(  {\bm\pi}, \bm\pi^{ \st {  {(D)}}}, \bm\pi^{ \st {  {(C'')}}})
+ %
+ \end{split}
+\end{equation}
+In Equation \ref{equ::-corrupt-A-ideal-world-phi}, every element of the vector $[\bm\omega^{ \st {  {(D,C')}}}, \bm\omega^{ \st {  {(D,C'')}}}, \bm\rho^{ \st {  {(D,C')}}}, \bm\rho^{ \st {  {(D,C'')}}}]$ is a uniformly random polynomial for all $C'\in\hat P$ and all $C''\in P'$, as they have been picked by $\mathsf{Sim}^{\st \fpsi}_{\st A}$. Therefore, $\frac{ {\bm\phi}}{\bm\zeta}-  {\bm\gamma'}$ equals $ {\bm\mu}\cdot gcd(  {\bm\pi}, \bm\pi^{ \st {  {(D)}}}, \bm\pi^{ \st {  {(C'')}}})$, such that $ {\bm\mu}$ is a uniformly random polynomial and $gcd(  {\bm\pi}, \bm\pi^{ \st {  {(D)}}}, \bm\pi^{ \st {  {(C'')}}})$ represents the intersection of the input sets. We know that $gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})=gcd(  {\bm\pi}, \bm\pi^{ \st {  {(D)}}}, \bm\pi^{ \st {  {(C'')}}})$, as $ {\bm\pi}$ includes the intersection of all clients' sets. Also, $ {\bm\mu}$ has identical distribution in the two models, because they are uniformly random polynomials. Thus,  $\frac{\bm\phi}{\bm\zeta}- \bm\gamma'$ in the real model and $\frac{ {\bm\phi}} { {\bm\zeta}}-  {\bm\gamma'}$ in the ideal model are indistinguishable.
+
+
+Now we focus on the case where $Flag=False$.  In the real model, the adversary observes the output of $\mathtt{Audit}(.)$ which is a list of indices $  L$ and a vector of random polynomials $\vv\mu$ picked by an honest auditor.  In the ideal model, $\mathcal{A}$ is given a  list $  L'$ of indices and a vector of random polynomials $\vv{\mu}'$ picked by the simulator. Thus, the pair ($  L, \vv\mu$) in the real model has identical distribution to the pair ($  L', \vv\mu'$) in the ideal model. Moreover, in the real model, the adversary observes each polynomial $\bm\chi^{ \st {  {(D, C)}}}=\bm\zeta\cdot \bm\eta^{ \st {  {(D,C)}}}-(\bm\gamma^{ \st {  {(D,C)}}}+\bm\delta^{ \st {  {(D,C)}}})$ that $D$ stores in the contract, for each bin and each client $C$ whose index is not in $  L$. This is a blinded polynomial with blinding factor $\bm\eta^{ \st {  {(D,C)}}}$ which itself is a uniformly random polynomial picked by $D$. In the ideal model, $\mathcal{A}$ is given a polynomial of the form $ {\bm\chi}^{ \st {  {(D, C)}}}= {\bm\zeta}\cdot  {\bm\eta}^{ \st {  {(D,C)}}}-( {\bm\gamma}^{ \st {  {(D,C)}}}+ {\bm\delta}^{ \st {  {(D,C)}}})$, for each bin and each client $C$ whose index is not in $  L'$. This is also a blinded polynomial whose blinding factor is  $ {\bm\eta}^{ \st {  {(D,C)}}}$ which itself is a random polynomial picked by the simulator.  Therefore, $\bm\chi^{ \st {  {(D, C)}}}$ in the real model has  identical distribution to $\bm\chi^{ \st {  {(D, C)}}}$ in the ideal model.  In the real model, the adversary  observes polynomial $ \bm\iota^{ \st {  {(C)}}}= \bm\zeta\cdot(\bm\eta^{ \st {  {(D,C)}}} + \bm\omega^{ \st {  {(D,C)}}}\cdot \bm\omega^{ \st {  {(C,D)}}}\cdot \bm\pi^{ \st {  {(C)}}}+\bm\rho^{ \st {  {(D,C)}}}\cdot \bm\rho^{ \st {  {(C,D)}}}\cdot \bm\pi^{ \st {  {(D)}}}+\bm\xi^{ \st {  {(C)}}})$ which is a blinded polynomial whose blinding factor is the sum of the above random polynomials, i.e., $\bm\eta^{ \st {  {(D,C)}}}+\bm\xi^{ \st {  {(C)}}}$. In the ideal model, $\mathcal{A}$ already has  polynomials $ {\bm\chi}^{ \st {  {(D, C)}}},  {\bm\nu}^{ \st {  {(C)}}}$, and $ {\bm\mu}^{ \st {  {(C)}}}$, where $ {\bm\mu}^{ \st {  {(C)}}}\in {\vv \mu'}$; this lets $\mathcal{A}$ compute
+ %
+ $  {\bm\iota}^{ \st {  {(C)}}} =  {\bm\chi}^{ \st {  {(D, C)}}} +   {\bm\nu}^{ \st {  {(C)}}} +  {\bm\mu}^{ \st {  {(C)}}}= {\bm\zeta}\cdot ( {\bm\eta}^{ \st {  {(D,C)}}}+  {\bm\omega}^{ \st {  {(D,C')}}}\cdot  {\bm\omega}^{ \st {  {(C',D)}}}\cdot  {\bm\pi}+  {\bm\rho}^{ \st {  {(D,C')}}}\cdot  {\bm\rho}^{ \st {  {(C',D)}}}\cdot  {\bm\pi}+ {\bm\xi}^{ \st {  {(C)}}})$,
+ %
+  where $ {\bm\xi}^{ \st {  {(C)}}}$ is a random blinding polynomial used in $ {\bm\mu}^{ \st {  {(C)}}}$. Nevertheless, $ {\bm\iota}^{ \st {  {(C)}}}$ itself is a blinded polynomial whose blinding factor is the sum of random polynomials, i.e., $ {\bm\eta}^{ \st {  {(D,C)}}}+ {\bm\xi}^{ \st {  {(C)}}}$. Hence, the distribution of polynomial $ \bm\iota^{ \st {  {(C)}}}$ in the real model and $ {\bm\iota}^{ \st {  {(C)}}}$ in the ideal model are identical. Moreover, the integer $\yc+\chc+\frac{m'\cdot (\yc+\chc)-\chc}{m-m'}$ has identical distribution  in both  models. 
+
+Next, we show that the honest party aborts with the same probability in the real and ideal models. Due to the security of \ct, an honest party (during the execution of \ct) aborts with the same probability in both models; in this case, the adversary learns nothing about the parties' input set and the sets' intersection as the parties have not sent out any encoded input set yet.  The same holds for the probability that honest parties abort during the execution of \zspaa.  In this case, an aborting adversary also learns nothing about the parties' input set and the sets' intersection. Since all parties' deposit is public, an honest party can look up and detect if not all parties have deposited a sufficient amount with the same probability in both models. If parties halt because of insufficient deposit, no one learns about the parties' input set and the sets' intersection because the inputs (representation) have not been sent out at this point. 
+
+
+Due to the security of \vopr, honest parties abort with the same probability in both models. In the case of an abort during \vopr execution, the adversary would learn nothing (i) about its counter party' input set due to the security of \vopr, and (ii) about the rest of the honest parties' input sets and the intersection as the other parties' input sets are still blinded by random blinding factors known only to $D$. In the real model, $D$ can check if all parties provided their encoded inputs, by reading from the smart contract.  The simulator also can do the same check to ensure  $\mathcal{A}$ has provided the encoded inputs of all corrupt parties. Therefore, in both models, an honest party with the same probability would detect the violation of such a requirement, i.e., providing all encoded inputs. Even in this case, if an adversary aborts (by not proving its encoded inputs), then it learns nothing about the honest parties' input sets and the intersection for the reason explained above. 
+
+%Now we determine the probability that $Flag=True$ in each model. 
+
+In the real model, the smart contract sums every client $C$'s polynomial $\bm\nu^{ \st {  {(C)}} }$ with each other and with $D$'s polynomial $\bm\nu^{ \st {  {(D)}} }$, which removes the blinding factors that $D$ initially inserted (during the execution of \vopr), and then checks whether the result is divisible by  $\bm \zeta$. Due to (a) Theorem \ref{Unforgeable-Polynomials-Linear-Combination} (i.e., unforgeable polynomials’ linear combination), (b) the fact that the smart contract is given the random polynomial $\bm \zeta$ in plaintext, (c) no party (except honest client $D$) knew anything about $\bm \zeta$ before they send their input to the contract, and (d) the security of the contract (i.e., the adversary cannot influence the correctness of the above verification performed by the contract), the contract can detect if a set of outputs of \vopr has been tampered with, with a probability at least $1-\negl(\lambda)$. In the ideal model, $\mathsf{Sim}^{\st \fpsi}_{\st A}$ also can remove the blinding factors and it knows the random polynomial $ {\bm \zeta}$, unlike the adversary who does not know $ {\bm \zeta}$ when it sends the outputs of \vopr to $\mathsf{Sim}^{\st \fpsi}_{\st A}$. So, $\mathsf{Sim}^{\st \fpsi}_{\st A}$ can detect when $\mathcal{A}$ modifies a set of the outputs of \vopr that were sent to  $\mathsf{Sim}^{\st \fpsi}_{\st A}$ with a probability at least $1-\negl(\lambda)$,  due to Theorem \ref{Unforgeable-Polynomials-Linear-Combination}. Hence, the smart contract in the real model and the simulator in the ideal model would abort with a similar probability. 
+
+Moreover, due to the security of \zspaa, the probability that an invalid key $k_{\st i}\in \vv{k}$ is added to the list $  L$ in the real world is similar to the probability that  $\mathsf{Sim}^{\st \fpsi}_{\st A}$ detects an invalid key $  k'_{\st i}\in \vv{k'}$ in the ideal world. In the real model, when $Flag=False$, the smart contract can identify each ill-structured output of \vopr (i.e.,  $\bm\nu^{ \st {  {(C)}} }$) with a probability of at least $1-\negl(\lambda)$ by checking whether $\bm\zeta$  divides $\bm\iota^{ \st {  {(C)}}}$, due to  (a) Theorem \ref{proof::unforgeable-poly} (i.e., unforgeable polynomial), (b) the fact that the smart contract is given $\bm \zeta$ in plaintext, (c) no party (except honest client $D$) knew anything about $\bm \zeta$ before they send their input to the contract, and (d) the security of the contract. In the ideal model, when $Flag=False$, given each $ {\bm\nu}^{ \st {  {(C'')}} }$, $\mathsf{Sim}^{\st \fpsi}_{\st A}$ can remove its blinding factors from  $ {\bm\nu}^{ \st {  {(C'')}} }$ which results in $ {\bm\phi'}^{ \st {  {(C'')}} }$ and then check if $ {\bm\zeta}$  divides $ {\bm\phi'}^{ \st {  {(C'')}} }$. The simulator can also detect an ill-structured  $ {\bm\nu}^{ \st {  {(C'')}} }$ with a probability of at least $1-\negl(\lambda)$, due to Theorem \ref{proof::unforgeable-poly}, the fact that the simulator is given $ {\bm \zeta}$ in plaintext,  and the adversary is not given any knowledge about $ {\bm \zeta}$ before it sends to the simulator the outputs of \vopr.  Hence, the smart contract in the real model and $\mathsf{Sim}^{\st \fpsi}_{\st A}$ in the ideal model would detect an ill-structured input of an adversary with the same probability. 
+
+%$Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$
+
+
+Now, we analyse the output of the predicates $(\qinit, \qdel, \qUnFAbt, \qFAbt)$ in the real and ideal models. In the real model, all clients proceed to prepare their input set only if the predefined amount of coins has been deposited by the parties; otherwise, they will be refunded and the protocol halts. In the ideal model also the simulator proceeds to prepare its inputs only if a sufficient amount of deposit has been put in the contract; otherwise, it would send message $abort_{\st 1}$ to TTP. Thus, in both models, the parties proceed to prepare their inputs only if $\qinit(.) \rightarrow1$. 
+%
+In the real model, if there is an abort after the parties ensure there is enough deposit and before client $D$ provides its encoded input to the contract, then all parties would be able to retrieve their deposit in full; in this case, the aborting adversary would not be able to learn anything about honest parties input sets, because the parties' input sets are still blinded by random blinding polynomials known only to client $D$. In the ideal model, if there is any abort during steps \ref{F-PSI::sim-A-first-VOPR-invocation}--\ref{F-PSI::sim-A-receive-nu-from-adv}, then the simulator sends $abort_{\st 2}$ to TTP and instructs the ledger to refund the coins that every party deposited. Also, in the case of an abort (within the above two points of time), the auditor is not involved. Thus, in both models,  in the case of an abort within the above points of time, we would have $\qFAbt(.)\rightarrow1$. In the real model, if $Flag=True$, then all parties would be able to learn the intersection and the smart contract refunds all parties, i.e., sends each party $\yc+\chc$ amount which is the amount each party initially deposited. 
+
+In the ideal model, when $Flag=True$, then $\mathsf{Sim}^{\st \fpsi}_{\st A}$ can extract the intersection (by summing the output of \vopr provided by all parties and removing the blinding polynomials) and sends back each party's deposit, i.e., $\yc+\chc$ amount. Hence, in both models in the case of $Flag=True$, when all of the parties receive the result, we would have $\qdel(.)\rightarrow 1$. In the real model, when $Flag=False$, only the adversary which might corrupt $m'$ clients would be able to learn the result; in this case, the contract sends (i) $\chc$ amount to the auditor, and (ii) $\frac{m'\cdot (\yc+\chc)-\chc}{m-m'}$ amount as a compensation, to each honest party, in addition to each party's deposit $\yc+\chc$. In the ideal model,  when $Flag=False$, $\mathsf{Sim}^{\st \fpsi}_{\st A}$  sends $abort_{\st 3}$ to TTP and instructs the ledger to distribute the same amount among the auditor (e.g., with address $adr_{\st j}$) and every honest party (e.g., with address $adr_{\st i}$) as the contract does in the real model. Thus, in both models when $Flag=False$, we would have $\qUnFAbt(., ., ., ., adr_{\st i})\rightarrow (a=1, .)$ and  $\qUnFAbt(., ., ., ., adr_{\st j})\rightarrow (., b=1)$. 
+
+We conclude that the distributions of the joint outputs of the honest client $C\in \hat P$, client $D$, \aud, and the adversary in the real and ideal models are computationally indistinguishable.
+
+\
+
+\noindent\textbf{Case 2: Corrupt dealer $D$}.  In the real execution, the dealer's view is defined as follows: 
+
+
+$$ \mathsf{View}_{\st D}^{\st \fpsi} \Big(S^{\st (D)},(S^{\st (1)},..., S^{\st (m)})\Big)=$$ $$ \{S^{\st (D)}, adr_{\st sc}, m\cdot(\yc+\chc), r_{\st D}, \mathsf{View}^{\st \ct}_{\st D}, k, g, q, \mathsf{View}^{\st \vopr}_{\st D}, \bm\nu^{\st (A_1)},..., \bm\nu^{\st (A_m)}, S_{\st \cap}\}$$
+%
+where  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{View}^{\st \vopr}_{\st D}$ refer to the dealer's real-model view during the execution of \ct and \vopr respectively. Also, $r_{\st D}$ is the outcome of internal random coins of client $D$ and $adr_{\st sc}$ is the address of contract $\mathcal{SC}_{\fpsi}$. The simulator $\mathsf{Sim}^{\st \fpsi}_{\st D}$, which receives all parties' input sets, works as follows. 
+
+\begin{enumerate}
+
+\item receives from the subroutine adversary polynomials $ {\bm\zeta}, ( {\bm\gamma}^{\st(A_1)},  {\bm\delta}^{\st (A_1)}),..., ( {\bm\gamma}^{\st(A_m)},  {\bm\delta}^{\st (A_m)})$,  $( {\bm\omega}'^{\st (A_1)},  {\bm\rho}'^{\st (A_1)}),..., $ $( {\bm\omega}'^{\st (A_m)},  {\bm\rho}'^{\st (A_m)})$, where $deg( {\bm\gamma}^{\st(C)})=deg( {\bm\delta}^{\st(C)})=3d+1, deg( {\bm\omega}'^{\st (C)}) =deg( {\bm\rho}'^{\st (C)})= d$, and $deg( {\bm\zeta})=1$, where $C\in  \{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\} $.
+%
+\item generates an empty view. It appends to the view, the input set $S^{\st (D)}$. It constructs and deploys a smart contract. Let $  {adr}_{\st sc}$ be the contract's address. It appends $ {adr}_{\st sc}$ to the view. 
+
+
+\item appends to the view integer $m\cdot(\yc+\chc)$   and coins $r'_{\st D}$ chosen uniformly at random. 
+%
+\item extracts the simulation of \ct from \ct's simulator for client $D$. Let $\mathsf{Sim}^{\st \ct}_{\st D}$ be the simulation. It appends $\mathsf{Sim}^{\st \ct}_{\st D}$ to the view. 
+%
+\item picks a random key, $  k'$, and derives pseudorandom values $z'_{\st i,j}$ from the key (the same way is done in Figure \ref{fig:ZSPA}). It constructs a Merkle tree on top of all values $z'_{\st i, j}$. Let $g'$ be the root of the resulting tree. It appends $  k', g'$, and $q'=\mathtt{H}(  k')$ to the view. 
+%
+\item invokes \vopr's functionality twice and extracts the simulation of \vopr from \vopr's simulator for client $D$. Let $\mathsf{Sim}^{\st \vopr}_{\st D}$ be the simulation. It appends $\mathsf{Sim}^{\st \vopr}_{\st D}$ to the view.  
+%
+\item given the parties' input sets, computes a polynomial $ {\bm\pi}$ that represents the intersection of the sets. 
+
+\item picks $m$ random polynomials $ {\bm\tau}^{\st (A_1)}, ...,  {\bm\tau}^{\st (A_m)}$ of degree $3d+1$ such that their sum is $0$.  
+
+%\item picks $m$ pair of random polynomials $(\bm\gamma^{\st(1)}, \bm\delta^{\st (1)}),..., (\bm\gamma^{\st(m)}, \bm\delta^{\st (m)})$ where each polynomial is of degree $3d+1$.
+
+\item picks $m$ pairs of random polynomials $( {\bm\omega}^{\st (A_1)},  {\bm\rho}^{\st (A_1)}),..., ( {\bm\omega}^{\st (A_m)},  {\bm\rho}^{\st (A_m)})$, where each polynomial is of degree $d$. Then, $\mathsf{Sim}^{\st \fpsi}_{\st D}$ for each client $C\in  \{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\} $ computes polynomial $ {\bm\nu}^{\st (C)}= {\bm\zeta}\cdot {\bm\pi}\cdot(  {\bm\omega}^{\st (C)}\cdot  {\bm\omega}'^{\st (C)}+  {\bm\rho}^{\st (C)}\cdot  {\bm\rho}'^{\st (C)})+ {\bm\delta}^{\st (C)}+ {\bm\gamma}^{\st(C)}+  {\bm\tau}^{ \st {  {(C)}}}$. 
+%
+\item appends $ {\bm\nu}^{\st (A_1)},...,  {\bm\nu}^{\st (A_m)}$ and the intersection of the sets $S'_{\st \cap}$ to the view. 
+%
+\end{enumerate}
+ 
+
+ Next, we will show that the two views are computationally indistinguishable. $D$'s input $S^{\st (D)}$ is
+ identical in both models; therefore, they have identical distributions. Also, the contract's address has the same distribution in both views, and so has the integer $ m\cdot(\yc+\chc)$. Since the real-model semi-honest adversary samples its randomness according to the protocol’s description, the random coins in both models (i.e., $r_{\st D}$  and $r'_{\st D}$) have identical distributions. Moreover, due to the security of  \ct, $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{Sim}^{\st \ct}_{\st D}$ have identical distributions. Keys $k$ and $  k'$ have identical distributions, as both have been picked uniformly at random from the same domain.  In the real model, each element of the pair $(g, p)$ is the output of a deterministic function on a random value $k$. We know that $k$ in the real model has identical distribution to $  k'$ in the ideal model, so do the evaluations of deterministic functions (i.e., Merkle tree, $\mathtt{H}$, and $\mathtt {PRF}$) on them. Therefore, each pair $(g, q)$ in the real model component-wise has an identical distribution to each pair $(g', q')$ in the ideal model.  
+ %
+ Furthermore, due to the security of the \vopr, $\mathsf{View}^{\st \vopr}_{\st D}$ and $\mathsf{Sim}^{\st \vopr}_{\st D}$ have identical distributions.
+ 
+ 
+ In the real model, each $\bm\nu^{\st (C)}$ has been blinded by a pseudorandom polynomial (i.e., derived from $\mathtt{PRF}$'s output) unknown to client $D$. In the ideal model, however, each $ {\bm\nu}^{\st (C)}$ has been blinded by a random polynomial unknown to client $D$. Due to the security of $\mathtt{PRF}$,  its outputs are computationally indistinguishable from truly random values.  Therefore, ${\bm\nu}^{\st (C)}$ in the real model and $ {\bm\nu}^{\st (C)}$ in the ideal model are computationally indistinguishable. Now we focus on the sum of all ${\bm\nu}^{\st (C)}$ in the real model and the sum of all $ {\bm\nu}^{\st (C)}$ in the ideal model, as adding them together would remove the above blinding polynomials that are unknown to client $D$.  Specifically, in the real model, after client $D$ sums all  ${\bm\nu}^{\st (C)}$ and removes the blinding factors and $\bm\zeta$ that it initially imposed, it would get a polynomial of the  form $\bm{\hat\phi}= \frac{ \sum\limits^{ \st {   A}_{ \st {   m}}}_{  \st {  {C }= }  \st {   A}_{ \st {  1}}}\bm\nu^{ \st {  {(C)}} }-\sum\limits^{ \st {   A}_{ \st {   m}}}_{  \st {  {C }= }  \st {   A}_{ \st {  1}}}(\bm\gamma^{ \st {  {(D,C)}}} + \bm\delta^{ \st {  {(D,C)}}})}{\bm\zeta}= \sum\limits^{ \st {   A}_{ \st {   m}}}_{ \st {  {C }= }  \st {   A}_{ \st {  1}}}(\bm\omega^{ \st {  {(D,C)}}} \cdot \bm\omega^{ \st {  {(C,D)}}}\cdot \bm\pi^{ \st {  (C)}}) +\bm\pi^{ \st {  {(D)}}}\cdot\sum\limits^{ \st {   A}_{ \st {   m}}}_{ \st {  {C }= }  \st {   A}_{ \st {  1}}}(\bm\rho^{ \st {  {(D,C)}}} \cdot \bm\rho^{ \st {  {(C,D)}}}) $, where $\bm\omega^{ \st {  {(C,D)}}}$ and $\bm\rho^{ \st {  {(C,D)}}}$ are random polynomials unknown to client $D$. 
+ %
+ In the ideal model, after summing all $ {\bm\nu}^{\st (C)}$ and removing the random polynomials that it already knows, it would get a polynomial of the following form: 
+ %
+ $\bm{\hat\phi}'= \frac{\sum\limits^{ \st {   A}_{ \st {   m}}}_{  \st {  {C }= }  \st {   A}_{ \st {  1}}} {\bm\nu}^{\st(C)}-\sum\limits^{ \st {   A}_{ \st {   m}}}_{  \st {  {C }= }  \st {   A}_{ \st {  1}}}( {\bm\gamma}^{\st(C)} +  {\bm\delta}^{\st(C)})}{ {\bm\zeta}}=  {\bm\pi}\cdot\sum\limits^{ \st {   A}_{ \st {   m}}}_{ \st {  {C }= }  \st {   A}_{ \st {  1}}}( {\bm\omega}'^{\st(C)} \cdot  {\bm\omega}^{\st(C)})+( {\bm\rho}'^{\st(C)} \cdot  {\bm\rho}^{\st(C)})  $.  
+ 
+ 
+ As shown in Section \ref{sec::poly-rep},  polynomial $\bm{\hat\phi}$ has the form $\bm\mu\cdot gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})$, where $\bm\mu$ is a uniformly random polynomial and $gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})$ represents the intersection of the input sets. Moreover, it is evident that $\bm{\hat\phi}'$ has the form $ {\bm\mu} \cdot  {\bm\pi}$, where $ {\bm\mu} $ is a random polynomial and $ {\bm\pi}$ represents the intersection. We know that both $gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})$ and $ {\bm\pi}$  represent the same intersection, also  ${\bm\mu} $ in the real model and $ {\bm\mu} $ in the ideal model have identical distribution as they are uniformly random polynomials. Thus, two polynomials $\bm{\hat\phi}$ and $\bm{\hat\phi}'$ are indistinguishable. Also, the output $S_{\st \cap}$ is identical in both views. We conclude that the two views are computationally indistinguishable.
+ 
+ 
+ \
+
+\noindent\textbf{Case 3: Corrupt auditor}.  In this case, by using the proof that we have already provided for Case 1 (i.e.,  $m-1$ client $A_{\st j}$s are corrupt), we can easily construct a simulator that generates a view computationally distinguishable from the real-model semi-honest auditor. 
+ The reason is that, in the worst-case scenario where $m-1$ malicious client $A_{\st j}$s reveal their input sets and randomness to the auditor, the auditor's view would be similar to the view of these corrupt clients, which we have shown to be indistinguishable. The only extra messages the auditor generates, that a corrupt client $A_{\st j}$ would not see in plaintext, are random blinding polynomials $(\bm\xi^{\st (A_1)},..., \bm\xi^{\st (A_m)})$ generated during the execution of $\mathtt{Audit}(.)$ of \zspaa; however, these polynomials are picked uniformly at random and independent of the parties' input sets. Thus, if the smart contract detects misbehaviour and invokes the auditor, even if $m-1$ corrupt client $A_{\st j}$ reveals their input sets, then the auditor cannot learn anything about honest parties' input sets.    
+ 
+ \
+
+\noindent\textbf{Case 4: Corrupt public}. In the real model, the view of the public (i.e., non-participants of the protocol) is defined as below: 
+ 
+
+ $$ \mathsf{View}_{\st Pub}^{\st \fpsi} \Big(\bot, S^{\st (D)},(S^{\st (A_1)},..., S^{\st (A_m)})\Big)=$$ $$ \{\bot, adr_{\st sc}, (m+1)\cdot(\yc+\chc), k, g, q, \bm\nu^{\st (A_1)},..., \bm\nu^{\st (A_m)}, \bm\nu^{\st (D)}\}$$
+ 
+ 
+ Now, we describe how the simulator $\mathsf{Sim}^{\st \fpsi}_{\st Pub}$  works. 
+ 
+ \begin{enumerate}
+ %
+ \item generates an empty view and appends to it an empty symbol, $\bot$. It constructs and deploys a smart contract. It appends the contract's address, $  {adr}_{\st sc}$ and integer $(m+1)\cdot(\yc+\chc)$ to the view.
+ %
+\item picks a random key, $  k'$, and derives pseudorandom values $z'_{\st i,j}$ from the key,  in the same way, done in Figure \ref{fig:ZSPA}. It constructs a Merkle tree on top of the $z'_{\st i, j}$ values. Let $g'$ be the root of the resulting tree. It appends $  k', g'$, and $q' = \mathtt{H}(  k')$ to the view. 
+%
+\item for each client $C\in \{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}$ and client $D$ generates a random polynomial of degree $3d+1$ (for each bin), i.e.,  $ {\bm\nu}^{\st (A_1)}, ...,  {\bm\nu}^{\st (A_m)},  {\bm\nu}^{\st (D)}$. 
+ %
+ \end{enumerate}
+ 
+ Next, we will show that the two views are computationally indistinguishable. In both views, $\bot$ is identical. Also, the contract’s addresses (i.e., ${adr}_{\st sc}$) has the same
+distribution in both views, and so has the integer $(m+1)\cdot(\yc+\chc)$. Keys $k$ and $  k'$ have identical distributions as well, because both of them have been picked uniformly at random from the same domain.  In the real model, each element of pair $(g, p)$ is the output of a deterministic function on the random key $k$. We know that $k$ in the real model has identical distribution to $  k'$ in the ideal model, and so do the evaluations of deterministic functions on them. Hence, each pair $(g, q)$ in the real model component-wise has an identical distribution to each pair $(g', q')$ in the ideal model. In the real model, each polynomial  $\bm\nu^{\st (C)}$ is a blinded polynomial comprising of two uniformly random blinding polynomials (i.e., $\bm\gamma^{ \st {  {(D,C)}}}$ and $\bm\delta^{ \st {  {(D,C)}}}$) unknown to the adversary. In the ideal model, each polynomial  $ {\bm\nu}^{\st (C)}$ is a random polynomial; thus, polynomials $\bm\nu^{\st (A_1)},..., \bm\nu^{\st (A_m)}$ in the real model have identical distribution to  polynomials $ {\bm\nu}^{\st (A_1)}, ...,  {\bm\nu}^{\st (A_m)}$ in the ideal model.  Similarly,  polynomial $\bm\nu^{\st (D)}$ has been blinded in the real model; its blinding factors are the additive inverse of  the sum of the random polynomials $\bm\gamma^{ \st {  {(D,C)}}}$ and $\bm\delta^{ \st {  {(D,C)}}}$ unknown to the adversary. In the ideal model, polynomial $ {\bm\nu}^{\st (D)}$ is a uniformly random polynomial; thus, ${\bm\nu}^{\st (D)}$ in the real model and $ {\bm\nu}^{\st (D)}$ in the ideal model have identical distributions.
+Moreover, in the real model even though the sum $\bm\phi$ of polynomials  $\bm\nu^{\st (A_1)},..., \bm\nu^{\st (A_m)}, \bm\nu^{\st (D)}$ would remove some of the blinding random polynomials, it is still a blinded polynomial with a pseudorandom blinding factor $\bm\gamma'$ (derived from the output of $\mathtt{PRF}$), unknown to the adversary. In the ideal model, the sum of polynomials $ {\bm\nu}^{\st (A_1)}, ...,  {\bm\nu}^{\st (A_m)},  {\bm\nu}^{\st (D)}$ is also a random polynomial. Thus, the sum of the above polynomials in the real model is computationally indistinguishable from the sum of those polynomials in the ideal model. We conclude that the two views are computationally indistinguishable. 
+ %
+  \hfill\(\Box\)\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
