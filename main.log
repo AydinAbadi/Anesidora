@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  15 DEC 2022 11:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  15 DEC 2022 11:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1481,10 +1481,10 @@ f-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/local/texlive/2020
 020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texli
 ve/2020/texmf-dist/fonts/type1/public/esvect/vect10.pfb></usr/local/texlive/202
 0/texmf-dist/fonts/type1/public/esvect/vect9.pfb>
-Output written on main.pdf (51 pages, 783713 bytes).
+Output written on main.pdf (51 pages, 783884 bytes).
 PDF statistics:
- 1372 PDF objects out of 1440 (max. 8388607)
- 1126 compressed objects within 12 object streams
+ 1375 PDF objects out of 1440 (max. 8388607)
+ 1128 compressed objects within 12 object streams
  475 named destinations out of 1000 (max. 500000)
  165 words of extra memory for PDF output out of 10000 (max. 10000000)
 
