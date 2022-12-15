@@ -332,6 +332,9 @@ In \epsi, each extractor uses double-layered commitments (i.e., it first commits
 
 To increase their reward, malicious clients may be tempted to insert ``garbage'' elements into their sets with the hope that those garbage elements appear in the result and accordingly they receive a higher reward. However, they would not succeed as long as there exists a semi-honest client (e.g., dealer $D$) which uses actual set elements. In this case, by the set intersection definition, those garbage elements will not appear in the intersection. 
 
+
+In \epsi, for the sake of simplicity, we let each party receive a fixed reward, i.e., $\lc$, for every element it contributes to the intersection. However, it is possible to make the process more flexible/generic. For instance, we could define a Reward Function $RF$ that takes $\lc$, an (encoded) set element $e_{\st i}$ in the intersection, its distribution/value $val_{\st e_{\st i}}$, and output a reward $rew_{\st e_{\st i}}$ that each party should receive for contributing that element to the intersection, i.e., $RF(\lc, e_{\st i}, val_{\st e_{\st i}})\rightarrow rew_{\st e_{\st i}}$. 
+
 %\end{remark}
 
 

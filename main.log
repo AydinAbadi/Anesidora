@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  15 DEC 2022 09:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  15 DEC 2022 11:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1407,15 +1407,11 @@ Underfull \vbox (badness 2173) has occurred while \output is active []
 
  [25]
 [26] [27] [28] [29])) (./smart-PSI-protocol.tex [30] [31] [32] (./payment.tex
-[33]) [34] (./E-PSI-proof.tex [35] [36] [37] [38]
-Underfull \vbox (badness 1881) has occurred while \output is active []
-
- [39]
-[40])) (./evaluation.tex (./table-cost.tex [41]) (./evaluation-table.tex)
-[42] [43])) (./conclusion.tex) (./Acknowledgments-final.tex) (./main.bbl
-[44] [45]) (./hash-table.tex) (./OLE-plus.tex)
-(./counter-collusion-contracts.tex [46] (./Peisoner-contract.tex [47]
-(./auditor-res-Comp.tex
+[33]) [34] (./E-PSI-proof.tex [35] [36] [37] [38] [39] [40] [41]))
+(./evaluation.tex (./table-cost.tex) (./evaluation-table.tex) [42] [43]))
+(./conclusion.tex) (./Acknowledgments-final.tex) (./main.bbl [44] [45])
+(./hash-table.tex) (./OLE-plus.tex) (./counter-collusion-contracts.tex [46]
+(./Peisoner-contract.tex [47] (./auditor-res-Comp.tex
 Underfull \hbox (badness 10000) in paragraph at lines 13--18
 
  []
@@ -1485,7 +1481,7 @@ f-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/local/texlive/2020
 020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texli
 ve/2020/texmf-dist/fonts/type1/public/esvect/vect10.pfb></usr/local/texlive/202
 0/texmf-dist/fonts/type1/public/esvect/vect9.pfb>
-Output written on main.pdf (51 pages, 782984 bytes).
+Output written on main.pdf (51 pages, 783713 bytes).
 PDF statistics:
  1372 PDF objects out of 1440 (max. 8388607)
  1126 compressed objects within 12 object streams
