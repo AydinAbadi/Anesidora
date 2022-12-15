@@ -180,12 +180,12 @@ After all of the clients send their input polynomials to \scf, $D$ sends to \scf
 
 
 
-Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will allow \scf to check unforgeable polynomials' correctness. Then, \scf\ sums all clients' polynomials and checks if $\bm\zeta$ can divide the sum. \scf\ accepts the clients' inputs if the polynomial divides the sum; otherwise, it invokes \aud to identify misbehaving parties.  In this case, all honest parties' deposit is refunded to them and the deposit of misbehaving parties is distributed among the honest ones as well.   If all clients behave honestly,  then each client can locally find the intersection. To do that, it uses $mk$ to locally remove the blinding polynomial from the sum (that the contract generated), then evaluates the unblinded polynomial at each of its set elements and considers an element in the intersection when the evaluation equals zero.
+Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will allow \scf to check unforgeable polynomials' correctness. Then, \scf\ sums all clients' polynomials and checks if $\bm\zeta$ can divide the sum. \scf\ accepts the clients' inputs if the polynomial divides the sum; otherwise, it invokes \aud to identify misbehaving parties.  In this case, all honest parties' deposit is refunded to them and the deposit of misbehaving parties is distributed among the honest ones as well. If all clients behave honestly,  then each client can locally find the intersection. To do that, it uses $mk$ to locally remove the blinding polynomial from the sum (that the contract generated), then evaluates the unblinded polynomial at each of its set elements and considers an element in the intersection when the evaluation equals zero.
 
 %The efficiency of the verification in our protocol  mainly stems from our  observation that if an adversary who know only $xx$ modified the polynomial of the form $xx$ then $\zeta$ will not divide result polynomial after unblinding will not divide with a high probability.  
 
 
-\subsubsection{Detailed Description of \fpsi.} Below, we elaborate on how \fpsi exactly works. 
+\subsubsection{Detailed Description of \fpsi.} Below, we elaborate on how \fpsi exactly works (see Table \ref{table:notation-table} for description of the main notations used). 
 
 \begin{enumerate}
 
