@@ -141,10 +141,14 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 \subsection{Description of \withFai (\fpsi)}\label{Fair-PSI-Protocol}
 %This section presents \fpsi, a protocol that realises \p. 
 
-\subsubsection{An overview.} At a high level, \withFai (\fpsi) works as follows. First, each client encodes its set elements into a polynomial. All clients sign a smart contract and deposit a predefined amount of coins into it.  Next,  one of the clients as a dealer, $D$, randomises the rest of the clients' polynomials and imposes a certain structure to their polynomials. The clients also randomise $D$'s polynomials. The randomised polynomials reveal nothing about the clients' original polynomials representing their set elements. Then, all clients send their randomised polynomials to the smart contract.  The contract combines all polynomials and checks whether the resulting polynomial still has the structure imposed by $D$. If the contract concludes that the resulting polynomial does not have the structure, then it invokes an auditor, \aud, to identify misbehaving clients and penalise them. Nevertheless, if the resulting polynomial has the structure, then the contract outputs an encoded polynomial and refunds the clients' deposits. In this case, all clients can use the resulting polynomial (output by the contract) to locally find the intersection. 
+\subsubsection{An overview.} At a high level, \withFai (\fpsi) works as follows. First, each client encodes its set elements into a polynomial. All clients sign a smart contract and deposit a predefined amount of coins into it.  Next,  one of the clients as a dealer, $D$, randomises the rest of the clients' polynomials and imposes a certain structure to their polynomials. The clients also randomise $D$'s polynomials. The randomised polynomials reveal nothing about the clients' original polynomials representing their set elements. Then, all clients send their randomised polynomials to the smart contract.  The contract combines all polynomials and checks whether the resulting polynomial still has the structure imposed by $D$. If the contract concludes that the resulting polynomial does not have the structure, then it invokes an auditor, \aud, to identify misbehaving clients and penalise them. Nevertheless, if the resulting polynomial has the structure, then the contract outputs an encoded polynomial and refunds the clients' deposits. In this case, all clients can use the resulting polynomial (output by the contract) to locally find the intersection. Figure \ref{fig:parties-interactions-in-Jus} outlines the interaction between parties. 
 
 
-
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=14cm]{Diag-1.pdf}
+    \caption{Interaction between parties in \withFai}\label{fig:parties-interactions-in-Jus}
+\end{figure}
 
 
 %%%%%%%%%%%%
@@ -180,8 +184,7 @@ After all of the clients send their input polynomials to \scf, $D$ sends to \scf
 
 
 
-Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will allow \scf to check unforgeable polynomials' correctness. Then, \scf\ sums all clients' polynomials and checks if $\bm\zeta$ can divide the sum. \scf\ accepts the clients' inputs if the polynomial divides the sum; otherwise, it invokes \aud to identify misbehaving parties.  In this case, all honest parties' deposit is refunded to them and the deposit of misbehaving parties is distributed among the honest ones as well. If all clients behave honestly,  then each client can locally find the intersection. To do that, it uses $mk$ to locally remove the blinding polynomial from the sum (that the contract generated), then evaluates the unblinded polynomial at each of its set elements and considers an element in the intersection when the evaluation equals zero.
-
+Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will allow \scf to check unforgeable polynomials' correctness. Then, \scf\ sums all clients' polynomials and checks if $\bm\zeta$ can divide the sum. \scf\ accepts the clients' inputs if the polynomial divides the sum; otherwise, it invokes \aud to identify misbehaving parties.  In this case, all honest parties' deposit is refunded to them and the deposit of misbehaving parties is distributed among the honest ones as well. If all clients behave honestly,  then each client can locally find the intersection. To do that, it uses $mk$ to locally remove the blinding polynomial from the sum (that the contract generated), then evaluates the unblinded polynomial at each of its set elements and considers an element in the intersection when the evaluation equals zero. 
 %The efficiency of the verification in our protocol  mainly stems from our  observation that if an adversary who know only $xx$ modified the polynomial of the form $xx$ then $\zeta$ will not divide result polynomial after unblinding will not divide with a high probability.  
 
 
@@ -192,11 +195,11 @@ Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will allow \scf to
 %\item[$\bullet$] \textbf{Input:} a pseudorandom function: $\mathtt{PRF}$, a hash table's parameters (i.e., the  total number of bins: $h$ and a bin's capacity: $d$), and clients' sets: $S^{\st (I)}$, where $I\in \bar{P}$.
 
 %\item[$\bullet$] \textbf{Output:}  for every bin of the hash table, it outputs a polynomial: $\phi$, whose roots are  encrypted sets elements (of the bin) in the intersection.
-\item\label{gen-FPSI-cont} All clients in $\cl=\{ A_{\st 1},...,   A_{\st m},  D\}$ sign a smart contract: \scf and deploy it to a blockchain. All clients get the deployed contract's address. Furthermore, all clients engage in \ct to agree on a secret master key, $mk$.
+\item\label{gen-FPSI-cont} All clients in $\cl=\{ A_{\st 1},...,   A_{\st m},  D\}$ sign a smart contract: \scf and deploy it to a blockchain. All clients get the deployed contract's address. Also, all clients engage in \ct to agree on a secret master key, $mk$.
 
-\item \label{encode-encrypt} Each client in $\cl$  builds a  hash table,  $\mathtt{HT}$, and inserts the set elements into  it, i.e.,  $\forall i: \mathtt{H}( s_{\st i})={indx}$, then $ s_{\st i}\rightarrow \mathtt{HT}_{\st indx}$. It pads every bin with random elements to $d$ elements (if needed). Then,  for every bin, it constructs a polynomial whose roots are the bin's content: $\bm\pi=\prod\limits^{\st d}_{\st i=1} (x-s'_{\st i})$, where $s'_{\st i}$ is either $s_{\st i}$ or a random value. 
+\item \label{encode-encrypt} Each client in $\cl$  builds a  hash table,  $\mathtt{HT}$, and inserts the set elements into  it, i.e.,  $\forall i: \mathtt{H}( s_{\st i})={indx}$, then $ s_{\st i}\rightarrow \mathtt{HT}_{\st indx}$. It pads every bin with random dummy elements to $d$ elements (if needed). Then,  for every bin, it constructs a polynomial whose roots are the bin's content: $\bm\pi=\prod\limits^{\st d}_{\st i=1} (x-s'_{\st i})$, where $s'_{\st i}$ is either $s_{\st i}$ or a random value. 
 %
-\item \label{ZSPA} Every client $ C$ in $\cl\setminus D$, for every bin, agree on $b=3d+3$ vectors of pseudorandom blinding factors: $z_{\st i,j}$, such that the sum of each vector elements is zero, i.e., $\sum\limits^{\st m}_{\st j=1}z_{\st i,j}=0$, where $0\leq i\leq b-1$. To do that, they participate in step \ref{ZSPA::ZSPA-invocation} of \zspaa. By the end of this step, for each bin, they agree on a secret key $k$ (used to generate the zero-sum values) as well as two values stored in $\mathcal{SC}_{\fpsi}$, i.e., $q$: the key's hash value and $g$: a Merkle tree's root. After time $t_{\st 1}$,  $D$ ensures that all other clients have agreed on the vectors (i.e., all provided ``approved''  to the contract). If the check fails, it halts. 
+\item \label{ZSPA} Every client $ C$ in $\cl\setminus D$, for every bin, agree on $b=3d+3$ vectors of pseudorandom blinding factors: $z_{\st i,j}$, such that the sum of each vector elements is zero, i.e., $\sum\limits^{\st m}_{\st j=1}z_{\st i,j}=0$, where $0\leq i\leq b-1$. To do that, they participate in step \ref{ZSPA::ZSPA-invocation} of \zspaa. By the end of this step, for each bin, they agree on a secret key $k$ (that will be used to generate the zero-sum values) as well as two values stored in $\mathcal{SC}_{\fpsi}$, i.e., $q$: the key's hash value and $g$: a Merkle tree's root. After time $t_{\st 1}$,  $D$ ensures that all other clients have agreed on the vectors (i.e., all provided ``approved''  to the contract). If the check fails, it halts. 
 %
 \item\label{F-PSI::each-client-deposit} Each client in $\cl$ deposits $\yc+\chc$ amount to $\mathcal{SC}_{\fpsi}$. After time $t_{\st 2}$, every client ensures that in total $(\yc+\chc)\cdot (m+1)$ amount has been deposited. Otherwise, it halts and the clients' deposit is refunded. 
 
@@ -212,7 +215,7 @@ It, for each client $C$, allocates to each bin two random polynomials: $\bm\omeg
 
 
 
-\item\label{e-psi::D-randomises}  $D$ randomises other clients' polynomials. To do so, for every bin, it invokes an instance of {\vopr} (presented in Fig. \ref{fig:VOPR}) with  each client $  C$; where  $D$ sends $\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}$ and $\bm\gamma^{\st  {  {(D,C)}}}$, while client $ C$ sends $\bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(C)}}}$ to {\vopr}. Each client $    {  C}$, for every bin, receives a blind polynomial of the following form: 
+\item\label{e-psi::D-randomises}  $D$ randomises other clients' polynomials. To do so, for every bin, it invokes an instance of {\vopr} (presented in Fig. \ref{fig:VOPR}) with  each client $  C$; where  $D$ sends $\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}$ and $\bm\gamma^{\st  {  {(D,C)}}}$, while client $ C$ sends $\bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(C)}}}$ to {\vopr}. Each client $C$, for every bin, receives a blind polynomial of the following form: 
 
 $$\bm\theta^{  {  {(C)}}}_{\st 1}=\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}\cdot \bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(C)}}}+\bm\gamma^{\st  {  {(D,C)}}}$$
 %
@@ -245,7 +248,7 @@ where $\bm\tau^{\st  {  {(C)}}}=\sum\limits^{\st 3d+2}_{\st i=0}z_{\st i,c}\cdot
 
 
 
-\item\label{f-psi::D-gen-random-poly} ${D}$ ensures all clients sent their inputs to $\mathcal{SC}_{\fpsi}$; if the check fails, it halts and the deposit would be refunded to all parties. It allocates a fresh pseudorandom polynomial $\bm\gamma'$ of degree $3d$, to each bin. To do so, it uses $mk$ to derive a key for each bin: $k_{\st  { {indx}}}=\mathtt{PRF}(mk, {    {   {indx}}})$ and then uses the derived key to generate $3d+1$ pseudorandom coefficients $g_{\st  { {j,indx}}}=\mathtt{PRF}(k_{\st  { {indx}}}, j)$ where $ 0\leq j \leq 3d$. Also, for each bin,  it allocates a fresh random polynomial:  $\bm\omega'^{\st  {  {(D)}}}$ of degree $d$. 
+\item\label{f-psi::D-gen-random-poly} ${D}$ ensures all clients sent their inputs to $\mathcal{SC}_{\fpsi}$. If the check fails, it halts and the deposit would be refunded to all parties. It allocates a fresh pseudorandom polynomial $\bm\gamma'$ of degree $3d$, to each bin. To do so, it uses $mk$ to derive a key for each bin: $k_{\st  { {indx}}}=\mathtt{PRF}(mk, {    {   {indx}}})$ and then uses the derived key to generate $3d+1$ pseudorandom coefficients $g_{\st  { {j,indx}}}=\mathtt{PRF}(k_{\st  { {indx}}}, j)$ where $ 0\leq j \leq 3d$. Also, for each bin, it allocates a fresh random polynomial:  $\bm\omega'^{\st  {  {(D)}}}$ of degree $d$. 
 
 \item\label{f-psi::D-gen-switching-poly}  $ {D}$,  for every bin, computes a polynomial of the form:  
 

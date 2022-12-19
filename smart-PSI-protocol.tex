@@ -164,7 +164,7 @@ If  \fpsi's smart contact does not approve the result's correctness and \aud ide
 
 %\item All clients in $\textbf{P}$ sign a smart contract $\mathcal{SC}$ and deploy it to a blockchain. Then, the buyer, $ { A}_{\st {  m}}$, deposits $v$ amounts in the contract.
 
-\item\label{e-psi::call-F-PSI-stepOne}  All clients in $\cl$ together run step \ref{gen-FPSI-cont} of \fpsi (in Section \ref{Fair-PSI-Protocol}) to deploy \fpsi's contract $\mathcal{SC}_{\fpsi}$ and agree on a  master key, $mk$. 
+\item\label{e-psi::call-F-PSI-stepOne}  All clients in $\cl=\{ A_{\st 1},...,   A_{\st m},  D\}$ together run step \ref{gen-FPSI-cont} of \fpsi (in Section \ref{Fair-PSI-Protocol}) to deploy \fpsi's contract $\mathcal{SC}_{\fpsi}$ and agree on a  master key, $mk$. 
 
 \item\label{e-psi::deploy-SC-E-PSI} All clients in $\cl$  deploy a new smart contract, $\SCe$. The address of $\SCe$ is given to all clients. 
 
@@ -187,7 +187,7 @@ Each extractor  deposits $\dc'=\dc+\Smin\cdot \fc$ amount in \SCpc at time $t_{\
 %
 Then, it encodes its encrypted set element as $\bar{e}_{\st i} =e_{\st i} || \mathtt{H}(e_{\st i})$.  
 %
-After that, it constructs a hash table  $\mathtt{HT}$ and inserts the encoded elements into the table. $\forall i: \mathtt{H}( \bar{e}_{\st i})={ {  {j}}}$, then $\bar{e}_{\st i}\rightarrow \mathtt{HT}_{\st {  {j}}}$. It pads every bin with random elements to $d$ elements (if needed). Then,  for every bin, it constructs a polynomial whose roots are  the bin's content: $\bm\pi^{\st { {(I)}}}=\prod\limits^{\st d}_{\st i=1} (x-e'_{\st i})$, where $e'_{\st i}$ is either $\bar{e}_{\st i}$, or a dummy value. 
+After that, it constructs a hash table  $\mathtt{HT}$ and inserts the encoded elements into the table. $\forall i: \mathtt{H}( \bar{e}_{\st i})={ {  {j}}}$, then $\bar{e}_{\st i}\rightarrow \mathtt{HT}_{\st {  {j}}}$. It pads every bin with random dummy elements to $d$ elements (if needed). Then,  for every bin, it builds a polynomial whose roots are the bin's content: $\bm\pi^{\st { {(I)}}}=\prod\limits^{\st d}_{\st i=1} (x-e'_{\st i})$, where $e'_{\st i}$ is either $\bar{e}_{\st i}$, or a dummy value. 
 
 
 
@@ -226,7 +226,7 @@ After that, it constructs a hash table  $\mathtt{HT}$ and inserts the encoded el
 %
 % and then encodes it:   (i.e. $ {e}^{\st { {(I)}}}_{\st i} =e^{\st { {(I)}}}_{\st i} || \mathtt{H}(e^{\st { {(I)}}}_{\st i})$). 
  %
- Next, it determines to which bin the encrypted value belongs, i.e., ${ {  {j}}}=\mathtt{H}( \bar{e}_{\st i})$. Next, it evaluates the resulting polynomial (for that bin) at the encrypted element. It considers the element in the intersection if the evaluation is zero, i.e., $\bm\phi( \bar{e}_{\st i})-\bm\zeta( \bar{e}_{\st i})\cdot \bm\gamma'( \bar{e}_{\st i})=0$. If the extractor is a traitor, by this point it should have signed \SCtc with $ { D}$ and provided all the inputs (e.g., correct result) to \SCtc. 
+ Then, it determines to which bin the encrypted value belongs, i.e., ${ {  {j}}}=\mathtt{H}( \bar{e}_{\st i})$. Next, it evaluates the resulting polynomial (for that bin) at the encrypted element. It considers the element in the intersection if the evaluation is zero, i.e., $\bm\phi( \bar{e}_{\st i})-\bm\zeta( \bar{e}_{\st i})\cdot \bm\gamma'( \bar{e}_{\st i})=0$. If the extractor is a traitor, by this point it should have signed \SCtc with $ { D}$ and provided all the inputs (e.g., correct result) to \SCtc. 
 
 \item \label{extractor-proves} proves that every element in the intersection is among the elements it has committed to. Specifically, for each element in the intersection, say $\bar{e}_{\st i}$, it sends to $\SCe$: 
 
