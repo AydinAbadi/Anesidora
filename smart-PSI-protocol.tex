@@ -134,7 +134,14 @@ If  \fpsi's smart contact approves the result's correctness, then all parties re
 If $\SCe$ accepts both extractors' proofs, then it pays each client (except the buyer) a reward, where the reward is taken from the buyer's deposit. The extractors receive their deposits back and are paid for carrying out the task honestly. Nevertheless, if $\SCe$ does not accept one of the extractors' proofs (or one extractor betrays the other), then it invokes the auditor in the counter-collusion contracts to identify the misbehaving extractor.  Then, $\SCe$ pays each honest client (except the buyer) a reward, taken from the misbehaving extractor. $\SCe$ also refunds the buyer's deposit.
 %
 
-If  \fpsi's smart contact does not approve the result's correctness and \aud identified misbehaving clients, then honest clients will receive (1) their deposit back from \fpsi's contract, and (2)  compensation and reward, taken from misbehaving clients. Moreover, the buyer and extractors receive their deposit back from $\SCe$.
+If  \fpsi's smart contact does not approve the result's correctness and \aud identified misbehaving clients, then honest clients will receive (1) their deposit back from \fpsi's contract, and (2)  compensation and reward, taken from misbehaving clients. Moreover, the buyer and extractors receive their deposit back from $\SCe$. Figure \ref{fig:parties-interactions-in-ANE} outlines the interaction between parties. 
+
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=14cm]{Diag-2.pdf}
+    \caption{Outline of the interactions between parties in \withRew}\label{fig:parties-interactions-in-ANE}
+\end{figure}
 
 
 
