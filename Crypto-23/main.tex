@@ -4,10 +4,14 @@
 % version 2.4 for LaTeX2e as of 16. April 2010
 %
 %\documentclass[A4paper,11pt,orivec]{llncs}
-\documentclass[orivec]{llncs}
+\documentclass[runningheads]{llncs}
 %
+\usepackage[T1]{fontenc}
 \usepackage{xspace}
-%\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{color}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
 \newcommand{\scf}{\ensuremath{\mathcal{SC}_{\fpsi}}\xspace}
 \newcommand{\SCe}{\ensuremath{\mathcal{SC}_{\epsi}}\xspace}
 \newcommand{\resizeT}{\scalebox{.53}}
@@ -26,13 +30,8 @@
 
 \newcommand{\fpsi}{\ensuremath{\mathtt{JUS}}\xspace}
 \newcommand{\epsi}{\ensuremath{\mathtt{ANE}}\xspace}
-
-
 \newcommand{\withRew}{{Anesidora}\xspace}
 \newcommand{\withFai}{{Justitia}\xspace}
-
-
-
 \newcommand{\aud}{${Aud}$\xspace}
 \newcommand{\ct}{\ensuremath{\mathtt{CT}}\xspace}
 \newcommand{\fct}{\ensuremath{f_{\st \ct}}\xspace}
@@ -141,8 +140,6 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{pgfplots, pgfplotstable}
-
-%\usepackage{kbordermatrix}% http://www.hss.caltech.edu/~kcb/TeX/kbordermatrix.sty
 \usepackage{blkarray}% http://ctan.org/pkg/blkarra
 \usepackage{mathtools}
 \usepackage{amsmath}
@@ -151,34 +148,11 @@
 \usepackage{blindtext}
 \usepackage{multicol}
 \usepackage{cancel}
-%\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
-%
-
-\usepackage[hidelinks]{hyperref}
-
 \usepackage[title]{appendix}
-
-
-
 \usepackage{multirow}
-
-
-%\usepackage{makeidx}  % allows for indexgeneration
-
-%\usepackage[ruled,linesnumbered]{algorithm2e}
-%\usepackage{enumitem}
-%\usepackage[empty]{fullpage}% http://ctan.org/pkg/fullpage
-%\usepackage{amsfonts,amsmath,amssymb,graphicx,setspace,times,tipx}
-%\usepackage{kbordermatrix}% http://www.hss.caltech.edu/~kcb/TeX/kbordermatrix.sty
-%\usepackage{blkarray}% http://ctan.org/pkg/blkarra
-
-\usepackage{fullpage}
-
 \usepackage{adjustbox}
 \usepackage{blindtext}
 \usepackage{multicol}
-%\usepackage{lipsum}
-%\usepackage{amsthm}
 \usepackage{tablefootnote}
 
 \newcommand{\prp}{\ensuremath{\mathtt{PRP}}\xspace}
@@ -189,7 +163,6 @@
 \newcommand{\qdel}{\ensuremath{Q^{\st \text{Del}}}\xspace}
 \newcommand{\qdelwr}{\ensuremath{Q^{\st \text{Del}}_{\st\text{R}}}\xspace}
 %%
-%\newcommand{\qFAbt}{$Q^{\st \text{F-Abt}}$\xspace}
 \newcommand{\qinit}{\ensuremath{Q^{\st \text{Init}}}\xspace}
 \newcommand{\qUnFAbtwr}{\ensuremath{Q^{\st \text{UF-A}}_{\st \text{R}}}\xspace}
 \newcommand{\qUnFAbt}{\ensuremath{Q^{\st \text{UF-A}}}\xspace}
@@ -208,7 +181,6 @@
 
 \newcommand{\specialcell}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
-
 
 \begin{document}
   \setlength\abovedisplayskip{0pt}
@@ -236,17 +208,17 @@
 
 
 
-\title{Earn While You Reveal: \\ Private Set Intersection that Rewards Participants}
+\title{Earn While You Reveal: \\ Private Set Intersection that\\ Rewards Participants}
 %
 
 
-\author{%
-Aydin Abadi\thanks{aydin.abadi@ucl.ac.uk}\hspace{1mm} and \hspace{1mm} 
-Steven J. Murdoch\thanks{s.murdoch@ucl.ac.uk}
-\institute{University College London}}
+%\author{%
+%Aydin Abadi\thanks{aydin.abadi@ucl.ac.uk}\hspace{1mm} and \hspace{1mm} 
+%Steven J. Murdoch\thanks{s.murdoch@ucl.ac.uk}
+%\institute{University College London}}
 
-%\author{}
-%\institute{}
+\author{}
+\institute{}
 \date{}
 \maketitle{}
 
@@ -263,7 +235,7 @@ In Private Set Intersection protocols (PSIs), a non-empty result always reveals 
  \input{content.tex}
  \input{conclusion}
  \input{Acknowledgments-final}
-\bibliographystyle{splncs03}
+\bibliographystyle{splncs04}
 \bibliography{ref}
 \appendix
 \input{hash-table}

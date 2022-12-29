@@ -1,0 +1,83 @@
+% !TEX root =main.tex
+
+
+
+
+
+
+
+
+\subsection{Unforgeable Polynomials}
+
+In this section, we introduce the notion of ``unforgeable polynomials''. Informally, an unforgeable polynomial has a secret factor. To ensure that an unforgeable polynomial has not been tampered with, a verifier can check whether the polynomial is divisible by the secret factor. 
+
+
+To turn an arbitrary polynomial $\bm\pi$ of degree $d$ into an unforgeable polynomial $\bm\theta$, one can (i) pick three secret random polynomials $(\bm\zeta, \bm\omega, \bm \gamma)$ and (ii) compute $\bm\theta=\bm\zeta\cdot \bm\omega\cdot\bm \pi + \bm \gamma \bmod p$, where  $deg(\bm\zeta)= 1, deg(\bm\omega)=d,$ and   $deg(\bm\gamma)= 2d+1$. 
+
+To verify whether $\bm\theta$ has been tampered with, a verifier (given $\bm\theta, \bm \gamma$, and $\bm\zeta$) can check if $\bm\theta-\bm \gamma$ is divisible by $\bm\zeta$. Informally, the security of an unforgeable polynomial states that an adversary (who does not know the three secret random polynomials) cannot tamper with an unforgeable polynomial without being detected, except with a negligible probability, in the security parameter. Below, we formally state it. 
+
+\begin{theorem}[Unforgeable Polynomial]\label{proof::unforgeable-poly}
+%Let polynomials $\zeta$ and $\gamma$ be two secret uniformly random polynomials (i.e., $\zeta, \gamma\stackrel{\st\$}\leftarrow \mathbb F_{\st p}[x]$),   $GCD(\zeta, \gamma)=1$, polynomial $\pi$ be an arbitrary polynomial,   $deg(\zeta)= 1, deg(\gamma)= d+1$,  $deg(\pi)=d$, and $p$ be a $\lambda$-bit prime number. Also, let polynomial $\theta$ be defined as  $\theta=\zeta\cdot \pi+ \gamma \bmod p$. Given $(\theta,\pi)$, the probability that a PPT adversary (which does not know $\zeta$ and $\gamma$) can forge $\theta$ to an arbitrary polynomial $\theta'$ such that  $\theta'\neq \theta$, $deg(\theta')\leq poly(\lambda)$, and $\zeta$ divides $\theta'-\gamma$ is negligible in the security parameter, i.e.,
+%
+Let polynomials $\bm\zeta$, $\bm\omega$, and $\bm\gamma$ be three secret uniformly random polynomials (i.e., $\bm\zeta,\bm\omega, \bm\gamma\stackrel{\st\$}\leftarrow \mathbb F_{\st p}[x]$),   $GCD(\bm\zeta, \bm\gamma)=1$, polynomial $\bm\pi$ be an arbitrary polynomial,   $deg(\bm\zeta)= 1, deg(\bm\omega)=d,  deg(\bm\gamma)= 2d+1$,  $deg(\bm\pi)=d$, and $p$ be a $\lambda$-bit prime number. Also, let polynomial $\bm\theta$ be defined as  $\bm\theta=\bm\zeta\cdot \bm\omega\cdot\bm \pi+\bm \gamma \bmod p$. Given $(\bm\theta,\bm\pi)$, the probability that an adversary (which does not know $\bm\zeta, \bm\omega$, and $\bm\gamma$) can forge $\bm\theta$ to an arbitrary polynomial $\bm\delta$ such that  $\bm\delta\neq \bm\theta$, $deg(\bm\delta)= const(\lambda)$, and $\bm\zeta$ divides $\bm\delta-\bm\gamma$ is negligible in the security parameter $\lambda$, i.e.,
+
+
+$$Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma) ]\leq \negl(\lambda)$$
+
+\end{theorem}
+
+
+\begin{proof}
+
+Let $\bm\tau=\bm\delta-\bm\gamma$ and $\bm\zeta=a\cdot x+b$. Since $\bm\gamma$ is a random polynomial of degree $2d+1$ and unknown to the adversary, given $(\bm\theta, \bm\pi)$,  the adversary cannot learn anything about the factor $\bm\zeta$; as from its point of view every polynomial of degree $1$ in $\mathbb{F}_{\st p}[X]$ is equally likely to be $\bm\zeta$. Moreover,  polynomial $\bm\tau$ has at most $Max\big(deg(\bm\delta), 2d+1\big)$ irreducible non-constant factors.  For $\bm\zeta $ to divide $\bm\tau$,  one of the factors of $\bm\tau$ must be equal to $\bm\zeta$. We  also know that $\bm\zeta$ has been picked uniformly at random (i.e., $a,b
+\stackrel{\st \$}\leftarrow \mathbb F_{\st p}$) and by definition $GCD(\bm\zeta, \bm\gamma)=1$. Thus, the probability that $\bm\zeta $ divides $\bm\tau$ is negligible in the security parameter, $\lambda$. Specifically,
+
+$$Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma)]\leq \frac{Max\big(deg(\bm\delta), 2d+1\big)} {2^{\st 2\lambda}}=\negl(\lambda)$$
+\end{proof} \hfill\(\Box\)
+
+%$Max\big(deg(\theta'), d+1\big)$
+ An interesting feature of an unforgeable polynomial is that the verifier can perform the check without needing to know the original polynomial $\bm\pi$. Another appealing feature of the unforgeable polynomial is that it supports \emph{linear combination} and accordingly \emph{batch verification}. Specifically, to turn $n$ arbitrary polynomials $[\bm\pi_{\st 1},..., \bm\pi_{\st n}]$ into unforgeable polynomials, one can construct  $\bm\theta_{\st i}=\bm\zeta\cdot \bm\omega_{\st i}\cdot \bm\pi_{\st i}+ \bm\gamma_{\st i} \bmod p$, where $\forall i, 1\leq i\leq n$.  
+ 
+ 
+
+ 
+To check whether all polynomials $[\bm\theta_{\st 1},..., \bm\theta_{\st n}]$ are intact, a verifier can (i) compute their sum $\bm \chi=\sum\limits_{\st i=1}^{\st n}\bm\theta_{\st i}$ and (ii) check whether $\bm \chi- \sum\limits_{\st i=1}^{\st n}\bm\gamma_{\st i} $ is divisible by $\bm \zeta$.  Informally, the security of an unforgeable polynomial states that an adversary (who does not know the three secret random polynomials for each $\bm\theta_{\st i}$) cannot tamper with any subset of the unforgeable polynomials without being detected, except with a negligible probability. We formally state it, below. 
+ 
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{theorem}[Unforgeable Polynomials' Linear Combination]\label{Unforgeable-Polynomials-Linear-Combination}
+%
+ Let polynomial $\bm\zeta$ be a secret polynomial picked uniformly at random; also, let   $\vv{\bm\omega}=[\bm\omega_{\st 1},..., \bm\omega_{\st n}]$ and $\vv{\bm\gamma}=[\bm\gamma_{\st 1},..., \bm\gamma_{\st n}]$ be two vectors of secret uniformly random polynomials (i.e., ${\bm\zeta}, \bm\omega_{\st i}, \bm\gamma_{\st i} \stackrel{\st\$}\leftarrow \mathbb F_{\st p}[x]$), $GCD(\bm\zeta,  \bm\gamma_{\st i})=1$,  $\vv{\bm\pi}=[\bm\pi_{\st 1},..., \bm\pi_{\st n}]$ be a vector of arbitrary polynomials,   $deg(\bm\zeta)= 1, deg(\bm\omega_{\st i})=d,  deg(\bm\gamma_{\st i})= 2d+1$,  $deg(\bm\pi_{\st i})=d$,  $p$ be a $\lambda$-bit prime number, and $1\leq i \leq n$. Moreover, let polynomial $\bm\theta_{\st i}$ be defined as  $\bm\theta_{\st i}=\bm\zeta\cdot \bm\omega_{\st i}\cdot \bm\pi_{\st i}+ \bm\gamma_{\st i} \bmod p$, and $\vv{\bm\theta} = [\bm\theta_{\st 1},..., \bm\theta_{\st n}]$.  Given $(\vv{\bm\theta}, \vv{\bm\pi})$, the probability that an adversary (which does not know $\bm\zeta, \vv{\bm\omega}$, and $\vv{\bm\gamma}$) can forge $t$ polynomials, without loss of generality, say $\bm\theta_{\st 1},..., \bm\theta_{\st t} \in \vv{\bm\theta}$ to arbitrary polynomials $\bm\delta_{\st 1},..., \bm\delta_{\st t}$ such that   $\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j}\neq \sum\limits_{\st j=1}^{\st t}\bm\theta_{\st j}$, $deg(\bm\delta_{\st j})= const(\lambda)$, and $\bm\zeta$ divides $(\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j} )$ is negligible in the security parameter $\lambda$, i.e.,  
+
+$$Pr[ \bm\zeta \ | \ (\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j} ) ]\leq \negl(\lambda)$$
+
+\end{theorem}
+
+
+
+%%%%
+\begin{proof}  
+This proof is a generalisation of that of Theorem \ref{proof::unforgeable-poly}.  
+Let $\bm\tau_{\st j}=\bm\delta_{\st j}-\bm\gamma_{\st j}$ and $\bm\zeta=a\cdot x+b$. Since  every $\bm\gamma_{\st j}$ is a random polynomial of degree $2d+1$ and unknown to the adversary, given $(\vv{\bm\theta}, \vv{\bm\pi})$,  the adversary cannot learn anything about the factor $\bm\zeta$. Each polynomial $\bm\tau_{\st j}$ has at most $Max\big(deg(\bm\delta_{\st j}), 2d+1\big)$ irreducible non-constant factors. 
+%
+%In order for $\bm\zeta$ to divide polynomial $\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j}$  one of the factors of every $\bm\tau_{\st j}$ needs to equal $\bm\zeta$, where $1 \leq j \leq t$. 
+%
+We  know that $\bm\zeta$ has been picked uniformly at random (i.e., $a,b
+\stackrel{\st \$}\leftarrow \mathbb F_{\st p}$), by definition $GCD(\bm\zeta, \bm\gamma_{\st j})=1$, and $\bm\zeta$  does divide every $\bm\theta_{\st j}$. Therefore, the probability that $\bm\zeta$ divides $\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j}$ equals the probability that $\bm\zeta$ equals to one of the factors of  every $\bm\tau_{\st j}$, that is negligible in the security parameter. Concretely,
+
+
+$$Pr[ \bm\zeta \ | \ (\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j} ) ]\leq  \frac{\prod \limits^{\st t}_{\st j=1}Max\big(deg(\bm\delta_{\st j}), 2d+1\big)} {2^{\st 2\lambda t}}=\negl(\lambda)$$
+%
+\hfill\(\Box\)
+\end{proof} 
+
+
+It is not hard to see that, Theorem \ref{Unforgeable-Polynomials-Linear-Combination} is a generalisation of Theorem \ref{proof::unforgeable-poly}. Briefly, in \withFai, we will use unforgeable polynomials (and their linear combinations) to allow a smart contract to efficiently check whether the polynomials that the clients send to it are intact, i.e., they are \vopr's outputs.
+
+
+
+
+
+
+

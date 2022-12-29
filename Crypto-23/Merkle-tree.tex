@@ -1,0 +1,19 @@
+% !TEX root =main.tex
+
+
+\subsection{Merkle Tree}\label{sec::merkle-tree}
+
+
+A Merkle tree is a data structure that supports a compact commitment of a set of values/blocks.  As a result, it includes two parties, prover $\mathcal{P}$ and verifier $\mathcal{V}$. The  Merkle tree scheme includes three algorithms $(\mkgen, \mkprove,$ $\mkver)$, defined as follows: 
+
+\begin{itemize}
+%
+\item[$\bullet$] The algorithm that constructs a Merkle tree, $\mkgen$, is run by $\mathcal{V}$. It takes  blocks, $u:=u_{\st 1},...,u_{\st n}$, as input. Then, it groups the blocks  in pairs. Next,   a collision-resistant hash function, $\mathtt{H}(.)$, is used to hash each pair. After that, the hash values are grouped in pairs and each pair is further hashed, and this process is repeated until only a single hash value, called ``root'', remains. This yields a  tree with the leaves corresponding to the input blocks and the root corresponding to the last remaining hash value. $\mathcal{V}$ sends the root to $\mathcal{P}$.
+%
+\item[$\bullet$] The proving algorithm, $\mkprove$, is run by $\mathcal{P}$. It takes a block index, $i$, and a tree as inputs. It outputs a vector proof, of  $\log_{\st 2}(n)$ elements. The proof asserts the membership of $i$-th block in the tree, and consists of all the sibling nodes on a path from the $i$-th block to the root of the Merkle tree (including $i$-th block). The proof is given to $\mathcal{V}$.
+%
+\item[$\bullet$] The verification algorithm, $\mkver$, is run by $\mathcal{V}$. It takes as an input $i$-th block, a proof, and the tree's root. It checks if the $i$-th block corresponds to the root. If the verification passes, it outputs $1$; otherwise, it outputs $0$.
+
+\end{itemize}
+
+The Merkle tree-based scheme has two properties: \emph{correctness} and \emph{security}. Informally, the correctness requires that if both parties run the algorithms correctly, then a proof is always accepted by  $\mathcal{V}$. The security requires that a computationally bounded malicious $\mathcal{P}$ cannot convince  $\mathcal{V}$ into accepting an incorrect proof, e.g., proof for a non-member block. The security relies on the assumption that it is computationally infeasible to find the hash function's collision. Usually, for the sake of simplicity, it is assumed that the number of blocks, $n$, is a power of $2$. The height of the tree, constructed on $m$ blocks, is $\log_{\st 2}(n)$. 

@@ -1,0 +1,135 @@
+% !TEX root =U-PSI.tex
+
+\section{Priliminaries}
+
+\subsection{Notations}
+In the following, we  provide a basic and enhanced multiple clients PSI protocols. In the basic protocol, there are three types of parties involved in the protocols: $m>1$ authoriser clients: $\resizeT {\textit A}_{\resizeS {\textit  j}}$ who are not interested in the result, the result recipient client: $B$, and a non-colluding dealer: $D$. All parties are potentially semi-honest. In the first variant of the protocol the dealer does not have any set elements. Then we provide an enhanced protocol   that supports a distributed dealers such that the protocol remains secure even if  all but one dealers collude with client $B$ or  a subset of authoriser clients collude with each other and client $B$. Moreover, in the enhanced protocol, the dealers are actually clients who have  set elements as the computation's inputs.  Note that, in the following protocols, all  values and operations are defined over a finite field of prime order. Let each client $I\in \{\resizeT {\textit A}_{\resizeS {\textit  1}},...,\resizeT {\textit A}_{\resizeS {\textit  m}},B\}$, have a set $S^{\resizeS {\textit I} }=\{s^{\resizeS {\textit I} }_{\scriptscriptstyle 1},..., s^{\resizeS {\textit I} }_{\scriptscriptstyle d}\}$ and   $\vv{\bm{x}}=[x_{\scriptscriptstyle 1},..., x_{\scriptscriptstyle n}]$ be a  public vector of non-zero unique elements, where $n=2d+1$, and $d$ be the set cardinality's upper bound. Let $e$ be a flat price of learning one element of the set.   
+
+\subsection{Shamir Secret Sharing}
+
+\subsection{Oblivious Polynomial Evaluation and Oblivious Linear Function Evaluation} Oblivious polynomial evaluation: OPE, introduced by \cite{Naor:1999:OTP}, is a two-party protocol where a sender  inputs a polynomial, defined over a finite field, and a receiver inputs a single
+point of the same finite field. At the end of the protocol, the sender receives nothing while the receiver  receives the polynomial evaluated on the point chosen by the receiver. Informally, the protocol is secure if the sender learns nothing on which point was chosen by the receiver and the receiver evaluates the polynomial on at most one point. OPE protocols can be broadly categorised in two groups: (a) computationally (or conditionally) secure, and (b) information theoretically (or unconditionally) secure. In this paper, we use OPE to evaluate a polynomial of \emph{degree one} and our focus is on the latter category as it best fits our purpose, e.g. due to its computational efficiency, (similar to our protocols) using a finite field over which are arithmetic operations are defined, etc. Information  theoretically OPE protocols can be further divided into three  classes: those that  (a) use an initializer that has an \emph{active role}, e.g. \cite{DBLP:conf/asiacrypt/ChangL01} (b) use an initializer that has a \emph{one-off role} and distributes  random parameters among receiver and sender in the setup phase and does not play any further role, e.g. \cite{DBLP:conf/acisp/HanaokaIMNOW04} and (c) are based on a distributed setting in which a set of servers implement the function of the sender, e.g. in \cite{DBLP:conf/icisc/CianciulloG18}. Our PSI protocol, can use either of these highly efficient OPE protocols, i.e.  \cite{DBLP:conf/acisp/HanaokaIMNOW04} or \cite{DBLP:conf/icisc/CianciulloG18}.  The scheme in \cite{DBLP:conf/acisp/HanaokaIMNOW04} is secure under the assumption that the initializer does not collude with the sender and receiver. Moreover, the scheme in \cite{DBLP:conf/icisc/CianciulloG18} remains secure as long as the sender does not collude with the servers, however if a threshold of the servers  collude with each other they cannot learn anything about the sender's or receiver's input and if a threshold of the servers collude with the receiver they cannot learn the sender's input. We note that the  use of the  OPE proposed in \cite{DBLP:conf/icisc/CianciulloG18}  in our protocol does not introduce any  additional servers, as  their roles are played by a subset of  clients in our protocol, i.e. assistant authorizer clients. For the sake of completeness, we provide both protocols \cite{DBLP:conf/acisp/HanaokaIMNOW04} in this section. 
+
+%\begin{enumerate}
+%\item There are three parties involved in this protocol: Sender: $S$, receiver $R$ and initializer $T$, where $S$'s input is $\beta(x)$ and $R$'s input is $b$.
+%\item Setup: $T$ picks a random polynomial $\tau(x)$ of degree $d$ and a random value $v$. It sends $\tau(x)$ to $S$. Also, it sends  $v$ and $g=\tau(v)$ to $R$. 
+%\item Computation: $R$ sends the value $l=b-v$ to $S$. $S$ then computes and sends to $R$ the polynomial $\delta (x)= \beta(l+x)+\tau(x)$. Then, $R$ computes $\delta(d)-g=\beta(b)=$
+%\end{enumerate}
+
+
+
+
+
+\begin{figure}[ht]
+\setlength{\fboxsep}{2pt}
+\begin{center}
+\begin{boxedminipage}{11cm}
+\small{
+
+\
+
+\noindent\textbf {Parties:} Sender: $\mathcal{S}$, receiver: $\mathcal{R}$ and initialiser: $\mathcal{T}$.
+
+\noindent\textbf {Input:} $\mathcal{S}$ has a polynomial: $\beta(x)$  of degree at most $\mathsf{d}$. Also, $\mathcal{R}$ has a value:  $\mathsf{a}$.
+
+\noindent\textbf {Output:} $\mathcal{R}$ obtains $\mathsf{b}=\beta(\mathsf{a})$ and $\mathcal{S}$ gets nothing.
+
+\noindent\textbf {Setup:} 
+\begin{enumerate}
+\item Initializer $\mathcal{T}$ picks a random polynomial $\tau(x)$ of degree $\mathsf{d}$ and sends it to $\mathcal{S}$. 
+\item Also, $\mathcal{T}$ picks a random value $\mathsf{v}$ and sends $\mathsf{v}$ and $\tau(\mathsf{v})$ to $\mathcal{R}$.
+\end{enumerate}
+
+\noindent\textbf {Computation:} 
+\begin{enumerate}
+\item $\mathcal{R}$ sends the value $\mathsf{f}=\mathsf{a}-\mathsf{v}$ to $\mathcal{S}$. 
+\item Next, $\mathcal{S}$  computes polynomial $\delta(x)=\beta(\mathsf{f}+x)+\tau(x)$ and sends $\delta(x)$ to $\mathcal{R}$.
+\item $\mathcal{R}$ computes $\delta(\mathsf{v})-\tau(\mathsf{v})=\mathsf{b}$
+ \end{enumerate}
+ \
+}
+
+
+\end{boxedminipage}
+\end{center}
+\caption{Efficient Information Theoretic OPE \cite{DBLP:conf/acisp/HanaokaIMNOW04}.} 
+\label{fig:subroutines}
+\end{figure}
+
+
+
+
+
+
+
+\begin{figure}[ht]
+\setlength{\fboxsep}{2pt}
+\begin{center}
+\begin{boxedminipage}{11cm}
+\small{
+
+\
+
+\noindent\textbf {Parties:} Sender: $\mathcal{S}$, receiver: $\mathcal{R}$ and $\mathsf{k}$ servers: $\{\mathcal{S}_{\scriptscriptstyle {1}},...,\mathcal{S}_{\scriptscriptstyle \mathsf{k}}\}$.
+
+\noindent\textbf {Input:} $\mathcal{S}$ has a polynomial: $\beta(x)=\mathsf{c}_{\scriptscriptstyle 0}+\mathsf{c}_{\scriptscriptstyle 1}x+...+\mathsf{c}_{\scriptscriptstyle \mathsf{d}}x^{\scriptscriptstyle \mathsf{d}}$  of degree at most $\mathsf{d}$. Also, $\mathcal{R}$ has a value:  $\mathsf{a}$.
+
+\noindent\textbf {Output:} $\mathcal{R}$ obtains $\mathsf{b}=\beta(\mathsf{a})$ and $\mathcal{S}$ gets nothing.
+
+\noindent\textbf {Setup:} 
+\begin{enumerate}
+\item $\mathcal{S}$ picks $\mathsf{d}$ random values: $\{\mathsf{r}_{\scriptscriptstyle 1},...,\mathsf{r}_{\scriptscriptstyle \mathsf{d}}\}$. Then, it computes the following values. $\forall i,1\leq i \leq \mathsf{d}: \mathsf{z}_{\scriptscriptstyle i}=\mathsf{r}_{\scriptscriptstyle i}\cdot \mathsf{c}_{\scriptscriptstyle i}$
+
+
+\item $\mathcal{S}$  uses ($\mathsf{k},\mathsf{k}$) Shamir secret sharing scheme to split each coefficient $\mathsf{c}_{\scriptscriptstyle j}$,  into $\mathsf{k}$ shares.  In particular, for each $\mathsf{c}_{\scriptscriptstyle j} \in \{\mathsf{c}_{\scriptscriptstyle 0},...,\mathsf{c}_{\scriptscriptstyle \mathsf{d}}\}$, it:
+
+\begin{enumerate}
+\item picks a random polynomial $\tau_{\scriptscriptstyle j}(x)$ of degree at most $\mathsf{k}-1$, such that $\tau_{\scriptscriptstyle j}(0)=\mathsf{c}_{\scriptscriptstyle j}$. 
+\item evaluates $\tau_{\scriptscriptstyle j}(x)$ at every elements of  vector $\{1,...,\mathsf{k}\}$.  At the end of this process, each $\mathsf{c}_{\scriptscriptstyle j}$ is split into $\{ \tau_{\scriptscriptstyle j}(1),..., \tau_{\scriptscriptstyle j}(\mathsf{k})\}$ shares. 
+
+
+
+%$\forall w,\mathbf{1}\leq w \leq \mathbf{k}: \tau_{\scriptscriptstyle j}(w)= {\tau}_{\scriptscriptstyle j,w}$
+
+\end{enumerate}
+
+\item $\mathcal{S}$  splits each value $\mathsf{z}_{\scriptscriptstyle j}$ into $\mathsf{k}$ shares using ($\mathsf{k},\mathsf{k}$) Shamir secret sharing. At the end of this process, each $\mathsf{z}_{\scriptscriptstyle j}$ is split into $\{ \lambda_{\scriptscriptstyle j}(1),..., \lambda_{\scriptscriptstyle j}(\mathsf{k})\}$ shares, where $\lambda_{\scriptscriptstyle j}(x)$ is a random polynomial of degree at most $\mathsf{k}-1$, such that $\lambda_{\scriptscriptstyle j}(0)=\mathsf{z}_{\scriptscriptstyle j}$.
+
+\item $\mathcal{S}$ privately sends to  $\mathcal{R}$ values: $\{\mathsf{r}_{\scriptscriptstyle 1},..., \mathsf{r}_{\scriptscriptstyle \mathsf{d}}\}$. Moreover, $\mathcal{S}$ sends  to each server: $\mathcal{S}_{\scriptscriptstyle  \mathsf{p}}$, two sets of shares (computed above): $\{\tau_{\scriptscriptstyle 0}( \mathsf{p}),..., \tau_{\scriptscriptstyle \mathsf{d}}( \mathsf{p})\}$ and $\{\lambda_{\scriptscriptstyle 1}( \mathsf{p}),..., \lambda_{\scriptscriptstyle \mathsf{d}}( \mathsf{p})\}$, where $1\leq \mathsf{p}\leq \mathsf{k}$. 
+
+
+
+\end{enumerate}
+
+\noindent\textbf {Computation:} 
+\begin{enumerate}
+\item  $\mathcal{R}$ broadcasts to all servers the following set: $\{\mathsf{e}_{\scriptscriptstyle 1 },...,\mathsf{e}_{\scriptscriptstyle \mathsf{d}}\}$ where $\mathsf{e}_{\scriptscriptstyle i}=\mathsf{a}^{\scriptscriptstyle i}-\mathsf{r}_{\scriptscriptstyle i}$
+
+
+\item Each server: $\mathcal{S}_{\scriptscriptstyle  \mathsf{p}}$, computes the following value: $  \mathsf{u}_{\scriptscriptstyle \mathsf{p}}=\tau_{\scriptscriptstyle 0}( \mathsf{p})+ \sum\limits^{\scriptscriptstyle \mathsf{d}}_{\scriptscriptstyle i=1}(\tau_{\scriptscriptstyle i}( \mathsf{p})\cdot \mathsf{e}_{\scriptscriptstyle i}+\lambda_{\scriptscriptstyle i}( \mathsf{p}))$
+
+\item $\mathcal{R}$, given pairs ($\mathsf{u}_{\scriptscriptstyle \mathsf{p}}, \mathsf{p}$), interpolates a polynomial $\phi(x)$, e.g.  using Lagrange interpolation, and considers the constant coefficient as the result, i.e. $\phi(0)=\mathsf{b}$.
+
+
+ \end{enumerate}
+ \
+}
+
+
+\end{boxedminipage}
+\end{center}
+\caption{Efficient Information Theoretic distributed OPE \cite{DBLP:conf/icisc/CianciulloG18}.} 
+\label{fig:subroutines}
+\end{figure}
+
+
+
+
+\subsection{Pseudorandom Permutation} 
+
+
+A pseudorandom permutation, $\mathtt{PRP}(,)$,
+
+
+
+

@@ -1,0 +1,52 @@
+% !TEX root =main.tex
+
+
+%\vspace{-2mm}
+\begin{figure}%[!htbp]
+\setlength{\fboxsep}{1pt}
+\begin{center}
+    \begin{tcolorbox}[enhanced,width=5.5in, 
+    drop fuzzy shadow southwest,
+    colframe=black,colback=white]
+   % {\small{
+    %\vspace{-2.5mm}
+ \underline{$\mathtt{resComp}(\bm\zeta, \bm\phi, sk, ct_{\st mk}, indx, {des}_{\st \mathtt{H}})\rightarrow R$}\\
+%
+%\vspace{-2.2mm}
+\begin{itemize}
+%
+\item \noindent\textit{Input}. $\bm\zeta$: a random polynomial of degree $1$, $\bm\phi$: a blinded polynomial of the form $\bm\zeta\cdot(\bm\epsilon + \bm\gamma')$ where $\bm\epsilon$ and $\bm\gamma'$ are arbitrary and  pseudorandom polynomials respectively, $deg(\bm\phi)-1=deg(\bm\gamma')$, $sk$: the auditor's secret key, $ct_{\st mk}$: ciphertext of $mk$ which is a  key of $\mathtt{PRF}$, $indx$: an input of $\mathtt{PRF}$, and   ${des}_{\st \mathtt{H}}$: a description of hash function $\mathtt{H}$.
+%
+\item\noindent\textit{Output}. $R$: a set containing valid roots of unblinded $\bm\phi$. 
+%
+\end{itemize}
+%
+\begin{enumerate}
+%
+\item decrypts the ciphertext $ct_{\st mk}$ under key $sk$. Let $mk$ be the result. 
+%
+\item unblinds polynomial $\bm\phi$, as follows:
+%
+\begin{enumerate}
+%
+\item re-generates pseudorandom polynomial $\bm\gamma'$ using key $mk$. Specifically, it uses $mk$ to derive a key: $k=\mathtt{PRF}(mk,  indx)$. Then, it uses the derived key to generate $3d+1$ pseudorandom coefficients, i.e.,  $ \forall j, 0\leq j \leq deg(\bm\phi)-1: g_{\st j}=\mathtt{PRF}(k, j)$. Next, it uses these coefficients to construct polynomial $\bm\gamma'$, i.e., $\bm\gamma'=\sum\limits_{\st j=0}^{\st deg(\bm\phi)-1} g_{\st j}\cdot x^{\st j}$.
+%
+\item removes the blinding factor from $\bm\phi$. Specifically, it computes polynomial $\bm\phi'$ of the following form $\bm\phi'= \bm\phi - \bm\zeta\cdot\bm\gamma'$. 
+%
+\end{enumerate}
+%
+\item extracts roots of polynomial $\bm\phi'$. 
+\item finds valid roots, by (i) parsing each root $\bar{e}$ as $(e_{\st 1}, e_{\st 2})$ with the assistance of $des_{\st \mathtt{H}}$  and (ii) checking if $e_{\st 2}=\mathtt{H}(e_{\st 1})$. It considers a root valid, if this equation holds. 
+%
+\item returns set $R$ containing all valid roots.
+%
+
+%\vspace{-1mm}
+\end{enumerate}
+%}   }
+\end{tcolorbox}
+\end{center}
+%\vspace{-3mm}
+\caption{Auditor's result computation, $\mathtt{resComp}(.)$, algorithm} 
+\label{fig::resComp}
+\end{figure}

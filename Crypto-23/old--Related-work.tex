@@ -1,0 +1,462 @@
+% !TEX root =U-PSI.tex
+
+
+
+
+
+\section{Related Work and Attacks}\label{attacks}
+
+In this section, we explain a series of attacks that can be carried out on the PSI protocols proposed by Ghosh \textit{et al.} in \cite{GhoshN19}. The main PSI protocols in  \cite{GhoshN19} are (a) two-party, (b) multi-party, and (c) threshold. Our  focus will be on the two-party PSI only for the sake of simplicity; however,  the other two  PSI protocols are susceptible to the same attacks. The protocol mainly utilises polynomial representation of sets and a variant of oblivious linear function evaluation \cite{ghosh2017maliciously} called oblivious polynomial addition (OPA). At a high level, in this protocol, each party generates a polynomial representing their set. Then, they  invoking oblivious polynomial addition (OPA) protocol, presented in Fig. \ref{fig:OPA}, to randomize each other polynomials. After that, they exchange messages that allow them to remove a part of random  polynomials, and find the result. The two-party PSI protocol is presented in detail in Fig. \ref{fig:Two-partyPSI-Ghosh}.
+
+%Then, each party randomises other party's polynomial by invoking a variant of OLE, called $\mathcal{F}_{\scriptscriptstyle OPA}$. To randomise client $B$ polynomial, client $A$ sends two random polynomials: $r_{\scriptscriptstyle A}$ and $u_{\scriptscriptstyle A}$ to $\mathcal{F}_{\scriptscriptstyle OPA}$ while client $B$ sends to $\mathcal{F}_{\scriptscriptstyle OPA}$ its polynomial: $p_{\scriptscriptstyle B}$ (that represents its set). $\mathcal{F}_{\scriptscriptstyle OPA}$ returns a polynomial of the form $s_{\scriptscriptstyle B}=p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}+u_{\scriptscriptstyle A}$ to client $B$. Then, they invoke  $\mathcal{F}_{\scriptscriptstyle OPA}$ again, this time client $B$ sends two random polynomials while   client $A$ sends its polynomial (representing its set)  $p_{\scriptscriptstyle A}$ to $\mathcal{F}_{\scriptscriptstyle OPA}$. 
+
+% Then, they remove a part of  random values used in the MAC by including the inverse of the random values in another messages exchanged between the clients.  In the end, each client combines the messages and learn a combination of the polynomials randomised by both parties, where the combined protocol represents the intersection of the sets. Now we explain the protocol in more details. Let  $\vv{\bm{x}}= [x_{\scriptscriptstyle 1},...x_{\scriptscriptstyle 2d+1}]$ be a public vector of distinct non-zero elements.  
+
+
+
+\begin{figure}[ht]
+\setlength{\fboxsep}{1pt}
+\begin{center}
+\begin{boxedminipage}{12.3cm}
+
+\
+
+Each client $I\in\{A,B\}$ has a set $S^{\scriptscriptstyle (I)}$, where $m=max(|S^{(\scriptscriptstyle A)}|,|S^{(\scriptscriptstyle B)}|)+1$ 
+
+\begin{enumerate}
+\item \textbf{PSI Computation}
+\begin{enumerate}
+\item\label{gen-set-rep} Client $I\in\{A,B\}$: represent its set elements (i.e., all $s^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}\in S^{\scriptscriptstyle (I)}$) as a degree-$m$ polynomial: $p_{\scriptscriptstyle I}=  \omega_{\scriptscriptstyle I}(x)\cdot\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle j=1}(x-s^{\scriptscriptstyle (I)}_{\scriptscriptstyle j})$, where  $\omega_{\scriptscriptstyle I}(x)$ is a random polynomial. Each client $I$ picks three random polynomials: $r_{\scriptscriptstyle I}, u_{\scriptscriptstyle I}$ and $r'_{\scriptscriptstyle I}$, where the degree of $u_{\scriptscriptstyle I}$ is $2m$ and the degree of $r_{\scriptscriptstyle I}$ and $r'_{\scriptscriptstyle I}$ is $m$.
+
+%Then each client  picks three random polynomials: $r_{\scriptscriptstyle I}, u_{\scriptscriptstyle I}$ and $r'_{\scriptscriptstyle I}$. %It evaluates  its polynomials at every elements of  $\vv{\bm{x}}$, e.g. $p_{\scriptscriptstyle I,j}=p_{\scriptscriptstyle I}(x_{\scriptscriptstyle j})$. 
+
+\item\label{first-OPA-invocation} The clients   invoke  OPA where  client $A$ inserts $r_{\scriptscriptstyle A}, u_{\scriptscriptstyle A}$ and client $B$ inserts $p_{\scriptscriptstyle B}$ to OPA, which outputs  $s_{\scriptscriptstyle B}=p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}+u_{\scriptscriptstyle A}$ to client $B$. 
+
+%\item Client B:  uses $m+1$ pairs $(x_{\scriptscriptstyle j}, s_{\scriptscriptstyle B,j})$ to interpolates a polynomial: $s_{\scriptscriptstyle B}=p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}+u_{\scriptscriptstyle A}$.
+
+
+\item\label{2nd-OPA-invocation} The clients again invoke OPA, this time client $A$ inserts $p_{\scriptscriptstyle A}$ while client $B$ inserts $r_{\scriptscriptstyle B}, u_{\scriptscriptstyle B}$ to OPA that outputs $s_{\scriptscriptstyle A}=p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+u_{\scriptscriptstyle B}$ to client $A$. 
+%\item Client $A$ given $m+1$ pairs $(s_{\scriptscriptstyle A,j}, x_{\scriptscriptstyle j})$ interpolates a polynomial: $s_{\scriptscriptstyle A}=p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+u_{\scriptscriptstyle B}$. 
+
+\item\label{gen-s-A-prime} Client $A$: sends $s'_{\scriptscriptstyle A}=s_{\scriptscriptstyle A}-u_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}$ to client $B$.% where $r'_{\scriptscriptstyle A}$ is a random polynomial. 
+\item \label{where-clientB-deviates1}Client $B$: computes: $p_{\scriptscriptstyle \cap}=s'_{\scriptscriptstyle A}+s_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r'_{\scriptscriptstyle B}-u_{\scriptscriptstyle B}  =  p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}+p_{\scriptscriptstyle B}\cdot r'_{\scriptscriptstyle B}$. It sends the result polynomial, $p_{\scriptscriptstyle \cap}$, to client $A$.
+
+\item\label{two-party-psi:find-intersect}  To find the intersection, client $I$  evaluates  polynomial $p_{\scriptscriptstyle \cap}$ at every element of its set (i.e., all $s^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}\in S^{\scriptscriptstyle (I)}$), and considers the element in the intersection if  $p_{\scriptscriptstyle \cap}(s^{\scriptscriptstyle (I)}_{\scriptscriptstyle j})=0$.  
+
+\end{enumerate}
+\item  \textbf{Output Verification}
+\begin{enumerate}
+\item\label{two-party-PSI::agree-on-random-vals} The clients agree on two random values: $z$ and $q$, e.g., via a coin tossing protocol. 
+
+\item\label{where-clientB-deviates2} Client $B$ sends $\alpha_{\scriptscriptstyle B}=p_{\scriptscriptstyle B}(z)$, $\beta_{\scriptscriptstyle B}=r_{\scriptscriptstyle B}(z)$, and $\delta_{\scriptscriptstyle B}=r'_{\scriptscriptstyle B}(z)$ to client $A$.
+
+\item\label{checks-on-computingPSI} Client $A$:  checks if:   $p_{\cap}(z)\stackrel{?}=p_{\scriptscriptstyle A}(z)\cdot(\beta_{\scriptscriptstyle B}+r'_{\scriptscriptstyle A}(z))+\alpha_{\scriptscriptstyle B}\cdot(r_{\scriptscriptstyle A}(z)+\delta_{\scriptscriptstyle B})$
+
+\item\label{two-party-PSI::what-A-sends-in-ver}  Client $A$ sends $\alpha_{\scriptscriptstyle A}=p_{\scriptscriptstyle A}(q)$, $\beta_{\scriptscriptstyle A}=r_{\scriptscriptstyle A}(q)$, and $\delta_{\scriptscriptstyle A}=r'_{\scriptscriptstyle A}(q)$ to client $B$.
+
+ \item\label{checks-on-computingPSI-byB} Client $B$:  checks if:   $p_{\cap}(q)\stackrel{?}=p_{\scriptscriptstyle B}(q)\cdot(\beta_{\scriptscriptstyle A}+r'_{\scriptscriptstyle B}(q))+\alpha_{\scriptscriptstyle A}\cdot(r_{\scriptscriptstyle B}(q)+\delta_{\scriptscriptstyle A})$
+ 
+\
+
+\end{enumerate}
+%}
+\end{enumerate}
+\end{boxedminipage}
+\end{center}
+\caption{Two-party PSI Protocol in \cite{GhoshN19}} 
+\label{fig:Two-partyPSI-Ghosh}
+\end{figure}
+
+
+%First, each client $I\in\{A,B\}$ represent its set elements as a degree $m$ polynomial: $p_I= \prod\limits^{c}_{j=1}(x-s^{A}_j)\cdot \omega_I(x)$, where  $\omega_I(x)$ is a random polynomial. Then each client $I$ picks three random polynomials: $r_{I}, u_{I}$ and $r'_{I}$. Each client evaluates  its polynomials at every elements of the vector $\vv{\bm{x}}$, e.g. $p_{\scriptscriptstyle I,j}=p_I(x_{\scriptscriptstyle j})$. Then, clients $A$ and $B$ ($\forall j,1\leq j\leq m+1$) invoke an instance of $\mathcal{F}_{\scriptscriptstyle OPA}$ where  client $A$ (as sender) inserts $r_{\scriptscriptstyle A,j}$ and $u_{\scriptscriptstyle A,j}$ and client $B$ (as receiver) inserts $p_{\scriptscriptstyle B,j}$ to $\mathcal{F}_{\scriptscriptstyle OPA}$, which outputs  $s_{\scriptscriptstyle B,j}=p_{\scriptscriptstyle B,j}\cdot r_{\scriptscriptstyle A,j}+u_{\scriptscriptstyle A,j}$ to client $B$. Client $B$ uses $m+1$ pairs $(s_{B,j}, x_j)$ interpolates a polynomial: $s_B=p_B\cdot r_{A}+u_{A}$. 
+%
+%
+%Then, they change their role and invoke another instance of $\mathcal{F}_{\scriptscriptstyle OPA}$ (for every $1\leq j\leq m+1$), this time client $A$, as receiver, inserts $p_{A,j}$ while client $B$ inserts $r_{\scriptscriptstyle B,j}$ and $u_{\scriptscriptstyle B,j}$ to $\mathcal{F}_{\scriptscriptstyle OPA}$ that outputs $s_{\scriptscriptstyle A,j}=p_{\scriptscriptstyle A,j}\cdot r_{\scriptscriptstyle B,j}+u_{\scriptscriptstyle B,j}$ to client $A$. Client $A$ given $m+1$ pairs $(s_{A,j}, x_j)$ interpolates a polynomial: $s_A=p_A\cdot r_{B}+u_{B}$. Client $A$ sends $s'_{A}=s_{A}-u_{A}+p_{A}\cdot r'_{A}$ to client $B$, where $r'_{A}$ is a random polynomial. Upon receiving client $A$'s message, client $B$ computes:
+%\begin{equation}\label{computingPSI}
+%\begin{split}
+% p_{\cap}&=s'_{\scriptscriptstyle A}+s_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r'_{\scriptscriptstyle B}-u_{\scriptscriptstyle B}  \\ &=  p_{A}\cdot r'_{A}+p_{A}\cdot r_{B}+p_{B}\cdot r_{A}+p_{B}\cdot r'_{B}
+% \end{split}
+% \end{equation}
+% 
+% It sends the result polynomial: $p_{\cap}$ to client $A$. To find the intersection, client $I \in \{A,B\}$  can (independently) evaluate  polynomial $p_{\cap}$ at every element of its set, $s^{I}_j$, and consider the element in the intersection if  the result is $0$, i.e. $p_{\cap}(s^{I}_j)=0$.  
+% 
+%
+%To allow client $A$ to check the result correctness,  it agrees with $B$ agree on a random value $z$ (e.g. via a coin tossing protocol). Then, client $B$ sends $\alpha_B=p_{B}(z)$, $\beta_{B}=r_{B}(z)$, and $\delta_{B}=r'_B(z)$ to client $A$ who checks if the following equation holds:  
+%
+%\begin{equation}\label{checks-on-computingPSI}
+%p_{\cap}(z)\stackrel{?}=p_{A}(z)\cdot(\beta_{B}+r'_{A}(z))+\alpha_{B}\cdot(r_{A}(z)+\delta_{B})
+% \end{equation}
+
+%, for the sake of simplicity, we explain an attack mounted on the two-party PSI, presented in Fig \ref{fig:Two-partyPSI-Ghosh}. 
+
+
+\subsection{Attack 1: Learning the result without letting other client(s)  do so}  In this section, we explain an attack that allows a malicious party to modify the output of OPA such that it can always learn the actual PSI result while   making its (honest) counter-party believe that there is no element in the intersection.  Briefly, the issue stems from  the insufficient check in step \ref{checks-on-computingPSI}, which allows a  malicious party to mount the attack, and deviate from the protocol without being detected. Now, we explain the attack in detail. Without loss of generality, let client $B$ be a malicious party. Both clients take  steps \ref{gen-set-rep}-\ref{gen-s-A-prime} honestly. Nevertheless, client $B$ in step  \ref{where-clientB-deviates1}, as a part of   computing  polynomial $p_{\scriptscriptstyle \cap}$,  instead of summing $s'_{\scriptscriptstyle A}$ with  the product  $p_{\scriptscriptstyle B}\cdot r'_{\scriptscriptstyle B}$ it sums  $s'_{\scriptscriptstyle A}$ with $r'_{\scriptscriptstyle B}$ and adds the rest of the values honestly. Therefore, now   $p_{\scriptscriptstyle \cap} $ would be: 
+
+
+\begin{equation}\label{equ:modified-computingPSI}
+\begin{split}
+ p_{\scriptscriptstyle \cap}&=s'_{\scriptscriptstyle A}+s_{\scriptscriptstyle B}+ r'_{\scriptscriptstyle B}-u_{\scriptscriptstyle B}\\   &=  p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}+ r'_{\scriptscriptstyle B}
+ \end{split}
+ \end{equation}
+
+ 
+Client $B$ sends  $p_{\scriptscriptstyle \cap}$, generated in Equation \ref{equ:modified-computingPSI}, to client $A$, in step \ref{where-clientB-deviates1}. In the output verification phase, both clients take step \ref{two-party-PSI::agree-on-random-vals} honestly, to generate $z$ and $q$. Client $B$, in step \ref{where-clientB-deviates2},  computes $\alpha_{\scriptscriptstyle B}=p_{\scriptscriptstyle B}(z)$, $\beta_{\scriptscriptstyle B}=r_{\scriptscriptstyle B}(z)$ honestly, but it sets  $\delta_{\scriptscriptstyle B}=r'_{\scriptscriptstyle B}(z)\cdot (\alpha_{\scriptscriptstyle B})^{\scriptscriptstyle -1}$ (instead of setting $\delta_{\scriptscriptstyle B}=r'_{\scriptscriptstyle B}(z)$). It sends $\alpha_{\scriptscriptstyle B},\beta_{\scriptscriptstyle B}$, and $\delta_{\scriptscriptstyle B}$ to honest client $A$ which in step \ref{checks-on-computingPSI}: 
+
+
+\begin{enumerate}
+
+\item evaluates the result polynomial, $p_{\scriptscriptstyle \cap}$, at $z$ that yields:
+
+
+\begin{align*}
+\begin{split}
+p_{\scriptscriptstyle \cap}(z)&=  p_{\scriptscriptstyle A}(z)\cdot r'_{\scriptscriptstyle A}(z)+p_{\scriptscriptstyle A}(z)\cdot r_{\scriptscriptstyle B}(z)+p_{\scriptscriptstyle B}(z)\cdot r_{\scriptscriptstyle A}(z)+ r'_{\scriptscriptstyle B}(z)\\
+\end{split}
+\end{align*}
+
+\item  generates $l$ as below (given the three messages, sent by client $B$):
+
+
+\begin{align*}%\label{iiii}
+\begin{split}
+l&=p_{\scriptscriptstyle A}(z)\cdot(\beta_{\scriptscriptstyle B}+r'_{\scriptscriptstyle A}(z))+\alpha_{\scriptscriptstyle B}\cdot(r_{\scriptscriptstyle A}(z)+\delta_{\scriptscriptstyle B}) \\
+&=p_{\scriptscriptstyle A}(z)\cdot r_{\scriptscriptstyle B}(z)+p_{\scriptscriptstyle A}(z)\cdot r'_{\scriptscriptstyle A}(z)+p_{\scriptscriptstyle B}(z)\cdot r_{\scriptscriptstyle A}(z)+r'_{\scriptscriptstyle B}(z)
+ \end{split}
+ \end{align*}
+
+\item checks if $p_{\scriptscriptstyle \cap}(z)$ equals  $l$ (i.e., $p_{\scriptscriptstyle \cap}(z)\stackrel{\scriptscriptstyle ?}=l$). It accepts the result, if the check is passes.
+
+\end{enumerate}
+
+%
+%\begin{align}\label{xx}
+%\begin{split}
+%p_{\scriptscriptstyle \cap}(z)&\stackrel{\scriptscriptstyle ?}=p_{\scriptscriptstyle A}(z)\cdot(\beta_{\scriptscriptstyle B}+r'_{\scriptscriptstyle A}(z))+\alpha_{\scriptscriptstyle B}\cdot(r_{\scriptscriptstyle A}(z)+\delta_{\scriptscriptstyle B}) \\
+%&\stackrel{\scriptscriptstyle ?}=p_{\scriptscriptstyle A}(z)\cdot(\beta_{\scriptscriptstyle B}+r'_{\scriptscriptstyle A}(z))+\alpha_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}(z)+r'_{\scriptscriptstyle B}(z)
+% \end{split}
+% \end{align}
+
+\
+
+
+   As it is evident, the malicious client $B$ by using the above trick can pass the verification in the PSI protocol and convince client $A$ to accept the manipulated result.  Malicious client $B$ can generate the actual result (i.e., sets' intersection) \emph{for itself}, by   honestly computing  $p_{\scriptscriptstyle \cap}$ in step \ref{where-clientB-deviates1} and following the protocol in   step \ref{two-party-psi:find-intersect}. 
+   
+   
+   However, given  manipulated result $p_{\scriptscriptstyle \cap}$, presented in Equation \ref{equ:modified-computingPSI}, honest client $A$ cannot learn  the actual sets' intersection, for the following reason. Let us  rewrite the manipulated result as $p_{\scriptscriptstyle \cap}=  \gamma+ r'_{\scriptscriptstyle B}$, where $\gamma=p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}$. Note that polynomial $\gamma$ encodes the actual result, as its roots contain the intersection of the sets. However, $ r'_{\scriptscriptstyle B}$ is a random polynomial, so the probability that its roots contain all  elements in the intersection is negligible, i.e., is at most $(\frac{m-1}{2^{\scriptscriptstyle {\scriptscriptstyle\lambda}}})^{\scriptscriptstyle\psi}$, where $\lambda$ is the bit-length of the finite field, $m$ is the random polynomial's degree, and $\psi$ is the intersection cardinality. That means the roots of polynomial $p_{\scriptscriptstyle \cap}=  \gamma+ r'_{\scriptscriptstyle B}$ does not contain common roots of both polynomials  $\gamma$ and $r'_{\scriptscriptstyle B}$, except with a negligible probability. Thus, the manipulated polynomial, $p_{\scriptscriptstyle \cap}$, does not represent the intersection of the sets and client $A$, who does not know $r'_{\scriptscriptstyle B}$, cannot learn the correct result.  
+   
+   
+   \
+   
+   
+%   Because, the sum of the polynomial representing  the intersection of the clients set: $p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}$ and  random polynomial $r'_{\scriptscriptstyle B}$ would be a uniformly random polynomial that does have  common roots with the clients' polynomials with a high probability, therefore the intersection would be empty.  
+   
+   This security issue is inherited by both   the multi-client  and multi-client threshold PSI protocols as well, as they use the same verification mechanism. 
+   
+   
+%However, the above misbehaviour prevents client $A$ from learning the actual intersection. Because, the sum of the polynomial representing  the intersection of the clients set: $p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}$ and  random polynomial $r'_{\scriptscriptstyle B}$ would be a uniformly random polynomial that does have  common roots with the clients' polynomials with a high probability, therefore the intersection would be empty.  This security issue is inherited by both   the multi-client  and multi-client threshold PSI protocols as well, as they utilise the same verification mechanism. 
+
+
+
+
+%\noindent\textbf{Attack 2}: \textit{Learning other client's set element with a non-negligible probability:}
+
+\subsection{Attack 2: Learning Other Client's Set Element}
+
+ A main component of the three PSI protocols is OPA  required  to be secure against malicious adversaries, in the sense that it ensures that the parties insert well-formed inputs and do not learn anything by inserting $0$ as their input.  In particular, OPA uses:  (a) OLE protocol with no checks, whose ideal functionality is, called $\mathcal{F}_{\scriptscriptstyle OLE}$, and (b)  OLE that ensures when an adversary inserts $0$ it learns nothing. The ideal functionality of OLE  is denoted by  $ \mathcal{F}_{\mathtt{OLE}^{\scriptscriptstyle +}}$. 
+
+
+
+
+\begin{figure}[ht]
+\setlength{\fboxsep}{0.7pt}
+\begin{center}
+\begin{boxedminipage}{12.3cm}
+\begin{enumerate}
+\small{
+\item [$\bullet$] \textbf{Public parameters}: a vector of distinct non-zero elements: $\vv{\bm{x}}= [x_{\scriptscriptstyle 1},...x_{\scriptscriptstyle 2d+1}]$
+\item \textbf{Computing} $s(x)=p(x)\cdot r(x)+u(x)$, where the sender has  $u(x),r(x)$ and the receiver has  $p(x)$ as inputs, $deg(u)\leq 2d, deg(r)=d, deg(p)\leq d$
+\begin{enumerate}
+\item \label{sender-evaluate} Sender: $\forall j, 1\leq j\leq 2d+1$, computes $u_{\scriptscriptstyle j}=u(x_{\scriptscriptstyle j})$ and $r_{\scriptscriptstyle j}=r(x_{\scriptscriptstyle j})$. Then, it  inserts $(u_{\scriptscriptstyle j}, r_{\scriptscriptstyle j})$ into  $ \mathcal{F}^{\scriptscriptstyle (j)}_{\mathtt{OLE}^{\scriptscriptstyle +}}$
+\item\label{computing-receiver} Receiver:  $\forall j, 1 \leq j\leq 2d+1$, computes $p_{\scriptscriptstyle j}=p(x_{\scriptscriptstyle j})$. Then, it  inserts every $p_{\scriptscriptstyle j}$ into $ \mathcal{F}^{\scriptscriptstyle (j)}_{\mathtt{OLE}^{\scriptscriptstyle +}}$  and receives $s_{\scriptscriptstyle j}=p_{\scriptscriptstyle j}\cdot r_{\scriptscriptstyle j}+u_{\scriptscriptstyle j}$. It interpolates a polynomial $s(x)$ using pairs $(x_{\scriptscriptstyle j},s_{\scriptscriptstyle j})$. Next, it checks if $deg(s)\leq2d$. Otherwise, it aborts.
+\end{enumerate}
+\item \label{Consistency-check} \textbf{Consistency check}: 
+\begin{enumerate}
+\item \label{picking-random-x}Sender: picks a random $x_{\scriptscriptstyle s}$, and sends it to the receiver. 
+\item\label{receiver-OLE-invocation} Receiver: picks random values $f,v$ and inserts them into an instance of $\mathcal{F}_{\scriptscriptstyle OLE}$, denoted by $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 1}$. It inserts $(p(x_{\scriptscriptstyle s}), -s(x_{\scriptscriptstyle s})+f)$ into another instance of $\mathcal{F}_{\scriptscriptstyle OLE}$, say $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 2}$. 
+\item\label{inserting-to-OLE} Sender: picks a random value $t$, and inserts it to $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 1}$ that sends $c=f\cdot t+v$ to  the sender. It also inputs $r(x_{\scriptscriptstyle s})$ into $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 2}$ that sends   $\bar{f}=r(x_{\scriptscriptstyle s})\cdot p(x_{\scriptscriptstyle s})-s(x_{\scriptscriptstyle s})+f$ to the sender which sums it with $u(x_{\scriptscriptstyle s})$. This   yields $f'= r(x_{\scriptscriptstyle s})\cdot p(x_{\scriptscriptstyle s})-s(x_{\scriptscriptstyle s})+f+u(x_{\scriptscriptstyle s})$. The sender sends $f'$ to the receiver.
+\item\label{receiver-check} Receiver: It aborts if $f'\neq f$; otherwise, it sends $v$ to the sender. 
+\item Sender: It aborts if $f'\cdot t+v\neq c$
+\end{enumerate}
+\item Receiver: picks $x_{\scriptscriptstyle r}$ and runs similar consistency check with the sender. 
+}
+\end{enumerate}
+\end{boxedminipage}
+\end{center}
+\caption{Oblivious Polynomial Addition (OPA)  in \cite{GhoshN19}} 
+\label{fig:OPA}
+\end{figure}
+
+%Note that when protocol OPA is used in the PSI protocols, $b(x)$ is a polynomial representing the receiver's set elements. 
+
+In this section, we explain an attack that can be carried out in OPA protocol. We observed that a malicious sender can use OPA as a subroutine to guess one of the receiver's set elements without being caught with a non-negligible probability (i.e.,  probability  independent of the security parameter). In short,  the source of the issue is that the sender is given the ability to independently pick a random value (and send it to the receiver who evaluates its polynomial on the value) that allows a malicious sender to pick a value of its choice, instead of a truly random value.  In particular, both parties take steps \ref{sender-evaluate} and \ref{computing-receiver} honestly. However, in step \ref{picking-random-x}, the malicious sender instead of picking a uniformly random value: $x_{\scriptscriptstyle s}$, it  guesses an element of the receiver's set, e.g. $x'_{\scriptscriptstyle s}$, and sends that value to the  honest receiver who (given  $x'_{\scriptscriptstyle s}$) follows the protocol in step \ref{receiver-OLE-invocation}.   But, in step \ref{inserting-to-OLE}, the malicious sender instead of inserting $r(x'_{\scriptscriptstyle s})$ to $\mathcal{F}_{\scriptscriptstyle OPA}^{\scriptscriptstyle 2}$, it inserts an arbitrary value, $w'$, to $\mathcal{F}_{\scriptscriptstyle OPA}^{\scriptscriptstyle 2}$, where $w'\neq r(x'_{\scriptscriptstyle s})$. In this case, $\mathcal{F}_{\scriptscriptstyle OPA}^{\scriptscriptstyle 2}$ outputs $\bar{f}= w'\cdot p(x'_{\scriptscriptstyle s})-s(x'_{\scriptscriptstyle s})+f$ to the sender which adds the output  with $u(x'_{\scriptscriptstyle s})$ which yields:
+
+\begin{align*}
+\begin{split}
+  f&'= w'\cdot p(x'_{\scriptscriptstyle s})-s(x'_{\scriptscriptstyle s})+f+u(x'_{\scriptscriptstyle s})\\
+  %%
+  &=w'\cdot p(x'_{\scriptscriptstyle s})-p(x'_{\scriptscriptstyle s})\cdot r(x'_{\scriptscriptstyle s})+f
+  \end{split}
+  \end{align*}
+  
+  Note that, if it correctly guesses the set element, then $p(x'_{\scriptscriptstyle s})=0$, which means $f'=f$; therefore, it can pass the check in step \ref{receiver-check}. The probability that a malicious sender correctly guesses the receiver's set element is at least $Pr=\frac{1}{|\mathcal{U}|}$, where $\mathcal{U}$ is the universe of set elements. This probability is based on the assumption that all set elements have the same distribution, which is not always the case. It is possible that a certain element, $x'_{\scriptscriptstyle s}$, has a higher chance than other elements of the universe to be in a set; in this case, the probability of correctly guessing that element can be even higher, i.e. $Pr\geq \frac{1}{|\mathcal{U}|}$.
+
+To address the issue, one might be tempted to replace $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 2}$ by $ \mathcal{F}_{\mathtt{OLE}^{\scriptscriptstyle +}}$ in step \ref{receiver-OLE-invocation} to prevent the honest  receiver from sending  $p(x'_{\scriptscriptstyle s})=0$ to it. However, this would not work, as $ \mathcal{F}_{\mathtt{OLE}^{\scriptscriptstyle +}}$ only ensures that when a party sends $x$ and another one sends $l,g$, the party who sends $x$ cannot learn any extra information when $x=0$. But in OPA, the honest receiver sends $l,g$ and there is no mechanism in place to prevent it from sending zero value(s). The problem can be tackled by at least two  approaches. First, we can assume that the universe of set elements is very big and all elements have the same distribution, so the adversary can guess a set element with only a negligible probability.  But, this is a rare and  strong assumption under which a PSI protocol would have very limited applications and we might be able to design a more   efficient PSI protocol.  Second, the parties can run a coin-tossing protocol  to compute $x_{\scriptscriptstyle s}$, with a small added  cost. 
+
+
+
+%\noindent\textbf{Attack 3}: \textit{Deleting Other Client's Set Elements}.
+
+\subsection{Attack 3: Deleting Other Client's Set Elements}
+
+ In this section, we show how a malicious party can manipulate (i.e., delete) its counter-party's set elements without being detected. For the sake of simplicity, we first focus on deleting \emph{a single element}. Later, we will show that the malicious party can  delete \emph{multiple elements}. One of the main sources of the issue is the use of \emph{point-value} (polynomial) representation of sets.
+
+
+
+Recall that, in the two-party PSI protocol in step \ref{first-OPA-invocation}, clients $A$ and $B$ invoke an instance of OPA such that client $A$ (as the sender) inserts  two random polynomials: $r_{\scriptscriptstyle A}, u_{\scriptscriptstyle A}$, and client $B$  (as the receiver) inserts polynomial $p_{\scriptscriptstyle B}$ (that represents its set) to OPA. In the end of this step,  OPA returns  $s_{\scriptscriptstyle B}=p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}+u_{\scriptscriptstyle A}$ to client $B$.  The proposed OPA (as shown in steps \ref{sender-evaluate} and \ref{computing-receiver})  accepts  $y$-coordinates of the polynomials as input.  This means, the parties first evaluate their polynomials at every element of $\vv{\bm{x}}$ to get a set of $y$-coordinates and then send the corresponding $y$-coordinates to  OPA. However, we observed that this leads to a serious security issue; namely, a malicious sender can delete a subset of the receiver's set elements, if it manages to guess the subset. The probability of successfully mounting this attack is independent of the security parameter and only depends on the size of the elements' universe and the ability of the adversary to correctly guess the subset. This means that the probability can be high, e.g., when the set's size is not very large. Before we elaborate on the attack, we provide the following  theorem and proposition that will help to understand the attack. 
+
+\begin{theorem}\label{theorem:Uniqueness-Interp-Poly}(Uniqueness of Interpolating Polynomial \cite{quarteroni2010numerical})
+ Let $\vv{\bm{x}}= [x_{\scriptscriptstyle 1},...x_{\scriptscriptstyle h}]$ be a vector of non-zero distinct elements. For $h$ arbitrary values: $y_{\scriptscriptstyle 1},...y_{\scriptscriptstyle h}$ there is a unique polynomial: $\tau$, of degree at most $h-1$ such that: $\forall j, 1\leq j\leq h: \tau(x_{\scriptscriptstyle j})=y_{\scriptscriptstyle j}$,
+ where $x_{\scriptscriptstyle j},y_{\scriptscriptstyle j}\in \mathbb{F}_{p}$.
+\end{theorem}
+
+\begin{proposition}\label{Attack3}
+Let $\vv{\bm{x}}$ be a vector defined  above and $\mu\in \mathbb{F}_{p}[x]$ be a degree $d< h$ polynomial with $d$ distinct roots, i.e. $\mu=\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=1}(x-e_{\scriptscriptstyle i})$, and let $\mu_{\scriptscriptstyle j}=\mu(x_{\scriptscriptstyle j}),$ where $1\leq j \leq d$. Polynomial $\mu'$ interpolated from pairs $(x_{\scriptscriptstyle 1}, \mu_{\scriptscriptstyle 1}\cdot (x_{\scriptscriptstyle 1}-e_{\scriptscriptstyle c})^{\scriptscriptstyle -1} ),..., (x_{\scriptscriptstyle h}, \mu_{\scriptscriptstyle h}\cdot (x_{\scriptscriptstyle h}-e_{\scriptscriptstyle c})^{\scriptscriptstyle -1} )$ will not have $e_{\scriptscriptstyle c}$ as  root, i.e. $\mu'(e_{\scriptscriptstyle c})\neq0$, where $1\leq c \leq d$. 
+\end{proposition}
+
+
+\begin{proof}
+For the sake of simplicity and without loss of generality, let $c=1$. We can rewrite polynomial $\mu$ as $\mu=(x-e_{\scriptscriptstyle 1})\cdot\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x-e_{\scriptscriptstyle i})$, then every $\mu_{\scriptscriptstyle j}$ ($1\leq j \leq h$) can be written as: $\mu_{\scriptscriptstyle j}=(x_{\scriptscriptstyle j}-e_{\scriptscriptstyle 1})\cdot\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle j}-e_{\scriptscriptstyle i})$. Accordingly,  for every $j$, the product $\alpha_{\scriptscriptstyle j}=\mu_{\scriptscriptstyle j}\cdot (x_{\scriptscriptstyle j}-e_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}$ has the following form: $\alpha_{\scriptscriptstyle j}=\mu_{\scriptscriptstyle j}\cdot (x_{\scriptscriptstyle j}-e_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}=\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle j}-e_{\scriptscriptstyle i})$. Let $\mu'$ be another polynomial with  $d-1$ distinct roots identical to the roots of $\mu$ excluding $e_{\scriptscriptstyle 1}$, i.e. $\mu'(e_{\scriptscriptstyle 1})\neq0$. Each $\mu'_{\scriptscriptstyle j}$ can also be written as $\mu'_{\scriptscriptstyle j}=\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle j}-e_{\scriptscriptstyle i})$. Due to Theorem \ref{theorem:Uniqueness-Interp-Poly}, given $h$ pairs $(x_{\scriptscriptstyle j},\mu'_{\scriptscriptstyle j})$ there is at most one polynomial of degree at most $h-1$, such that its evaluation on  $x_{\scriptscriptstyle j}$ yields $\mu'_{\scriptscriptstyle j}$,  and that polynomial  is $\mu'$ (defined above). Since, $\mu'_{\scriptscriptstyle j}=\alpha_{\scriptscriptstyle j}$, the polynomial interpolated from $h$ pairs $(x_{\scriptscriptstyle j},\alpha_{\scriptscriptstyle j})$ is  $\mu'$ as well. Since $\mu'$ does not have $e_{\scriptscriptstyle 1}$ as  root, the polynomial interpolated from $d$ pairs $(x_{\scriptscriptstyle 1}, \mu_{\scriptscriptstyle 1}\cdot (x_{\scriptscriptstyle 1}-e_{\scriptscriptstyle 1})^{\scriptscriptstyle -1} ),..., (x_{\scriptscriptstyle h}, \mu_{\scriptscriptstyle h}\cdot (x_{\scriptscriptstyle h}-e_{\scriptscriptstyle 1})^{\scriptscriptstyle -1} )$ would not have $e_{\scriptscriptstyle 1}$ as  root either.   \hfill\(\Box\)
+\end{proof}
+%on every element $x_{\scriptscriptstyle j}\in \vv{\bm{x}}$; in particular,
+
+
+First, we will have a closer look at  the first two steps of the original two-party PSI, i.e., Fig. \ref{fig:Two-partyPSI-Ghosh}. Let $\vv{\bm{x}}=[x_{\scriptscriptstyle 1},...,x_{\scriptscriptstyle 2d+1}]$ be a vector of distinct non-zero elements (as defined in Fig \ref{fig:OPA}). In step \ref{gen-set-rep}, each client $I\in\{A,B\}$ represents its set, containing $d$ elements, as a polynomial $p_{\scriptscriptstyle I}=\omega_{\scriptscriptstyle I}(x)\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle j=1}(x-s^{\scriptscriptstyle (I)}_{\scriptscriptstyle j})$, where the roots of polynomial $\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle j=1}(x-s^{\scriptscriptstyle (I)}_{\scriptscriptstyle j})$ contain the party's set elements and   $\omega_{\scriptscriptstyle I}(x)$ is a random polynomial. Each client $I$ picks three random polynomials: $r_{\scriptscriptstyle I}, u_{\scriptscriptstyle I}$, and $r'_{\scriptscriptstyle I}$. In  step  \ref{first-OPA-invocation},  client $B$ sends to OPA the polynomial that represents it set elements, i.e., polynomial $p_{\scriptscriptstyle B}(x)=\omega_{\scriptscriptstyle B}(x)\cdot\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=1}(x-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})$. This requires client $B$ to evaluate the polynomial at every element $x_{\scriptscriptstyle j}$, i.e.,   $\forall x_{\scriptscriptstyle j}\in \vv{\bm{x}}:$   $p_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})=\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=1}(x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})$, and then  sends every $p_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})$ to   OPA. In the same step, client $A$ sends two random polynomials  $r_{\scriptscriptstyle A}$ and $u_{\scriptscriptstyle A}$ to the same (instance of) OPA invoked by client $B$, which requires client $A$ to first evaluate each polynomial at every $x_{\scriptscriptstyle j}\in\vv{\bm{x}}$ and then  send every pair  $(u_{\scriptscriptstyle A}(x_{\scriptscriptstyle j}), r_{\scriptscriptstyle A}(x_{\scriptscriptstyle j}))$ to  OPA. 
+
+
+\
+
+Now we explain the attack in detail. We split the attack into three phases (a) set  manipulation, (b) passing OPA’s verification, and (c)  passing PSI’s verification. Below we describe each phase. 
+
+\
+
+ \noindent\textit{\textbf{(a) Set  Manipulation.}} In this phase,  our focus will be on the PSI protocol, presented in Fig. \ref{fig:Two-partyPSI-Ghosh}.  Assume that malicious client $A$ knows at least one of  client $B$'s set elements; for instance, element  $s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1}$. Loosely speaking, the idea is that the malicious client  generates a \emph{multiplicative inverse} of  element $s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1}$ and inserts it to OPA that  ultimately  cancels out the same element encoded in the polynomial that is  inserted by its counter-party to OPA.   In particular,  malicious client $A$ honestly follows the PSI protocol in step \ref{gen-set-rep}. However, it performs as follows in step \ref{first-OPA-invocation}.
+
+\begin{enumerate}[label=(\roman*)]
+\item\label{Set-Manipulation::pick-rand-poly}  picks a random polynomial $\bar{r}_{\scriptscriptstyle A}$, of degree $m-1$. It evaluates the polynomial at every element  $x_{\scriptscriptstyle j}\in \vv{\bm{x}}$. This results in a vector of y-coordinates: $\vv{\bm{q}}_{\scriptscriptstyle 1}=[\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle 1}),...,$ $ \bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle 2d+1})]$.
+%%
+\item\label{gen-x-s}  constructs another polynomial of the following form: $x-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1}$. It evaluates the polynomial at every element  $x_{\scriptscriptstyle j}$. This results in a vector of y-coordinates: $[(x_{\scriptscriptstyle 1}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1}), ..., (x_{\scriptscriptstyle 2d+1}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})]$.
+%%
+\item\label{Set-Manipulation::gen-mul-inverse} generates the multiplicative inverse of each y-coordinate computed in  step \ref{gen-x-s}. This yields  $\vv{\bm{q}}_{\scriptscriptstyle 2}=[(x_{\scriptscriptstyle 1}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}, ..., (x_{\scriptscriptstyle 2d+1}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}]$. Note that since all polynomials and values are defined over a finite field, then every element or y-coordinate has a multiplicative inverse. 
+%%
+\item\label{Set-Manipulation::multipl-vect} multiplies the elements of vectors $\vv{\bm{q}}_{\scriptscriptstyle 1}$ and $\vv{\bm{q}}_{\scriptscriptstyle 2}$, component-wise. This yields $\vv{\bm{q}}_{\scriptscriptstyle 3}=[\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle 1})\cdot(x_{\scriptscriptstyle 1}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1},..., \bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle 2d+1})\cdot (x_{\scriptscriptstyle 2d+1}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}]$.
+%%
+\item\label{Set-Manipulation::eval-u}  evaluates the random polynomial $u_{\scriptscriptstyle A}$, generated honestly in step \ref{gen-set-rep}, at every element $x_{\scriptscriptstyle j}$, which results in $\vv{\bm{q}}_{\scriptscriptstyle 4}=[u_{\scriptscriptstyle A}(x_{\scriptscriptstyle 1}),..., u_{\scriptscriptstyle A}(x_{\scriptscriptstyle 2d+1})]$. 
+
+
+\item\label{Set-Manipulation::send} sends every pair $(q_{\scriptscriptstyle 4,j}, q_{\scriptscriptstyle 3,j})$ to OPA, where $q_{\scriptscriptstyle 4,j}\in \vv{\bm{q}}_{\scriptscriptstyle 4}$ and  $q_{\scriptscriptstyle 3,j}\in \vv{\bm{q}}_{\scriptscriptstyle 3}$. 
+\end{enumerate}
+
+That means  malicious client $A$ instead of sending   $r_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})$, it now  sends $q_{\scriptscriptstyle 3,j}=\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})\cdot (x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}$ to OPA. In this case, OPA, in step \ref{first-OPA-invocation},  returns the following values to honest client $B$. $\forall j, 1\leq j \leq 2d+1:$
+
+
+
+
+
+
+
+%As stated above, client $B$ inserts  polynomial $p_{\scriptscriptstyle B}$ to OPA, where the polynomial has the form $p_{\scriptscriptstyle B}=\omega_{\scriptscriptstyle B}\cdot\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=1}(x-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})$,  values $s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i}$ are client $B$'s set elements and $\omega_{\scriptscriptstyle B}$ is a random polynomial. Client $B$ in
+%
+%
+% step \ref{first-OPA-invocation}, ($\forall j, 1\leq j\leq h$) sends  $p_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})=\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=1}(x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})$ while client $A$ sends $r_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})$ and $u_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})$ to  OPA.  Assume that malicious client $A$ knows at least one of  client $B$ set elements, e.g. $s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1}$. In this case, client $A$ replaces $r_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})$ with $r_{\scriptscriptstyle j}=r'_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})\cdot (x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}$, where $r'_{\scriptscriptstyle A}$ is a random polynomial. Next, client $A$ sends $r_{\scriptscriptstyle j}$ and $u_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})$ to OPA that returns:
+
+
+\begin{align}\label{equation:OPA}
+\begin{split}
+%%
+y_{\scriptscriptstyle j}&=p_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot q_{\scriptscriptstyle 3,j}+q_{\scriptscriptstyle 4,j}\\
+%%
+&= \underbrace{\Big(\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot (x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}_{p_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})}\cdot \underbrace{\Big(\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})\cdot (x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}\Big)}_{ q_{\scriptscriptstyle 3,j}}+\underbrace{u_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})}_{q_{\scriptscriptstyle 4,j}}\\
+%%
+&= {\Big(\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}\cdot \Big(\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})\Big)+u_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})\\
+\end{split}
+\end{align}
+
+
+\
+
+
+\
+
+%
+%&= \Big(\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=1}(x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)\cdot \Big(r'_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})\cdot (x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}\Big)+u_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})\\
+
+%\overbrace{\beta\circ \beta\circ... \circ \beta}_{\scriptscriptstyle k \text{\ \ Times}}
+
+%\begin{equation}\label{equation:OPA}
+%s'_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})=p_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot r_{\scriptscriptstyle j}+u_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})= \omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot  r'_{\scriptscriptstyle A}(x_{\scriptscriptstyle j}) \cdot\prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})+u_{\scriptscriptstyle A}(x_{\scriptscriptstyle j})
+% \end{equation}
+
+Client $B$, in step \ref{first-OPA-invocation}, uses pairs ($x_{\scriptscriptstyle j},y_{\scriptscriptstyle j}$) to interpolate a polynomial, $s'_{\scriptscriptstyle B}$, that has the following form.
+
+\begin{equation}\label{equation:s-prime-B}
+s'_{\scriptscriptstyle B}={\Big(\omega_{\scriptscriptstyle B}(x)\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}\cdot \Big(\bar{r}_{\scriptscriptstyle A}(x)\Big)+u_{\scriptscriptstyle A}(x)
+\end{equation}
+
+
+ According to Equations \ref{equation:OPA} and \ref{equation:s-prime-B}  and  Proposition \ref{Attack3},  malicious client $A$ has managed to remove the set element, $s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1}$, which ultimately leads to the elimination of the element from the final result, i.e., the sets' intersection. In particular, client $A$ follows the PSI protocol in steps \ref{2nd-OPA-invocation} and \ref{gen-s-A-prime}, it  computes $s'_{\scriptscriptstyle A}=s_{\scriptscriptstyle A}-u_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}$ honestly, and sends $s'_{\scriptscriptstyle A}$ to honest client $B$.  Given the interpolated polynomial, $s'_{\scriptscriptstyle B}$, and  polynomial $s'_{\scriptscriptstyle A}$,  client $B$, in step \ref{where-clientB-deviates1}, follows the protocol and computes the result  polynomial (presented below) that is supposed to encode the sets' intersection. 
+  
+  
+  
+
+  \begin{align}\label{equation:result-poly}
+  \begin{split}
+  p_{\scriptscriptstyle \cap}&=s'_{\scriptscriptstyle A}+s'_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r'_{\scriptscriptstyle B}-u_{\scriptscriptstyle B}\\
+    %%
+  &=p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+{\Big(\omega_{\scriptscriptstyle B}\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}\cdot \bar{r}_{\scriptscriptstyle A}+p_{\scriptscriptstyle B}\cdot r'_{\scriptscriptstyle B}
+    \end{split}
+  \end{align}
+
+  However, as it is evident in Equation \ref{equation:result-poly}, the result polynomial's roots do not include element $s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1}$, even if both clients' sets contain it, as roots of polynomial $\Big(\omega_{\scriptscriptstyle B}\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)$ lack that element due to  malicious client $A$'s manipulation described above.  
+  
+In order for  malicious client $A$ to succeed, it also needs to pass two verifications, one in the OPA and the other in the PSI scheme. Below, we explain how it can do so. 
+  
+  
+  % p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r_{\scriptscriptstyle A}+p_{\scriptscriptstyle B}\cdot r'_{\scriptscriptstyle B}$. 
+  
+
+ \
+  
+ \noindent\textit{\textbf{(b) Passing OPA's Verification.}} Now, we show how  malicious client $A$ can   pass the verifications in OPA, using the following trick. Therefore, we will focus on the OPA protocol. Since,  we have already covered steps \ref{sender-evaluate} and \ref{computing-receiver} in OPA (when we explained steps \ref{first-OPA-invocation} and \ref{2nd-OPA-invocation} in the two-party PSI)   we will only focus on the ``consistency check'' in this protocol. Briefly, clients $A$ and $B$ honestly follow the OPA protocol in steps \ref{picking-random-x}  and  \ref{receiver-OLE-invocation}. In particular, malicious client $A$ (as sender) in step \ref{picking-random-x} honestly picks a random value $x_{\scriptscriptstyle s}$ and sends it to honest client $B$ (as receiver). Then, client $B$, in step \ref{receiver-OLE-invocation}, picks random values $f,v$ and inserts them into  $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 1}$. Client $B$ also inserts $(p_{\scriptscriptstyle B}(x_{\scriptscriptstyle s}), -s'_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})+f)$ into  $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 2}$. Recall, $s'_{\scriptscriptstyle B}$ is the polynomial which was defined  in Equation \ref{equation:s-prime-B}. 
+  
+  
+  
+  
+ 
+Client $A$ in step \ref{inserting-to-OLE} honestly picks a random value $t$, and inserts it to $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 1}$ that sends $c=f\cdot t+v$  back to  the same client. However, client $A$ in the same step,  sends $\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})\cdot (x_{\scriptscriptstyle s}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}$, instead of $r_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})$,  to $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 2}$ that returns the following value to client $A$.
+
+
+\begin{align}\label{equation:pass-ver-OPA}
+\begin{split}
+\bar{f}&= \bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})\cdot (x_{\scriptscriptstyle s}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}\cdot p_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})-s'_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})+f\\
+%%
+&=\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})\cdot (x_{\scriptscriptstyle s}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}\cdot    \underbrace{\Big(\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})\cdot (x_{\scriptscriptstyle s}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle s}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}_{p_{\scriptscriptstyle B}(x_{s})}-s'_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})+f\\
+%%
+&=\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})\cdot   \Big(\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})\cdot  \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle s}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)-s'_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})+f\\
+%&=\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})\cdot   \Big(\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})\cdot  \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle s}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)-\underbrace{{\Big(\omega_{\scriptscriptstyle B}(x)\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}\cdot \Big(\bar{r}_{\scriptscriptstyle A}(x)\Big)+u_{\scriptscriptstyle A}(x)}_{s'_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})}+f\\
+%%s'_{\scriptscriptstyle B}={\Big(\omega_{\scriptscriptstyle B}(x)\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}\cdot \Big(\bar{r}_{\scriptscriptstyle A}(x)\Big)+u_{\scriptscriptstyle A}(x)
+&=-u_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})+f
+ \end{split}
+ \end{align}
+
+%   \underbrace{\Big(\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot (x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}_{p_{\scriptscriptstyle B}}
+  
+  % \underbrace{\Big(\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot (x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}_{p_{\scriptscriptstyle B}}
+  
+ Recall,  polynomial $p_{\scriptscriptstyle B}$, that was inserted by client $B$,  encodes all set elements of client $B$, including $s_{\scriptscriptstyle 1}^{\scriptscriptstyle(B)}$, whereas polynomial $s'_{\scriptscriptstyle B}$ misses that specific element (due to the client $A$'s manipulation in Equation \ref{equation:OPA}). However, as it is indicated in Equation \ref{equation:pass-ver-OPA}, client $A$ has managed  to remove $s_{\scriptscriptstyle 1}^{\scriptscriptstyle(B)}$ from $p_{\scriptscriptstyle B}(x_{\scriptscriptstyle s})$. This will allow client $A$ to escape from being detected, because the result (i.e., $\bar{f}=-u_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})+f$) is what an honest client $A$ would have computed.  Malicious client $A$ completes step \ref{inserting-to-OLE} honestly, by  adding $u(x_{\scriptscriptstyle s})$ to $\bar{f}$, i.e., it computes $f'=\bar{f}+u_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})=f$, and sending $f'$ to client $B$, which checks $f'$ equals the random value it initially picked in step \ref{receiver-OLE-invocation}, i.e., $f$. It is not hard to see that $f'=f$. Hence,  malicious client $A$ has managed to pass this verification. 
+   
+   
+\
+
+
+
+
+  
+   \noindent\textit{\textbf{(c) Passing PSI's Verification.}} Next, we show how  malicious client  $A$ can also pass the verification in the PSI protocol (i.e., in step \ref{two-party-PSI::what-A-sends-in-ver} in Fig. \ref{fig:Two-partyPSI-Ghosh}) even though it has manipulated client $B$'s input. Our focus will be on the ``output verification'' in the PSI protocol.   At a high level, to pass this verification, client $A$ uses the same trick it used to pass the verification in OPA. Specifically, in step \ref{two-party-PSI::agree-on-random-vals} both parties honestly agree on two values $z$ and $q$. Then, in step \ref{where-clientB-deviates2}, client $B$ honestly computes $\alpha_{\scriptscriptstyle B}$, $\beta_{\scriptscriptstyle B}$, and $\delta_{\scriptscriptstyle B}$ and sends them to client $A$ which ignores the values and  skips step \ref{checks-on-computingPSI}.  Malicious client $A$, in step \ref{two-party-PSI::what-A-sends-in-ver}, honestly generates $\alpha_{\scriptscriptstyle A}=p_{\scriptscriptstyle A}(q)$ and $\delta_{\scriptscriptstyle A}=r'_{\scriptscriptstyle A}(q)$; however, instead of  setting     $\beta_{\scriptscriptstyle A}=r_{\scriptscriptstyle A}(q)$, it sets     $\beta_{\scriptscriptstyle A}=\bar{r}_{\scriptscriptstyle A}(q)\cdot (q-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}$. It sends $\alpha_{\scriptscriptstyle A}$, $\delta_{\scriptscriptstyle A}$, and $\beta_{\scriptscriptstyle A}$  to client $B$ which acts honestly in step \ref{checks-on-computingPSI-byB}. In particular, it:
+   
+   \begin{enumerate}
+ \item evaluates the result polynomial, $p_{\scriptscriptstyle \cap}$, at $q$ which yields: 
+   
+   
+ $$p_{\scriptscriptstyle \cap}(q)=p_{\scriptscriptstyle A}(q) \cdot r'_{\scriptscriptstyle A}(q)+p_{\scriptscriptstyle A}(q)\cdot r_{\scriptscriptstyle B}(q)+{\Big(\omega_{\scriptscriptstyle B}(q)\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(q-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}\cdot \bar{r}_{\scriptscriptstyle A}(q)+p_{\scriptscriptstyle B}(q)\cdot r'_{\scriptscriptstyle B}(q)$$
+ 
+   \item generates $t$ as below (given the three messages, sent by client $A$):
+   
+
+
+\begin{align*}
+\begin{split}
+t&=p_{\scriptscriptstyle B}(q)\cdot(\beta_{\scriptscriptstyle A}+r'_{\scriptscriptstyle B}(q))+\alpha_{\scriptscriptstyle A}\cdot(r_{\scriptscriptstyle B}(q)+\delta_{\scriptscriptstyle A})\\
+%%
+   &=    \Big(\omega_{\scriptscriptstyle B}(q)\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(q-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big) \cdot \bar{r}_{\scriptscriptstyle A}(q)+ p_{\scriptscriptstyle B}(q)\cdot r'_{\scriptscriptstyle B}(q)+\alpha_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}(q)+ \alpha_{\scriptscriptstyle A}\cdot \delta_{\scriptscriptstyle A}
+\end{split}
+\end{align*}   
+   %
+   \item checks if $p_{\scriptscriptstyle \cap}(q)$ equals  $t$ (i.e., $p_{\scriptscriptstyle \cap}(q)\stackrel{\scriptscriptstyle ?}=t$) and accepts the result if the check is passes. 
+   \end{enumerate}
+   
+   As indicated above,  malicious client $A$ (using the above trick) can pass the verification in the PSI protocol and convince client $B$ to accept the manipulated result. 
+   
+   
+   
+   \
+   
+\noindent\textit{\textbf{Deleting Multiple Elements.}} Now we briefly outline how  malicious client $A$ can delete multiple elements from its counter-party's set during the computation of the sets' intersection. Let $S'=\{s^{\scriptscriptstyle (B)}_{\scriptscriptstyle 1},...,s^{\scriptscriptstyle (B)}_{\scriptscriptstyle n}\}$ be a set of elements that malicious client $A$ wants to delete from client $B$'s set, where $n\leq m$. In the ``set manipulation'' phase, in step \ref{Set-Manipulation::pick-rand-poly},  client $A$  picks a random polynomial $\bar{r}_{\scriptscriptstyle A}$ that now has a degree $m-n$. It performs as before in the rest of the same rest. In step \ref{gen-x-s}, it constructs a polynomial that now has the following form: $\prod\limits^{\scriptscriptstyle n}_{\scriptscriptstyle i=1}(x-s^{\scriptscriptstyle (B)}_{\scriptscriptstyle i})$, where $ s^{\scriptscriptstyle (B)}_{\scriptscriptstyle i}\in S'$. In the same step, it evaluates the polynomial at every element $x_{\scriptscriptstyle j}$ which yields $[\prod\limits^{\scriptscriptstyle n}_{\scriptscriptstyle i=1}(x_{\scriptscriptstyle 1}-s^{\scriptscriptstyle (B)}_{\scriptscriptstyle i}),..., \prod\limits^{\scriptscriptstyle n}_{\scriptscriptstyle i=1}(x_{\scriptscriptstyle 2d+1}-s^{\scriptscriptstyle (B)}_{\scriptscriptstyle i})]$. It takes the rest of  steps \ref{Set-Manipulation::gen-mul-inverse}-\ref{Set-Manipulation::send} as previously described in the set manipulation phase. The ``passing OPA’s verification'' phase remains unchanged with the exception that, in step \ref{inserting-to-OLE}, client $A$ now sends $\bar{r}_{\scriptscriptstyle A}(x_{\scriptscriptstyle s})\cdot \prod\limits^{\scriptscriptstyle n}_{\scriptscriptstyle i=1}(x_{\scriptscriptstyle s}-s^{\scriptscriptstyle (B)}_{\scriptscriptstyle i})^{\scriptscriptstyle -1}$  to $\mathcal{F}_{\scriptscriptstyle OLE}^{\scriptscriptstyle 2}$. Similarly,  the ``passing PSI’s verification'' phase remains the same as before, with a difference that, in step \ref{two-party-PSI::what-A-sends-in-ver}, malicious client $A$ now sets     $\beta_{\scriptscriptstyle A}= \bar{r}_{\scriptscriptstyle A}(q)\cdot \prod\limits^{\scriptscriptstyle n}_{\scriptscriptstyle i=1}(q-s^{\scriptscriptstyle (B)}_{\scriptscriptstyle i})^{\scriptscriptstyle -1}$. Thus,  malicious client $A$ can delete multiple elements of client $B$ and pass the verifications.
+   
+   
+   
+%  \begin{align}\label{equation:result-poly}
+%  \begin{split}
+%  p_{\scriptscriptstyle \cap}&=s'_{\scriptscriptstyle A}+s'_{\scriptscriptstyle B}+p_{\scriptscriptstyle B}\cdot r'_{\scriptscriptstyle B}-u_{\scriptscriptstyle B}\\
+%    %%
+%  &=p_{\scriptscriptstyle A}\cdot r'_{\scriptscriptstyle A}+p_{\scriptscriptstyle A}\cdot r_{\scriptscriptstyle B}+{\Big(\omega_{\scriptscriptstyle B}(x_{\scriptscriptstyle j})\cdot \prod\limits^{\scriptscriptstyle d}_{\scriptscriptstyle i=2}(x_{\scriptscriptstyle j}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle i})\Big)}\cdot \bar{r}_{\scriptscriptstyle A}+p_{\scriptscriptstyle B}\cdot r'_{\scriptscriptstyle B}
+%    \end{split}
+%  \end{align}
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+%   
+%   
+%Client $A$ sends $\alpha_{\scriptscriptstyle A}=p_{\scriptscriptstyle A}(q)$, $\beta_{\scriptscriptstyle A}=r_{\scriptscriptstyle A}(q)$, and $\delta_{\scriptscriptstyle A}=r'_{\scriptscriptstyle A}(q)$ to client $B$.
+
+% \item\label{checks-on-computingPSI-byB} Client $B$:  checks if:   $p_{\cap}(q)\stackrel{?}=p_{\scriptscriptstyle B}(q)\cdot(\beta_{A}+r'_{\scriptscriptstyle B}(q))+\alpha_{\scriptscriptstyle A}\cdot(r_{\scriptscriptstyle B}(q)+\delta_{\scriptscriptstyle A})$
+   
+   
+   
+   
+   
+   
+   
+   
+   
+%   can utilise the  trick  above to pass the verification  in the  PSI protocol (i.e. step \ref{checks-on-computingPSI-byB} in Fig. \ref{fig:Two-partyPSI-Ghosh}) too. In particular, given a fresh random challenge: $x_{\scriptscriptstyle B}$, it sends $r'_{\scriptscriptstyle A}(x_{\scriptscriptstyle B})\cdot (x_{\scriptscriptstyle B}-s^{\scriptscriptstyle(B)}_{\scriptscriptstyle 1})^{\scriptscriptstyle -1}$, instead of $r_{\scriptscriptstyle A}(x_{\scriptscriptstyle B})$,  to client $B$.
+%  
+
+
+
+\
+
+
+
+
+\subsection{Technical Issue } Another issue in OPA protocol is that the receiver in step \ref{computing-receiver} checks the degree of  polynomial $s(x)$ after it interpolates the polynomial from $m+1$ pairs $(x_{\scriptscriptstyle j},s_{\scriptscriptstyle j} )$ and it aborts if $deg(s)>2d$. The protocol's proof also highly depends on this check. Nonetheless,  according to Theorem \ref{theorem:Uniqueness-Interp-Poly}, there exists a  polynomial that  \emph{always} have a degree at most $2d$. Thus, the check in step \ref{computing-receiver}  does not work and is always passed.
+
+
+
+%\noindent\textbf{Technical issue }2: As stated above, in \cite{} $OLE$ is used to combine the sender polynomials:   $a(x)$ and $r(x)$ with the receiver polynomial $b(x)$ where $deg(b)=deg(r)=d$ and $deg(a)=2d$. In particular, parties first agree on a public vector: $\vv{\bm{x}}=[x_{\scriptscriptstyle 1},...x_{\scriptscriptstyle 2d+1}]$ with distinct non-zero values. Then, each party evaluates its polynomial at every element of $\vv{\bm{x}}$. This yields values $a_{\scriptscriptstyle i}, r_{\scriptscriptstyle i}$ and $b_{\scriptscriptstyle i}$. Then (for every $i, 1\leq i\leq 2d+1$), the sender sends $a_{\scriptscriptstyle i}, r_{\scriptscriptstyle i}$ to OLE while the receiver sends $b_{\scriptscriptstyle i}$ to OLE that outputs $b_{\scriptscriptstyle i}, \cdot r_{\scriptscriptstyle i}+a_{\scriptscriptstyle i}$ to the receiver who can use them to interpolate a polynomial $s(x)$. In the case where the receiver sets $b(x)=0$ and sends only zero values to  OLE, the parties can agree on a random value $z$ (via coin tossing). Then, the sender computes $a(z)$ and $r(z)$, commitments to them and  sends the commitments to the receiver who sends $s(z)$ and $r(z)$ to the sender. At this point the sender sends the opening of the  commitments to the sender. The parties do the following checks (a) all the messages they received are non-zero and $s(z)\stackrel{?}=r(z)\cdot b(z)+a(z)$.  The authors (on page  158) argued that the sender may not set its polynomial to zero, instead it sends $d$ zeros among $d+1$ non-zero values to OLE.  This allows the receiver to learn $d$ y-coordinates of $a(x)$. They stated that $d$ y-coordinates plus the one it gets from the check, i.e. $a(z),$ allows the receiver to fully recover $a(x)$. However, we highlight that this is not the case. The reason is that the degree of $a(x)$ is $2d$ therefore at least $2d+1$ y-coordinates are required to interpolate $a(x)$. Moreover, the receiver may insert $n>d$ zeros to OLE. This means that the degree of $r(x)$ is now at least $n$, which leads to a result polynomial of degree at least $d+n>2d$. Nevertheless, the receiver has only $2d+1$ y-coordinates to interpolate a polynomial, so the polynomial it interpolates $s'(x)$ would not be equal to $s(x)=r(x)\cdot b(x)+a(x)$. That means it cannot pass the above check without the knowledge of $r(x)$ and $a(x)$ (or their y-coordinates) (xxxx needs to be proven). Therefore, the only way for the adversary to learn $a(x)$ is to set $r(x)=0$ which can be detected in the above check. We conclude that the $OLE$ would suffice and $OLE^{+}$ is not needed.
+
+%to allow client $A$ perform the check, they agree on a fresh random value, client $A$ computes and sends to client $B$ the following values: $\alpha_A=p_{A}(z)$, $\beta_{A}=r_{A}(z)$, and $\delta_{A}=r'_A(z)$. Now client $B$ checks $\phi(z)\stackrel{?}=p_{B}(z)\cdot(\beta_{A}+r'_{B}(z))+\alpha_{A}\cdot(r_{B}(z)+\delta_{A})$
+
+
+
+
+
+
+
+

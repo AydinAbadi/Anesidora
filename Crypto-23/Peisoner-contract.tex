@@ -1,0 +1,104 @@
+% !TEX root =main.tex
+
+
+\subsection{Prisoner's Contract (\SCpc)}
+
+\SCpc has been designed for outsourcing a certain computation. It is signed by a client who delegates the computation and two other parties  (or servers)  who perform the computation.  This contract tries to incentivize correct computation by using the following idea. It requires each server to pay a deposit before the computation is delegated. If a server behaves honestly, then it can withdraw its deposit. However, if a server cheats (and is detected), its deposit is transferred to the client. When one of the servers is honest and the other one cheats, the honest server receives a reward. This reward is taken from the deposit of the cheating server.  Hence, the goal of \SCpc is to create a Prisoner’s dilemma between the two servers in the following sense. Although the servers may collude with each other (to cut costs and provide identical but incorrect computation results) which leads to a higher payoff than both behaving honestly,  there is an even higher payoff if one of the servers manages to persuade the other server to collude and provide an incorrect result while itself provides a correct result. In this setting, each server knows that collusion is not stable as its counterparty will always try to deviate from the collusion to increase its payoff.  If a server tries to convince its counterparty (without a credible and enforceable promise), then the latter party will consider it as a trap; consequently, collusion will not occur. Below, we restate the contract. %We have slightly adjusted the contract such that misbehaving servers deposit is transferred to another contract (denoted with $\mathcal{SC}_{\epsi}$) instead of transferring directly to the client. 
+
+\begin{enumerate}
+%
+\item The contract is signed by three parties; namely, client $ {D}$ and two other parties $E_{\st 1}$ and $E_{\st 2}$. A third-party auditor will resolve any dispute between $ { D}$ and the servers.  \textcolor{blue}{The address of another contract, called $\mathcal{SC}_{\epsi}$, is hardcoded in this contract.} 
+%
+\item The servers agree to run computation $f$ on input $x$, both of which have been provided by $ { D}$. 
+%
+\item The parties agree on three deadlines $(T_{\st 1}, T_{\st 2}, T_{\st 3})$, where $T_{\st i+1} > T_{\st i}$.
+%
+\item $ { D}$ agrees to pay $\wc$ to each server for the correct and on-time computation. Therefore, $ { D}$ deposits $2\cdot \wc$ amount in the contract. \textcolor{blue}{This deposit is transferred from $\mathcal{SC}_{\epsi}$ to this contract}.
+%
+\item Each server deposits \textcolor{blue}{$\dc'=$ }$\dc$\textcolor{blue}{$\ +\ \Xc$} amount in the contract. 
+%
+\item The servers must pay the deposit before $T_{\st 1}$. If a server fails to meet the deadline, then the contract would refund the parties' deposit (if any) and terminates.  
+%
+\item The servers must deliver the computation's result before $T_{\st 2}$. 
+%
+\item  The following steps are taken when (i) both servers provided the computation's result or (ii) deadline $T_{\st 2}$ elapsed. 
+%
+\begin{enumerate}
+%
+\item if both servers failed to deliver the computation's result, then the contract transfers their deposits to \textcolor{blue}{$\mathcal{SC}_{\epsi}$}.
+%
+\item if both servers delivered the result, and the results are equal, then (after verifying the results) \textcolor{blue}{this contract} must pay the agreed
+amount $\wc$ and refund the deposit $\dc'$ to each server. 
+%
+\item\label{prisoner-cont-raise-disp} otherwise, $ { D}$ raises a dispute with the auditor.  
+%
+\end{enumerate}
+%
+\item When a dispute is raised, the auditor (which is independent of \aud in \fpsi) re-generates the computation's result, \textcolor{blue}{by using algorithm $\mathtt{resComp}(.)$ described shortly in Appendix \ref{sec::auditor-res-Comp}.} Let $y_{\st t}, y_{\st 1},$ and $y_{\st 2}$ be the result computed by the auditor, $E_{\st 1}$, and $E_{\st 2}$ respectively. The auditor uses the following role to identify the cheating party.  
+%
+\begin{itemize}
+%
+\item[$\bullet$] if $E_{\st i}$ failed to deliver the result (i.e., $y_{\st i}$ is null), then it has cheated. 
+%
+\item[$\bullet$] if a result $y_{\st i}$ has been delivered before the deadline and $y_{\st i}\neq y_{\st t}$, then $E_{\st i}$ has cheated. 
+%
+\end{itemize}
+%
+\textcolor{blue}{The auditor sends its verdict to \SCpc.} 
+%
+\item Given the auditor's decision, the dispute is settled according to the following rules.
+%
+\begin{itemize}
+%
+\item[$\bullet$] if none of the servers cheated, then \textcolor{blue}{this contract} transfers to each server (i) $\wc$ amount for performing the computation and (ii) its deposit, i.e., $\dc'$ amount. The client also pays the auditor $\chc$ amount.  
+%
+\item[$\bullet$] if both servers cheated, then \textcolor{blue}{this contract (i) pays the auditor the total amount of $\chc$, taken from the servers' deposit, and (ii) transfers to  $\mathcal{SC}_{\epsi}$ the rest of the deposit, i.e., $2\cdot \dc'-\chc$ amount.} 
+%
+\item[$\bullet$] if one of the servers cheated, then \textcolor{blue}{this contract (i) pays the auditor the total amount of $\chc$, taken from the misbehaving server's deposit, (ii) transfers the honest server's deposit (i.e., $\dc'$ amount) back to this server,  (iii) transfers to the honest server $\wc+\dc-\chc$ amount (which covers its computation cost and the reward), and  (iv) transfers to $\mathcal{SC}_{\epsi}$ the rest of the misbehaving server's deposit, i.e., $\Xc$ amount.} The cheating server receives nothing.  
+%
+\end{itemize} 
+%
+\item After deadline $T_{\st 3}$, if $ { D}$ has neither paid nor raised a dispute, then \textcolor{blue}{this contract} pays $\wc$ to each server which delivered a result before deadline $T_{\st 2}$ and refunds each server its deposit, i.e., $\dc'$ amount. Any deposit left after that will be transferred to \textcolor{blue}{$\mathcal{SC}_{\epsi}$}. 
+%
+\end{enumerate}
+
+
+Now, we explain why we have made the above changes to the original \SCpc of Dong \et \cite{dong2017betrayal}. In the original \SCpc (a) the client does not deposit any amount in this contract; instead, it directly sends its coins to a server (and auditor) according to the auditor's decision,  (b) the computation correctness is determined only within this contract (with the involvement of the auditor if required), and (c)  the auditor simply re-generates the computation's result given the computation's plaintext inputs.  Nevertheless, in \epsi, (1) \emph{all clients} need to deposit a certain amount in $\mathcal{SC}_{\epsi}$ and only the contracts must transfer the parties' deposit,  (2) $\mathcal{SC}_{\epsi}$ also needs to verify a part of the computation's correctness without the involvement of the auditor and accordingly distribute the parties deposit based on the verification's outcome,  and (3) the auditor must be able to re-generate the computation's result without being able to learn the computation's plaintext input, i.e., elements of the set. Therefore, we have included the address of $\mathcal{SC}_{\epsi}$ in \SCpc to let the parties' deposit move between the two contracts (if necessary) and allowed \SCpc to distribute the parties' deposit; thus, the requirements in points (1) and (2) are met. To meet the requirement in point (3) above, we have included a new algorithm, called $\mathtt{resComp}(.)$, in \SCpc.  Shortly, we will provide more detail about this algorithm. Moreover, to make this contract compatible with \epsi, we increased the amount of each server's deposit by  $\Xc$. Nevertheless, this adjustment does not change the logic behind \SCpc's design and its analysis.  
+
+
+
+
+
+
+
+\subsubsection{Auditor's Result-Computation Algorithm.}\label{sec::auditor-res-Comp}
+
+
+In this work,  we use \SCpc to delegate the computation of intersection cardinality to two extractor clients, a.k.a. servers in the original \SCpc. In this setting, the contract's auditor is invoked when an inconsistency is detected in step \ref{smart-PSI-inconsistency} of \epsi. For the auditor to recompute the intersection cardinality, we have designed $\mathtt{resComp}(.)$ algorithm. The auditor uses this algorithm for every bin's index $indx$,  where $1\leq indx\leq h$ and $h$ is the hash table's length. We present this algorithm in Figure \ref{fig::resComp}.  The auditor collects the inputs of this algorithm as follows: (a)  reads random polynomial $\bm\zeta$, and blinded polynomial $\bm\phi$ from contract $\mathcal{SC}_{\fpsi}$, (b) reads the ciphertext if secret key $mk$ from $\mathcal{SC}_{\epsi}$, and (c) fetches public parameters $(des_{\mathtt{H}}, h)$ from the hash table's public description. 
+
+
+
+Note that in the original  \SCpc of Dong \et \cite{dong2017betrayal}, the auditor is assumed to be fully trusted. However, in this work, we have relaxed such an assumption. We have designed \epsi and $\mathtt{resComp}(.)$ in such a way that even a semi-honest auditor cannot learn anything about the actual elements of the sets, as they have been encrypted under a key unknown to the auditor. 
+
+
+
+\input{auditor-res-Comp}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

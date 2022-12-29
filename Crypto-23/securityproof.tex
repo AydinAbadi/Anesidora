@@ -1,0 +1,225 @@
+% !TEX root =U-PSI.tex
+\section{U-PSI Security Proof}\label{U-PSIProof}
+
+In this section, we  sketch U-PSI's security proof  in the presence of static semi-honest adversaries. We conduct the security analysis for the three cases where one of the parties is corrupted at a time. 
+%\begin{theorem-non}
+\begin{theorem}
+If $\mathtt{PRF}$ and $\mathtt{PRF}'$ are collision-resistant pseudorandom functions, and $\pi$ is a pseudorandom permutation, then U-PSI protocol is secure in the presence of a semi-honest adversary. 
+\end{theorem}
+%\end{theorem-non}
+
+\vspace{-2mm}
+
+%\newtheorem{prop2}{Proof}
+%\begin{prop2} 
+
+\begin{proof}
+We will prove the theorem by considering in turn the case where each of the parties has been corrupted. In each case, we invoke the simulator with the corresponding party's input and output.  Our focus is on the case where party $A$ wants to engage in the computation of the intersection, i.e. it authorizes the computation. If party $A$ does not want to proceed with the protocol, the views can be simulated in the same way up to the point where the execution stops.
+
+
+\
+\vspace{-2mm}
+
+\noindent\textbf{Case 1: Corrupted Cloud.} In this case, we show that given the leakage function we can construct a simulator $\textsf {\scriptsize SIM}_{\scriptscriptstyle C}$ that can produce a view computationally indistinguishable from the one in the real model. In the real execution, the cloud's view is:
+\begin{equation*}
+ \textsf {\scriptsize VIEW}^{\scriptscriptstyle\textsf { U-PSI}}_{\scriptscriptstyle C}(\Lambda, S^{\scriptscriptstyle (A)},S^{\scriptscriptstyle (B)})=\{\Lambda, r_{\scriptscriptstyle C}, \vv{\bm{po}}^{\scriptscriptstyle (A)},\vv{\bm{pl}}^{\scriptscriptstyle (A)}, \vv{\bm{po}}^{\scriptscriptstyle (B)},\vv{\bm{pl}}^{\scriptscriptstyle (B)}, (Q_{\scriptscriptstyle  1}, ..., Q_{\scriptscriptstyle  \Upsilon}),\Lambda \}.
+\end{equation*}
+
+In the above view, $r_{\scriptscriptstyle C}$ is the outcome of internal random coins of the cloud,  ($\forall I, I\in \{A, B\}$) $\vv{\bm{po}}^{\scriptscriptstyle (I)}$ are the permuted hash tables  containing the clients' blinded datasets and $\vv{\bm{pl}}^{\scriptscriptstyle (I)}$ are the permuted labels. Moreover, if  the query is for PSI delegation then
+\begin{equation*}
+ Q_{\scriptscriptstyle  i}=\{tk^{\scriptscriptstyle  (B)}, tk^{\scriptscriptstyle  (A)}, \textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle (A)},  \textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle (B)},  \vv{\bm{pm}}_{\scriptscriptstyle \mathtt{ A \rightarrow B}}, \textsf {\scriptsize \textbf{Compute}}\},
+\end{equation*}
+ otherwise (if the client $I$'s query is for update),  
+\begin{equation*}
+Q_{\scriptscriptstyle  i}=\{\vv{\bm{o}}^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,c^{ {\text{\tiny (\textit{I})}}}_{\tiny j}}, l^{\scriptscriptstyle (I)}_{\scriptscriptstyle j},\textsf {\scriptsize \textbf{Update}}\}, 
+\end{equation*}
+for some $j, 1\leq j\leq h$.
+
+%$\textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle (B)}$
+Now we construct the simulator $\textsf {\scriptsize SIM}_{\scriptscriptstyle C}$ in the ideal model which executes as follows. 
+
+\begin{packed_enum}
+\item Creates an empty view and appends $\Lambda$ and uniformly random coin $r'_{\scriptscriptstyle C}$ to it. 
+%\item Chooses  two random sets $S'^{\scriptscriptstyle (A)}$ and $S'^{\scriptscriptstyle (B)}$, such that $|S'^{\scriptscriptstyle (A)}|, |S'^{\scriptscriptstyle (B)}|<c$.
+
+\item Uses the public parameters and the hash function to construct two hash tables $\mathtt{HT}'^{\scriptscriptstyle (A)}$ and $\mathtt{HT}'^{\scriptscriptstyle (B)}$. It fills each bin of the hash tables with $n$ uniformly random values picked from the field $\mathbb{F}_p$. So, each bin $\mathtt{HT}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$ ($\forall I, I\in \{A,B\}$) contains a vector  $\vv{\bm{o}}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$ of $n$ random values. 
+
+
+
+%Then, it maps and insert each  element of the  sets $S'^{\scriptscriptstyle (A)}$ and $S'^{\scriptscriptstyle (B)}$ to the bins of the tables $\mathtt{HT}'^{\scriptscriptstyle (A)}$ and $\mathtt{HT}'^{\scriptscriptstyle (B)}$ respectively. So for every $I\in \{A,B\}$ does as the following. 
+
+%\
+%
+%\vspace{-2mm}
+%
+%\begin{center}
+%$\forall s'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}\in S'^{\scriptscriptstyle (I)}: \mathtt{H}( s'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i})=j$, then $s'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}\rightarrow \mathtt{HT}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$, where $1\leq j \leq h$ and $I\in \{A,B\}$
+%\end{center}
+%
+%\
+%
+%\vspace{-2mm}
+
+
+\item \label{labelGen}Assigns a pseudorandom label to each bin $\mathtt{HT}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$ ($\forall I, I\in \{A,B\}$). To do so, it picks fresh label-keys, $lk'^{\scriptscriptstyle(I)}$, and computes the labels as $\forall I, I\in \{A,B\}$ and $\forall j,  1\leq j \leq h$ : $l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}=\mathtt{PRF}'(lk'^{\scriptscriptstyle (I)},j)$.
+
+
+
+
+%\item \label{keygen} Assigns a key to each bin in the hash table by picking a master key $mk'^{\scriptscriptstyle (I)}$; and then generating $h$ pseudorandom values.  $\forall j, 1\leq j \leq h$: $k^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}=\mathtt{PRF}(mk'^{\scriptscriptstyle (I)},j)$.
+
+
+
+%\item  For every bin $\mathtt{HT}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$ (where $1\leq j\leq h$ and $I\in \{A,B\}$), if it has less than $d$ set elements, pad it with dummy (or random) elements, $r'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,i}$, to contain $d$ elements. Then, encode the elements as follows.
+
+
+
+%\item For every occupied bin $\mathtt{HT}^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$, containing $d'$ set elements, encode the elements as follows.
+
+%\begin{enumerate}
+% \item  Constructs a polynomial representing the elements in the bin.
+%
+%\
+%
+%\vspace{-2mm}
+%
+%\begin{center}
+%$\tau'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}(x)=\prod\limits ^{\scriptscriptstyle d}_{\scriptscriptstyle i=1}(x-e'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i})$, where $e'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i} \in \mathtt{HT}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$, $e'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}=s'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i} $ or $e'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}=r'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,i}$
+%\end{center}
+%
+%\
+%
+%\vspace{-2mm}
+%
+%\item Represents $\tau'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j} (x)$ as point-value form, by evaluating it at every element $x_{\scriptscriptstyle i}\in\vv{\bm{x}}$. This yields a vector of  $\tau'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j} (x_{\scriptscriptstyle i})$, $1\leq i \leq n$.
+
+
+%\item \label{blind} Blinds every value $\tau'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j} (x_{\scriptscriptstyle i})$. To do so, first generate a pseudorandom value $z'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,c^{ {\text{\tiny (\textit{I})}}}_{\tiny j},i}=\mathtt{PRF}(k^{\scriptscriptstyle (I)}_{\scriptscriptstyle j},i)$, where key $k'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$ was generated in step b.\ref{keygen}. Then, computes $o'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,c^{ {\text{\tiny (\textit{I})}}}_{\tiny j},i}$ as follow. $\forall i, 1\leq i\leq n: o'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,c^{ {\text{\tiny (\textit{I})}}}_{\tiny j},i}=\tau'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j} (x_{\scriptscriptstyle i})+ z'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,c^{ {\text{\tiny (\textit{I})}}}_{ j},i}$.
+
+
+
+\item Constructs two vectors of the form   $[(\vv{\bm{o}}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle 1},l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle 1}),...,(\vv{\bm{o}}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle h},l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle h})]$ for each $I$, $I\in \{A,B\}$. Then, it randomly permutes each vector. Next,  it inserts each element  $\vv{\bm{o}}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle g}$ ($\forall g, 1\leq g\leq h$) of the permuted vector into $\vv{\bm{po}}'^{\scriptscriptstyle (I)}$. Also, it inserts each element $l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle g}$ of the permuted vector into $\vv{\bm{pl}}'^{\scriptscriptstyle (I)}$. Therefore, it has constructed four vectors: $\vv{\bm{po}}'^{\scriptscriptstyle (A)}$, $\vv{\bm{pl}}'^{\scriptscriptstyle (A)}$, $\vv{\bm{po}}'^{\scriptscriptstyle (B)}$ and   $\vv{\bm{pl}}'^{\scriptscriptstyle (B)}$. It appends the four vectors to the view.
+
+
+
+
+
+%\item Picks two random keys $pk'^{\scriptscriptstyle (I)}$  ($\forall I, I\in \{A,B\}$), and constructs two permuted vectors, $\vv{\bm{po}}'^{\scriptscriptstyle (I)}=\pi(pk'^{\scriptscriptstyle (I)}, \vv{\bm{o}}'^{\scriptscriptstyle (I)})$ and $\vv{\bm{pl}}'^{\scriptscriptstyle (I)}=\pi(pk'^{\scriptscriptstyle (I)}, \vv{\bm{l}}'^{\scriptscriptstyle (I)})$, where $\vv{\bm{o}}'^{\scriptscriptstyle (I)}=[\vv{\bm{o}}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle 1}, ..., \vv{\bm{o}}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle h}]$ and  vector $\vv{\bm{l}}'^{\scriptscriptstyle (I)}$ contains the labels generated in  step \ref{labelGen}. Then, it inserts $\vv{\bm{po}}'^{\scriptscriptstyle (A)}$, $\vv{\bm{pl}}'^{\scriptscriptstyle (A)}$, $\vv{\bm{po}}'^{\scriptscriptstyle (B)}$ and   $\vv{\bm{pl}}'^{\scriptscriptstyle (B)}$ to its view. 
+
+\item Given the leakage function $[\mathcal{M}^{\scriptscriptstyle (I)},\vv{\bm{T}}]$, it first uses each matrix $\mathcal{M}^{\scriptscriptstyle (I)}$ to construct the corresponding vector $\vv{\bm{v}}^{\scriptscriptstyle (I)}$ that will contain a set of labels $l'^{\scriptscriptstyle (I)}\in \vv{\bm{l}}'^{\scriptscriptstyle (I)}$, and has the same access pattern as the one indicated by the matrix. In order for it to generate this vector, it first constructs  vector $\vv{\bm{v}}^{\scriptscriptstyle (I)}$ of zeros, where $|\vv{\bm{v}}^{\scriptscriptstyle (I)}|=\textbf{p}$. Then, for every row $i$ ($1\leq i\leq \textbf{p}$) of the matrix $\mathcal{M}^{\scriptscriptstyle (I)}$, it performs the following:
+\begin{packed_enum}
+\item If there exists at least one element set to $1$ in the row and if the $i^{th}$ element in the vector $\vv{\bm{v}}^{\scriptscriptstyle (I)}$ is zero, then it finds a set $G$ such that $\forall g \in G: \mathcal{M}^{\scriptscriptstyle (I)}_{i,g}=1$. Next, it picks a label $l'^{\scriptscriptstyle (I)}\in \vv{\bm{l}}'^{\scriptscriptstyle (I)}$ and inserts it into all $i^{\scriptscriptstyle th}, g^{\scriptscriptstyle th}$ positions of the vector $\vv{\bm{v}}^{\scriptscriptstyle (I)}$. The label must be distinct from the ones used for the previous rows $i'$, where $i'<i$. Otherwise, if the $i^{th}$ element in the vector is non-zero,  it  moves on to the next row. 
+
+\item If all the elements in the row are zero and if the $i^{\scriptscriptstyle th}$ element in the vector $\vv{\bm{v}}^{\scriptscriptstyle (I)}$ is zero, then it picks a label $l'^{\scriptscriptstyle (I)}\in \vv{\bm{l}}'^{\scriptscriptstyle (I)}$ and inserts it at position $i^{\scriptscriptstyle th}$ of the vector, where  the label is distinct from the ones used for the previous rows $i'$, where $i'<i$. Otherwise, if the $i^{\scriptscriptstyle th}$ element in the vector is non-zero,  it  moves on to the next row. 
+\end{packed_enum}
+
+
+
+\item  Uses $\vv{\bm{T}}$ and checks $T_{\scriptscriptstyle i}$ ( $\forall i, 1\leq i\leq \Upsilon$) as follows:
+
+\begin{packed_enum}
+\item if $T_{\scriptscriptstyle i}= \textsf {\scriptsize PSI-Com}$, then sets: 
+\begin{equation*}
+Q'_{\scriptscriptstyle  i}=\{tk'^{\scriptscriptstyle  (B)}, tk'^{\scriptscriptstyle  (A)},\textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle  (A)},  \textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle  (B)},  \vv{\bm{pm}}'_{\scriptscriptstyle \mathtt{ A \rightarrow B}}, \textsf {\scriptsize \textbf{Compute}}\}, 
+\end{equation*}
+where  $\vv{\bm{pm}}'_{\scriptscriptstyle \mathtt{ A \rightarrow B}}$ contains tuples $(l'^{\scriptscriptstyle  (A)}_{\scriptscriptstyle i},l'^{\scriptscriptstyle  (B)}_{\scriptscriptstyle i})$ randomly permuted. Also, $tk'^{\scriptscriptstyle  (B)}$ and $tk'^{\scriptscriptstyle  (A)}$ are fresh random keys,  and  labels $l'^{\scriptscriptstyle  (I)}_{\scriptscriptstyle i}$ were generated step \ref{labelGen}.  Next, it appends $Q'_{\scriptscriptstyle  i}$ to the view. 
+\item if $T_{\scriptscriptstyle i}= \textsf {\scriptsize Upd}^{\scriptscriptstyle (I)}_{\scriptscriptstyle t}$, then sets: 
+\begin{equation*}
+Q'_{\scriptscriptstyle  i}=\{\vv{\bm{o}}''^{\scriptscriptstyle (I)}, l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle t},\textsf {\scriptsize \textbf{Update}}\},
+\end{equation*}
+ where $\vv{\bm{o}}''^{\scriptscriptstyle (I)}$ contains $n$  uniformly random values picked from the field $\mathbb{F}_p$ and $l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle t}$ is the $t^{\scriptscriptstyle th}$ element in the vector $\vv{\bm{v}}^{\scriptscriptstyle (I)}$. After that, it appends $Q'_{\scriptscriptstyle  i}$ to the view. 
+\end{packed_enum}
+\item Appends $\Lambda$ to its view and outputs the view.
+\end{packed_enum}
+
+We are ready now to show why the two views are indistinguishable.  In both views, the input and output parts (i.e. $\Lambda$) are identical and the random coins are both uniformly
+random, and so they are indistinguishable. Each vector  $\vv{\bm{po}}^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}\in \vv{\bm{po}}^{\scriptscriptstyle (I)}$, ($\forall i, 1\leq i\leq h$ and $\forall I, I\in \{A,B\}$), contains $n$ values blinded with  pseudorandom values (that are the outputs of a pseudorandom function), also each vector  $\vv{\bm{po}}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}\in \vv{\bm{po}}'^{\scriptscriptstyle (I)}$ contains $n$ random values sampled uniformly from the same field. Since the blinded values and random values are not distinguishable, the elements of vectors $\vv{\bm{po}}^{\scriptscriptstyle (I)}$ and $\vv{\bm{po}}'^{\scriptscriptstyle (I)}$ are indistinguishable  too. Also,  labels  $l^{\scriptscriptstyle (I)}_{\scriptscriptstyle i} \in \vv{\bm{pl}}^{\scriptscriptstyle (I)}$ and $l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i} \in \vv{\bm{pl}}'^{\scriptscriptstyle (I)}$, ($\forall i, 1\leq i\leq h$ and $\forall I, I\in \{A,B\}$), are the outputs of a pseudorandom function and they are indistinguishable. Therefore, the elements of vectors $\vv{\bm{pl}}^{\scriptscriptstyle (I)}$ and $\vv{\bm{pl}}'^{\scriptscriptstyle (I)}$ are indistinguishable. Furthermore, since a pseudorandom permutation is indistinguishable from a  random permutation,  permuted vectors $\vv{\bm{po}}^{\scriptscriptstyle (I)}$ and $\vv{\bm{pl}}^{\scriptscriptstyle (I)} $, in the real model, and permuted vectors $\vv{\bm{po}}'^{\scriptscriptstyle (I)}$ and $\vv{\bm{pl}}'^{\scriptscriptstyle (I)} $, in the ideal model, are indistinguishable.
+
+
+Since  sequence $ Q'_{\scriptscriptstyle 1}, ..., Q'_{\scriptscriptstyle \Upsilon}$ is generated given the leakage function, its access and query patterns are identical to the access and query patterns of $Q_{\scriptscriptstyle 1}, ..., Q_{\scriptscriptstyle \Upsilon}$.  Now we show that $Q_{\scriptscriptstyle i}$ is indistinguishable from $Q'_{\scriptscriptstyle i}$, ($\forall i, 1\leq i\leq \Upsilon$). First we consider the  case where $T_{\scriptscriptstyle i}= \textsf {\scriptsize PSI-Com}$. In this case,  keys $tk^{\scriptscriptstyle (I)}$ and $tk'^{\scriptscriptstyle (I)}$, ($\forall I, I\in \{A,B\}$), are random values, so they are indistinguishable. Also,  messages $\textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle  (A)}, \textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle  (B)}$ and $\textsf {\scriptsize \textbf{Compute}}$ are identical in both views.  Moreover, in the real model each pair in randomly permuted vector $\vv{\bm{pm}}_{\scriptscriptstyle \mathtt{ A \rightarrow B}}$ has the form $(l^{\scriptscriptstyle  (A)}_{\scriptscriptstyle g},l^{\scriptscriptstyle  (B)}_{\scriptscriptstyle g})$ where ($\forall g, 1\leq g\leq h $ and $\forall I, I \in \{A,B\}$) $l^{\scriptscriptstyle (I)}_{\scriptscriptstyle g} \in \vv{\bm{l}}^{\scriptscriptstyle (I)}$ and each $l^{\scriptscriptstyle (I)}_{\scriptscriptstyle g}$ is a pseudorandom string. Similarly, in the ideal model each pair in randomly permuted vector  $\vv{\bm{pm}}'_{\scriptscriptstyle \mathtt{ A \rightarrow B}}$ has the form $(l'^{\scriptscriptstyle  (A)}_{\scriptscriptstyle g'},l'^{\scriptscriptstyle  (B)}_{\scriptscriptstyle g'})$ where  $l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle g'} \in \vv{\bm{l}}'^{\scriptscriptstyle (I)}$ and each $l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle g'}$ is a pseudorandom string, so   $\vv{\bm{pm}}_{\scriptscriptstyle \mathtt{ A \rightarrow B}}$  and  $\vv{\bm{pm}}'_{\scriptscriptstyle \mathtt{ A \rightarrow B}}$  are indistinguishable.      Hence,  $Q_{\scriptscriptstyle i}$ is indistinguishable from $Q'_{\scriptscriptstyle i}$.
+
+
+Now we move on to the case where $T_{\scriptscriptstyle i}= \textsf {\scriptsize Upd}^{\scriptscriptstyle (I)}_{\scriptscriptstyle t}$. In the real model, $\vv{\bm{o}}^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,c^{ {\text{\tiny (\textit{I})}}}_{\tiny j}}$ contains $n$ elements blinded with pseudorandom values, while in the ideal model $\vv{\bm{o}}''^{\scriptscriptstyle (I)}$ comprises  $n$ random values. Since the random values and blinded values are  indistinguishable  vectors $\vv{\bm{o}}^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,c^{ {\text{\tiny (\textit{I})}}}_{\tiny j}}$ and $\vv{\bm{o}}''^{\scriptscriptstyle (I)}$ are indistinguishable. In the real model, $l^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$ is a pseudorandom string and it belongs to vector $\vv{\bm{l}}^{\scriptscriptstyle (I)}$. In the ideal model, $l'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$ is a pseudorandom string and it belongs to vector $\vv{\bm{l}}'^{\scriptscriptstyle (I)}$. Therefore, the labels have the same distribution and are   indistinguishable. Also,  message $\textsf {\scriptsize \textbf{Update}}$ is identical in both models. So, $Q'_{\scriptscriptstyle i}$ and $Q_{\scriptscriptstyle i}$ are indistinguishable in this case too. From the above, we conclude that the views are indistinguishable. 
+
+\
+\vspace{-2mm}
+
+\noindent\textbf{Case 2: Corrupted Client $B$.} In the real execution client $B$'s view is defined as:
+\begin{equation*}
+ \textsf {\scriptsize VIEW}^{\scriptscriptstyle\textsf { D-PSI}}_{\scriptscriptstyle B}(\Lambda, S^{\scriptscriptstyle (A)},S^{\scriptscriptstyle (B)})=\{S^{\scriptscriptstyle (B)}, r_{\scriptscriptstyle B}, \vv{\bm{q}}, \vv{\bm{f}}, f_{\scriptscriptstyle \cap}(S^{\scriptscriptstyle (A)},S^{\scriptscriptstyle (B)})\}. 
+\end{equation*}
+
+The simulator $\textsf {\scriptsize SIM}_{\scriptscriptstyle B}$ who receives $pk^{\scriptscriptstyle (B)}, lk^{\scriptscriptstyle (B)}, S^{\scriptscriptstyle (B)}$ and $f_{\scriptscriptstyle \cap}(S^{\scriptscriptstyle (A)},S^{\scriptscriptstyle (B)})$) does the following: 
+\begin{packed_enum}
+\item Creates an empty view, and appends $S^{\scriptscriptstyle (B)}$ and  uniformly at random chosen coins $r'_{\scriptscriptstyle B}$ to it. Then, it chooses two sets $S'^{\scriptscriptstyle (A)}$ and $S'^{\scriptscriptstyle (B)}$ such that $S'^{\scriptscriptstyle (A)}\cap S'^{\scriptscriptstyle (B)}=f_{\scriptscriptstyle \cap}(S^{\scriptscriptstyle (A)},S^{\scriptscriptstyle (B)})$ and $|S'^{\scriptscriptstyle (A)}|$, $|S'^{\scriptscriptstyle (B)}|\leq c$. 
+
+\item Constructs  $\mathtt{HT}'^{\scriptscriptstyle(A)}$ and $\mathtt{HT}'^{\scriptscriptstyle(B)}$ using the public parameters. Next, it maps the elements in  $S'^{\scriptscriptstyle (A)}$ and $S'^{\scriptscriptstyle (B)}$ to the bins of $\mathtt{HT}'^{\scriptscriptstyle(A)}$ and $\mathtt{HT}'^{\scriptscriptstyle(B)}$, respectively. $\forall I, I\in \{A,B\}$ and $\forall s'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}\in S'^{\scriptscriptstyle (I)}$: $\mathtt{H}( s'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i})=j$, then $ s'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}\rightarrow \mathtt{HT}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$, where $1\leq j \leq h$.
+
+
+\item Constructs  a polynomial representing the $d$ elements of each bin. If a bin contains less than $d$ elements first it is  padded with random values  to $d$ elements. $\forall I, I\in \{A,B\}$ and $\forall j, 1\leq j \leq h$: $\tau'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}(x)=\prod\limits ^{\scriptscriptstyle d}_{\scriptscriptstyle m=1}(x-e_{\scriptscriptstyle m}^{\scriptscriptstyle (I)})$, where $e^{\scriptscriptstyle (I)}_{\scriptscriptstyle m} \in \mathtt{HT}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$.
+
+% (i.e. $e^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}=s'^{\scriptscriptstyle (I)}_{\scriptscriptstyle i} $ or $e^{\scriptscriptstyle (I)}_{\scriptscriptstyle i}=r'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j,i}$).
+
+\item Assigns a random polynomial $\omega'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$ of degree $d$ to each bin $\mathtt{HT}'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}$ ( $\forall I, I \in \{A,B\}$). Next, it constructs  vectors $\vv{\bm{f}}'_{\scriptscriptstyle j}$ whose elements are computed as $\forall j, 1\leq j\leq h$ and $\forall i, 1\leq i\leq n$: $f'_{\scriptscriptstyle j,i}=\tau'^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x_{\scriptscriptstyle i})\cdot  \omega'^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x_{\scriptscriptstyle i})+\tau'^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x_{\scriptscriptstyle i})\cdot  \omega'^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x_{\scriptscriptstyle i})$, where $n=2d+1$.
+
+
+%where $\tau'^{\scriptscriptstyle (I)}_{\scriptscriptstyle j}(x)$ represents the set elements mapped to that bin. 
+
+%\item Pick a key $mk'$ and derive $h$ keys, $k'_{\scriptscriptstyle j}$, from it. 
+%
+%\
+%
+%\vspace{-2mm}
+%\begin{center}
+%$\forall j, 1\leq j\leq h: k'_{\scriptscriptstyle j}= \mathtt{PRF}(mk', j)$
+%\end{center}
+%\
+%
+%\vspace{-2mm}
+
+%\item Use each key $k'_{\scriptscriptstyle j}$ to generate $\vv{\bm{q}}'_{\scriptscriptstyle j}$ whose elements are computed as follows.
+
+\item Generates  vector $\vv{\bm{q}}'=[\vv{\bm{q}}'_{\scriptscriptstyle 1}, ...,  \vv{\bm{q}}'_{\scriptscriptstyle h}]$  where each vector $\vv{\bm{q}}'_{\scriptscriptstyle i}$ contains $n$ random values picked from  field $\mathbb{F}_p$. Then, it appends  $\vv{\bm{q}}''=\pi(pk^{\scriptscriptstyle (B)},\vv{\bm{q}}')$, $\vv{\bm{f}}''=\pi(pk^{\scriptscriptstyle (B)},\vv{\bm{f}}')$ and $f_{\scriptscriptstyle \cap}(S^{\scriptscriptstyle (A)},S^{\scriptscriptstyle (B)})$ to the view and outputs it.
+
+
+
+%\
+%
+%\vspace{-2mm}
+%\begin{center}
+% $\forall j, 1\leq j\leq h$ and $\forall i, 1\leq i\leq n$: $q'_{\scriptscriptstyle  j,i}= \mathtt{PRF}(k'_{\scriptscriptstyle j}, i)$
+%\end{center}
+%\
+%
+%\vspace{-2mm}
+
+
+\end{packed_enum}
+
+
+
+
+
+
+Now we show that the two views are computationally indistinguishable. The entries $S^{\scriptscriptstyle (B)}$ and $\Lambda$ are identical in both views.  In the real model, the elements in $\vv{\bm{q}}_{\scriptscriptstyle j}$ are blinded with pseudorandom values, so the blinded elements are uniformly random  values. On the other hand, in the ideal model the elements in $\vv{\bm{q}}'_{\scriptscriptstyle j}$ are random values drawn from the same field. Moreover, both vectors are permuted in the same way. Hence, the vectors $\vv{\bm{q}}$ and  $\vv{\bm{q}}'$ are computationally indistinguishable. 
+
+
+Furthermore, in the real model, given each unblinded vector $\vv{\bm{f}}_{\scriptscriptstyle j}$, the adversary interpolates a $2d$-degree polynomial of the form $\phi_{\scriptscriptstyle j}(x)=\omega^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x)\cdot \tau^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x)+\omega^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x)\cdot \tau^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x)=\mu_{\scriptscriptstyle j}\cdot gcd(\tau^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x),\tau^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x))$,   where polynomial $gcd(\tau^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x),\tau^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x))$ represents intersection of the sets  in the corresponding bin, $\mathtt{HT}_{\scriptscriptstyle j}$. Similarly, in the ideal model, each $2d$-degree polynomial $\phi'_{\scriptscriptstyle j}(x)$ interpolated from vector $\vv{\bm{f}}'_{\scriptscriptstyle j}$ has the form $\phi'_{\scriptscriptstyle j}(x)=\omega'^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x)\cdot \tau'^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x)+\omega'^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x)\cdot \tau'^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x)=\mu'_{\scriptscriptstyle j}\cdot gcd(\tau'^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x),\tau'^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x))$, where $gcd(\tau'^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x),\tau'^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x))$ represents the sets intersection in the corresponding bin, $\mathtt{HT}'_{\scriptscriptstyle j}$. Also, as we discussed in section \ref{sec::poly}, $\mu_{\scriptscriptstyle j}$ and $\mu'_{\scriptscriptstyle j}$ are  uniformly random polynomials and the probability that their roots represent  set elements is negligible, thus   $\phi_{\scriptscriptstyle j}(x)$ and $\phi'_{\scriptscriptstyle j}(x)$  only contain information about the set intersection and have the same distribution in both models  \cite{DBLP:conf/crypto/KissnerS05,BonehGHWW13}. Moreover, since the same hash table parameters were used, the same elements would reside in the same bins in both models, therefore  polynomials $gcd(\tau^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x),\tau^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x))$ and $gcd(\tau'^{\scriptscriptstyle (A)}_{\scriptscriptstyle j}(x),\tau'^{\scriptscriptstyle (B)}_{\scriptscriptstyle j}(x))$ represent the set elements of the  intersection for that bin.    Moreover, both vectors $\vv{\bm{f}}$ and $\vv{\bm{f}}'$ are permuted in the same way. So, $\vv{\bm{f}}$ and $\vv{\bm{f}}'$ are indistinguishable as well. Also, the output, $ f_{\scriptscriptstyle \cap}(S^{\scriptscriptstyle (A)},S^{\scriptscriptstyle (B)})$, is identical in both views. Thus,  the two views are computationally indistinguishable. 
+
+
+
+\
+\vspace{-2mm}
+
+\noindent\textbf{Case 3: Corrupted Client $A$.} In the real execution client $A$'s view is defined as: 
+\begin{equation*}
+ \textsf {\scriptsize VIEW}^{\scriptscriptstyle\textsf { D-PSI}}_{\scriptscriptstyle A}(\Lambda, S^{\scriptscriptstyle (A)},S^{\scriptscriptstyle (B)})=\{S^{\scriptscriptstyle (A)}, r_{\scriptscriptstyle A}, lk^{\scriptscriptstyle (B)}, pk^{\scriptscriptstyle (B)}, \vv{\bm{r}}^{\scriptscriptstyle (B)},  \textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle  (B)}, \Lambda \}. 
+\end{equation*}
+
+
+The simulator, $\textsf {\scriptsize SIM}_{\scriptscriptstyle A}$, who receives $S^{\scriptscriptstyle (A)}$ performs as follows. It constructs an empty view, and adds $S^{\scriptscriptstyle (A)}$ and  uniformly at random chosen coins $r'_{\scriptscriptstyle A}$ to the view. It picks two random keys $lk'^{\scriptscriptstyle (B)}$, $pk'^{\scriptscriptstyle (B)}$ and  adds them to the view. Then, it constructs $\vv{\bm{r}}'^{\scriptscriptstyle (B)}=[\vv{\bm{r}}'^{\scriptscriptstyle (B)}_{\scriptscriptstyle 1}, ..., \vv{\bm{r}}'^{\scriptscriptstyle (B)}_{\scriptscriptstyle h}]$, where each vector $\vv{\bm{r}}'^{\scriptscriptstyle (B)}_{\scriptscriptstyle i}$ contains $n$ random values picked from the field. It also appends $\vv{\bm{r}}'^{\scriptscriptstyle (B)}$, $\textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle  (B)}$ and  $\Lambda$ to the view and outputs the view.
+
+In the following, we will show why the two views are indistinguishable. In both views, $S^{\scriptscriptstyle (A)}, \textsf {\scriptsize \textbf{ID}}^{\scriptscriptstyle  (B)}$ and $\Lambda$ are identical.  Also $r_{\scriptscriptstyle A}$ and $r'_{\scriptscriptstyle A}$ are chosen uniformly at random so they are indistinguishable. Moreover,  values $lk^{\scriptscriptstyle (B)}, pk^{\scriptscriptstyle (B)}, lk'^{\scriptscriptstyle (B)}$ and $pk'^{\scriptscriptstyle (B)}$ are the keys picked uniformly at random, so they are indistinguishable, too. In the real model,  each vector $\vv{\bm{r}}^{\scriptscriptstyle (B)}_{\scriptscriptstyle i}$ contains $n$ values blinded with pseudorandom values. On the other hand, in the ideal model, each vector $\vv{\bm{r}}'^{\scriptscriptstyle (B)}_{\scriptscriptstyle i}$ comprises $n$ random elements of the field. Since the random values and blinded values are indistinguishable,  vectors $\vv{\bm{r}}^{\scriptscriptstyle (B)}$ and $\vv{\bm{r}}'^{\scriptscriptstyle (B)}$ are indistinguishable. Hence, the two views are indistinguishable. 
+\end{proof}
+
+\vspace{-3mm}

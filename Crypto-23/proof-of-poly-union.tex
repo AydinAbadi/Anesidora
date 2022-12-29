@@ -1,0 +1,13 @@
+% !TEX root =main.tex
+
+
+\section{Proof of Theorem \ref{theorem:coef-poly-prod}}\label{sec::proof-of-poly-union}
+
+Below, we restate the proof of Theorem \ref{theorem:coef-poly-prod}, taken from \cite{AbadiMZ21}.
+
+\begin{proof}
+Let $P=\{p_{\st 1},...,p_{\st t}\}$ and $Q=\{q_{\st 1},...,q_{\st t'}\}$ be the roots of polynomials $\mathbf{p}$ and   $\mathbf{q}$  respectively.  By the Polynomial Remainder Theorem,  polynomials $\mathbf{p}$ and $\mathbf{q}$  can be written as $\mathbf{p}(x)=\mathbf{g}(x)\cdot\prod\limits_{\st i=1}^{\st t}(x-p_{\st i})$ and $\mathbf{q}(x)=\mathbf{g}'(x)\cdot\prod\limits_{\st i=1}^{\st t'}(x-q_{\st i})$ respectively, where $\mathbf{g}(x)$ has degree $d-t$ and $\mathbf{g}'(x)$ has degree $d'-t'$. Let the product of the two polynomials be $\mathbf{r}(x)=\mathbf{p}(x)\cdot \mathbf{q}(x)$. For every $p_{\st i}\in P$, it holds  that $\mathbf{r}(p_{\st i})=0$. Because (a) there exists no non-constant polynomial in $\mathbb{F}_{\st p}[X]$ that has a multiplicative inverse (so it could cancel out factor $(x-p_{\st i})$ of $\mathbf{p}(x)$) and (b) $p_{\st i}$ is a root of $\mathbf{p}(x)$. The same argument  can be used to show for every $q_{\st i}\in Q$, it holds that $\mathbf{r}(q_{\st i})=0$. Thus, $\mathbf{r}(x)$ preserves  roots of  both  $\mathbf{p}$ and $\mathbf{q}$. Moreover, $\mathbf{r}$ does not have any other roots (than $P$ and $Q$). In particular, if $\mathbf{r}(\alpha)=0$, then $\mathbf{p}(\alpha)\cdot \mathbf{q}(\alpha)=0$. Since there is no non-trivial divisors of zero in $\mathbb{F}_{\st p}[X]$  (as it is an integral domain), it must hold that either $\mathbf{p}(\alpha)=0$ or $\mathbf{q}(\alpha)=0$. Hence, $\alpha\in P$ or $\alpha\in Q$.  %\hfill\(\Box\)
+\hfill\(\Box\)
+\end{proof}
+
+%

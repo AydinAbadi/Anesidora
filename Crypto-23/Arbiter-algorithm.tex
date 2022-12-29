@@ -1,0 +1,163 @@
+% !TEX root =main.tex
+
+
+
+
+\begin{figure}[ht]%[!htbp]
+\setlength{\fboxsep}{1pt}
+\begin{center}
+    \begin{tcolorbox}[enhanced,width=5.5in, 
+    drop fuzzy shadow southwest,
+    colframe=black,colback=white]
+
+
+{\small{
+
+%\underline{$\mathtt{Audit}( \vv{{k}},  q, \bm\zeta, \bar d, g, \vv v)\rightarrow (L, \vv{{\mu}})$}
+\begin{enumerate}
+%\item[$\bullet$] Parties: clients: $\{  {   A}_{    {    1}},...,   {   A}_{    {    m}}\}$, the dealer and  an Arbiter.
+
+
+\item[$\bullet$]    {Parties.} A set of clients $\{ A_{\st 1},...,  A_{\st m}\}$ and an external auditor, \aud. 
+
+\item[$\bullet$]    {Input.}  $m$: the total number of participants (excluding the auditor), $\bm\zeta$: a random polynomial of degree $1$, $b$: the total number of vectors, and $adr$: a deployed smart contract's address. Let $b'=b-1$.
+
+
+
+
+
+%\item[$\bullet$]   {Input.} $\vv{{k}}=[k_{\st 1},..., k_{\st m}]$,    $q$: a  hash value, $\bm\zeta$: a random polynoimal of degree $1$, $\bar d$: a polynoimal's degree,   $g$: a root of Merkle tree, and $\vv v$: binary vector of size $m$. 
+
+
+\item[$\bullet$]  {Output of  each} $  A_{\st j}$.   $k$: a secret key that generates $b$ vectors $[z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle 0,m}],...,[z_{\scriptscriptstyle b',1},...,z_{\scriptscriptstyle b', m}]$ of pseudorandom values, $h$: hash of the key,  $g$: a Merkle tree's root, and a vector of signed messages. 
+
+
+
+\item[$\bullet$]    {Output of \aud.} $L$: a list of misbehaving parties' indices, and  $\vv{{\mu}}$: a vector of random polynomials.
+%
+\item\label{ZSPA::ZSPA-invocation} {\textbf{\zspa invocation.}  $\zspa(\bot,..., \bot)\rightarrow \Big((k, g, q),..., (k, g,q )\Big)$}. 
+
+All parties in $\{A_{\st 1},...,  A_{\st m}\}$ call the same instance of \zspa, which results in  $(k, g, q), ..., (k, g, q)$. 
+%
+
+\item\label{ZSPA-A::Auditor-computation}  {\textbf{Auditor computation.} $\mathtt{Audit}( \vv{{k}},  q, \bm\zeta, b, g)\rightarrow (L, \vv{{\mu}})$}. 
+
+\aud\ takes the below steps. Note,  each $k_{\st j}\in \vv{{k}}$ is given by  $  A_{\st j}$. An honest party's input, $k_{\st j}$,  equals $k$, where $1\leq j \leq m$. 
+
+
+\begin{enumerate}
+%
+\item runs the checks in the verification phase (i.e., Phase \ref{ZSPA:verify}) of \zspa for every $j$, i.e., $\mathtt{Verify}(k_{\st j}, g, q, m)\rightarrow (a_{\st j}, s)$.
+\item appends $j$ to $L$, if any checks fails, i.e., if $a_{\st j}=0$. In this case, it skips the next two steps for the current $j$. 
+
+
+
+%
+%
+%\item  Checks whether equation $\mathtt{H}(k_{\st j})=q$ holds  for every $j$, $1\leq j \leq m$.   
+%%
+%\begin{itemize}
+%%
+%\item[$\bullet$] if any $j$-th check fails,  it adds $j$ to $L$.
+%%
+%\item[$\bullet$]  if $L$ contains all $j\in[1,m]$, it returns $L$ and aborts. 
+%%
+%\end{itemize}
+%%
+%\item\label{zero-sum-arbiter-verification} Verifies the Merkle tree's root, $g$, by checking if the tree (corresponding to  $g$) has been correctly constructed on the correct leaf nodes. In particular, it takes the following steps. 
+%
+%\begin{enumerate}
+%
+%\item regenerates the tree's leaf nodes (similar to step \ref{ZSPA:val-gen} in Fig. \ref{fig:ZSPA}) as follows. Let $k$ be a key that passed the above check.  For every $i$ (where $0\leq i \leq \bar d$), it recomputes $m$ pseudorandom values: 
+%%
+%$$\forall j, 1\leq j \leq m-1: z_{\st i,j}=\mathtt{PRF}(k,i||j), \hspace{4mm} z_{\st i,m}=-\sum\limits^{\st m-1}_{\st j=1}z_{\st i,j}$$
+%%
+%\item   constructs a Merkel tree on top of all pseudorandom values generated in the previous step, i.e., $\mathtt{MT.genTree}(z_{\st 0,1},...,z_{\st \bar d,m})\rightarrow g'$. 
+%%
+%\item checks if $g=g'$. If the equation does not hold, then it adds to $L$ every index $j$ whose value in $\vv v$ is $1$, i.e., $\vv v[j]=1$; in this case, it returns $L$ and aborts.
+%%
+%\end{enumerate}
+%
+
+\item\label{ZSPA-A::gen-z} For every $i$ (where $0\leq i \leq b'$), it recomputes $m$ pseudorandom values: 
+%
+$\forall j, 1\leq j \leq m-1: z_{\st i,j}=\mathtt{PRF}(k,i||j), \hspace{4mm} z_{\st i,m}=-\sum\limits^{\st m-1}_{\st j=1}z_{\st i,j}$.
+%
+ \item generates polynomial $\bm\mu^{\st (j)}$ as follows: 
+  %
+   $\bm\mu^{\st (j)} = \bm\zeta\cdot \bm\xi^{\st (j)}-\bm\tau^{\st (j)}$, 
+   %
+    where $\bm\xi^{\st (j)}$ is a random polynomial of degree $b'-1$ and $\bm\tau^{\st (j)}=\sum\limits^{\st b'}_{\st i=0}z_{\st i,j}\cdot x^{\st i}$. By the end of this step, a vector $\vv{{\mu}}$ containing at most $m$ polynomials is generated. 
+%
+ \item returns   list $L$ and $\vv{{\mu}}$.
+ 
+\end{enumerate}
+ \end{enumerate}
+}}
+ \end{tcolorbox}
+\end{center}
+\caption{\zspa with an external auditor (\zspaa)} 
+\label{fig:arbiter}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{figure}[ht]%[!htbp]
+%\setlength{\fboxsep}{1pt}
+%\begin{center}
+%    \begin{tcolorbox}[enhanced,width=5.5in, 
+%    drop fuzzy shadow southwest,
+%    colframe=black,colback=white]
+%
+%
+%{\small{
+%
+%\underline{$\mathtt{Audit}( \vv{{k}},  q, \bm\zeta, \bar d, g, \vv v)\rightarrow (L, \vv{{\mu}})$}
+%\begin{enumerate}
+%%\item[$\bullet$] Parties: clients: $\{  {   A}_{    {    1}},...,   {   A}_{    {    m}}\}$, the dealer and  an Arbiter.
+%\item[$\bullet$]   {Input.} $\vv{{k}}=[k_{\st 1},...,k_{\st m}]$,    $q$: a  hash value, $\bm\zeta$: a random polynoimal of degree $1$, $\bar d$: a polynoimal's degree,   $g$: a root of Merkle tree, and $\vv v$: binary vector of size $m$. 
+%
+%
+%\item[$\bullet$]    {Output.} A list of rejected values' indices: $L$, a vector of random polynomials: $\vv{{\mu}}$.
+%%
+%\item  Checks whether equation $\mathtt{H}(k_{\st j})=q$ holds  for every $j$, $1\leq j \leq m$.   
+%%
+%\begin{itemize}
+%%
+%\item[$\bullet$] if any $j$-th check fails,  it adds $j$ to $L$.
+%%
+%\item[$\bullet$]  if $L$ contains all $j\in[1,m]$, it returns $L$ and aborts. 
+%%
+%\end{itemize}
+%%
+%\item\label{zero-sum-arbiter-verification} Verifies the Merkle tree's root, $g$, by checking if the tree (corresponding to  $g$) has been correctly constructed on the correct leaf nodes. In particular, it takes the following steps. 
+%
+%\begin{enumerate}
+%
+%\item regenerates the tree's leaf nodes (similar to step \ref{ZSPA:val-gen} in Fig. \ref{fig:ZSPA}) as follows. Let $k$ be a key that passed the above check.  For every $i$ (where $0\leq i \leq \bar d$), it recomputes $m$ pseudorandom values: 
+%%
+%$$\forall j, 1\leq j \leq m-1: z_{\st i,j}=\mathtt{PRF}(k,i||j), \hspace{4mm} z_{\st i,m}=-\sum\limits^{\st m-1}_{\st j=1}z_{\st i,j}$$
+%%
+%\item   constructs a Merkel tree on top of all pseudorandom values generated in the previous step, i.e., $\mathtt{MT.genTree}(z_{\st 0,1},...,z_{\st \bar d,m})\rightarrow g'$. 
+%%
+%\item checks if $g=g'$. If the equation does not hold, then it adds to $L$ every index $j$ whose value in $\vv v$ is $1$, i.e., $\vv v[j]=1$; in this case, it returns $L$ and aborts.
+%%
+%\end{enumerate}
+%%
+% \item Generates polynomial $\bm\mu^{\st (j)}$, for every $j$ such that $j\in[1,m]$ and $j \notin L$,  as follows:
+%  %
+%   $$\bm\mu^{\st (j)} = \bm\zeta\cdot \bm\xi^{\st (j)}-\bm\tau^{\st (j)}$$
+%   %
+%    where $\bm\xi^{\st (j)}$ is a random polynomial of degree $\bar d-1$ and $\bm\tau^{\st (j)}=\sum\limits^{\st \bar d}_{\st i=0}z_{\st i,j}\cdot x^{\st i}$. By the end of this step, a vector $\vv{{\mu}}$ containing at most $m$ polynomials is generated. 
+%%
+% \item Returns   list $L$ and $\vv{{\mu}}$.
+% 
+%
+% \end{enumerate}
+%}}
+% \end{tcolorbox}
+%\end{center}
+%\caption{$\text{Audit}$ Algorithm} 
+%\label{fig:arbiter}
+%\end{figure}
