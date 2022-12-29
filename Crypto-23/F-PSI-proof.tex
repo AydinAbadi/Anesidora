@@ -12,8 +12,6 @@ In this section, we prove Theorem \ref{theorem::F-PSI-security}, i.e., the secur
 %
 We prove Theorem  \ref{theorem::F-PSI-security} by considering the case where each party is corrupt, at a time.
 
-\
-
 \noindent\textbf{Case 1: Corrupt $m-1$ clients in $\{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}$}.  Let $P'$ be a set of at most $m-1$ corrupt clients, where $P'\subset \{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}$. Let set $\hat P$ be defined as follows: $\hat P=\{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}\setminus P'$. Also, let $\mathsf{Sim}^{\st\fpsi}_{\st A}$ be the simulator, which uses a subroutine adversary, $\mathcal{A}$.  Below, we explain how $\mathsf{Sim}^{\st \fpsi}_{\st A}$ (which receives the input sets of honest dealer $D$ and honest client(s) in $\hat P$) works. 
 
 
@@ -158,11 +156,10 @@ In the ideal model, when $Flag=True$, then $\mathsf{Sim}^{\st \fpsi}_{\st A}$ ca
 
 We conclude that the distributions of the joint outputs of the honest client $C\in \hat P$, client $D$, \aud, and the adversary in the real and ideal models are computationally indistinguishable.
 
-\
+
 
 \noindent\textbf{Case 2: Corrupt dealer $D$}.  In the real execution, the dealer's view is defined as follows: 
-
-
+%
 $$ \mathsf{View}_{\st D}^{\st \fpsi} \Big(S^{\st (D)},(S^{\st (1)},..., S^{\st (m)})\Big)=$$ $$ \{S^{\st (D)}, adr_{\st sc}, m\cdot(\yc+\chc), r_{\st D}, \mathsf{View}^{\st \ct}_{\st D}, k, g, q, \mathsf{View}^{\st \vopr}_{\st D}, \bm\nu^{\st (A_1)},..., \bm\nu^{\st (A_m)}, S_{\st \cap}\}$$
 %
 where  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{View}^{\st \vopr}_{\st D}$ refer to the dealer's real-model view during the execution of \ct and \vopr respectively. Also, $r_{\st D}$ is the outcome of internal random coins of client $D$ and $adr_{\st sc}$ is the address of contract $\mathcal{SC}_{\fpsi}$. The simulator $\mathsf{Sim}^{\st \fpsi}_{\st D}$, which receives all parties' input sets, works as follows. 
@@ -210,17 +207,14 @@ where  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{View}^{\st \vopr}_{\st D}$
  
  As shown in Section \ref{sec::poly-rep},  polynomial $\bm{\hat\phi}$ has the form $\bm\mu\cdot gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})$, where $\bm\mu$ is a uniformly random polynomial and $gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})$ represents the intersection of the input sets. Moreover, it is evident that $\bm{\hat\phi}'$ has the form $ {\bm\mu} \cdot  {\bm\pi}$, where $ {\bm\mu} $ is a random polynomial and $ {\bm\pi}$ represents the intersection. We know that both $gcd( \bm\pi^{ \st {  {(D)}} },\bm\pi^{\st (A_1)}, ..., \bm\pi^{\st (A_m)})$ and $ {\bm\pi}$  represent the same intersection, also  ${\bm\mu} $ in the real model and $ {\bm\mu} $ in the ideal model have identical distribution as they are uniformly random polynomials. Thus, two polynomials $\bm{\hat\phi}$ and $\bm{\hat\phi}'$ are indistinguishable. Also, the output $S_{\st \cap}$ is identical in both views. We conclude that the two views are computationally indistinguishable.
  
- 
- \
 
 \noindent\textbf{Case 3: Corrupt auditor}.  In this case, by using the proof that we have already provided for Case 1 (i.e.,  $m-1$ client $A_{\st j}$s are corrupt), we can easily construct a simulator that generates a view computationally distinguishable from the real-model semi-honest auditor. 
  The reason is that, in the worst-case scenario where $m-1$ malicious client $A_{\st j}$s reveal their input sets and randomness to the auditor, the auditor's view would be similar to the view of these corrupt clients, which we have shown to be indistinguishable. The only extra messages the auditor generates, that a corrupt client $A_{\st j}$ would not see in plaintext, are random blinding polynomials $(\bm\xi^{\st (A_1)},..., \bm\xi^{\st (A_m)})$ generated during the execution of $\mathtt{Audit}(.)$ of \zspaa; however, these polynomials are picked uniformly at random and independent of the parties' input sets. Thus, if the smart contract detects misbehaviour and invokes the auditor, even if $m-1$ corrupt client $A_{\st j}$ reveals their input sets, then the auditor cannot learn anything about honest parties' input sets.    
  
- \
-
-\noindent\textbf{Case 4: Corrupt public}. In the real model, the view of the public (i.e., non-participants of the protocol) is defined as below: 
  
 
+\noindent\textbf{Case 4: Corrupt public}. In the real model, the view of the public (i.e., non-participants of the protocol) is defined as below: 
+ %
  $$ \mathsf{View}_{\st Pub}^{\st \fpsi} \Big(\bot, S^{\st (D)},(S^{\st (A_1)},..., S^{\st (A_m)})\Big)=$$ $$ \{\bot, adr_{\st sc}, (m+1)\cdot(\yc+\chc), k, g, q, \bm\nu^{\st (A_1)},..., \bm\nu^{\st (A_m)}, \bm\nu^{\st (D)}\}$$
  
  

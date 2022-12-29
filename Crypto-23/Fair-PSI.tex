@@ -190,7 +190,7 @@ Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will allow \scf to
 
 \subsubsection{Detailed Description of \fpsi.} Below, we elaborate on how \fpsi exactly works (see Table \ref{table:notation-table} for description of the main notations used). 
 
-\begin{enumerate}
+\begin{enumerate}[leftmargin=4mm]
 
 %\item[$\bullet$] \textbf{Input:} a pseudorandom function: $\mathtt{PRF}$, a hash table's parameters (i.e., the  total number of bins: $h$ and a bin's capacity: $d$), and clients' sets: $S^{\st (I)}$, where $I\in \bar{P}$.
 
@@ -216,19 +216,19 @@ It, for each client $C$, allocates to each bin two random polynomials: $\bm\omeg
 
 
 \item\label{e-psi::D-randomises}  $D$ randomises other clients' polynomials. To do so, for every bin, it invokes an instance of {\vopr} (presented in Fig. \ref{fig:VOPR}) with  each client $  C$; where  $D$ sends $\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}$ and $\bm\gamma^{\st  {  {(D,C)}}}$, while client $ C$ sends $\bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(C)}}}$ to {\vopr}. Each client $C$, for every bin, receives a blind polynomial of the following form: 
-
+%
 $$\bm\theta^{  {  {(C)}}}_{\st 1}=\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}\cdot \bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(C)}}}+\bm\gamma^{\st  {  {(D,C)}}}$$
 %
  from {\vopr}. If any party aborts, the deposit would be refunded to all parties.
 
 \item\label{e-psi::C-randomises} Each client $    {  C}$ randomises  $ {D}$'s polynomial. To do that, each client $    {  C}$, for each bin,  invokes an instance of {\vopr} with   $ {D}$,    where each client $    {  C}$  sends $\bm\rho^{\st  {  {(C,D)}}}$, while  ${D}$  sends $\bm\zeta\cdot\bm \rho^{\st  {  {(D,C)}}}\cdot \bm\pi^{  {  {(D)}}}$ and $\bm\delta^{\st  {  {(D,C)}}}$ to {\vopr}. Every client   $    {  C}$, for each bin,  receives a blind polynomial of the following form: 
-
+%
 $$\bm\theta^{  {  {(C)}}}_{\st 2}=\bm\zeta \cdot \bm\rho^{\st  {  {(D,C)}}}\cdot \bm\rho^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(D)}}}+\bm\delta^{\st  {  {(D,C)}}}$$
  from {\vopr}. If any party aborts, the deposit would be refunded to all parties.
 
 
 \item\label{blindPoly-C-sends-to-contract} Each client $ C$, for every bin, masks the sum of polynomials $\bm\theta^{\st  {  {(C)}}}_{\st 1}$ and $\bm\theta^{\st  {  {(C)}}}_{\st 2}$  using the blinding factors: $z_{\st i,c}$, generated in step \ref{ZSPA}. Specifically, it computes the following blind polynomial (for every bin):  
-
+%
 $$\bm\nu^{ \st {  {(C)}} }= \bm\theta^{ \st {  {(C)}}}_{\st 1}+\bm\theta^{\st  {  {(C)}}}_{\st 2}+\bm \tau^{\st  {  {(C)}} }$$
 
 where $\bm\tau^{\st  {  {(C)}}}=\sum\limits^{\st 3d+2}_{\st i=0}z_{\st i,c}\cdot x^{\st i}$. Next, it sends  all $\bm\nu^{\st  {  {(C)}} }$ to $\mathcal{SC}_{\fpsi}$. If any party aborts, the deposit would be refunded to all parties.
@@ -251,17 +251,17 @@ where $\bm\tau^{\st  {  {(C)}}}=\sum\limits^{\st 3d+2}_{\st i=0}z_{\st i,c}\cdot
 \item\label{f-psi::D-gen-random-poly} ${D}$ ensures all clients sent their inputs to $\mathcal{SC}_{\fpsi}$. If the check fails, it halts and the deposit would be refunded to all parties. It allocates a fresh pseudorandom polynomial $\bm\gamma'$ of degree $3d$, to each bin. To do so, it uses $mk$ to derive a key for each bin: $k_{\st  { {indx}}}=\mathtt{PRF}(mk, {    {   {indx}}})$ and then uses the derived key to generate $3d+1$ pseudorandom coefficients $g_{\st  { {j,indx}}}=\mathtt{PRF}(k_{\st  { {indx}}}, j)$ where $ 0\leq j \leq 3d$. Also, for each bin, it allocates a fresh random polynomial:  $\bm\omega'^{\st  {  {(D)}}}$ of degree $d$. 
 
 \item\label{f-psi::D-gen-switching-poly}  $ {D}$,  for every bin, computes a polynomial of the form:  
-
+%
 $$\bm\nu^{\st  {  {(D)}}}=\bm\zeta \cdot  \bm\omega'^{\st  {  {(D)}}}\cdot \bm\pi^{\st  {  {(D)}} }-\sum\limits^{\st  {   A}_{\st  {   m}}}_{\st   {  {C }= }   {   A}_{\st  {  1}}}(\bm\gamma^{\st  {  {(D,C)}}} + \bm\delta^{\st  {  {(D,C)}}}) + \bm\zeta \cdot \bm\gamma'$$ 
 It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\bm\zeta$, for each bin.
 
  \item\label{compute-res-poly}  $\mathcal{SC}_{\fpsi}$ takes the following steps:
- \begin{enumerate}
+ \begin{enumerate}[leftmargin=2mm]
  \item for every bin, sums all related polynomials  provided by all clients in $\bar{P}$:
- 
+ %
  \begin{equation*}
 \begin{split}
- \bm\phi&= \bm\nu^{\st  {  {(D)}} }+\sum\limits^{\st  {   A}_{\st  {   m}}}_{\st   {  {C }= }   {   A}_{\st  {  1}}}\bm\nu^{\st  {  {(C)}} }\\
+\hspace{-9mm} \bm\phi&= \bm\nu^{\st  {  {(D)}} }+\sum\limits^{\st  {   A}_{\st  {   m}}}_{\st   {  {C }= }   {   A}_{\st  {  1}}}\bm\nu^{\st  {  {(C)}} }\\
  &= \bm\zeta\cdot \bigg(\bm\omega'^{\st  {  {(D)}}}\cdot \bm\pi^{\st  {  {(D)}} } +\sum\limits^{\st  {   A}_{  {   m}}}_{\st  {  {C }= }   {   A}_{\st  {  1}}}(\bm\omega^{\st  {  {(D,C)}}} \cdot \bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  (C)}}) +\bm\pi^{\st  {  {(D)}}}\cdot\sum\limits^{\st  {   A}_{ \st {   m}}}_{\st  {C= }   {   A}_{\st  {  1}}}(\bm\rho^{\st  {  {(D,C)}}} \cdot \bm\rho^{\st  {  {(C,D)}}}) + \bm\gamma'\bigg)
   \end{split}
 \end{equation*}
@@ -285,7 +285,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
   \item derives a bin's pseudorandom polynomial, $\bm\gamma'$, from $mk$. 
   
   \item removes the blinding polynomial from each bin's polynomial: 
-  
+  %
   $$\bm\phi'=\bm\phi-\bm\zeta\cdot \bm\gamma'$$ 
   
   \item\label{F-PSI::find-intersection} evaluates each bin's unblinded polynomial at every element $s_{\st i}$ belonging to that bin and considers the element in the intersection if the evaluation is zero: i.e., $\bm\phi'(s_{\st i})=0$.
@@ -310,7 +310,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  \item to  help identify further  misbehaving clients, $D$ takes the following steps,  for each bin of client $    {  C}$ whose ID is not in $\bar L$.   
  \begin{enumerate}
  \item\label{gen-unmaking-poly} computes polynomial $\bm\chi^{  {  {(D, C)}}}$ as follows. 
- 
+ %
  $$\bm\chi^{ \st {  {(D, C)}}}=\bm\zeta\cdot \bm\eta^{ \st {  {(D,C)}}}-(\bm\gamma^{ \st {  {(D,C)}}}+\bm\delta^{ \st {  {(D,C)}}})$$
  
  %+\bm\mu^{  {  {(D, C)}}}
@@ -331,7 +331,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
   \begin{enumerate}
   
  \item computes  polynomial $\bm\iota^{\st  {  {(C)}}}$ as follows: 
- 
+ %
   \begin{equation*}
 \begin{split}
  \bm\iota^{ \st {  {(C)}}}&=\bm\chi^{\st  {  {(D, C)}}}+\bm\nu^{\st  {  {(C)}}} +\bm\mu^{ \st {  {(C)}}} \\ 

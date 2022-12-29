@@ -34,7 +34,7 @@ First, we consider the case where a sender, who (may collude with $m-2$ senders 
 
 \item computes $m$ pseudorandom values  for every $i,j'$, where $0\leq i \leq b'$ and $j'\notin  L$ as follows.   
 %
-$$\forall j', 1\leq j' \leq m-1: z_{\st i,j}=\mathtt{PRF}( k,i||j')\hspace{5mm}  \text{and }\hspace{5mm} z_{\st i,m}=-\sum\limits^{\st m-1}_{\st j'=1}z_{\st i,j}$$ 
+$\forall j', 1\leq j' \leq m-1: z_{\st i,j}=\mathtt{PRF}( k,i||j')\hspace{5mm}  \text{and }\hspace{5mm} z_{\st i,m}=-\sum\limits^{\st m-1}_{\st j'=1}z_{\st i,j}$.
 %
  \item generates polynomial ${\bm\mu}^{\st (j)}$, for every $j \notin L$, as follows:
   %
@@ -76,7 +76,7 @@ $$\forall j', 1\leq j' \leq m-1: z_{\st i,j}=\mathtt{PRF}( k,i||j')\hspace{5mm} 
 %
  $$\forall j, 1\leq j' \leq m-1: z_{\scriptscriptstyle i,j}=\mathtt{PRF}( k'_{\st j},i||j'), \hspace{5mm} z_{\scriptscriptstyle i,m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}$$
 %
-\item   constructs a Merkel tree on top of all pseudorandom values,  $\mathtt{MT.genTree}(z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle b', m})\rightarrow  g'_{\st j}$. 
+\item  constructs a Merkel tree on top of all pseudorandom values as follows,  $\mathtt{MT.genTree}(z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle b', m})\rightarrow  g'_{\st j}$. 
 %
 \end{enumerate}
 %

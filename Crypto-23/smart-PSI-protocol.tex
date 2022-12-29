@@ -66,7 +66,7 @@ Next, we present the formal definition of multi-party PSI with Fair Compensation
 
 \begin{definition}[\ep]\label{def::PSI-Q-fair-reward}
 Let $f^{\st \text{PSI}}$ be the multi-party PSI functionality defined in Section \ref{sec::F-PSI-model}. We say  protocol $\Gamma$ realises  $f^{\st \text{PSI}}$ with $\bar Q$-fairness-and-reward in the presence of $m-3$ static active-adversary clients $A_{\st j}$s and $two$ rational clients $A_{\st i}s$ or a static passive dealer  $D$ or passive auditor $Aud$, if for every non-uniform probabilistic polynomial time adversary $\mathcal{A}$ for the real model, there exists a non-uniform probabilistic polynomial-time adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $I\in \{A_{\st 1},...,A_{\st m}, D, Aud\}$, it holds that: 
-
+%
 \begin{equation*}
 \{\mathsf {Ideal}^{\st \mathcal{W}(f^{\st \text{PSI}}, \bar Q)}_{\st \mathsf{Sim}(z), I}(S_{\st 1},..., S_{\st m+1})\}_{\st S_{\st 1},..., S_{\st m+1},z}\stackrel{c}{\equiv} \{\mathsf{Real}_{\st \mathcal{A}(z), I}^{\st \Gamma}(S_{\st 1},..., S_{\st m+1}) \}_{\st S_{\st 1},..., S_{\st m+1},z}
 \end{equation*}
@@ -212,7 +212,7 @@ After that, it constructs a hash table  $\mathtt{HT}$ and inserts the encoded el
 
 
 %\item commits to every  encrypted element.  $\forall i, 1\leq i\leq d: \mathtt{a}^{\st { {(I)}}}_{\st i}=\mathtt{Com}(e^{\st { {(I)}}}_{\st i}, q^{\st { {(I)}}}_{\st i})$, where $q^{\st { {(I)}}}_{\st i}$ is a fresh randomness  used for the commitment.
-\item  constructs a Merkel tree on top of all committed values: $\mkgen(com_{\st 1,1},...,com_{\st d,h})\rightarrow g$. %Let $\mathtt{MT}^{\st g}$ be a Merkel tree with a root node $g^{\st I}$. 
+\item  constructs a Merkel tree on top of all committed values as follows: $\mkgen(com_{\st 1,1},...,com_{\st d,h})\rightarrow g$. %Let $\mathtt{MT}^{\st g}$ be a Merkel tree with a root node $g^{\st I}$. 
 \item stores the Merkel tree's root $g$ on $\SCe$.
 \end{enumerate}
 

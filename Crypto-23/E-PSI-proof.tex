@@ -206,7 +206,7 @@ We conclude that the distribution of the joint outputs of the honest client $C\i
 
 
 
-\
+
 
 \noindent\textbf{Case 2: Corrupt dealer $D$}.  In the real execution, the dealer's view is defined as follows: 
 
@@ -283,12 +283,12 @@ where  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{View}^{\st \vopr}_{\st D}$
  In the real model, each Merkle tree proof $h_{\st i}$ contains two leaf nodes (along with intermediary nodes that are the hash values of a subset of leaf nodes) that are themselves the commitment values. Also, for each $h_{\st i}$, only one of the leaf node's openings (that contains an element in the intersection) is seen by $D$. The same holds in the ideal model, with the difference that for each Merkle tree proof $h_{\st i, j}$ the leaf node whose opening is not provided is a random value, instead of an actual commitment. However, due to the hiding property of the commitment scheme, in the real and ideal models,  these two leaf nodes (whose openings are not provided) and accordingly the two proofs are computationally indistinguishable. In both models, values $mk$ and $z'$ are random values, so they have identical distributions. Furthermore, the intersection $S_{\st \cap}$ is identical in both models. Thus, we conclude that the two views are computationally indistinguishable.
  
  
- \
+ 
 
 \noindent\textbf{Case 3: Corrupt auditor}.  In this case, the real-model view of the auditor is defined as  
-
+%
 $$ \mathsf{View}_{\st Aud}^{\st \epsi} \Big(\bot, S^{\st (D)}, (S^{\st (1)},..., S^{\st (m)})\Big)=$$
-
+%
 $$ \{\mathsf{View}^{\st \fpsi}_{\st Aud}, adr_{\st sc}, \Smin\cdot \vc, 2\cdot \dc', (com_{\st 1,j}, \bar{e}_{\st 1}, q_{\st 1}, h_{\st 1})..., (com_{\st sz, j'}, \bar{e}_{\st sz}, q_{\st {sz}}, h_{\st sz}), g, \hat{x}:=({mk}, z')\}$$
 
 
@@ -300,11 +300,10 @@ $$ \{\mathsf{View}^{\st \fpsi}_{\st Aud}, adr_{\st sc}, \Smin\cdot \vc, 2\cdot \
 %by using the proof that we have already provided for Case 1 (i.e.,  $m-1$ client $A_{\st j}$s are corrupt), we can easily construct a simulator that generates a view computationally distinguishable from the real world semi-honest auditor. 
 % The reason is that, in the worst-case scenario where $m-1$ malicious client $A_{\st j}$s reveal their input sets and randomness to the auditor, the auditor's view would be similar to the view of these corrupt clients, which we have shown to be indistinguishable. The only extra messages the auditor generates, that a corrupt client $A_{\st j}$ would not see in plaintext, are random blinding polynomials $(\bm\xi^{\st (A_1)},..., \bm\xi^{\st (A_m)})$ generated during the execution of $\mathtt{Audit}(.)$ of the ZSPA-A; however, these polynomials are picked uniformly at random and independent of the parties' input sets. Thus, if the smart contract detects misbehaviour and invokes the auditor, even if $m-1$ corrupt client $A_{\st j}$ reveals their input sets, then the auditor cannot learn anything about honest parties' input sets.    
  
- \
-
-\noindent\textbf{Case 4: Corrupt public}. In the real model, the view of the public (i.e., non-participants of the protocol) is defined as below: 
  
 
+\noindent\textbf{Case 4: Corrupt public}. In the real model, the view of the public (i.e., non-participants of the protocol) is defined as below: 
+ %
  $$ \mathsf{View}_{\st Pub}^{\st \epsi} \Big(\bot, S^{\st (D)},(S^{\st (A_1)},..., S^{\st (A_m)})\Big)=$$ $$ 
  %
  %
