@@ -9,9 +9,9 @@
 \section{Introduction}
 
 
-Secure Multi-Party Computation (MPC)  allows multiple mutually distrustful parties to jointly compute a certain functionality on their private inputs without revealing anything beyond the result. Private Set Intersection (PSI) is a subclass of MPC that aims to efficiently achieve the same security property as MPC does. %lets parties compute the intersection of their private sets without  revealing anything beyond the sets' intersection. 
+Private Set Intersection (PSI) is a protocol which allows two parties to jointly compute the intersection of their private sets without revealing anything beyond the result. 
 %
-PSI has numerous applications. For instance, it has  been used  in Vertical Federated Learning (VFL) \cite{LuD20}, COVID-19 contact tracing schemes  \cite{DBLP:conf/asiacrypt/DuongPT20},  remote diagnostics \cite{BrickellPSW07}, and finding leaked credentials \cite{ThomasPYRKIBPPB19}. %Apple's child safety solution to combat ``Child Sexual Abuse Material''  \cite{Apple-PSI}. %PSI has been considered by the ``Financial Action Task Force'' (FATF) as one of the vital tools for enabling collaborative analytics between financial institutions to  strengthen ``Anti-Money Laundering'' (AML)  
+PSI has numerous applications. For instance, it has been used in Vertical Federated Learning (VFL) \cite{LuD20}, COVID-19 contact tracing schemes  \cite{DBLP:conf/asiacrypt/DuongPT20},  remote diagnostics \cite{BrickellPSW07}, and finding leaked credentials \cite{ThomasPYRKIBPPB19}. %Apple's child safety solution to combat ``Child Sexual Abuse Material''  \cite{Apple-PSI}. %PSI has been considered by the ``Financial Action Task Force'' (FATF) as one of the vital tools for enabling collaborative analytics between financial institutions to  strengthen ``Anti-Money Laundering'' (AML)  
 %and ``Countering the Financing of Terrorism'' (CFT) compliance
  %\cite{FATF}. 
 
@@ -19,21 +19,18 @@ PSI has numerous applications. For instance, it has  been used  in Vertical Fede
 
 There exist two facts about PSIs: (i) a non-empty result always reveals something about the parties' private input sets (i.e., the set elements that are in the intersection), and (ii) various variants of PSIs do not output the result to all parties, even in those PSIs that do,  not all of the parties are necessarily interested in it.  Given these facts, one may ask a natural question:  
 
-
-
-%\begin{center}
-%\emph{Why do the parties that do not receive the result or are not interested in it participate in a PSI which would ultimately reveal some information about their private inputs?}
-%\end{center}
+\vs
 
 \begin{center}
-\emph{How can we incentivise the parties that do not receive the result or are not interested in it to participate in a PSI which would ultimately reveal some information about their private inputs?}
+\emph{How can we incentivise the parties that do not receive the result or are not interested in it to participate in a PSI?}
 \end{center}
 
+\vs
 
 
-To date, the literature has not answered the above question. The literature has assumed that all parties will participate in a PSI for free and bear the privacy cost (in addition to computation and computation overheads imposed by the PSI).  %not be to help the result recipient compute the intersection.  
+%To date, the literature has not answered the above question. The literature has assumed that all parties will participate in a PSI for free and bear the privacy cost (in addition to computation and computation overheads imposed by the PSI).  %not be to help the result recipient compute the intersection.  
 %
-In this work, for the first time, we answer the above question. We present a multi-party PSI, called ``\withRew'', that allows a buyer who initiates the PSI computation (and is interested in the result) to pay other parties proportionate to the number of elements it learns about other parties' private inputs.  \withRew is efficient and mainly relies on symmetric key primitives.  Its computation and communication complexities are linear with the number of parties and set cardinality. \withRew remains secure even if the majority of parties are corrupt by active adversaries which may collude with each other. 
+In this work, we answer the above question for the first time. We present a multi-party PSI, called ``\withRew'', that allows a buyer who initiates the PSI computation (and is interested in the result) to pay other parties proportionate to the number of elements it learns about other parties' private inputs.  \withRew is efficient and mainly relies on symmetric key primitives.  Its computation and communication complexities are linear with the number of parties and set cardinality. \withRew remains secure even if the majority of parties are corrupt by active adversaries which may collude with each other. 
 
 
 
@@ -50,14 +47,15 @@ In this work, for the first time, we answer the above question. We present a mul
 
 
 
-We develop \withRew in a modular fashion. Specifically, first, we propose the formal notion of ``PSI with Fair Compensation'' (\p) and devise the first construction, called ``\withFai'', that realises the notion. \p ensures that either all parties get the result or if the protocol aborts in an unfair manner (where only dishonest parties learn the result), then honest parties will receive financial compensation, i.e., adversaries are penalised. Next, we enhance \p to the notion of ``PSI with Fair Compensation and Reward'' (\ep) and develop \withRew that realises \ep. The latter notion ensures that honest parties (a) are rewarded regardless of whether all parties are honest, or a set of them aborts in an unfair manner and (b) are compensated in the case of an unfair abort. We formally prove the two PSIs using the simulation-based model. To devise efficient PSIs, we have developed a primitive, called ``unforgeable polynomial'' that might be of independent interest. 
+We develop \withRew in a modular fashion. First, we define the notion of ``PSI with Fair Compensation'' (\p) and devise the first construction, called ``\withFai'', that realises the notion. \p ensures that either all parties get the result or if the protocol aborts in an unfair manner (where only dishonest parties learn the result), then honest parties will receive financial compensation. Next, we upgrade \p to the notion of ``PSI with Fair Compensation and Reward'' (\ep) and develop \withRew that realises \ep. The latter notion ensures that honest parties (a) are rewarded regardless of whether all parties are honest, or a set of them aborts in an unfair manner and (b) are compensated in the case of an unfair abort. We formally prove the two PSIs using the simulation-based model. To devise efficient PSIs, we have developed a primitive, called ``unforgeable polynomial'' that might be of independent interest. 
 
 A PSI, like Anesidora, that supports more than two parties and rewards set contributors can create opportunities for much richer analytics and incentivise parties to participate. It can be used (1) by an advertiser who wants to conduct advertisements targeted at certain customers by first finding their common shopping patterns distributed across different e-commerce companies' databases \cite{IonKNPSS0SY20}, (2) by a malware detection service that allows a party to send a query to a collection of malware databases held by independent antivirus companies to find out whether all of them consider a certain application as malware \cite{TamrakarLPEPA17}, or (3) by a bank, like ``WeBank'', that uses VFL and PSI to gather information about certain customers from various partners (e.g., national electronic invoice and other financial institutions) to improve its risk management of loans \cite{ChengLCY20}. In all these cases, the set contributors will be rewarded by such a PSI. 
 
 
 
-We hope that our work initiates future research on developing reward mechanisms for participants of \emph{generic MPC}, as well. Such reward mechanisms have the potential to increase MPC's real-world adoption.  
+We hope that our work initiates future research on developing reward mechanisms for participants of \emph{generic secure Multi-Party Computation (MPC)} (as a superclass of PSI). Such reward mechanisms have the potential to increase MPC's real-world adoption.  
 
+\vs
 \begin{paragraph}
 %
 {\textbf{Our Contributions Summary.}} In this work, we: (1) devise \withRew, the first PSI that lets participants receive a reward for contributing their set elements to the intersection, (2) develop \withFai, the first PSI that lets either all parties receive the result or if the protocol aborts in an unfair manner,  honest parties receive compensation, and (3) propose formal definitions of the above constructions.
