@@ -1,6 +1,8 @@
 % !TEX root =main.tex
 
 
+\vs
+\vs
 \section{Definition of Multi-party PSI with Fair Compensation}\label{sec::F-PSI-model}%\label{Fair-PSI-Protocol}
 
 
@@ -27,17 +29,16 @@ In this section, we present the notion of multi-party PSI with Fair Compensation
   %\subsection{The Model}\label{sec::F-PSI-model}
   
   
-In a  $\mathcal{PSI}^{\st \mathcal{MFC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially \emph{malicious} (i.e., active adversaries) and all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest (i.e., a passive adversary) and has an input set, and (3) an auditor \aud potentially semi-honest, where all parties except \aud have input set. For simplicity, we assume that given an address one can determine whether it belongs to \aud. 
-
-
-The basic functionality that any multi-party PSI computes can be defined as $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m+1})\rightarrow\underbrace{(S_{\st\cap},..., S_{\st\cap})}_{\st m+1}$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m+1}$.  To formally define a \p, we equip the above PSI functionality with four predicates,  $Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$, which ensure that certain financial conditions are met. 
+In a  $\mathcal{PSI}^{\st \mathcal{MFC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially active adversaries and all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially passive adversary and has an input set, and (3) an auditor \aud potentially active adversary, where all parties except \aud have input set. For simplicity, we assume that given an address,  one can determine whether it belongs to \aud. 
+%
+The basic functionality that any multi-party PSI computes is defined as $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m+1})\rightarrow\underbrace{(S_{\st\cap},..., S_{\st\cap})}_{\st m+1}$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m+1}$.  To formally define a \p, we equip $f^{\st\text{PSI}}$ with four predicates,  $Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$, which ensure that certain financial conditions are met. 
    %  that are invoked after the functionality $f^{\st \text{PSI}}$ is executed. 
    We borrow three of these predicates (i.e., $\qinit, \qdel, \qUnFAbt$) from the ``fair and robust multi-party computation'' initially proposed in \cite{KiayiasZZ16}; nevertheless, we will (i) introduce an additional predicate  \qFAbt and (ii) provide more formal accurate definitions of these predicates. 
    
 Predicate \qinit specifies under which condition a protocol that realises \p should start executing, i.e., when all set owners have enough deposit. Predicate \qdel determines in which situation parties receive their output, i.e., when honest parties receive their deposit back. Predicate \qUnFAbt specifies under which condition the simulator can force parties to abort if the adversary learns the output,  i.e., when an honest party receives its deposit back plus a predefined amount of compensation. Predicate \qFAbt specifies under which condition the simulator can force parties to abort if the adversary receives no output, i.e., when honest parties receive their deposits back. We observed that the latter predicate should have been defined in the generic framework in \cite{KiayiasZZ16} too; as the framework should have also captured the cases where an adversary may abort without learning any output after the onset of the protocol.  Intuitively, by requiring any protocol that realises \p to implement a wrapped version of $f^{\st\text{PSI}}$ that includes $Q$, we will ensure that an honest set owner only aborts in an unfair manner if \qUnFAbt returns  $1$, it only aborts in a fair manner if \qFAbt returns  $1$, and outputs a valid value if \qdel returns $1$. Now, we formally define each of these predicates.  
  
 
- 
+ \vs
  
  \begin{definition}
  %
@@ -46,7 +47,7 @@ Predicate \qinit specifies under which condition a protocol that realises \p sho
  \end{definition}
 
  
- 
+ \vs
     \begin{definition}  [\qdel:
     %
     Delivery predicate] Let $pram:=(\mathcal{G}, adr_{\st sc}, \xc)$ be the parameters defined above, and   $adr_{\st i}\in Adr$ be the address of an honest party. 
@@ -58,6 +59,8 @@ Predicate \qinit specifies under which condition a protocol that realises \p sho
   \end{definition}
  
  
+ \vs
+ \vs
  
    \begin{definition}  [\qUnFAbt: UnFair-Abort predicate]
    %
@@ -65,21 +68,26 @@ Predicate \qinit specifies under which condition a protocol that realises \p sho
   %
   \end{definition}
   
+  \vs
+  \vs
   
 \begin{definition}  [\qFAbt: Fair-Abort predicate]
    %
- Let $pram:=(\mathcal{G}, adr_{\st sc}, \xc)$ be the parameters defined above, and $Adr'\subset Adr$ be a set containing honest parties' addresses, $m' = |Adr'|$,     $adr_{\st i}\in Adr'$, and  $adr_{\st j}$ be \aud's address. Let $G$ be the compensation function, defined above and let $G(deps, ard_{\st j}, m')\rightarrow \xc_{\st j}$ be the compensation that the auditor must receive.  Then, predicate $\qFAbt(pram, G, \depsc, m', adr_{\st i}, adr_{\st j})$ returns $1$, if $adr_{\st i}$ (s.t. $adr_{\st i}\neq adr_{\st j}$) has sent $\xc$ amount to $sc$ and received  $\xc$  from it, and $adr_{\st j}$ received $\xc_{\st j}$  from $sc$. Otherwise, it returns $0$. 
+ Let $pram:=(\mathcal{G}, adr_{\st sc}, \xc)$ be the parameters defined above, and $Adr'\subset Adr$ be a set containing honest parties' addresses, $m' = |Adr'|$,     $adr_{\st i}\in Adr'$, and  $adr_{\st j}$ be \aud's address. Let $G$ be the compensation function, defined above and let $G(deps, ard_{\st j}, m')\rightarrow \xc_{\st j}$ be the compensation that the auditor must receive.  Then, predicate $\qFAbt(pram, G, \depsc, m', adr_{\st i},$ $ adr_{\st j})$ returns $1$, if $adr_{\st i}$ (s.t. $adr_{\st i}\neq adr_{\st j}$) has sent $\xc$ amount to $sc$ and received  $\xc$  from it, and $adr_{\st j}$ received $\xc_{\st j}$  from $sc$. Otherwise, it returns $0$. 
   %
  \end{definition}
   
   
   
  
- Next, we present a formal definition of \p. %Note that we have upgraded the simulation-based definition of secure computation (i.e., Definition \ref{def::MPC-active-adv}) to define the security requirements of \p, by incorporating the above predicates into the definition. 
+ %Next, we present a formal definition of \p. %Note that we have upgraded the simulation-based definition of secure computation (i.e., Definition \ref{def::MPC-active-adv}) to define the security requirements of \p, by incorporating the above predicates into the definition. 
+ 
+ \vs
+ \vs
  
 \begin{definition}[\p]\label{def::PSI-Q-fair}
 Let $f^{\st \text{PSI}}$ be the multi-party PSI functionality defined above. We say  protocol $\Gamma$ realises  $f^{\st \text{PSI}}$ with $Q$-fairness in the presence of $m-1$ static active-adversary clients (i.e., $A_{\st j}$s) or a static passive dealer $D$ or passive auditor $Aud$, if for every non-uniform probabilistic polynomial time adversary $\mathcal{A}$ for the real model, there exists a non-uniform probabilistic polynomial-time adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $I\in \{A_{\st 1},...,A_{\st m}, D, Aud\}$, it holds that: 
-
+%
 \begin{equation*}
 \{\mathsf {Ideal}^{\st \mathcal{W}(f^{\st \text{PSI}},Q)}_{\st \mathsf{Sim}(z), I}(S_{\st 1},..., S_{\st m+1})\}_{\st S_{\st 1},..., S_{\st m+1},z}\stackrel{c}{\equiv} \{\mathsf{Real}_{\st \mathcal{A}(z), I}^{\st \Gamma}(S_{\st 1},..., S_{\st m+1}) \}_{\st S_{\st 1},..., S_{\st m+1},z}
 \end{equation*}

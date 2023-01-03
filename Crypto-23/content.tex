@@ -5,7 +5,6 @@
 
 
 
-
 \section{Introduction}
 
 
@@ -49,18 +48,18 @@ In this work, we answer the above question for the first time. We present a mult
 
 We develop \withRew in a modular fashion. First, we define the notion of ``PSI with Fair Compensation'' (\p) and devise the first construction, called ``\withFai'', that realises the notion. \p ensures that either all parties get the result or if the protocol aborts in an unfair manner (where only dishonest parties learn the result), then honest parties will receive financial compensation. Next, we upgrade \p to the notion of ``PSI with Fair Compensation and Reward'' (\ep) and develop \withRew that realises \ep. The latter notion ensures that honest parties (a) are rewarded regardless of whether all parties are honest, or a set of them aborts in an unfair manner and (b) are compensated in the case of an unfair abort. We formally prove the two PSIs using the simulation-based model. To devise efficient PSIs, we have developed a primitive, called ``unforgeable polynomial'' that might be of independent interest. 
 
-A PSI, like Anesidora, that supports more than two parties and rewards set contributors can create opportunities for much richer analytics and incentivise parties to participate. It can be used (1) by an advertiser who wants to conduct advertisements targeted at certain customers by first finding their common shopping patterns distributed across different e-commerce companies' databases \cite{IonKNPSS0SY20}, (2) by a malware detection service that allows a party to send a query to a collection of malware databases held by independent antivirus companies to find out whether all of them consider a certain application as malware \cite{TamrakarLPEPA17}, or (3) by a bank, like ``WeBank'', that uses VFL and PSI to gather information about certain customers from various partners (e.g., national electronic invoice and other financial institutions) to improve its risk management of loans \cite{ChengLCY20}. In all these cases, the set contributors will be rewarded by such a PSI. 
+A PSI, like Anesidora, that supports more than two parties and rewards set contributors can create opportunities for much richer analytics and incentivise parties to participate. It can be used (1) by an advertiser who wants to conduct advertisements targeted at certain customers by first finding their common shopping patterns distributed across different e-commerce companies' databases \cite{IonKNPSS0SY20}, (2) by a malware detection service that allows a party to send a query to a collection of malware databases held by independent antivirus companies to find out whether all of them consider a certain application as malware \cite{TamrakarLPEPA17}, or (3) by a bank, like ``WeBank'', that uses VFL and PSI to gather information about certain customers from various partners (e.g., national electronic invoice and other financial institutions) to improve its risk management of loans \cite{ChengLCY20}. The set contributors will be rewarded by such a PSI in all these cases. 
 
 
 
-We hope that our work initiates future research on developing reward mechanisms for participants of \emph{generic secure Multi-Party Computation (MPC)} (as a superclass of PSI). Such reward mechanisms have the potential to increase MPC's real-world adoption.  
+We hope that our work initiates future research on developing reward mechanisms for participants of \emph{generic secure Multi-Party Computation (MPC)}. Such reward mechanisms have the potential to increase MPC's real-world adoption.  
 
-\vs
-\begin{paragraph}
-%
-{\textbf{Our Contributions Summary.}} In this work, we: (1) devise \withRew, the first PSI that lets participants receive a reward for contributing their set elements to the intersection, (2) develop \withFai, the first PSI that lets either all parties receive the result or if the protocol aborts in an unfair manner,  honest parties receive compensation, and (3) propose formal definitions of the above constructions.
-%
-\end{paragraph}
+%\vs
+%\begin{paragraph}
+%%
+%{\textbf{Our Contributions Summary.}} In this work, we: (1) devise \withRew, the first PSI that lets participants receive a reward for contributing their set elements to the intersection, (2) develop \withFai, the first PSI that lets either all parties receive the result or if the protocol aborts in an unfair manner,  honest parties receive compensation, and (3) propose formal definitions of the above constructions.
+%%
+%\end{paragraph}
 
 
 %We develop the PSI that rewards participants in a modular fashion; specifically, first, we propose (i) the notion of ``PSI with fair compensation'' (\p) and (ii) devise a construction, F-PSI, that realises the notion. \p ensures that either all clients get the result or if the protocol aborts in an unfair manner (where only dishonest parties learn the result), then honest parties will be financially compensated, i.e., adversaries are penalised. Then, we enhance \p to the notion of ``PSI with fair compensation and reward'' (\ep) and develop a construction that realises \ep. The latter notion ensures that honest parties are (1) rewarded regardless of whether all parties are honest or a set of them aborts in an unfair manner and (2) compensated in the case of an unfair abort. 
