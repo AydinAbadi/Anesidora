@@ -48,6 +48,7 @@ Predicate \qinit specifies under which condition a protocol that realises \p sho
 
  
  \vs
+ \vs
     \begin{definition}  [\qdel:
     %
     Delivery predicate] Let $pram:=(\mathcal{G}, adr_{\st sc}, \xc)$ be the parameters defined above, and   $adr_{\st i}\in Adr$ be the address of an honest party. 
@@ -119,44 +120,53 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 
 
 
+\vs
+\vs
+
 \section{\withFai: A Concrete Construction of \p}
+
+
+\vs
 
 \subsection{Main Challenges to Overcome}
 
  We need to address several key challenges, to design an efficient scheme that realises \p. Below, we outline these challenges.
  
+ \vs
+ 
  
  \subsubsection{Keeping Overall Complexities Low.}
  
- In general, in multi-party PSIs, each client needs to send messages to the rest of the clients and/or engage in secure computation with them, e.g., in \cite{DBLP:conf/scn/InbarOP18,DBLP:conf/ccs/KolesnikovMPRT17}, which would result in communication and/or computation quadratic with the number of clients. To address this challenge, we  (a) allow one of the clients as a dealer to interact with the rest of the clients,\footnote{This approach has similarity with the non-secure PSIs in \cite{GhoshN19}.} and   (b) we use a smart contract, which acts as a bulletin board to which most messages are sent and also performs lightweight computation on the clients' messages. The combination of these approaches will keep the overall communication and computation linear with the number of clients (and sets' cardinality). 
+ In general, in multi-party PSIs, each client needs to send messages to the rest of the clients and/or engage in secure computation with them, e.g., in \cite{DBLP:conf/scn/InbarOP18,DBLP:conf/ccs/KolesnikovMPRT17}, which would result in communication and/or computation quadratic with the number of clients. To address this challenge, we  (a) allow one of the clients as a dealer to interact with the rest of the clients,\footnote{This approach has similarity with the non-secure PSIs in \cite{GhoshN19}.} and   (b) we use a smart contract, which acts as a bulletin board to which most messages are sent and also performs lightweight computation on the clients' messages. The combination of these approaches will keep the communication and computation linear with the number of clients (and sets' cardinality). 
  
  
+
  
+% \subsubsection{Securely Randomising Input Polynomials.}  In multi-party PSIs that rely on the polynomial representation, it is essential that an input polynomial of a client be randomised by another client \cite{AbadiMZ21}. To do that securely and efficiently, we require the dealer and each client together to engage in an instance of \vopr, which we developed in Section \ref{sec::subroutines}. 
  
- \subsubsection{Securely Randomising Input Polynomials.}  In multi-party PSIs that rely on the polynomial representation, it is essential that an input polynomial of a client be randomised by another client \cite{AbadiMZ21}. To do that securely and efficiently, we require the dealer and each client together to engage in an instance of \vopr, which we developed in Section \ref{sec::subroutines}. 
+ \vs
+ \vs
  
  \subsubsection{Preserving the Privacy of Outgoing Messages.} Although the use of regular public smart contracts (e.g., Ethereum) will help keep overall complexity low, it introduces another challenge; namely, if clients do not protect the privacy of the messages they send to the smart contracts, then other clients (e.g., dealer) and non-participants of PSI (i.e., the public) can learn the clients' set elements and/or the intersection. Because standard smart contracts do not automatically preserve messages' privacy. To efficiently protect the privacy of each client's messages (sent to the contracts) from the dealer, we require the clients (except the dealer) to engage in \zspaa which lets each of them generate a pseudorandom polynomial with which it can blind its message. To protect the privacy of the intersection from the public, we require all clients to run a coin-tossing protocol to agree on a blinding polynomial, with which the final result that encodes the intersection on the smart contract will be blinded.  
+ 
+ 
+ \vs
+ \vs
  
  \subsubsection{Ensuring the Correctness of Subroutine Protocols' Outputs.} 
  
  In general, any MPC that must remain secure against an active adversary is equipped with a verification mechanism that ensures an adversary is detected if it deviates from the protocol and affects messages' integrity, during the protocol's execution. This is the case for the subroutine protocols that we use, i.e., \vopr and \zspaa. Nevertheless, this type of verification itself is not always sufficient. Because in certain cases, the output of an MPC protocol may be fed as input to another MPC and we need to ensure that the \emph{actual/intact} output of the first MPC is fed to the second one. This is the case in our PSI's subroutines as well. To address this challenge, we use unforgeable polynomials; specifically, the output of \vopr is an unforgeable polynomial (that encodes the actual output); if the adversary tampers with the \vopr's output and uses it later, then a verifier can detect it. We will have the same integrity guarantee for the output of \zspaa for free. Because (i) \vopr is called before \zspaa, and (ii) if clients use intact outputs of \zspaa, then the final result (i.e., the sum of all clients' messages) will not contain any output of \zspaa, as they would cancel out each other. Thus, by checking the correctness of the final result, one can ensure the correctness of the outputs of \vopr and \zspaa, in one go. 
  
- 
- 
-
-
+ \vs
+ \vs
   
 \subsection{Description of \withFai (\fpsi)}\label{Fair-PSI-Protocol}
 %This section presents \fpsi, a protocol that realises \p. 
 
-\subsubsection{An overview.} At a high level, \withFai (\fpsi) works as follows. First, each client encodes its set elements into a polynomial. All clients sign a smart contract and deposit a predefined amount of coins into it.  Next,  one of the clients as a dealer, $D$, randomises the rest of the clients' polynomials and imposes a certain structure to their polynomials. The clients also randomise $D$'s polynomials. The randomised polynomials reveal nothing about the clients' original polynomials representing their set elements. Then, all clients send their randomised polynomials to the smart contract.  The contract combines all polynomials and checks whether the resulting polynomial still has the structure imposed by $D$. If the contract concludes that the resulting polynomial does not have the structure, then it invokes an auditor, \aud, to identify misbehaving clients and penalise them. Nevertheless, if the resulting polynomial has the structure, then the contract outputs an encoded polynomial and refunds the clients' deposits. In this case, all clients can use the resulting polynomial (output by the contract) to locally find the intersection. Figure \ref{fig:parties-interactions-in-Jus} outlines the interaction between parties. 
+\subsubsection{An overview.} At a high level, \withFai (\fpsi) works as follows. First, each client encodes its set elements into a polynomial. All clients sign a smart contract and deposit a predefined amount of coins into it.  Next,  one of the clients as a dealer, $D$, randomises the rest of the clients' polynomials and imposes a certain structure to their polynomials. The clients also randomise $D$'s polynomials. The randomised polynomials reveal nothing about the clients' original polynomials representing their set elements. Then, all clients send their randomised polynomials to the smart contract.  The contract combines all polynomials and checks whether the resulting polynomial still has the structure imposed by $D$. If the contract concludes that the resulting polynomial does not have the structure, then it invokes an auditor, \aud, to identify misbehaving clients and penalise them. Nevertheless, if the resulting polynomial has the structure, then the contract outputs an encoded polynomial and refunds the clients' deposits. In this case, all clients can use the resulting polynomial (output by the contract) to locally find the intersection.  
 
 
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=12cm]{Diag-1.pdf}
-    \caption{Outline of the interactions between parties in \withFai}\label{fig:parties-interactions-in-Jus}
-\end{figure}
+
 
 
 %%%%%%%%%%%%
@@ -183,7 +193,7 @@ One of the novelties of \fpsi is a lightweight verification mechanism which allo
 
 Now, we describe \fpsi in more detail. First, all clients sign and deploy a  smart contract, \scf. Each of them put a certain amount of deposit into it. Then, they together run \ct to agree on a key, $mk$, that will be used to generate a set of blinding polynomials to hide the final result from the public. Next, each client locally maps its set elements to a hash table and represents the content of each hash table's bin as a polynomial, $\bm\pi$. After that, for each bin, the following steps are taken.  All clients, except $D$, engage in \zspaa to agree on a set of pseudorandom blinding factors such that their sum is zero.  %The clients will use these polynomials to hide from $D$ the polynomials that they will send to \scf. 
 
-Then, $D$ randomises and constructs an unforgeable polynomial on each client's polynomial, $\bm\pi$. To do that, $D$ and every other client engage in \vopr that returns to the client a polynomial. $D$ and every other client invoke \vopr again to randomise $D$'s polynomial. \vopr returns to the client another unforgeable polynomial. Note that the output of \vopr reveals nothing about any client's original polynomial $\bm\pi$, as this polynomial has been blinded/encrypted with another secret random polynomial by $D$, during the execution of \vopr. Each client sums the two polynomials,  blinds the result (using the output of  \zspaa), and sends it to \scf. 
+Then, $D$ randomises and constructs an unforgeable polynomial on each client's polynomial, $\bm\pi$. To do that, $D$ and every other client engage in \vopr that returns to the client a polynomial. $D$ and every other client invoke \vopr again to randomise $D$'s polynomial. \vopr returns to the client another unforgeable polynomial. Note that the output of \vopr reveals nothing about any client's original polynomial $\bm\pi$, as this polynomial has been blinded with another random polynomial by $D$, during the execution of \vopr. Each client sums the two polynomials,  blinds the result (using the output of  \zspaa), and sends it to \scf. 
 
 
 
@@ -192,11 +202,15 @@ After all of the clients send their input polynomials to \scf, $D$ sends to \scf
 
 
 
-Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will allow \scf to check unforgeable polynomials' correctness. Then, \scf\ sums all clients' polynomials and checks if $\bm\zeta$ can divide the sum. \scf\ accepts the clients' inputs if the polynomial divides the sum; otherwise, it invokes \aud to identify misbehaving parties.  In this case, all honest parties' deposit is refunded to them and the deposit of misbehaving parties is distributed among the honest ones as well. If all clients behave honestly,  then each client can locally find the intersection. To do that, it uses $mk$ to locally remove the blinding polynomial from the sum (that the contract generated), then evaluates the unblinded polynomial at each of its set elements and considers an element in the intersection when the evaluation equals zero. 
+Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will let \scf check unforgeable polynomials' correctness. \scf\ sums all clients' polynomials and checks if $\bm\zeta$ can divide the sum. \scf\ accepts the clients' inputs if the polynomial divides the sum; otherwise, it invokes \aud to identify misbehaving parties.  In this case, all honest parties' deposit is refunded and the deposit of misbehaving parties is distributed among the honest ones as well. If all clients behave honestly,  then each client can locally find the intersection. To do that, it uses $mk$ to locally remove the blinding polynomial from the sum (that the contract generated), then evaluates the unblinded polynomial at each of its set elements and considers an element in the intersection when the evaluation equals zero. Figure \ref{fig:parties-interactions-in-Jus}, in Appendix \ref{sec::Workflow-of-withFai}, outlines the interaction between parties.
 %The efficiency of the verification in our protocol  mainly stems from our  observation that if an adversary who know only $xx$ modified the polynomial of the form $xx$ then $\zeta$ will not divide result polynomial after unblinding will not divide with a high probability.  
 
 
+\vs
+
 \subsubsection{Detailed Description of \fpsi.} Below, we elaborate on how \fpsi exactly works (see Table \ref{table:notation-table} for description of the main notations used). 
+
+\vs
 
 \begin{enumerate}[leftmargin=4mm]
 
@@ -264,7 +278,7 @@ $$\bm\nu^{\st  {  {(D)}}}=\bm\zeta \cdot  \bm\omega'^{\st  {  {(D)}}}\cdot \bm\p
 It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\bm\zeta$, for each bin.
 
  \item\label{compute-res-poly}  $\mathcal{SC}_{\fpsi}$ takes the following steps:
- \begin{enumerate}[leftmargin=2mm]
+ \begin{enumerate}[leftmargin=1mm]
  \item for every bin, sums all related polynomials  provided by all clients in $\bar{P}$:
  %
  \begin{equation*}
@@ -283,9 +297,9 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
 % \item if the check passes (i.e., $Flag=True$), each party gets back its deposit (i.e., $y$ amount).
  \end{enumerate}
  
-\item\label{F-PSI::flag-is-true} If the above check passes (i.e., $Flag=True$), then the following steps are taken:
+\item\label{F-PSI::flag-is-true} If the check passes (i.e., $Flag=True$), then the following steps are taken:
 
-\begin{enumerate}
+\begin{enumerate}[leftmargin=2mm]
  \item $\mathcal{SC}_{\fpsi}$ sends back each party's deposit, i.e., $\yc+\chc$ amount.
  
   \item each client (given $\bm\zeta$ and $mk$) finds the elements in the intersection as follows. 
@@ -303,15 +317,15 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  
  \end{enumerate}
  
- \item\label{F-PSI::flag-is-false} If the check does not pass (i.e., $Flag=False$), then the following steps are taken.
+ \item\label{F-PSI::flag-is-false} If the check does not pass (i.e., $Flag=False$), the following steps are taken.
  
  
 
  
- \begin{enumerate}
+ \begin{enumerate}[leftmargin=2mm]
  
 
- \item\label{auditor}  \aud asks every client $    {  C}$ to send to it the  $\mathtt{PRF}$'s key (generated in step \ref{ZSPA}), for every bin. It inserts the keys to $\vv k$.  It generates a list $\bar L$ initially empty. Then, for every bin,  \aud takes step \ref{ZSPA-A::Auditor-computation} of \zspaa, i.e., invokes  $\mathtt{Audit}( \vv{{k}},  q, \bm\zeta, 3d+3, g)\rightarrow (L, \vv{{\mu}})$.  Every time it invokes $\mathtt{Audit}$, it appends the elements of returned $L$ to $\bar L$.  \aud for each bin sends  $ \vv{{\mu}}$ to $\mathcal{SC}_{\fpsi}$. It also sends  to $\mathcal{SC}_{\fpsi}$ the list $\bar L$ of all misbehaving clients detected so far.
+ \item\label{auditor}  \aud asks every  ${  C}$ to send to it the  $\mathtt{PRF}$'s key (generated in step \ref{ZSPA}), for every bin. It inserts the keys to $\vv k$.  It generates a list $\bar L$ initially empty. Then, for every bin,  \aud takes step \ref{ZSPA-A::Auditor-computation} of \zspaa, i.e., invokes  $\mathtt{Audit}( \vv{{k}},  q, \bm\zeta, 3d+3, g)\rightarrow (L, \vv{{\mu}})$.  Every time it invokes $\mathtt{Audit}$, it appends the elements of returned $L$ to $\bar L$.  \aud for each bin sends  $ \vv{{\mu}}$ to $\mathcal{SC}_{\fpsi}$. It also sends  to $\mathcal{SC}_{\fpsi}$ the list $\bar L$ of all misbehaving clients detected so far.
  
 
  
@@ -408,7 +422,9 @@ One may be tempted to replace $\withFai$ with a scheme in which all clients send
 %\end{remark}
  
  
- Next, we present a theorem that formally states the security of \fpsi. 
+ Next, we present a theorem that formally states the security of \fpsi. We refer readers to Appendix \ref{sec::F-PSI-proof} for the proof of this theorem. 
+ 
+ \vs
  
  \begin{theorem}\label{theorem::F-PSI-security}
 Let polynomials $\bm\zeta$, $\bm\omega$, and $\bm\gamma$ be three secret uniformly random polynomials. If  $\bm\theta=\bm\zeta\cdot \bm\omega\cdot\bm \pi+\bm \gamma \bmod p$ is an unforgeable polynomial (w.r.t. Theorem \ref{proof::unforgeable-poly}), \zspaa, \vopr,  $\mathtt{PRF}$, and smart contracts are secure, then \fpsi securely realises  $f^{\st \text{PSI}}$ with $Q$-fairness (w.r.t. Definition \ref{def::PSI-Q-fair}) in the presence of $m-1$  active-adversary clients (i.e., $A_{\st j}$s) or a passive dealer client, passive auditor, or passive public. 
@@ -420,6 +436,6 @@ Let polynomials $\bm\zeta$, $\bm\omega$, and $\bm\gamma$ be three secret uniform
 
 
 
- \input{F-PSI-proof}
+
  
  

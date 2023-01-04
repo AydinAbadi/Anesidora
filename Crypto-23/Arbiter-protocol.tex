@@ -3,6 +3,8 @@
 
 
 
+\vs
+\vs
 
 
 
@@ -13,16 +15,18 @@ In this section, we present an extension of \zspa, called \zspaa which lets a (t
 
 \input{Arbiter-algorithm}
 
-
+\vs
 
 \begin{theorem}\label{theorem::ZSPA-A}
 If \zspa is secure, $\mathtt{H}$ is second-preimage resistant, and the correctness of $\mathtt{PRF}$, $\mathtt{H}$, and Merkle tree holds,  then \zspaa securely computes $f^{\st \zspaa}$ in the presence of $m-1 $ malicious adversaries.% or (ii) a semi-honest auditor. 
 \end{theorem}
 
+We refer readers to Appendix \ref{sec::proof-of-zspaa} for the proof of Theorem \ref{theorem::ZSPA-A}. 
+
 %As we stated previously, the ZSPA-A protocol will be invoked as a subroutine in the fair PSI protocol. As part of proving Theorem \ref{theorem::ZSPA-A}, we would like to show that the semi-honest auditor's view can be simulated (so it cannot learn the parties' set elements), even if it has access to those transcripts of the fair PSI protocol sent to the smart contract; because such an approach offers a stronger security guarantee than proving the ZSPA-A protocol in isolation.  Therefore, we will present the proof of Theorem \ref{theorem::ZSPA-A} after we present the fair PSI protocol. 
 
 
-\input{ZSPA-A-proof}
+
 
 
 %\begin{theorem}\label{theorem::ZSPA-comp-correctness}

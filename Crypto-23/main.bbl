@@ -16,19 +16,9 @@ Abadi, A., Murdoch, S.J., Zacharias, T.: Polynomial representation is tricky:
   Maliciously secure private set intersection revisited. {IACR} Cryptol. ePrint
   Arch.  (2021)
 
-\bibitem{DBLP:conf/fc/AbadiTD16}
-Abadi, A., Terzis, S., Dong, C.: {VD-PSI:} verifiable delegated private set
-  intersection on outsourced private datasets. In: {FC} (2016)
-
-\bibitem{Feather2020}
-Abadi, A., Terzis, S., Dong, C.: Feather: Lightweight multi-party updatable
-  delegated private set intersection. {IACR} Cryptol. ePrint Arch.  (2020)
-
 \bibitem{BeimelOO10}
 Beimel, A., Omri, E., Orlov, I.: Protocols for multiparty coin toss with
-  dishonest majority. In: Advances in Cryptology - {CRYPTO} 2010, 30th Annual
-  Cryptology Conference, Santa Barbara, CA, USA, August 15-19, 2010.
-  Proceedings (2010)
+  dishonest majority. In: {CRYPTO} (2010)
 
 \bibitem{Ben-EfraimNOP21}
 Ben{-}Efraim, A., Nissenbaum, O., Omri, E., Paskin{-}Cherniavsky, A.: Psimple:
@@ -37,13 +27,11 @@ Ben{-}Efraim, A., Nissenbaum, O., Omri, E., Paskin{-}Cherniavsky, A.: Psimple:
 
 \bibitem{DBLP:conf/stoc/BerenbrinkCSV00}
 Berenbrink, P., Czumaj, A., Steger, A., V{\"{o}}cking, B.: Balanced
-  allocations: the heavily loaded case. In: {STOC}. pp. 745--754 (2000)
+  allocations: the heavily loaded case. In: {STOC} (2000)
 
 \bibitem{Blum82}
 Blum, M.: Coin flipping by telephone - {A} protocol for solving impossible
-  problems. In: COMPCON'82, Digest of Papers, Twenty-Fourth {IEEE} Computer
-  Society International Conference, San Francisco, California, USA, February
-  22-25, 1982. pp. 133--137. {IEEE} Computer Society (1982)
+  problems. In: COMPCON'82 (1982)
 
 \bibitem{BonehGHWW13}
 Boneh, D., Gentry, C., Halevi, S., Wang, F., Wu, D.J.: Private database queries
@@ -55,8 +43,8 @@ Brickell, J., Porter, D.E., Shmatikov, V., Witchel, E.: Privacy-preserving
 
 \bibitem{ChandranD0OSS21}
 Chandran, N., Dasgupta, N., Gupta, D., Obbattu, S.L.B., Sekar, S., Shah, A.:
-  Efficient linear multiparty {PSI} and extensions to circuit/quorum {PSI}. In:
-  {CCS} (2021)
+  Efficient linear multiparty {PSI} and extensions to quorum {PSI}. In: {CCS}
+  (2021)
 
 \bibitem{ChengLCY20}
 Cheng, Y., Liu, Y., Chen, T., Yang, Q.: Federated learning for
@@ -76,13 +64,12 @@ Debnath, S.K., Dutta, R.: Towards fair mutual private set intersection with
 
 \bibitem{DBLP:conf/dbsec/DongCCR13}
 Dong, C., Chen, L., Camenisch, J., Russello, G.: Fair private set intersection
-  with a semi-trusted arbiter. In: {DBSec}. pp. 128--144 (2013)
+  with a semi-trusted arbiter. In: {DBSec} (2013)
 
 \bibitem{dong2017betrayal}
 Dong, C., Wang, Y., Aldweesh, A., McCorry, P., van Moorsel, A.: Betrayal,
   distrust, and rationality: Smart counter-collusion contracts for verifiable
-  cloud computing. In: Proceedings of the 2017 ACM SIGSAC Conference on
-  Computer and Communications Security. pp. 211--227. ACM (2017)
+  cloud computing. In: ACM CCS (2017)
 
 \bibitem{DBLP:journals/ibmrd/Dorn62}
 Dorn, W.S.: Generalizations of horner's rule for polynomial evaluation. {IBM}
@@ -104,10 +91,6 @@ Ghosh, S., Nielsen, J.B., Nilges, T.: Maliciously secure oblivious linear
 Ghosh, S., Nilges, T.: An algebraic approach to maliciously secure private set
   intersection. In: {EUROCRYPT} (2019)
 
-\bibitem{GhoshS19}
-Ghosh, S., Simkin, M.: The communication complexity of threshold private set
-  intersection. In: {CRYPTO} (2019)
-
 \bibitem{DBLP:books/cu/Goldreich2004}
 Goldreich, O.: The Foundations of Cryptography - Volume 2, Basic Applications.
   Cambridge University Press (2004)
@@ -119,8 +102,7 @@ Inbar, R., Omri, E., Pinkas, B.: Efficient scalable multiparty private
 \bibitem{IonKNPSS0SY20}
 Ion, M., Kreuter, B., Nergiz, A.E., Patel, S., Saxena, S., Seth, K., Raykova,
   M., Shanahan, D., Yung, M.: On deploying secure computing: Private
-  intersection-sum-with-cardinality. In: {IEEE} European Symposium on Security
-  and Privacy, EuroS{\&}P 2020, Genoa, Italy, September 7-11, 2020 (2020)
+  intersection-sum-with-cardinality. In: EuroS{\&}P (2020)
 
 \bibitem{kamarascaling}
 Kamara, S., Mohassel, P., Raykova, M., Sadeghian, S.: Scaling private set
@@ -135,9 +117,7 @@ Kerschbaum, F.: Outsourced private set intersection using homomorphic
 
 \bibitem{KiayiasRDO17}
 Kiayias, A., Russell, A., David, B., Oliynykov, R.: Ouroboros: {A} provably
-  secure proof-of-stake blockchain protocol. In: Advances in Cryptology -
-  {CRYPTO} 2017 - 37th Annual International Cryptology Conference, Santa
-  Barbara, CA, USA, August 20-24, 2017, Proceedings, Part {I} (2017)
+  secure proof-of-stake blockchain protocol. In: CRYPTO (2017)
 
 \bibitem{KiayiasZZ16}
 Kiayias, A., Zhou, H., Zikas, V.: Fair and robust multi-party computation using
@@ -154,43 +134,29 @@ Kolesnikov, V., Matania, N., Pinkas, B., Rosulek, M., Trieu, N.: Practical
 
 \bibitem{LuD20}
 Lu, L., Ding, N.: Multi-party private set intersection in vertical federated
-  learning. In: {IEEE} International Conference on Trust, Security and Privacy
-  in Computing and Communications, TrustCom 2020, Guangzhou, China, December
-  29, 2020 - January 1, 2021 (2020)
+  learning. In: TrustCom (2020)
 
 \bibitem{MoranNS09}
-Moran, T., Naor, M., Segev, G.: An optimally fair coin toss. In: Theory of
-  Cryptography, 6th Theory of Cryptography Conference, {TCC} 2009, San
-  Francisco, CA, USA, March 15-17, 2009. Proceedings (2009)
+Moran, T., Naor, M., Segev, G.: An optimally fair coin toss. In: {TCC} (2009)
 
 \bibitem{bitcoin}
 Nakamoto, S.: Bitcoin: A peer-to-peer electronic cash system. Tech. rep. (2019)
 
 \bibitem{NevoTY21}
 Nevo, O., Trieu, N., Yanai, A.: Simple, fast malicious multiparty private set
-  intersection. In: {CCS} '21: 2021 {ACM} {SIGSAC} Conference on Computer and
-  Communications Security (2021)
+  intersection. In: {CCS} (2021)
 
 \bibitem{DBLP:conf/ccs/PapamanthouTT08}
 Papamanthou, C., Tamassia, R., Triandopoulos, N.: Authenticated hash tables.
-  In: {ACM CCS}. pp. 437--448 (2008)
-
-\bibitem{Pedersen91}
-Pedersen, T.P.: Non-interactive and information-theoretic secure verifiable
-  secret sharing. In: {CRYPTO} (1991)
+  In: {ACM CCS} (2008)
 
 \bibitem{RaghuramanR22}
 Raghuraman, S., Rindal, P.: Blazing fast {PSI} from improved {OKVS} and
-  subfield {VOLE}. In: Proceedings of the 2022 {ACM} {SIGSAC} Conference on
-  Computer and Communications Security, {CCS} 2022, Los Angeles, CA, USA,
-  November 7-11, 2022 (2022)
+  subfield {VOLE}. In: {CCS} (2022)
 
 \bibitem{TamrakarLPEPA17}
-Tamrakar, S., Liu, J., Paverd, A., Ekberg, J., Pinkas, B., Asokan, N.: The
-  circle game: Scalable private membership test using trusted hardware. In:
-  Proceedings of the 2017 {ACM} on Asia Conference on Computer and
-  Communications Security, AsiaCCS 2017, Abu Dhabi, United Arab Emirates, April
-  2-6, 2017 (2017)
+Tamrakar, S., Liu, J., Paverd, A., Ekberg, J., Pinkas, B., Asokan, N.: Scalable
+  private membership test using trusted hardware. In: AsiaCCS (2017)
 
 \bibitem{ThomasPYRKIBPPB19}
 Thomas, K., Pullman, J., Yeo, K., Raghunathan, A., Kelley, P.G., Invernizzi,

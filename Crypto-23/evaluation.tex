@@ -1,13 +1,28 @@
 % !TEX root =main.tex
 
 
+
+\vs
+\vs
+
 \section{Evaluation}\label{sec::valuation}
 In this section, we analyse the asymptotic costs of \epsi. We also compare its costs and features with the fastest two and multiple parties PSIs in \cite{AbadiDMT22,DBLP:conf/ccs/KolesnikovMPRT17,NevoTY21,RaghuramanR22}) and with the fair PSIs in \cite{DebnathD16,DBLP:conf/dbsec/DongCCR13}. Tables \ref{table::Asymptotic-Cost} and \ref{table::comparisonTable} summarise the result of the cost analysis and the comparison respectively. 
 
 
+\vs
+
 \input{table-cost}
 
+
+\vs
+\vs
+\vs
+
 \input{evaluation-table}
+
+\vs
+\vs
+
 
 
 \subsection{Computation Cost}
@@ -47,6 +62,8 @@ In step \ref{e-psi::SC-verification--derive-mk}, $\mathcal{SC}_{\epsi}$ invokes 
 
  %\scf  performs $h\cdot m(3d+1)$ modular additions and $h$ polynomial divisions (in step \ref{compute-res-poly} of F-PSI). 
 
+\vs
+\vs
 
 
 \subsection{Communication Cost}
@@ -61,20 +78,29 @@ In step \ref{F-PSI::flag-is-false}, \aud sends $h$ polynomials of degree $3d+1$ 
 %
 The rest of the steps impose negligible communication costs. 
 
+\vs
+\vs
 
 \subsection{Comparison}
 Below we show that \epsi offers various features that the state-of-the-art PSIs do not offer simultaneously while keeping its overall overheads similar to the efficient PSIs.  
 
+\vs
+\vs
+
 \subsubsection{Computation Complexity.} The  computation complexity  of \epsi is similar to that of PSI in \cite{AbadiDMT22}, but is better than the multiparty PSI's complexity in \cite{DBLP:conf/ccs/KolesnikovMPRT17} as  the latter's complexity is quadratic with the number of parties. Also, \epsi's complexity  is better than the complexity of the PSI in  \cite{NevoTY21}  that is quadratic with parameter $t$, i.e., the total number of parties that may collude. Similar to the two-party PSIs in \cite{DebnathD16,RaghuramanR22}, \epsi's complexity is linear with $c$.  The two-party PSI in \cite{DBLP:conf/dbsec/DongCCR13} imposes a higher computation overhead than \epsi does, as its complexity is quadratic with sets' cardinality. Hence, the complexity of \epsi is: (i) linear with the set cardinality, similar to the above schemes except the one in \cite{DBLP:conf/dbsec/DongCCR13} and (ii) linear with the total number of parties, similar to  the above multi-party schemes, except the one in \cite{DBLP:conf/ccs/KolesnikovMPRT17}. 
 %
 Hence, the computation complexity of \epsi is linear with the set cardinality and the number of parties, similar to the above schemes except for the ones in \cite{DBLP:conf/ccs/KolesnikovMPRT17,DBLP:conf/dbsec/DongCCR13} whose complexities are quadratic with the set cardinality or the number of parties. 
+
+\vs
+\vs
 
 
 \subsubsection{Communication Complexity.}  \epsi's communication complexity is slightly higher than the complexity of the PSI in \cite{AbadiDMT22}, by a factor of $d\cdot \bar\xi$. However, it is better than the  PSI's complexity in \cite{DBLP:conf/ccs/KolesnikovMPRT17} as the latter has a complexity quadratic with the number of parties. \epsi's complexity is slightly higher than the one in \cite{NevoTY21}, by a factor of $d$. Similar to the two-party PSIs in  \cite{DebnathD16,RaghuramanR22,DBLP:conf/dbsec/DongCCR13}, \epsi's complexity is linear with $c$. 
 %
 Therefore, the communication complexity of \epsi is linear with the set cardinality and number of parties, similar to the above schemes except the one in \cite{DBLP:conf/ccs/KolesnikovMPRT17} whose complexity is quadratic with the number of parties. 
 
-
+\vs
+\vs
 \subsubsection{Features.} \epsi is the only scheme that offers all the five features, i.e., supports fairness, rewards participants, is based on symmetric key primitives, supports multi-party, and is secure against active adversaries. After \epsi is the scheme in \cite{NevoTY21} which offers three of the above features. The rest of the schemes support only two of the above features. 
 
 

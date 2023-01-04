@@ -5,10 +5,10 @@
 
 \item The parties are paid as follows. 
 
-\begin{itemize}
+\begin{itemize}[leftmargin=1.7mm]
 %
-\item[$\bullet$]  if all proofs of both extractors are valid, both extractors provided identical elements of the intersections (for each bin), and there is no traitor, then $\mathcal{SC}_{\epsi}$:
-\begin{enumerate}
+\item[$\bullet$]  if all proofs of  extractors are valid, both extractors provided identical elements of the intersections (for each bin), and there is no traitor, then $\mathcal{SC}_{\epsi}$:
+\begin{enumerate}[leftmargin=4.3mm]
 %
  \item takes $|S_{\st\cap}|\cdot m\cdot \lc$ amount from the buyer's deposit (in $\mathcal{SC}_{\epsi}$) and distributes it among all clients, except the buyer. 
  %
@@ -20,22 +20,22 @@
 % 
 \item[$\bullet$] if both extractors failed to deliver any result, then $\mathcal{SC}_{\epsi}$:
 %
-\begin{enumerate}
+\begin{enumerate}[leftmargin=4.3mm]
 %
 \item refunds the buyer, by sending $\Smin\cdot \vc$ amount (deposited in $\mathcal{SC}_{\epsi}$) back to the buyer. 
 %
-\item retrieves each extractor's deposit (i.e., $\dc$ amount) from the \SCpc and distributes it among the rest of the clients (except the buyer and extractors).  
+\item retrieves each extractor's deposit (i.e., $\dc$ amount) from \SCpc and distributes it among the rest of the clients (except the buyer and extractors).  
 %
  \end{enumerate}
  %
  \item[$\bullet$]\label{smart-PSI-inconsistency} Otherwise (e.g., if some proofs are invalid, if an extractor's result is inconsistent with the other extractor's result, or there is a traitor), $\mathcal{SC}_{\epsi}$ invokes (steps 8.c and 9 of) \SCpc and its auditor to identify the misbehaving extractor, with the help of $ct_{\st mk}$ after decrypting it. Then, $\mathcal{SC}_{\epsi}$ asks \SCpc to pay the auditor the total amount of $\chc$ taken from the deposit of the extractor(s) who provided incorrect result to $\mathcal{SC}_{\epsi}$. Moreover,
 %
 
-\begin{enumerate}
+\begin{enumerate}[leftmargin=4.3mm]
 %
 \item if \underline{both extractors cheated}:
 %
-\begin{enumerate}
+\begin{enumerate}[leftmargin=2.5mm]
 %
 \item\label{both-cheated-no-traitor} if there \underline{is no traitor}, then $\mathcal{SC}_{\epsi}$ refunds the buyer, by sending $\Smin\cdot \vc$ amount (deposited in $\mathcal{SC}_{\epsi}$) back to the buyer. It also distributes $2\cdot \dc'- \chc$ amount (taken from the extractors' deposit in \SCpc) among the rest of  clients  (except the buyer and extractors). %The Prisoner's contract pays its dispute resolver $ch$ amount. 
 %
@@ -68,9 +68,9 @@
 %
 \item if \underline{one of the extractors cheated}: 
 %
-\begin{enumerate}
+\begin{enumerate}[leftmargin=2.5mm]
 %
-\item if there \underline{is no traitor}, then $\mathcal{SC}_{\epsi}$ calls \SCpc that (a) returns the honest extractor's deposit (i.e., $\dc'$ amount), (b) pays this extractor $|S_{\st\cap}|\cdot \rc$ amount, for doing its job honestly, and (c) pays this extractor $ \dc-\chc$ amount taken from the dishonest extractor's deposit. 
+\item if there \underline{is no traitor}, $\mathcal{SC}_{\epsi}$ calls \SCpc that (a) returns the honest extractor's deposit (i.e., $\dc'$ amount), (b) pays this extractor $|S_{\st\cap}|\cdot \rc$ amount, for doing its job, and (c) pays this extractor $ \dc-\chc$ amount taken from the dishonest extractor's deposit. 
 %
 %and (d) pays its dispute resolver $\hat {ch}$ amount taken from the dishonest extractor's deposit. 
 %

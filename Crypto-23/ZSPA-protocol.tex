@@ -14,7 +14,7 @@
 
 \small{
 
-\begin{enumerate}
+\begin{enumerate}[leftmargin=1mm]
 \item[$\bullet$]    {Parties.} A set of clients $\{    A_{\st 1},...,  A_{\st m}\}$.
 %
 \item[$\bullet$]    {Input.}  $m$: the total number of participants, $adr$: a deployed smart contract's address, and $b$: the total number of vectors. Let $b'=b-1$. 
@@ -37,6 +37,7 @@ All participants run a coin-tossing protocol to agree on $\mathtt{PRF}$'s key, $
 %
  $$\forall j, 1\leq j \leq m-1: z_{\scriptscriptstyle i,j}=\mathtt{PRF}(k,i||j), \hspace{5mm} z_{\scriptscriptstyle i,m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}$$
 %
+\vs
 \item   constructs a Merkel tree on top of all pseudorandom values,  $\mkgen(z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle b',m})\rightarrow g$. 
 
 \item sends the Merkel tree's root: $g$,   and the key's hash: $q=\mathtt {H}(k)$ to $adr$. 
@@ -53,6 +54,8 @@ Each party checks if, all $z_{\scriptscriptstyle i,j}$ values, the root $g$, and
  \end{tcolorbox}
  }
 \end{center}
+\vs
+\vs
 \caption{Zero-sum Pseudorandom Values Agreement (\zspa) } 
 \label{fig:ZSPA}
 \end{figure}

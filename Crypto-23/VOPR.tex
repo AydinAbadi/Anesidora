@@ -3,8 +3,8 @@
 
 
 %%%%%%%%
-\begin{figure}[ht]%[!htbp]
-\setlength{\fboxsep}{1pt}
+\begin{figure}[!htb]%[!htbp]
+\setlength{\fboxsep}{.8pt}
 \begin{center}
 \scalebox{.85}{
     \begin{tcolorbox}[enhanced,width=5.5in, 
@@ -13,10 +13,10 @@
 %%%%%%%%
 
 
-\begin{enumerate}
+\begin{enumerate}[leftmargin=1mm]
 \small{
 \item[$\bullet$] \textit{Input.}
-\begin{enumerate}
+\begin{enumerate}[leftmargin=3mm]
 \item[$\bullet$]  \textit{Public Parameters}: upper bound on input polynomials' degree: $e$ and $e'$. %, where $e\geq e'$.
 %\item[$\bullet$]  \textit{Sender}: picks an upper bound on input polynomials's degree:  $d$ and $d'$. It sends them to the receiver.
 \item[$\bullet$]  \textit{Sender Input}:  random polynomials: $\bm\psi=\sum\limits^{\st e}_{\st i=0}g_{\st i}\cdot x^{\st i}$ and  $\bm\alpha=\sum\limits^{\st e+e'}_{\st j=0}a_{\st j}\cdot x^{\st j}$, where $g_{\st i}\stackrel{\st \$}\leftarrow \mathbb{F}_p$.  Each $a_{\st j}$ has the  form: $a_{\st j}=\sum\limits^{\substack{\st k=e'\\ \st t=e}}_{\st t,k=0} a_{\st t,k}$,  such that $t+k=j$ and $a_{\st t,k}\stackrel{\st \$}\leftarrow \mathbb{F}_p$.
@@ -28,7 +28,7 @@
 \item[$\bullet$] \textit{Output.} The receiver gets $\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha$.
 \item \textbf{Computation:}
 
-\begin{enumerate} 
+\begin{enumerate} [leftmargin=3mm]
 
 \item Sender and receiver together for every $j$, $0\leq j\leq e'$,  invoke $e+1$ instances of $\ole^{\st +}$. In particular, $\forall j, 0\leq j\leq e'$: sender sends $g_{\st i}$ and $a_{\st i,j}$ while the receiver sends $b_{\st j}$ to $\ole^{\st +}$ that returns: $c_{\st i,j}=g_{\st i}\cdot b_{\st j}+ a_{\st i,j}$ to the receiver ($\forall i, 0\leq i\leq e$). 
 
@@ -50,8 +50,9 @@
 %\item Sender: $\forall j, 1\leq j\leq 2d+1$, computes $a_{\st j}=a(x_{\st j})$ and $r_{\st j}=r(x_{\st j})$. Then, it  inserts $(a_{\st j}, r_{\st j})$ into  $\mathcal{F}_{\st OLE^{\st +}}$
 %\item\label{computing-receiver} Receiver:  $\forall j, 1 \leq j\leq 2d+1$, computes $b_{\st j}=b(x_{\st j})$. Then, it  inserts $b_{\st j}$ into  $\mathcal{F}_{\st OLE^{\st +}}$ and receives $s_{\st j}=a_{\st j}+b_{\st j}\cdot r_{\st j}$. It interpolates a polynomial $s(x)$ using pairs $s_{\st j},x_{\st j}$. 
 \end{enumerate}
+\vs
 \item \label{Verification} \textbf{Verification:}
-\begin{enumerate}
+\begin{enumerate}[leftmargin=3mm]
 
 \item \label{picking-random-x}Sender: picks a random value  $z$ and sends it to the receiver. 
 
@@ -60,12 +61,15 @@
 
 \item\label{receiver-OLE-invocation} Sender:  computes $\psi_{\st z}=\bm\psi(z)$ and $\alpha_{\st z}=\bm\alpha(z)$ and checks   if equation  $\theta_{\st z}=\psi{\st z}\cdot \beta_{\st z}+\alpha_{\st z}$ holds. If the equation holds, it concludes that the computation was performed correctly. Otherwise, it aborts. 
 %
+\vs
 \end{enumerate}
 }
  \end{enumerate}
  \end{tcolorbox}
  }
 \end{center}
+\vs
+\vs
 \caption{Verifiable Oblivious Polynomial Randomization ({\vopr}) } 
 \label{fig:VOPR}
 \end{figure}
