@@ -317,7 +317,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
   %
   $$\bm\phi'=\bm\phi-\bm\zeta\cdot \bm\gamma'$$ 
   
-  \item\label{F-PSI::find-intersection} evaluates each bin's unblinded polynomial at every element $s_{\st i}$ belonging to that bin and considers the element in the intersection if the evaluation is zero: i.e., $\bm\phi'(s_{\st i})=0$.
+  \item\label{F-PSI::find-intersection} evaluates each bin's polynomial at every element $s_{\st i}$ belonging to that bin and considers $s_{\st i}$ in the intersection if $\bm\phi'(s_{\st i})=0$.
  
  \end{enumerate}
  
@@ -425,7 +425,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  
 
 %\begin{remark}
-One may be tempted to replace $\withFai$ with a scheme in which all clients send their encrypted sets to a server (potentially semi-honest and plays \aud's role) which computes the result in a privacy-preserving manner.  We highlight that the main difference is that in this (hypothetical) scheme the server is \emph{always involved};  whereas, in our protocol, \aud remains offline as long as the clients behave honestly and it is invoked only when the contract detects misbehaviours.  
+One may be tempted to replace $\withFai$ with a scheme in which all clients send their encrypted sets to a server (potentially semi-honest and plays \aud's role) which computes the result in a privacy-preserving manner.  We highlight that the main difference is that in this (hypothetical) proposal the server is \emph{always involved};  whereas, in $\withFai$, \aud is offline if the clients behave honestly.% and it is invoked only when the contract detects misbehaviours.  
 %\end{remark}
  
  
@@ -434,7 +434,7 @@ One may be tempted to replace $\withFai$ with a scheme in which all clients send
  \vs
  
  \begin{theorem}\label{theorem::F-PSI-security}
-Let polynomials $\bm\zeta$, $\bm\omega$, and $\bm\gamma$ be three secret uniformly random polynomials. If  $\bm\theta=\bm\zeta\cdot \bm\omega\cdot\bm \pi+\bm \gamma \bmod p$ is an unforgeable polynomial (w.r.t. Theorem \ref{proof::unforgeable-poly}), \zspaa, \vopr,  $\mathtt{PRF}$, and smart contracts are secure, then \fpsi securely realises  $f^{\st \text{PSI}}$ with $Q$-fairness (w.r.t. Definition \ref{def::PSI-Q-fair}) in the presence of $m-1$  active-adversary clients (i.e., $A_{\st j}$s) or a passive dealer client, passive auditor, or passive public. 
+Let polynomials $\bm\zeta$, $\bm\omega$, and $\bm\gamma$ be secret uniformly random polynomials. If  $\bm\theta=\bm\zeta\cdot \bm\omega\cdot\bm \pi+\bm \gamma \bmod p$ is an unforgeable polynomial (w.r.t. Theorem \ref{proof::unforgeable-poly}), \zspaa, \vopr,  $\mathtt{PRF}$, and smart contracts are secure, then \fpsi securely realises  $f^{\st \text{PSI}}$ with $Q$-fairness (w.r.t. Definition \ref{def::PSI-Q-fair}) in the presence of $m-1$  active-adversary clients (i.e., $A_{\st j}$s) or a passive dealer client, passive auditor, or passive public. 
  \end{theorem}
  
 
