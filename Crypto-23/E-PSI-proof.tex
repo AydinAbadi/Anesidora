@@ -1,6 +1,7 @@
 % !TEX root =main.tex
 
 
+\vs
 \section{Proof of \epsi}\label{sec::E-PSI-proof}
 
 
@@ -12,7 +13,7 @@ In this section, we prove Theorem \ref{theorem::E-PSI-security}, i.e., the secur
 %
 We prove the theorem by considering the case where each party is corrupt, at a time.
 
-\
+
 
 %\noindent\textbf{Case 1: Corrupt $m-3$ clients in $\{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}\setminus\{E_{\st 1},E_{\st 2}\}$}.  Let $G$ be a set of at most $m-3$ corrupt clients, where $G\subset \{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}\setminus\{E_{\st 1},E_{\st 2}\}$. Let set $\hat G$ be a set of honest clients excluding the (dealer and) extractors, i.e., $\hat G=\{  {  A}_{ \st {   1}}, ...,   {  A}_{ \st {   m}}\}\setminus\{G,E_{\st 1},E_{\st 2}\}$. Also, let $\mathsf{Sim}^{\st\text{E-PSI}}_{\st A_{\st j}}$ be the simulator, which uses a subroutine adversary, $\mathcal{A}_{\st A_{\st j}}$.  Next, we explain how $\mathsf{Sim}^{\st \text{E-PSI}}_{\st _{\st A_{\st j}}}$, which receives the input sets of honest dealer client $D$ and honest client(s) in $\hat G$,  works. 
 
