@@ -10,6 +10,7 @@
 
 \section{Definition of Multi-party PSI with Fair Compensation and Reward}
 
+\svs
 
 In this section, we upgrade \p to ``multi-party PSI with Fair Compensation and Reward'' (\ep), which (in addition to offering the features of \p) allows honest clients who contribute their set to receive a reward by a buyer who initiates the PSI computation and is interested in the result.
 
@@ -24,11 +25,11 @@ In this section, we upgrade \p to ``multi-party PSI with Fair Compensation and R
 %  
 
 
-In \ep, there are (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ a subset of which is potentially active adversaries and may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest, and (3) an auditor $Aud$ potentially semi-honest, where all clients (except \aud) have input set. Furthermore,  in \ep  there are two ``extractor'' clients, say $A_{\st 1}$ and $A_{\st 2}$, where $(A_{\st 1},A_{\st 2})\in \{A_{\st 1},...,A_{\st m}\}$. These extractor clients volunteer to extract the (encoded) elements of the intersection and send them to a public bulletin board, i.e., a smart contract. In return, they will be paid. 
+In \ep, there are (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ a subset of which is potentially active adversaries and may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest, and (3) an auditor $Aud$ potentially semi-honest, where all clients (except \aud) have input set. Furthermore,  in \ep  there are two ``extractor'' clients, say $A_{\st 1}$ and $A_{\st 2}$, where $(A_{\st 1},A_{\st 2})\in \{A_{\st 1},...,A_{\st m}\}$. They volunteer to extract the (encoded) elements of the intersection and send them to a public bulletin board, i.e., a smart contract. In return, they will be paid. 
 %
 %We assume these two extractors are corrupted by an active adversary during interacting with other parties (and clients) until they collaborate with the rest of the clients to compute the intersection; 
 %
-We assume these two extractors act rationally only when they want to carry out the paid task of extracting the intersection and reporting it to the smart contract, so they can maximise their profit.\footnote{Thus, similar to any $A_{\st i}$ in \p, these extractors might be corrupted by an active adversary during the PSI computation.} For simplicity, we let client $A_{\st m}$ be the buyer, i.e., the party which initiates the PSI computation and is interested in the result. 
+We assume these extractors act rationally when they want to conduct the paid task of extracting the intersection and reporting it to the smart contract, so they can maximise their profit.\footnote{Thus, similar to any $A_{\st i}$ in \p, these extractors might be corrupted by an active adversary during the PSI computation.} For simplicity, we let client $A_{\st m}$ be the buyer, i.e., the party which initiates the PSI computation and is interested in the result. 
 
 
  The formal definition of \ep is built upon the definition of \p (presented in Section \ref{sec::F-PSI-model}); nevertheless, in \ep, we ensure that honest non-buyer clients receive a \emph{reward} for participating in the protocol and revealing a portion of their inputs deduced from the result. We:  (i)  upgrade the predicate \qdel to  \qdelwr to ensure that when honest clients receive the result, then an honest non-buyer client receives its deposit back plus a reward and a buyer client receives its deposit back minus the paid reward, and (ii) upgrade the predicate  \qUnFAbt to \qUnFAbtwr to ensure when an adversary aborts in an unfair manner (i.e., aborts but learns the result) then an honest party receives its deposit back plus a predefined amount of compensation plus a reward.  The other two predicates (i.e., \qinit and \qFAbt) remain unchanged. Given the above changes, we denote the four predicates as $\bar Q:=(\qinit,  \qdelwr, \qUnFAbtwr, \qFAbt)$. Below, we present the formal definition of predicates \qdelwr and \qUnFAbtwr. 
