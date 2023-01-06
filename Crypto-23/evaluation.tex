@@ -3,30 +3,26 @@
 
 
 \vs
-\vs
+
+
 
 \section{Evaluation}\label{sec::valuation}
+
+\vs
+
 In this section, we analyse the asymptotic costs of \epsi. We also compare its costs and features with the fastest two and multiple parties PSIs in \cite{AbadiDMT22,DBLP:conf/ccs/KolesnikovMPRT17,NevoTY21,RaghuramanR22}) and with the fair PSIs in \cite{DebnathD16,DBLP:conf/dbsec/DongCCR13}. Tables \ref{table::Asymptotic-Cost} and \ref{table::comparisonTable} summarise the result of the cost analysis and the comparison respectively. 
 
 
-\vs
 
 \input{table-cost}
-
-
 \vs
-\vs
-\vs
-
 \input{evaluation-table}
-
-\vs
-\vs
 
 
 
 \subsection{Computation Cost}
 
+\svs
 
 In step \ref{e-psi::call-F-PSI-stepOne}, each client's cost is $O(m)$ and mainly involves an invocation of \ct. 
 % 
@@ -68,7 +64,7 @@ In step \ref{e-psi::SC-verification--derive-mk}, $\mathcal{SC}_{\epsi}$ invokes 
 
 \subsection{Communication Cost}
 
-
+\svs
 
 In steps  \ref{e-psi::call-F-PSI-stepOne} and \ref{e-psi::gen-mk-prime}, the communication cost of the clients is dominated by the cost of \ct which is $O(m)$. In steps \ref{e-psi::deploy-SC-E-PSI}--\ref{e-psi::commit-to-mk}, the clients' cost is negligible, as it involves sending a few transactions to the smart contracts, e.g., $\mathcal{SC}_{\fpsi}$, $\mathcal{SC}_{\epsi}$, and \SCpc. Step \ref{merkel-tree-cons} involves only extractors whose cost is $O(h)$ as each of them only sends to $\mathcal{SC}_{\epsi}$  a single value for each bin. In step \ref{e-psi::invoke-remainer-F-PSI}, the clients' cost is dominated by \vopr's cost; specifically, each pair of client and $D$ invokes \vopr $O(d^{\st 2})$ times for each bin; therefore, the cost of each client (excluding $D$) is $O(h\cdot d^{\st 2}\cdot \bar\xi)$ while the cost of $D$ is $O(h\cdot d^{\st 2}\cdot \bar\xi\cdot m)$, where $\bar\xi$ is the subroutine \ole's security parameter. 
 %
@@ -82,6 +78,9 @@ The rest of the steps impose negligible communication costs.
 \vs
 
 \subsection{Comparison}
+
+\svs
+
 Below we show that \epsi offers various features that the state-of-the-art PSIs do not offer simultaneously while keeping its overall overheads similar to the efficient PSIs.  
 
 \vs

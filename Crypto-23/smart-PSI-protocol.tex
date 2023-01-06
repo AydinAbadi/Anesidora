@@ -265,12 +265,11 @@ After that, it constructs a hash table  $\mathtt{HT}$ and inserts the encoded el
  \item\label{e-psi::SC-verification--check-three-vals} checks whether (i) the opening of commitment is valid,  (ii) the Merkle tree proof is valid, and (iii) the encrypted element is the resulting polynomial's root. Specifically, it ensures that the following relation holds: 
  %
 $$\Bigg(\comver(com_{\st i,j}, \hat{x}')=1\Bigg)  \wedge  \Bigg(\mkver(h_{\st i},g)=1\Bigg) \wedge  \Bigg(\bm\phi( \bar{e}_{\st i})-\bm\zeta( \bar{e}_{\st i})\cdot \bm\gamma'( \bar{e}_{\st i})=0\Bigg)$$
-
-
+%
 %$$\mathtt{Ver_{\st com}}(\mathtt{a}^{\st { {{(I)}}} }_{\st {  {j,i}}},\mathtt{m}^{\st { {{(I)}}} }_{\st i})=1\ \ \ \ \wedge \ \ \ \ \mathtt{Ver_{\st MT}}(\mathtt{h}^{\st { {{(I)}}} }_{\st i},g^{\st { {{(I)}}} })=1 \ \ \ \ \wedge \ \ \ \  \phi( \bar{e}^{\st { {{(I)}}} }_{\st i})-\zeta( \bar{e}^{\st { {{(I)}}} }_{\st i})\cdot \gamma'_{\st {  {j,i}}}=0$$
-
+%
 %\item if all proofs of both extractors are valid and both extractors provide identical elements of the intersections (for each bin),  for each valid proof, it takes $m\cdot l$ coins from the buyer's deposit (in $\mathcal{SC}_{\st {  {EXT}}}$) and distributes it among all clients, except the buyer. 
-
+%
 \end{enumerate}
 
 \input{payment}
@@ -279,13 +278,13 @@ $$\Bigg(\comver(com_{\st i,j}, \hat{x}')=1\Bigg)  \wedge  \Bigg(\mkver(h_{\st i}
 
 \end{enumerate}
 
-
+\vs
 
  \begin{theorem}\label{theorem::E-PSI-security}
 If  $\mathtt{PRP}$, $\mathtt{PRF}$, the commitment scheme, smart contracts, the Merkle tree scheme, \fpsi and the counter-collusion contracts are secure and the public key encryption is semantically secure,  then  \epsi realises  $f^{\st \text{PSI}}$ with $\bar Q$-fairness-and-reward (w.r.t. Definition \ref{def::PSI-Q-fair-reward}) in the presence of $m-3$ static active-adversary clients $A_{\st j}$s and $two$ rational clients $A_{\st i}s$ or a static passive dealer $D$ or passive auditor $Aud$, or passive public which sees the intersection cardinality.
  \end{theorem}
 
-
+\svs
 We refer readers to Appendices \ref{sec::E-PSI-proof} and \ref{sec::Discussion-Anesidora} for the proof of Theorem \ref{theorem::E-PSI-security} and several remarks on the \epsi respectively. 
 %
 %\begin{remark}
