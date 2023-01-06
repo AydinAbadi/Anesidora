@@ -32,10 +32,11 @@ In \ep, there are (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ a subset of
 We assume these extractors act rationally when they want to conduct the paid task of extracting the intersection and reporting it to the smart contract, so they can maximise their profit.\footnote{Thus, similar to any $A_{\st i}$ in \p, these extractors might be corrupted by an active adversary during the PSI computation.} For simplicity, we let client $A_{\st m}$ be the buyer, i.e., the party which initiates the PSI computation and is interested in the result. 
 
 
- The formal definition of \ep is built upon the definition of \p (presented in Section \ref{sec::F-PSI-model}); nevertheless, in \ep, we ensure that honest non-buyer clients receive a \emph{reward} for participating in the protocol and revealing a portion of their inputs deduced from the result. We:  (i)  upgrade the predicate \qdel to  \qdelwr to ensure that when honest clients receive the result, then an honest non-buyer client receives its deposit back plus a reward and a buyer client receives its deposit back minus the paid reward, and (ii) upgrade the predicate  \qUnFAbt to \qUnFAbtwr to ensure when an adversary aborts in an unfair manner (i.e., aborts but learns the result) then an honest party receives its deposit back plus a predefined amount of compensation plus a reward.  The other two predicates (i.e., \qinit and \qFAbt) remain unchanged. Given the above changes, we denote the four predicates as $\bar Q:=(\qinit,  \qdelwr, \qUnFAbtwr, \qFAbt)$. Below, we present the formal definition of predicates \qdelwr and \qUnFAbtwr. 
+ The formal definition of \ep is built upon the definition of \p (presented in Section \ref{sec::F-PSI-model}); nevertheless, in \ep, we ensure that honest non-buyer clients receive a \emph{reward} for participating in the protocol and revealing a portion of their inputs deduced from the result. We:  (i)  upgrade the predicate \qdel to  \qdelwr to ensure that when honest clients receive the result, then an honest non-buyer client receives its deposit back plus a reward and a buyer client receives its deposit back minus the paid reward, and (ii) upgrade the predicate  \qUnFAbt to \qUnFAbtwr to ensure when an adversary aborts but learns the result, then an honest party receives its deposit back plus a predefined amount of compensation plus a reward.  The other two predicates (i.e., \qinit and \qFAbt) remain unchanged. Given the above changes, we denote the four predicates as $\bar Q:=(\qinit,  \qdelwr, \qUnFAbtwr, \qFAbt)$. Below, we present the formal definition of predicates \qdelwr and \qUnFAbtwr. 
  
  
 \vs
+\svs
 
     \begin{definition}  [\qdelwr:
     %
@@ -45,7 +46,7 @@ We assume these extractors act rationally when they want to conduct the paid tas
 
 
 \vs
-
+\vs
 
    \begin{definition}  [\qUnFAbtwr: UnFair-Abort-with-Reward predicate]
    %
@@ -53,6 +54,7 @@ We assume these extractors act rationally when they want to conduct the paid tas
   %
   \end{definition}
 
+ \svs
  
 Next, we present the formal definition of multi-party PSI with Fair Compensation and Reward, \ep. 
 
@@ -60,6 +62,7 @@ Next, we present the formal definition of multi-party PSI with Fair Compensation
 %%%%%%%%
 
 \vs
+
 
 \begin{definition}[\ep]\label{def::PSI-Q-fair-reward}
 Let $f^{\st \text{PSI}}$ be the multi-party PSI functionality defined in Section \ref{sec::F-PSI-model}. We say  protocol $\Gamma$ realises  $f^{\st \text{PSI}}$ with $\bar Q$-fairness-and-reward in the presence of $m-3$ static active-adversary clients $A_{\st j}$s and $two$ rational clients $A_{\st i}s$ or a static passive dealer  $D$ or passive auditor $Aud$, if for every non-uniform probabilistic polynomial time adversary $\mathcal{A}$ for the real model, there exists a non-uniform probabilistic polynomial-time adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $I\in \{A_{\st 1},...,A_{\st m}, D, Aud\}$, it holds that: 
@@ -82,6 +85,8 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 \vs
 
 \subsection{Main Challenges to Overcome}
+
+
 
 \subsubsection{Rewarding Clients Proportionate to the Intersection Cardinality.}
 In PSIs, the main private information about the clients which is revealed to a result recipient is the private set elements that the clients have in common. Thus, honest clients must receive a reward proportionate to the intersection cardinality, from a buyer. To receive the reward, the clients need to reach a consensus on the intersection cardinality. The naive way to do that is to let every client find the intersection and declare it to the smart contract. Under the assumption that the majority of clients are honest, then the smart contract can reward the honest result recipient (from the buyer's deposit). Nevertheless, the honest majority assumption is strong in the context of multi-party PSI. Moreover, this approach requires all clients to extract the intersection, which would increase the overall costs.  Some clients may not even be interested in or available to do so. This task could also be conducted by a single entity, such as the dealer; but this approach would introduce a single point of failure and all clients have to depend on this entity.  
