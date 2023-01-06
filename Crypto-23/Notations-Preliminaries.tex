@@ -2,12 +2,12 @@
 
 
 \vs
-
+\vs
 \section{Notations and Preliminaries}
 
 \vs
 \subsection{Notations}
-
+\vspace{-2mm}
 Table \ref{table:notation-table} summarises the main notations used in this paper. 
 
 \vs
@@ -25,6 +25,7 @@ Table \ref{table:notation-table} summarises the main notations used in this pape
 \vs
 
 \subsection{Smart Contracts}
+\svs
 
 Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, beyond offering a decentralised currency,  support computations on transactions. In this setting, a certain computation logic is encoded in a computer program, called a \emph{``smart contract''}. To date, Ethereum is the most predominant cryptocurrency framework that enables users to define arbitrary smart contracts. In this framework,  contract code is stored on the blockchain and executed by all parties (i.e., miners) maintaining the cryptocurrency. The program execution's correctness is guaranteed by the security of the underlying blockchain components. %To prevent a denial-of-service attack, the framework requires a transaction creator to pay a  fee, called \emph{``gas''}, depending on the complexity of the contract running on it. 
 
@@ -32,6 +33,8 @@ Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, b
 \vs
 
 \subsection{Counter Collusion Smart Contracts}\label{Counter-Collusion-Smart-Contracts}
+\svs
+
 
 To let a client efficiently delegate a computation to a  couple of potentially colluding servers, Dong   \et \cite{dong2017betrayal} proposed two main smart contracts; namely, ``Prisoner's Contract'' ($\SCpc$) and ``Traitor's Contract'' (\SCtc).  
 %
@@ -76,7 +79,7 @@ If a server behaves honestly, it can withdraw its deposit. But, if a cheating se
 \vs
 \vs
 \subsection{Pseudorandom Function and Permutation}
-
+\svs
 
 Informally, a pseudorandom function is a deterministic function that takes a key of length $\lambda$ and an input; and outputs a value  indistinguishable from that of  a truly random function.  In this paper, we use pseudorandom functions:   $\mathtt {PRF}: \{0,1\}^{\st \lambda}\times \{0,1\}^{\st *} \rightarrow  \mathbb{F}_{\st p}$, where $|p|=\lambda$ is the security parameter \cite{DBLP:books/crc/KatzLindell2007}. 
 
@@ -93,6 +96,9 @@ The definition of a pseudorandom permutation, $\mathtt {PRP}: \{0,1\}^{\st \lamb
 \vs
 \vs
 \subsection{Hash Tables}
+
+\svs
+
 A hash table is an array of   bins each of which can hold a set of elements. It comes with a hash function. To insert an element, we first compute the element's hash,  and then store the element in the bin whose index is the element's hash. Given the maximum number of elements $c$ and the bin's maximum size $d$, we can determine the number of bins, $h$, by analysing hash tables under the balls into the bins model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}. Appendix \ref{Preliminary-Hash-Table} explains how the hash table parameters are set.
 
 \vs
@@ -103,7 +109,7 @@ A hash table is an array of   bins each of which can hold a set of elements. It 
 \vs
 \vs
 \subsection{Polynomial Representation of Sets}\label{sec::poly-rep}
-
+\svs
 
 Using a polynomial to represent a set's elements was proposed by Freedman  \et in \cite{DBLP:conf/eurocrypt/FreedmanNP04}. In this representation, set elements $S=\{s_{\st 1},...,s_{\st d}\}$ are defined over  $\mathbb{F}_{\st p}$ and  set $S$ is represented as a polynomial of   form: $\mathbf{p}(x)=\prod\limits ^{\st {d}}_{\st i=1}(x-s_{\st i})$, where $\mathbf{p}(x) \in \mathbb{F}_{\st p}[X]$ and $\mathbb{F}_{\st p}[X]$ is a polynomial ring.  Often a   polynomial,  $\mathbf{p}(x)$, of degree $d$ is  represented in the ``coefficient form'' as follows:  $\mathbf{p}(x)=a_{\st 0}+a_{\st 1}\cdot x+...+ a_{\st d}\cdot x^{\st d}$. As shown in \cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05}, for two sets $S^{\st (A)}$ and $S^{\st (B)}$ represented by polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ respectively, their product: $\mathbf{p}_{\st A}\cdot \mathbf{p}_{\st  B}$  represents the set union, while their greatest common divisor: $gcd($$\mathbf{p}_{\st A}$$,\mathbf{p}_{\st B})$ represents the set intersection. For two polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ of degree $d$, and two random polynomials $\bm\gamma_{\st A}$ and  $\bm\gamma_{\st B}$ of degree $d$, it is proven in~\cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05} that: $\bm\theta=\bm\gamma_{\st A}\cdot \mathbf{p}_{\st A}+\bm\gamma_{\st B}\cdot\mathbf{p}_{\st B}=\bm\mu\cdot gcd(\mathbf{p}_{\st A},\mathbf{p}_{\st B})$, where $\bm\mu$ is a uniformly random polynomial, and polynomial $\bm\theta$ contains only information about the elements in  $S^{\st (A)}\cap S^{\st (B)}$, and contains no information about other elements in $S^{\st (A)}$ or $S^{\st (B)}$.  
 
@@ -123,20 +129,22 @@ Given a polynomial $\bm\theta$ that encodes sets intersection, one can find the 
 \vs
 
 \subsection{Horner's Method}
+\svs
+
 Horner's method \cite{DBLP:journals/ibmrd/Dorn62} allows for efficiently evaluating polynomials at a given point. Specifically, given a polynomial of the form: $\bm\tau(x)= a_{\st 0}+a_{\st 1}\cdot x+a_{\st 2}\cdot x^{\st 2}+...+a_{\st n}\cdot x^{\st n}$ and a point: $x_{\st 0}$, one can efficiently evaluate $\bm\tau(x)$ at $x_{\st 0}$ iteratively, in the following fashion: $\bm\tau(x_{\st 0})=a_{\st 0}+x_{\st 0}(a_{\st 1} + x_{\st 0}(a_{\st 2}+...+x_{\st 0}(a_{\st n-1}+x_{\st 0}\cdot a_{\st n})...)))$. Evaluating  a polynomial of degree $n$ naively requires  $n$ additions and $\frac{(n^{\st 2}+n)}{2}$ multiplications. However, using Horner's method the evaluation requires only $n$ additions and $n$ multiplications. We use this method in this paper. 
 
 \vs
 \vs
 
 \subsection{Oblivious Linear Function Evaluation}\label{sec::OLE-plus}
-
+\svs
 Oblivious Linear function Evaluation (\ole) is a two-party protocol that involves a sender and receiver. In \ole,  the sender  has two  inputs  $a, b\in \mathbb{F}_{\st p}$ and the receiver has a single input, $c \in \mathbb{F}_{p}$.  The protocol allows the receiver to learn only $s = a\cdot c + b \in \mathbb{F}_{\st p}$, while the sender learns nothing. Ghosh \textit{et al.} \cite{GhoshNN17} proposed an efficient \ole that has $O(1)$ overhead and involves mainly symmetric key operations. Later, in \cite{GhoshN19} an enhanced \ole, called $\ole^{\st +}$, was proposed. The latter ensures that the receiver cannot learn anything about the sender's inputs,  even if it sets its input to $0$. In this paper, we use $\ole^{\st +}$. We refer readers to Appendix \ref{apndx:F-OLE-plus}, for its construction.  %In this case, each party picks a random string, 
 
 
 \vs
 \vs
 \subsection{Coin-Tossing Protocol}
-
+\svs
 A Coin-Tossing protocol, \ct, allows two mutually distrustful parties, say $A$ and $B$, to jointly generate a single random bit. Formally, \ct computes the functionality $\fct(in_{\st A}, in_{\st B})\rightarrow (out_{\st A}, out_{\st B})$, which takes $in_{\st A}$ and  $in_{\st B}$ as inputs of $A$ and $B$ respectively and outputs $out_{\st A}$ to $A$ and $out_{\st B}$ to $B$, where $out_{\st A}=out_{\st B}$. A basic security requirement of a \ct is that the resulting bit is indistinguishable from a truly random bit. Blum proposed a simple \ct in \cite{Blum82} that works as follows. Party $A$ picks a random bit $in_{\st A}\stackrel{\st \$}\leftarrow\{0,1\}$, commits to it and sends the commitment to $B$ which sends its choice of random input, $in_{\st B}\stackrel{\st \$}\leftarrow\{0,1\}$, to $A$ which sends the commitment opening (including $in_{\st A}$) to $B$, which checks if the commitment matches its opening. If so, each party computes the final random bit as $in_{\st A}\oplus in_{\st B}$.  
 
 There also exist \emph{fair} coin-tossing protocols, e.g., in \cite{MoranNS09}, that ensure either both parties learn the result or nobody does. They can be generalised to \emph{multi-party} coin-tossing protocols to generate a \emph{random string}, e.g., see \cite{BeimelOO10,KiayiasRDO17}.

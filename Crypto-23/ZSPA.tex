@@ -4,7 +4,7 @@
 \vs
 \vs
 \subsection{Zero-sum Pseudorandom Values Agreement Protocol (\zspa)}
-
+\svs
 The \zspa  allows $m$ parties (the majority of which is potentially malicious) to efficiently agree on (a set of vectors, where each vector has) $m$ pseudorandom values such that their sum equals zero. At a high level, the parties first sign a smart contract and then run a  coin-tossing protocol \ct to agree on a key: $k$.  Next, one of the parties generates $m-1$ pseudorandom values $z_{\scriptscriptstyle j}$ (where $1\leq j\leq m-1$) using key $k$ and $\mathtt{PRF}$. It sets the last value as the additive inverse of the sum of the values generated, i.e. $z_{\scriptscriptstyle m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle j}$. 
 %
 %Next, it commits to each value, where it uses $k_{\scriptscriptstyle 2}$ to generate the randomness of each commitment. 

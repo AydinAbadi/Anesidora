@@ -3,6 +3,7 @@
 
 \vs 
 \vs
+\vs
 
 \subsection{Security Model}\label{sec::sec-model}
 
@@ -60,16 +61,15 @@ a protocol's security is analyzed by comparing what an adversary can do in the r
 % 
 % 
 % Next, we define security. At a high level, the definition states that a secure protocol in the real model emulates the ideal model. This is formulated by stating that adversaries in the ideal model can simulate executions of the protocol in the real model. 
- 
+ \vs
 \begin{definition}\label{def::MPC-active-adv}
 Let $f$ be the two-party functionality defined above and $\Gamma$ be a two-party protocol that computes $f$.   Protocol $\Gamma$ securely computes $f$ with abort in the presence of static active adversaries if for every non-uniform probabilistic polynomial time adversary $\mathcal{A}$ for the real model, there exists a non-uniform probabilistic polynomial-time adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $i\in \{0,1\}$, it holds that: 
 %
 $
-\{\mathsf {Ideal}^{\st f}_{\st \mathsf{Sim}(z), i}(x,y)\}_{\st x,y,z}\stackrel{c}{\equiv} \{\mathsf{Real}_{\st \mathcal{A}(z), i}^{\st \Gamma}(x,y) \}_{\st x,y,z}
+\{\mathsf {Ideal}^{\st f}_{\st \mathsf{Sim}(z), i}(x,y)\}_{\st x,y,z}\stackrel{c}{\equiv} \{\mathsf{Real}_{\st \mathcal{A}(z), i}^{\st \Gamma}(x,y) \}_{\st x,y,z},
 $
 %
 \end{definition}
- 
  where the ideal execution of $f$ on inputs $(x,$ $ y)$ and $z$ is denoted by $\mathsf{Ideal}^{\st f}_{\st\mathcal{A}(z), i}(x,$ $y)$ and is defined as the output pair of the honest party and $\mathcal{A}$ from the ideal execution. The real execution of $\Gamma$ is denoted by $\mathsf{Real}^{\st \Gamma}_{\st\mathcal{A}(z), i}(x,y)$, it is defined as the joint output of the parties engaging in the real execution of $\Gamma$ (on the inputs), in the presence of $\mathcal{A}$.
   
   
