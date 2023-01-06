@@ -6,12 +6,12 @@
 
 \subsection{Security Model}\label{sec::sec-model}
 
-In this paper, we use the simulation-based paradigm of secure computation \cite{DBLP:books/cu/Goldreich2004} to define and prove the proposed protocols. Since both types of (static) active and passive adversaries are involved in our protocols, we will outline definitions for both types (and refer readers to Appendix \ref{sec::sec-model-long} for more details).  We consider a static adversary, we assume there is an authenticated private (off-chain) channel between the clients and we consider a standard public blockchain, e.g., Ethereum.
+In this paper, we use the simulation-based paradigm of secure computation \cite{DBLP:books/cu/Goldreich2004} to define and prove our protocols. Since both types of active and passive adversaries are involved in our protocols, we will outline definitions for both types (and refer readers to Appendix \ref{sec::sec-model-long} for more details).  We consider a static adversary, we assume there is an authenticated private (off-chain) channel between the clients and we consider a standard public blockchain, e.g., Ethereum.
 %
  
  \vs
  \vs
- \subsubsection{Two-party Computation.} A two-party protocol $\Gamma$ problem is captured by specifying a random process that maps pairs of inputs to pairs of outputs, one for each party. Such process is referred to as a functionality denoted by  $f:\{0,1\}^{\st *}\times\{0,1\}^{\st *}\rightarrow\{0,1\}^{\st *}\times\{0,1\}^{\st *}$, where $f:=(f_{\st 1},f_{\st 2})$. For every input pair $(x,y)$, the output pair is a random variable $(f_{\st 1} (x,y), f_{\st 2} (x,y))$, such that the party with input $x$ wishes to obtain $f_{\st 1} (x,y)$ while the party with input $y$ wishes to receive $f_{\st 2} (x,y)$. When $f$ is deterministic, then $f_{\st 1} =f_{\st 2}$. In the setting where $f$ is asymmetric and only one party (say the first one) receives the result, $f$ is defined as $f:=(f_{\st 1}(x,y), \bot)$. 
+ \subsubsection{Two-party Computation.} A two-party protocol $\Gamma$ problem is captured by specifying a random process that maps pairs of inputs to pairs of outputs, one for each party. Such process is referred to as a functionality denoted by  $f:\{0,1\}^{\st *}\times\{0,1\}^{\st *}\rightarrow\{0,1\}^{\st *}\times\{0,1\}^{\st *}$, where $f:=(f_{\st 1},f_{\st 2})$. For every input pair $(x,y)$, the output pair is a random variable $(f_{\st 1} (x,y), f_{\st 2} (x,y))$, such that the party with input $x$ obtains $f_{\st 1} (x,y)$ while the party with input $y$ receives $f_{\st 2} (x,y)$. When $f$ is deterministic, then $f_{\st 1} =f_{\st 2}$. In the setting where $f$ is asymmetric and only one party (say the first one) receives the result, $f$ is defined as $f:=(f_{\st 1}(x,y), \bot)$. 
  
  \vs
  \vs
