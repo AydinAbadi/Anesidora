@@ -15,8 +15,8 @@ In this section, we introduce the notion of ``unforgeable polynomials''. Informa
 
 
 To turn an arbitrary polynomial $\bm\pi$ of degree $d$ into an unforgeable polynomial $\bm\theta$, one can (i) pick three secret random polynomials $(\bm\zeta, \bm\omega, \bm \gamma)$ and (ii) compute $\bm\theta=\bm\zeta\cdot \bm\omega\cdot\bm \pi + \bm \gamma \bmod p$, where  $deg(\bm\zeta)= 1, deg(\bm\omega)=d,$ and   $deg(\bm\gamma)= 2d+1$. 
-
-To verify whether $\bm\theta$ has been tampered with, a verifier (given $\bm\theta, \bm \gamma$, and $\bm\zeta$) can check if $\bm\theta-\bm \gamma$ is divisible by $\bm\zeta$. Informally, the security of an unforgeable polynomial states that an adversary (who does not know the three secret random polynomials) cannot tamper with an unforgeable polynomial without being detected, except with a negligible probability, in the security parameter. Below, we formally state it. 
+%
+To verify whether $\bm\theta$ has been tampered with, a verifier (given $\bm\theta, \bm \gamma$, and $\bm\zeta$) can check if $\bm\theta-\bm \gamma$ is divisible by $\bm\zeta$. The security of an unforgeable polynomial states that an adversary (who does not know the three secret random polynomials) cannot tamper with an unforgeable polynomial without being detected, except with a negligible probability, in the security parameter. Below, we formally state it. 
 
 
 \vs
@@ -31,6 +31,7 @@ $Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma) ]\leq \negl(\lambda)$.
 \end{theorem}
 
 \vs
+\svs
 \begin{proof}
 
 Let $\bm\tau=\bm\delta-\bm\gamma$ and $\bm\zeta=a\cdot x+b$. Since $\bm\gamma$ is a random polynomial of degree $2d+1$ and unknown to the adversary, given $(\bm\theta, \bm\pi)$,  the adversary cannot learn anything about the factor $\bm\zeta$; as from its point of view every polynomial of degree $1$ in $\mathbb{F}_{\st p}[X]$ is equally likely to be $\bm\zeta$. Moreover,  polynomial $\bm\tau$ has at most $Max\big(deg(\bm\delta), 2d+1\big)$ irreducible non-constant factors.  For $\bm\zeta $ to divide $\bm\tau$,  one of the factors of $\bm\tau$ must be equal to $\bm\zeta$. We  also know that $\bm\zeta$ has been picked uniformly at random (i.e., $a,b
@@ -38,7 +39,7 @@ Let $\bm\tau=\bm\delta-\bm\gamma$ and $\bm\zeta=a\cdot x+b$. Since $\bm\gamma$ i
 \hfill\(\Box\)\end{proof} 
 
 %$Max\big(deg(\theta'), d+1\big)$
- An interesting feature of an unforgeable polynomial is that the verifier can perform the check without needing to know the original polynomial $\bm\pi$. Another appealing feature of the unforgeable polynomial is that it supports \emph{linear combination} and accordingly \emph{batch verification}. Specifically, to turn $n$ arbitrary polynomials $[\bm\pi_{\st 1},..., \bm\pi_{\st n}]$ into unforgeable polynomials, one can construct  $\bm\theta_{\st i}=\bm\zeta\cdot \bm\omega_{\st i}\cdot \bm\pi_{\st i}+ \bm\gamma_{\st i} \bmod p$, where $\forall i, 1\leq i\leq n$.  
+ An interesting feature of an unforgeable polynomial is that the verifier can perform the check without needing to know the original polynomial $\bm\pi$. Another feature of the unforgeable polynomial is that it supports \emph{linear combination} and accordingly \emph{batch verification}. Specifically, to turn $n$ arbitrary polynomials $[\bm\pi_{\st 1},..., \bm\pi_{\st n}]$ into unforgeable polynomials, one can construct  $\bm\theta_{\st i}=\bm\zeta\cdot \bm\omega_{\st i}\cdot \bm\pi_{\st i}+ \bm\gamma_{\st i} \bmod p$, where $\forall i, 1\leq i\leq n$.  
  
  
 
@@ -57,7 +58,8 @@ $Pr[ \bm\zeta \ | \ (\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limit
 %
 \end{theorem}
 
-
+\vs
+\svs
 
 %%%%
 \begin{proof}  
@@ -74,6 +76,7 @@ $$Pr[ \bm\zeta \ | \ (\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limi
 \hfill\(\Box\)
 \end{proof} 
 
+\svs
 
 Briefly, in \withFai, we will use unforgeable polynomials (and their linear combinations) to allow a smart contract to efficiently check whether the polynomials that the clients send to it are intact, i.e., they are \vopr's outputs.
 
