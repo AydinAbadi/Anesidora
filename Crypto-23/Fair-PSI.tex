@@ -288,12 +288,14 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  \begin{enumerate}[leftmargin=1mm]
  \item for every bin, sums all related polynomials  provided by all clients in $\bar{P}$:
  %
+ {\small{
  \begin{equation*}
 \begin{split}
-\hspace{-9mm} \bm\phi&= \bm\nu^{\st  {  {(D)}} }+\sum\limits^{\st  {   A}_{\st  {   m}}}_{\st   {  {C }= }   {   A}_{\st  {  1}}}\bm\nu^{\st  {  {(C)}} }\\
- &= \bm\zeta\cdot \bigg(\bm\omega'^{\st  {  {(D)}}}\cdot \bm\pi^{\st  {  {(D)}} } +\sum\limits^{\st  {   A}_{  {   m}}}_{\st  {  {C }= }   {   A}_{\st  {  1}}}(\bm\omega^{\st  {  {(D,C)}}} \cdot \bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  (C)}}) +\bm\pi^{\st  {  {(D)}}}\cdot\sum\limits^{\st  {   A}_{ \st {   m}}}_{\st  {C= }   {   A}_{\st  {  1}}}(\bm\rho^{\st  {  {(D,C)}}} \cdot \bm\rho^{\st  {  {(C,D)}}}) + \bm\gamma'\bigg)
+\hspace{-11mm} \bm\phi&= \bm\nu^{\st  {  {(D)}} }+\sum\limits^{\st  {   A}_{\st  {   m}}}_{\st   {  {C }= }   {   A}_{\st  {  1}}}\bm\nu^{\st  {  {(C)}} }\\
+ &= \bm\zeta\cdot \bigg(\bm\omega'^{\st  {  {(D)}}}\cdot \bm\pi^{\st  {  {(D)}} } +\hspace{-1.5mm}\sum\limits^{\st  {   A}_{  {   m}}}_{\st  {  {C }= }   {   A}_{\st  {  1}}}(\bm\omega^{\st  {  {(D,C)}}} \cdot \bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  (C)}}) +\bm\pi^{\st  {  {(D)}}}\cdot\hspace{-1.5mm}\sum\limits^{\st  {   A}_{ \st {   m}}}_{\st  {C= }   {   A}_{\st  {  1}}}(\bm\rho^{\st  {  {(D,C)}}} \cdot \bm\rho^{\st  {  {(C,D)}}}) + \bm\gamma'\bigg)
   \end{split}
 \end{equation*}
+}}
 % \item\label{F-PSI:detect-misbehaving-party} ensures that, for every bin, $\bm\zeta$ divides $\bm\phi$. Otherwise, it aborts and Arbiter protocol (presented in Fig. \ref{fig:arbiter}) is invoked to find misbehaving parties.
  
   \item\label{F-PSI:detect-misbehaving-party} checks whether, for every bin, $\bm\zeta$ divides $\bm\phi$. If the check passes, it sets $Flag=True$. Otherwise, it sets $Flag=False$. 

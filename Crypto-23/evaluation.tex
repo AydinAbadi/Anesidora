@@ -30,7 +30,7 @@ In steps \ref{e-psi::deploy-SC-E-PSI}--\ref{e-PSI::extractor-deposit}, the clien
 %
 Step \ref{e-psi::commit-to-mk} involves only $D$ whose cost in this step is constant, as it involves invoking a public key encryption, \prf,  and commitment only once. In step \ref{e-psi::gen-mk-prime}, the clients' cost is  $O(m)$, as they need to invoke an instance of \ct. 
 %
-In step \ref{Smart-PSI:encode-elem}, each client invokes \prp and $\mathtt{H}$ linear with its set's cardinality. In the same step, it also constructs $h$ polynomials, where the construction of each polynomial involves $d$  modular multiplications and additions. Thus, its complexity in this step is $O(h\cdot d)$. It has been shown in \cite{AbadiDMT22} that $O(h\cdot d)=O(c)$ and  $d=100$ for all set sizes. 
+In step \ref{Smart-PSI:encode-elem}, each client invokes \prp and $\mathtt{H}$ linear with its set's cardinality. In step \ref{Smart-PSI:encode-elem}, it also constructs $h$ polynomials, where the construction of each polynomial involves $d$  modular multiplications and additions. Thus, its complexity in this step is $O(h\cdot d)$. It has been shown in \cite{AbadiDMT22} that $O(h\cdot d)=O(c)$ and  $d=100$ for all set sizes. 
 %
 In step \ref{merkel-tree-cons}, each extractor invokes the commitment scheme linear with the number of its set cardinality $|S|$ and constructs a Merkle tree on top of the commitments. Therefore, its complexity is $O(|S|)$. 
 
@@ -81,7 +81,7 @@ The rest of the steps impose negligible communication costs.
 
 \svs
 
-Below we show that \epsi offers various features that the state-of-the-art PSIs do not offer simultaneously while keeping its overall overheads similar to the efficient PSIs.  
+Below we show that \epsi offers various features that the other PSIs do not offer simultaneously, while keeping its overall overheads similar to the efficient PSIs.  
 
 \vs
 \vs

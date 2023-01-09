@@ -33,14 +33,6 @@ Berenbrink, P., Czumaj, A., Steger, A., V{\"{o}}cking, B.: Balanced
 Blum, M.: Coin flipping by telephone - {A} protocol for solving impossible
   problems. In: COMPCON'82 (1982)
 
-\bibitem{BonehGHWW13}
-Boneh, D., Gentry, C., Halevi, S., Wang, F., Wu, D.J.: Private database queries
-  using somewhat homomorphic encryption. In: {ACNS} (2013)
-
-\bibitem{BrickellPSW07}
-Brickell, J., Porter, D.E., Shmatikov, V., Witchel, E.: Privacy-preserving
-  remote diagnostics. In: {CCS} (2007)
-
 \bibitem{ChandranD0OSS21}
 Chandran, N., Dasgupta, N., Gupta, D., Obbattu, S.L.B., Sekar, S., Shah, A.:
   Efficient linear multiparty {PSI} and extensions to quorum {PSI}. In: {CCS}
@@ -171,9 +163,5 @@ Wood, G., et~al.: Ethereum: A secure decentralised generalised transaction
 \bibitem{ZhangLLJL19}
 Zhang, E., Liu, F., Lai, Q., Jin, G., Li, Y.: Efficient multi-party private set
   intersection against malicious adversaries. In: {CCSW} (2019)
-
-\bibitem{c18}
-Zhao, Y., Chow, S.S.M.: Can you find the one for me? privacy-preserving
-  matchmaking via threshold {PSI}. ePrint Arch.  (2018)
 
 \end{thebibliography}

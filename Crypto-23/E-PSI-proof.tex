@@ -209,15 +209,14 @@ We conclude that the distribution of the joint outputs of the honest client $C\i
 
 
 
-\noindent\textbf{Case 2: Corrupt dealer $D$}.  In the real execution, the dealer's view is defined as follows: 
-
-
-$$ \mathsf{View}_{\st D}^{\st \epsi} \Big(S^{\st (D)}, (S^{\st (1)},..., S^{\st (m)})\Big)=$$ $$ \{S^{\st (D)}, adr_{\st sc}, S_{\minn}\cdot \vc, 2\cdot \dc', 
+\noindent\textbf{Case 2: Corrupt dealer $D$}.  In the real execution, the dealer's view is defined as follows:  
+%
+$ \mathsf{View}_{\st D}^{\st \epsi} \Big(S^{\st (D)}, (S^{\st (1)},..., S^{\st (m)})\Big)=  \{S^{\st (D)}, adr_{\st sc}, S_{\minn}\cdot \vc, 2\cdot \dc', 
 %
 %
- r_{\st D},  \mathsf{View}^{\st \fpsi}_{\st D}, \mathsf{View}^{\st \ct}_{\st D}, (com_{\st 1,j}, \bar{e}_{\st 1}, q_{\st 1}, h_{\st 1})..., (com_{\st sz, j'}, \bar{e}_{\st sz}, q_{\st {sz}}, h_{\st sz}), g, \hat{x}:=({mk}, z'), 
+ r_{\st D},  \mathsf{View}^{\st \fpsi}_{\st D}, \mathsf{View}^{\st \ct}_{\st D},\\ (com_{\st 1,j}, \bar{e}_{\st 1}, q_{\st 1}, h_{\st 1})..., (com_{\st sz, j'}, \bar{e}_{\st sz}, q_{\st {sz}}, h_{\st sz}), g, \hat{x}:=({mk}, z'), 
  %
-  S_{\st \cap}\}$$
+  S_{\st \cap}\}$
 %
 where  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{View}^{\st \vopr}_{\st D}$ refer to $D$'s real-model view during the execution of \ct and \vopr respectively. Also, $r_{\st D}$ is the outcome of internal random coins of $D$, $adr_{\st sc}$ is the address of contract, $\mathcal{SC}_{\epsi}$, $(j, ...,j')\in \{1,..., h\}$, $z'=\mathtt{PRF}(\bar{mk}, 0)$, $sz=|S_{\st \cap}|$, and $h_{\st i}$ is a Merkle tree proof asserting that $com_{\st i,j}$ is a leaf node of a Merkle tree with root node $g$. The simulator $\mathsf{Sim}^{\st \epsi}_{\st D}$, which receives all parties' input sets, works as follows. 
 
@@ -288,9 +287,9 @@ where  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{View}^{\st \vopr}_{\st D}$
 
 \noindent\textbf{Case 3: Corrupt auditor}.  In this case, the real-model view of the auditor is defined as  
 %
-$$ \mathsf{View}_{\st Aud}^{\st \epsi} \Big(\bot, S^{\st (D)}, (S^{\st (1)},..., S^{\st (m)})\Big)=$$
+$ \mathsf{View}_{\st Aud}^{\st \epsi} \Big(\bot, S^{\st (D)}, (S^{\st (1)},..., S^{\st (m)})\Big)=
 %
-$$ \{\mathsf{View}^{\st \fpsi}_{\st Aud}, adr_{\st sc}, \Smin\cdot \vc, 2\cdot \dc', (com_{\st 1,j}, \bar{e}_{\st 1}, q_{\st 1}, h_{\st 1})..., (com_{\st sz, j'}, \bar{e}_{\st sz}, q_{\st {sz}}, h_{\st sz}), g, \hat{x}:=({mk}, z')\}$$
+ \{\mathsf{View}^{\st \fpsi}_{\st Aud}, adr_{\st sc}, \Smin\cdot \vc, 2\cdot \dc', (com_{\st 1,j}, \bar{e}_{\st 1}, q_{\st 1}, h_{\st 1})..., (com_{\st sz, j'}, \bar{e}_{\st sz}, q_{\st {sz}}, h_{\st sz}), g, \hat{x}:=({mk}, z')\}$.
 
 
   Due to the security of \fpsi, \aud's view $\mathsf{View}^{\st \fpsi}_{\st Aud}$ during the execution of \fpsi can be easily simulated. As we have shown in Case 2, for the remaining transcript, its real-model view can be simulated too. However, there is a difference between Case 3 and Case 2; namely, in the former case, \aud does not have the $\mathtt{PRP}$'s key $mk'$ used to encrypt each set element. However, due to the security of  $\mathtt{PRP}$, it cannot distinguish each encrypted encoded element from a uniformly random element and cannot distinguish $\mathtt{PRP}(mk',.)$ from a uniform permutation. Therefore, each value $\bar{e}_{\st j}$ in the real model has identical distribution to each value $\bar{e}_{\st i,j}$ (as defined in Case 2) in the ideal model, as both are the outputs of $\mathtt{PRP}$. 
@@ -305,11 +304,11 @@ $$ \{\mathsf{View}^{\st \fpsi}_{\st Aud}, adr_{\st sc}, \Smin\cdot \vc, 2\cdot \
 
 \noindent\textbf{Case 4: Corrupt public}. In the real model, the view of the public (i.e., non-participants of the protocol) is defined as below: 
  %
- $$ \mathsf{View}_{\st Pub}^{\st \epsi} \Big(\bot, S^{\st (D)},(S^{\st (A_1)},..., S^{\st (A_m)})\Big)=$$ $$ 
+ $ \mathsf{View}_{\st Pub}^{\st \epsi} \Big(\bot, S^{\st (D)},(S^{\st (A_1)},...,\\ S^{\st (A_m)})\Big)= 
  %
  %
  %
-\{\mathsf{View}^{\st \fpsi}_{\st Pub}, adr_{\st sc}, \Smin\cdot \vc, 2\cdot \dc', (com_{\st 1,j}, \bar{e}_{\st 1}, q_{\st 1}, h_{\st 1})..., (com_{\st sz, j'}, \bar{e}_{\st sz}, q_{\st {sz}}, h_{\st sz}), g, \hat{x}:=({mk}, z')\}$$
+\{\mathsf{View}^{\st \fpsi}_{\st Pub}, adr_{\st sc}, \Smin\cdot \vc, 2\cdot \dc', (com_{\st 1,j}, \bar{e}_{\st 1}, q_{\st 1}, h_{\st 1})..., (com_{\st sz, j'}, \bar{e}_{\st sz}, q_{\st {sz}},\\ h_{\st sz}), g, \hat{x}:=({mk}, z')\}$.
  
  
  
