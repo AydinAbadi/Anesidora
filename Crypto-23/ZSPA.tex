@@ -2,9 +2,9 @@
 
 
 \vs
-\vs
+
 \subsection{Zero-sum Pseudorandom Values Agreement Protocol (\zspa)}
-\svs
+
 The \zspa  allows $m$ parties to efficiently agree on (a set of vectors, where each vector has) $m$ pseudorandom values such that their sum equals zero. At a high level, the parties first sign a smart contract and then run a  coin-tossing protocol \ct to agree on a key: $k$.  Next, one of the parties generates $m-1$ pseudorandom values $z_{\scriptscriptstyle j}$ (where $1\leq j\leq m-1$) using key $k$ and $\mathtt{PRF}$. It sets the last value as the additive inverse of the sum of the values generated, i.e. $z_{\scriptscriptstyle m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle j}$. 
 %
 %Next, it commits to each value, where it uses $k_{\scriptscriptstyle 2}$ to generate the randomness of each commitment. 
@@ -15,13 +15,13 @@ Then, it constructs a Merkel tree on top of the pseudorandom values and stores o
 Briefly, \zspa will be used in \withFai to let clients $\{A_{\st 1},...,A_{\st m}\}$ provably agree on a set of pseudorandom polynomials whose sum is zero.  Each of these polynomials will be used by a client to blind/encrypt the messages it sends to the smart contract, to protect the privacy of the plaintext message (from \aud, D, and the public). To compute the sum of the plaintext messages, one can easily sum the blinded messages, which removes the blinding polynomials. 
 
 
-\vs
-\vs
+
+
 
 \input{ZSPA-protocol}
 
-\vs
-\vs
+
+
 
 \begin{theorem}\label{theorem::ZSPA-comp-correctness}
 Let $f^{\st \zspa}$ be the functionality defined above. If \ct is secure against a malicious adversary and the correctness of $\mathtt{PRF}$, $\mathtt{H}$, and Merkle tree holds, then \zspa,  in Figure \ref{fig:ZSPA}, securely computes $f^{\st \zspa}$ in the presence of $m-1 $ malicious adversaries. 

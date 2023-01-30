@@ -4,22 +4,23 @@
 
 
 \vs
-\vs
+
 
 
 
 \subsection{\zspa's Extension: \zspa with an External Auditor (\zspaa)}
-\svs
+
+
 In this section, we present an extension of \zspa, called \zspaa which lets a (trusted) third-party auditor, \aud, help identify misbehaving clients in the \zspa and generate a vector of random polynomials. Informally, \zspaa requires that misbehaving parties are always detected, except with a negligible probability. \aud of this protocol will be invoked by \withFai when \withFai's smart contract detects that a combination of the messages sent by the clients is not well-formed. Later, in \withFai's proof, we will show that even a \emph{semi-honest} \aud who observes all messages that clients send to \withFai's smart contracts, cannot learn anything about their set elements. We present \zspaa in Figure \ref{fig:arbiter}. 
 
 
 \vs
-\vs
+
 
 \input{Arbiter-algorithm}
 
-\vs
-\vs
+
+
 
 \begin{theorem}\label{theorem::ZSPA-A}
 If \zspa is secure, $\mathtt{H}$ is second-preimage resistant, and the correctness of $\mathtt{PRF}$, $\mathtt{H}$, and Merkle tree holds,  then \zspaa securely computes $f^{\st \zspaa}$ in the presence of $m-1 $ malicious adversaries.% or (ii) a semi-honest auditor. 
