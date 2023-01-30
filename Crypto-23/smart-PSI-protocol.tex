@@ -33,7 +33,7 @@ We assume these extractors act rationally when they want to conduct the paid tas
  The formal definition of \ep is built upon the definition of \p (presented in Section \ref{sec::F-PSI-model}); nevertheless, in \ep, we ensure that honest non-buyer clients receive a \emph{reward} for participating in the protocol and revealing a portion of their inputs deduced from the result. We:  (i)  upgrade the predicate \qdel to  \qdelwr to ensure that when honest clients receive the result, then an honest non-buyer client receives its deposit back plus a reward and a buyer client receives its deposit back minus the paid reward, and (ii) upgrade the predicate  \qUnFAbt to \qUnFAbtwr to ensure when an adversary aborts but learns the result, then an honest party receives its deposit back plus a predefined amount of compensation plus a reward.  The other two predicates (i.e., \qinit and \qFAbt) remain unchanged. Given the above changes, we denote the four predicates as $\bar Q:=(\qinit,  \qdelwr, \qUnFAbtwr, \qFAbt)$. Below, we present the formal definition of predicates \qdelwr and \qUnFAbtwr. 
  
  
-\vs
+
 
 
     \begin{definition}  [\qdelwr:
@@ -80,7 +80,7 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 
 \section{\withRew: A Concrete Construction of \ep}
 
-\vs
+
 
 \subsection{Main Challenges to Overcome}
 

@@ -88,7 +88,7 @@ Intuitively, by requiring any protocol that realises \p to implement a wrapped v
  %Next, we present a formal definition of \p. %Note that we have upgraded the simulation-based definition of secure computation (i.e., Definition \ref{def::MPC-active-adv}) to define the security requirements of \p, by incorporating the above predicates into the definition. 
  
  \vs
- \vs
+
  
 \begin{definition}[\p]\label{def::PSI-Q-fair}
 Let $f^{\st \text{PSI}}$ be the multi-party PSI functionality defined above. We say  protocol $\Gamma$ realises  $f^{\st \text{PSI}}$ with $Q$-fairness in the presence of $m-1$ static active-adversary clients (i.e., $A_{\st j}$s) or a static passive dealer $D$ or passive auditor $Aud$, if for every non-uniform probabilistic polynomial time adversary $\mathcal{A}$ for the real model, there exists a non-uniform probabilistic polynomial-time adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $I\in \{A_{\st 1},...,A_{\st m}, D, Aud\}$, it holds that: 
@@ -169,7 +169,7 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 \svs
 %This section presents \fpsi, a protocol that realises \p. 
 
-\subsubsection{An overview.}  \fpsi works as follows. First, each client encodes its set elements into a polynomial. All clients sign a smart contract and deposit a predefined amount of coins into it.  Next,  one of the clients as a dealer, $D$, randomises the rest of the clients' polynomials and imposes a certain structure to their polynomials. The clients also randomise $D$'s polynomials. Then, all clients send their randomised polynomials to the smart contract which combines all polynomials and checks whether the resulting polynomial still has the structure imposed by $D$. If the check does not pass, then it invokes an auditor, \aud, to identify misbehaving clients and penalise them. If the check passes, then the contract outputs an encoded polynomial and refunds the clients' deposits. In this case, all clients can use the polynomial, output by the contract, to locally find the intersection.  
+\subsubsection{An overview.}  \fpsi works as follows. First, each client encodes its set elements into a polynomial. All clients sign a smart contract and deposit a predefined amount of coins into it.  Next,  one of the clients as a dealer, $D$, randomises the rest of the clients' polynomials and imposes a certain structure to their polynomials. The clients also randomise $D$'s polynomials. Then, all clients send their randomised polynomials to the smart contract which combines all polynomials and checks whether the resulting polynomial still has the structure imposed by $D$. If the check does not pass, then it invokes an auditor, \aud, to identify misbehaving clients and penalise them. If the check passes, then the contract outputs an encoded polynomial and refunds the clients' deposits. In this case, all clients can use the polynomial, outputted by the contract, to locally find the intersection.  
 
 
 
@@ -433,7 +433,7 @@ One may be tempted to replace $\withFai$ with a scheme in which all clients send
  
  Next, we present a theorem that formally states the security of \fpsi. We refer readers to Appendix \ref{sec::F-PSI-proof} for the proof of this theorem. 
  
- \vs
+
  
  \begin{theorem}\label{theorem::F-PSI-security}
 Let polynomials $\bm\zeta$, $\bm\omega$, and $\bm\gamma$ be secret uniformly random polynomials. If  $\bm\theta=\bm\zeta\cdot \bm\omega\cdot\bm \pi+\bm \gamma \bmod p$ is an unforgeable polynomial (w.r.t. Theorem \ref{proof::unforgeable-poly}), \zspaa, \vopr,  $\mathtt{PRF}$, and smart contracts are secure, then \fpsi securely realises  $f^{\st \text{PSI}}$ with $Q$-fairness (w.r.t. Definition \ref{def::PSI-Q-fair}) in the presence of $m-1$  active-adversary clients (i.e., $A_{\st j}$s) or a passive dealer client, passive auditor, or passive public. 

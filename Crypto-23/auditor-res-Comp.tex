@@ -2,18 +2,18 @@
 
 
 %\vspace{-2mm}
-\begin{figure}%[!htbp]
+\begin{figure}[ht]%[!htbp]
 \setlength{\fboxsep}{1pt}
 \begin{center}
-\scalebox{.85}{
-    \begin{tcolorbox}[enhanced,width=5.5in, 
+\scalebox{1}{
+    \begin{tcolorbox}[enhanced,width=4.75in, 
     drop fuzzy shadow southwest,
     colframe=black,colback=white]
    % {\small{
-    %\vspace{-2.5mm}
+    \vspace{-2.5mm}
  \underline{$\mathtt{resComp}(\bm\zeta, \bm\phi, sk, ct_{\st mk}, indx, {des}_{\st \mathtt{H}})\rightarrow R$}\\
 %
-%\vspace{-2.2mm}
+\vspace{-2.2mm}
 \begin{itemize}
 %
 \item \noindent\textit{Input}. $\bm\zeta$: a random polynomial of degree $1$, $\bm\phi$: a blinded polynomial of the form $\bm\zeta\cdot(\bm\epsilon + \bm\gamma')$ where $\bm\epsilon$ and $\bm\gamma'$ are arbitrary and  pseudorandom polynomials respectively, $deg(\bm\phi)-1=deg(\bm\gamma')$, $sk$: the auditor's secret key, $ct_{\st mk}$: ciphertext of $mk$ which is a  key of $\mathtt{PRF}$, $indx$: an input of $\mathtt{PRF}$, and   ${des}_{\st \mathtt{H}}$: a description of hash function $\mathtt{H}$.
@@ -42,13 +42,13 @@
 \item returns set $R$ containing all valid roots.
 %
 
-%\vspace{-1mm}
+\vspace{-1mm}
 \end{enumerate}
 %}   }
 \end{tcolorbox}
 }
 \end{center}
-%\vspace{-3mm}
+\vspace{-3mm}
 \caption{Auditor's result computation, $\mathtt{resComp}(.)$, algorithm} 
 \label{fig::resComp}
 \end{figure}

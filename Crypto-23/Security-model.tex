@@ -2,8 +2,7 @@
 
 
 \vs 
-\vs
-\vs
+
 
 \subsection{Security Model}\label{sec::sec-model}
 
@@ -41,7 +40,7 @@ $}}
   where party $i$’s view (during the execution of $\Gamma$) on input pair  $(x, y)$ is denoted by $\mathsf{View}_{\st i}^{\st \Gamma}(x,y)$ and equals $(w, r^{\st i}, m_{\st 1}^{\st i}, ..., m_{\st t}^{\st i})$, where $w\in\{x,y\}$ is the input of $i^{\st th}$ party, $r_{\st i}$ is the outcome of this party's internal random coin tosses, and $m_{\st j}^{\st i}$ represents the $j^{\st th}$ message this party receives.  %The output of the $i^{\st th}$ party during the execution of $\Gamma$ on $(x, y)$ is denoted by $\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y)$ and can be generated from its own view of the execution.  The joint output of both parties is denoted by $\mathsf{Output}^{\st \Gamma}(x,y):=(\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y), \mathsf{Output}_{\st 2}^{\st \Gamma}(x,y))$.
 
 \vs
-\vs
+
   
  \subsubsection{Security in the Presence of Active Adversaries.}  In this adversarial model, correctness is required beyond the possibility that a corrupted party may learn more than it should. To capture the threats,
 a protocol's security is analyzed by comparing what an adversary can do in the real protocol to what it can do in an ideal scenario. This is formalized by considering an ideal computation involving an incorruptible Trusted Third Party (TTP) to whom the parties send their inputs and receive the output of the ideal functionality. %Below, we describe the executions in the ideal and real models. 
