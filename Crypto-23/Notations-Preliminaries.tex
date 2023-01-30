@@ -36,13 +36,13 @@ Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, b
 \svs
 
 
-To let a client efficiently delegate a computation to a  couple of potentially colluding servers, Dong   \et \cite{dong2017betrayal} proposed two main smart contracts; namely, ``Prisoner's Contract'' ($\SCpc$) and ``Traitor's Contract'' (\SCtc).  
+To let a client efficiently delegate a computation to a  couple of potentially colluding rational servers, Dong   \et \cite{dong2017betrayal} proposed two main smart contracts; namely, ``Prisoner's Contract'' ($\SCpc$) and ``Traitor's Contract'' (\SCtc).  
 %
 \SCpc is signed by the client and the servers. It tries to incentivize correct computation by using the following idea. It requires each server to pay a deposit before the computation is delegated and is equipped with an external auditor that is invoked to detect a misbehaving server only when the servers provide non-equal results. 
 
 
 
-If a server behaves honestly, it can withdraw its deposit. But, if a cheating server is detected by the auditor, then (a portion) of its deposit is transferred to the client. If one of the servers is honest and the other one cheats, then the honest server receives a reward taken from the cheating server's deposit. However, the dilemma, created by \SCpc between the two servers, can be addressed if they can make an enforceable promise, say via a ``Colluder's Contract'' (\SCcc),  in which one party, called ``ringleader'', would pay its counterparty a bribe if both provide an incorrect computation. To counter \SCcc, Dong   \et proposed \SCtc, which incentivises a colluding server to betray the other one and report the collusion without being penalised by \SCpc. In this work, we slightly adjust and use these contracts. We state these tree contracts' main parameters in Table \ref{table:notation-table}. We refer readers to Appendix \ref{appendix::Counter-Collusion-Contracts} for the full description of the parameters and contracts. 
+If a server behaves honestly, it can withdraw its deposit. But, if a cheating server is detected by the auditor, then (a portion) of its deposit is transferred to the client. If one of the servers is honest and the other one cheats, then the honest server receives a reward taken from the cheating server's deposit. However, the dilemma, created by \SCpc between the two servers, can be addressed if they can make an enforceable promise, e.g., via a ``Colluder's Contract'' (\SCcc),  in which one party, called ``ringleader'', would pay its counterparty a bribe if both provide an incorrect (but consistent) result. To counter \SCcc, Dong   \et proposed \SCtc, which incentivises a colluding server to betray the other one and report the collusion without being penalised by \SCpc. In this work, we slightly adjust and use these contracts. We state these contracts' main parameters in Table \ref{table:notation-table}. We refer readers to Appendix \ref{appendix::Counter-Collusion-Contracts} for the full description of the  contracts. 
 
 
 
@@ -99,7 +99,7 @@ The definition of a pseudorandom permutation, $\mathtt {PRP}: \{0,1\}^{\st \lamb
 
 \svs
 
-A hash table is an array of   bins each of which can hold a set of elements. It comes with a hash function. To insert an element, we first compute the element's hash,  and then store the element in the bin whose index is the element's hash. Given the maximum number of elements $c$ and the bin's maximum size $d$, we can determine the number of bins, $h$, by analysing hash tables under the balls into the bins model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}. Appendix \ref{Preliminary-Hash-Table} explains how the hash table parameters are set.
+A hash table is an array of  bins each of which can hold a set of elements. It comes with a hash function, $\mathtt{H}$. To insert an element, we first compute the element's hash,  and then store the element in the bin whose index is the element's hash. Given the maximum number of elements $c$ and the bin's maximum size $d$, we can determine the number of bins, $h$, by analysing hash tables under the balls into the bins model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}. Appendix \ref{Preliminary-Hash-Table} explains how the hash table parameters are set.
 
 \vs
 
