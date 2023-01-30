@@ -29,7 +29,7 @@ In this section, we present the notion of multi-party PSI with Fair Compensation
   %\subsection{The Model}\label{sec::F-PSI-model}
   
   
-In a  $\mathcal{PSI}^{\st \mathcal{MFC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially active adversaries and all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially passive adversary and has an input set, and (3) an auditor \aud potentially active adversary, where all parties except \aud have input set. For simplicity, we assume that given an address,  one can determine whether it belongs to \aud. 
+In a  $\mathcal{PSI}^{\st \mathcal{MFC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially active adversaries and all but one may collude with each other, (2) a non-colluding dealer $D$ which is a potentially passive adversary and has an input set, and (3) an auditor \aud which is a potentially passive adversary, where all parties except \aud have input set. For simplicity, we assume that given an address,  one can determine whether it belongs to \aud. 
 % 
 The basic functionality that a multi-party PSI computes is defined as $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m+1})\rightarrow\underbrace{(S_{\st\cap},..., S_{\st\cap})}_{\st m+1}$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m+1}$.  To formally define a \p, we equip $f^{\st\text{PSI}}$ with four predicates,  $Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$, which ensure that certain financial conditions are met. 
    %  that are invoked after the functionality $f^{\st \text{PSI}}$ is executed. 
