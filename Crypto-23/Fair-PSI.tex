@@ -228,9 +228,9 @@ Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will let \scf chec
 
 \item \label{encode-encrypt} Each client in $\cl$  builds a  hash table,  $\mathtt{HT}$, and inserts each set element $s_{\st i}$ into  it, i.e.,  $\forall i: \mathtt{H}( s_{\st i})={indx}$, then $ s_{\st i}\rightarrow \mathtt{HT}_{\st indx}$. It pads every bin with random dummy elements to $d$ elements (if needed). For every bin, it constructs a polynomial whose roots are the bin's content: $\bm\pi=\prod\limits^{\st d}_{\st i=1} (x-s'_{\st i})$, where $s'_{\st i}$ is either $s_{\st i}$ or a dummy value. 
 %
-\item \label{ZSPA} Every client $ C$ in $\cl\setminus D$, for every bin, agree on $b=3d+3$ vectors of pseudorandom blinding factors: $z_{\st i,j}$, such that the sum of each vector elements is zero, i.e., $\sum\limits^{\st m}_{\st j=1}z_{\st i,j}=0$, where $0\leq i\leq b-1$. To do that, they participate in step \ref{ZSPA::ZSPA-invocation} of \zspaa. By the end of this step, for each bin, they agree on a secret key $k$ (that will be used to generate the zero-sum values) as well as two values stored in $\mathcal{SC}_{\fpsi}$, i.e., $q$: the key's hash value and $g$: a Merkle tree's root. After time $t_{\st 1}$,  $D$ ensures that all other clients have agreed on the vectors (i.e., all provided ``approved''  to the contract). If the check fails, it halts. 
+\item \label{ZSPA} Every client $ C$ in $\cl\setminus D$, for every bin, agree on $b=3d+3$ vectors of pseudorandom blinding factors: $z_{\st i,j}$, such that the sum of each vector elements is zero, i.e., $\sum\limits^{\st m}_{\st j=1}z_{\st i,j}=0$, where $0\leq i\leq b-1$. To do that, for every bin, they participate in step \ref{ZSPA::ZSPA-invocation} of \zspaa. By the end of this step, for each bin, they agree on a secret key $k$ (that will be used to generate the zero-sum values) as well as two values stored in $\mathcal{SC}_{\fpsi}$, i.e., $q$: the key's hash value and $g$: a Merkle tree's root. After time $t_{\st 1}$,  $D$ ensures that all other clients have agreed on the vectors (i.e., all provided ``approved''  to the contract). If the check fails, it halts. 
 %
-\item\label{F-PSI::each-client-deposit} Each client in $\cl$ deposits $\yc+\chc$ amount to $\mathcal{SC}_{\fpsi}$. After time $t_{\st 2}$, every client ensures that in total $(\yc+\chc)\cdot (m+1)$ amount has been deposited. Otherwise, it halts and the clients' deposit is refunded. 
+\item\label{F-PSI::each-client-deposit} Each client in $\cl$ deposits $\yc+\chc$ amount to $\mathcal{SC}_{\fpsi}$. After time $t_{\st 2}$, every client ensures that in total $(\yc+\chc)\cdot (m+1)$ amount has been deposited. Otherwise, it halts and the clients' deposit is refunded, by the contracts.
 
 
 
@@ -248,7 +248,7 @@ It, for each client $C$, allocates to each bin two random polynomials: $\bm\omeg
 %
 $$\bm\theta^{  {  {(C)}}}_{\st 1}=\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}\cdot \bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(C)}}}+\bm\gamma^{\st  {  {(D,C)}}}$$
 %
- from {\vopr}. If any party aborts, the deposit would be refunded to all parties.
+ from {\vopr}. If any party aborts, the deposit would be refunded to all parties, by the contracts.
 
 \item\label{e-psi::C-randomises} Each client $    {  C}$ randomises  $ {D}$'s polynomial. To do that, each client $    {  C}$, for each bin,  invokes an instance of {\vopr} with   $ {D}$,    where each client $    {  C}$  sends $\bm\rho^{\st  {  {(C,D)}}}$, while  ${D}$  sends $\bm\zeta\cdot\bm \rho^{\st  {  {(D,C)}}}\cdot \bm\pi^{  {  {(D)}}}$ and $\bm\delta^{\st  {  {(D,C)}}}$ to {\vopr}. Every client   $    {  C}$, for each bin,  receives a blind polynomial of the following form: 
 %
@@ -427,7 +427,10 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  
 
 %\begin{remark}
-One may be tempted to replace $\withFai$ with a scheme in which all clients send their encrypted sets to a server (potentially semi-honest and plays \aud's role) which computes the result in a privacy-preserving manner.  We highlight that the main difference is that in this (hypothetical) proposal the server is \emph{always involved};  whereas, in $\withFai$, \aud is offline if the clients behave honestly.% and it is invoked only when the contract detects misbehaviours.  
+One may be tempted to replace $\withFai$ with a scheme in which all clients send their encrypted sets to a server (potentially semi-honest and plays \aud's role) which computes the result in a privacy-preserving manner.  We highlight that the main difference between $\withFai$ and this hypothetical proposal is that in the latter the server is \emph{always involved};  whereas, in $\withFai$, \aud remains offline if the clients behave honestly. Also, it is not clear how this hypothetical proposal could detect misbehaving parties without using zero-knowledge proofs and could refund/compensate honest clients (without  trusting a single party). 
+
+
+% and it is invoked only when the contract detects misbehaviours.  
 %\end{remark}
  
  
