@@ -138,10 +138,7 @@ If  \fpsi's smart contact approves the result's correctness, then all parties re
 If $\SCe$ accepts both extractors' proofs, then it pays each client (except the buyer) a reward, where the reward is taken from the buyer's deposit. The extractors receive their deposits back and are paid for carrying out the task honestly. Nevertheless, if $\SCe$ does not accept one of the extractors' proofs (or one extractor betrays the other), then it invokes the auditor in the counter-collusion contracts to identify the misbehaving extractor.  Then, $\SCe$ pays each honest client (except the buyer) a reward, taken from the misbehaving extractor. $\SCe$ also refunds the buyer's deposit.
 %
 
-If  \fpsi's smart contact does not approve the result's correctness and \aud identified misbehaving clients, then honest clients will receive (1) their deposit back from \fpsi's contract, and (2)  compensation and reward, taken from misbehaving clients. Moreover, the buyer and extractors receive their deposit back from $\SCe$. Figure \ref{fig:parties-interactions-in-ANE}, in Appendix \ref{sec::Workflow-of-withRew}, outlines the interaction between parties. 
-
-
-
+If  \fpsi's smart contact does not approve the result's correctness and \aud identifies misbehaving clients, then honest clients will receive (1) their deposit back from \fpsi's contract, and (2)  compensation and reward, taken from misbehaving clients. Moreover, the buyer and extractors receive back their deposit initially placed in $\SCe$. Figure \ref{fig:parties-interactions-in-ANE}, in Appendix \ref{sec::Workflow-of-withRew}, outlines the interaction between parties. 
 
 
 
@@ -149,7 +146,7 @@ If  \fpsi's smart contact does not approve the result's correctness and \aud ide
 
 
 
-\subsubsection{Detailed Description of \epsi.} Next, we describe the protocol in more detail (Table \ref{table:notation-table} summarises the main notations used). 
+\subsubsection{Detailed Description of \epsi.} Next, we describe the protocol in more detail (recall that Table \ref{table:notation-table} summarises the main notations used). 
 
 
 
@@ -206,17 +203,17 @@ After that, it constructs a hash table  $\mathtt{HT}$ and inserts the encoded el
 
 
 %\item commits to every  encrypted element.  $\forall i, 1\leq i\leq d: \mathtt{a}^{\st { {(I)}}}_{\st i}=\mathtt{Com}(e^{\st { {(I)}}}_{\st i}, q^{\st { {(I)}}}_{\st i})$, where $q^{\st { {(I)}}}_{\st i}$ is a fresh randomness  used for the commitment.
-\item  constructs a Merkel tree on all committed values as follows: \\$\mkgen(com_{\st 1,1},...,com_{\st d,h})\rightarrow g$. %Let $\mathtt{MT}^{\st g}$ be a Merkel tree with a root node $g^{\st I}$. 
+\item  builds a Merkel tree on all committed values (generated in step \ref{smart-PSI::commit-to-bin}) as follows: $\mkgen(com_{\st 1,1},...,com_{\st d,h})\rightarrow g$. %Let $\mathtt{MT}^{\st g}$ be a Merkel tree with a root node $g^{\st I}$. 
 \item stores the Merkel tree's root $g$ on $\SCe$.
 \end{enumerate}
 
 
-\item\label{e-psi::invoke-remainer-F-PSI} All clients in $\cl$   run steps \ref{ZSPA}--\ref{compute-res-poly} of \fpsi, where each client now deposits (in the $\mathcal{SC}_{\fpsi}$) $\yc'$ amount where $\yc'>\Smin\cdot \vc+{\chc}$. Recall, at the end of step \ref{compute-res-poly}  of \fpsi for each $j$-th bin (i) a random polynomial $\bm\zeta$ has been registered in $\mathcal{SC}_{\fpsi}$, (ii) a polynomial $\bm\phi$ (blinded by a random polynomial $\bm\gamma'$) has been extracted by $\mathcal{SC}_{\fpsi}$, and (iii) $\mathcal{SC}_{\fpsi}$  has checked this polynomial's  correctness. If the latter check:
+\item\label{e-psi::invoke-remainer-F-PSI} All clients in $\cl$   run steps \ref{ZSPA}--\ref{compute-res-poly} of \fpsi, where each client now deposits (in $\mathcal{SC}_{\fpsi}$) $\yc'$ amount where $\yc'>\Smin\cdot \vc+{\chc}$. Recall, at the end of step \ref{compute-res-poly}  of \fpsi for each $j$-th bin (i) a random polynomial $\bm\zeta$ is registered in $\mathcal{SC}_{\fpsi}$, (ii) a polynomial $\bm\phi$ (blinded by a random polynomial $\bm\gamma'$) is extracted by $\mathcal{SC}_{\fpsi}$, and (iii) $\mathcal{SC}_{\fpsi}$  checks this polynomial's correctness. If the latter check:
 
-\begin{itemize}[leftmargin=2mm]
-\item[$\bullet$] passes (i.e., $Flag=True$): all parties run step \ref{F-PSI::flag-is-true} of \fpsi (with a minor difference, see Section \ref{sec::Discussion-Anesidora}).  In this case, each party receives $\yc'$ amount it deposited in $\mathcal{SC}_{\fpsi}$. They proceed to step \ref{smart-PSI::extractors} below.
+\begin{itemize}[leftmargin=3.7mm]
+\item[$\bullet$] passes (i.e., $Flag=True$): all parties run step \ref{F-PSI::flag-is-true} of \fpsi (with a minor difference, see Appendix \ref{sec::Discussion-Anesidora}).  In this case, each party receives $\yc'$ amount it deposited in $\mathcal{SC}_{\fpsi}$. They proceed to step \ref{smart-PSI::extractors} below.
 \item[$\bullet$]  fails (i.e., $Flag=False$): all parties run step \ref{F-PSI::flag-is-false}  of \fpsi. In this case,
-(as in \fpsi) \aud is paid $\chc$ amount, and each honest party receives back its deposit, i.e., $\yc'$ amount. Also,  from the misbehaving parties' deposit  $\frac{m'\cdot \yc'-\chc}{m-m'}$ amount is sent to each honest client,  to reward and compensate the client $\Smin\cdot \lc$ and $\frac{m'\cdot \yc'-\chc}{m-m'}- \Smin\cdot \lc$ amounts respectively, where $m'$ is the total number of misbehaving parties.  Moreover, $\SCe$ returns to the buyer its deposit (i.e., $\Smin\cdot \vc$ amount paid to $\SCe$), and returns to each extractor its deposit, i.e., $\dc'$ amount paid to \SCpc. Then, the protocol halts. 
+(as in \fpsi) \aud is paid $\chc$ amount and each honest party receives back its deposit, i.e., $\yc'$ amount. Also,  from the misbehaving parties' deposit in total $\frac{m'\cdot \yc'-\chc}{m-m'}$ amount is sent to each honest client; specifically,  $\Smin\cdot \lc$ amount to reward and $\frac{m'\cdot \yc'-\chc}{m-m'}- \Smin\cdot \lc$ amount to compensate the honest client, where $m'$ is the total number of misbehaving parties.  Moreover, $\SCe$ returns to the buyer its deposit (i.e., $\Smin\cdot \vc$ amount paid to $\SCe$), and returns to each extractor its deposit, i.e., $\dc'$ amount paid to \SCpc. Then, the protocol halts. 
 \end{itemize}
 
 \item\label{smart-PSI::extractors} Every extractor client: 
@@ -284,7 +281,7 @@ If  $\mathtt{PRP}$, $\mathtt{PRF}$, the commitment scheme, smart contracts, the 
  \end{theorem}
 
 \svs
-We refer readers to Appendices \ref{sec::E-PSI-proof} and \ref{sec::Discussion-Anesidora} for the proof of Theorem \ref{theorem::E-PSI-security} and several remarks on the \epsi respectively. 
+We refer readers to Appendix \ref{sec::E-PSI-proof} for the proof of Theorem \ref{theorem::E-PSI-security} and to Appendix \ref{sec::Discussion-Anesidora} for several remarks on the \epsi. 
 %
 %\begin{remark}
 
