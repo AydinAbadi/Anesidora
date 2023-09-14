@@ -1,0 +1,151 @@
+% !TEX root =main.tex
+
+\vspace{-2mm}
+
+\section{Preliminaries}
+
+
+%\subsection{Notations}
+
+%Table \ref{table:notation-table}summarises the notations used in this paper. 
+
+
+
+
+\input{short-security-model}
+%\input{Security-model}
+
+
+\vspace{-4mm}
+
+\subsection{Smart Contracts}
+\vspace{-.5mm}
+
+Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, beyond offering a decentralised currency,  support computations on transactions. They let a certain computation logic be encoded in a computer program, called a \emph{``smart contract''}. To date, Ethereum is the most predominant cryptocurrency framework that enables users to define arbitrary smart contracts. In this framework,  contract code is stored on the blockchain and executed by all parties maintaining the cryptocurrency. The program execution's correctness is guaranteed by the security of the underlying blockchain components.
+
+
+%Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, beyond offering a decentralised currency,  support computations on transactions. In this setting, often a certain computation logic is encoded in a computer program, called a \emph{``smart contract''}. To date, Ethereum is the most predominant cryptocurrency framework that enables users to define arbitrary smart contracts. In this framework,  contract code is stored on the blockchain and executed by all parties (i.e., miners) maintaining the cryptocurrency,  when the program inputs are provided by transactions. The program execution's correctness is guaranteed by the security of the underlying blockchain components. To prevent a denial-of-service attack, the framework requires a transaction creator to pay a  fee, called \emph{``gas''}, depending on the complexity of the contract running on it. 
+
+\vspace{-2mm}
+
+\subsection{Counter Collusion Smart Contracts}\label{Counter-Collusion-Smart-Contracts}
+\vspace{-.5mm}
+
+To let a party, e.g., a client, efficiently delegate a computation to a  couple of potentially colluding third parties, e.g., servers, Dong   \et \cite{dong2017betrayal} proposed two main smart contracts, ``Prisoner's Contract'' ($\SCpc$) and ``Traitor's Contract'' (\SCtc).  
+%
+$\SCpc$ is signed by the client and the servers. This contract tries to incentivize correct computation by using the following idea. It requires each server to pay a deposit before the computation is delegated. It is equipped with an external auditor that is invoked to detect a misbehaving server when the servers provide non-equal results. 
+
+
+
+If a server behaves honestly, then it can withdraw its deposit. But, if a cheating server is detected by the auditor, then (a portion) of its deposit is transferred to the client. If one of the servers is honest and the other one cheats, then the honest server receives a reward taken from the cheating server's deposit. However, the dilemma, created by \SCpc between the two servers, can be addressed if they can make an enforceable promise, say via a ``Colluder's Contract'' (\SCcc),  in which one party, called ``ringleader'', would pay its counterparty a bribe if both follow the collusion and provide an incorrect computation to \SCpc. To counter \SCcc, Dong   \et proposed \SCtc, that incentivises a colluding server to betray the other server and report the collusion without being penalised by \SCpc. In this work, we slightly adjust and use these contracts. We have stated the related parameters of these tree contracts in Table \ref{table:notation-table}. We refer readers to Appendix \ref{appendix::Counter-Collusion-Contracts} for the full description of the parameters and contracts. 
+
+
+
+
+%\begin{itemize}
+%\item[$\bullet$] $\bc$: the bribe paid by the ringleader of the collusion to the other
+%server in the collusion agreement, in the Colluder’s contract.
+%%
+%\item[$\bullet$] $\cc$: a server’s cost for computing the task.
+%%
+%\item[$\bullet$] $\chc$: the fee paid to to invoke an auditor for recomputing a task and resolving
+%disputes.
+%%
+%\item[$\bullet$] $\dc$: the deposit a server needs to pay to be eligible for getting the job.
+%%
+%\item[$\bullet$] $\tc$: the deposit the colluding parties need to pay in the collusion agreement, in the Colluder’s contract.
+%%
+%\item[$\bullet$] $\wc$: the amount that a server receives for completing the task.
+%%
+%\item[$\bullet$] $\wc \geq \cc$: the server would not accept underpaid jobs.
+%%
+%\item[$\bullet$] $\chc > 2\wc$: If it does not hold, then there would be no need to use the servers and the auditor would do the computation.
+%%
+%\item [$\bullet$] $(pk,sk)$: an asymmetric-key encryption's public-private key pair belonging to the auditor. 
+%\end{itemize}
+%\noindent The following relations need to hold when setting the contracts
+%in order for the desirable equilibria to hold:
+%%
+%(i) $\dc>\cc+\chc$, (ii) $\bc<\cc$, and (iii) $\tc<\wc-\cc + 2\dc - \chc -\bc$.
+%
+
+%
+\vspace{-3mm}
+\subsection{Pseudorandom Function and Permutation}
+\vspace{-.5mm}
+
+A pseudorandom function is a deterministic function that takes a key of length $\lambda$ and an input; and outputs a value  indistinguishable from that of  a truly random function.  In this paper, we use pseudorandom functions:   $\mathtt {PRF}: \{0,1\}^{\st \lambda}\times \{0,1\}^{\st *} \rightarrow  \mathbb{F}_{\st p}$, where $\log_{\st 2}(p)=\lambda$ is the security parameter. In practice, a pseudorandom function can be obtained from an efficient block cipher \cite{DBLP:books/crc/KatzLindell2007}. 
+
+The definition of a pseudorandom permutation, $\mathtt {PRP}: \{0,1\}^{\st \lambda}\times \{0,1\}^{\st *} \rightarrow  \mathbb{F}_{\st p}$, is similar to that of a pseudorandom function, with a difference, it is required  $\PRP(k,.)$ to be indistinguishable from a uniform permutation, instead of a uniform function. %In cryptographic schemes that involve $\PRP$, sometimes honest parties may require to compute the inverse of pseudorandom permutation, i.e., $\mathtt {PRP}^{\st -1}(k, .)$, as well. In this case, it would require that $\PRP(k,.)$ be indistinguishable from a uniform permutation even if the distinguisher is additionally given oracle access to the inverse of the permutation. 
+
+
+
+
+%\subsection{Random Extraction Beacon}
+%\subsection{Commitment Scheme}
+
+\vspace{-2mm}
+
+\input{short-commitment}
+
+\vspace{-2mm}
+
+\subsection{Hash Tables}
+\vspace{-.5mm}
+
+A hash table is an array of   bins each of which can hold a set of elements. It is accompanied by a hash function. To insert an element, we first compute the element's hash,  and then store the element in the bin whose index is the element's hash. In this paper, we set the table's parameters appropriately to ensure the number of elements in each bin does not exceed a predefined capacity. Given the maximum number of elements $c$ and the bin's maximum size $d$, we can determine the number of bins, $h$, by analysing hash tables under the balls into the bins model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}. In Appendix \ref{Preliminary-Hash-Table}, we explain how the hash table parameters are set.
+
+
+
+%\subsection{Merkel Tree}
+
+\vspace{-2mm}
+
+\input{Merkle-tree-short}
+
+\vspace{-2mm}
+
+\subsection{Polynomial Representation of Sets}\label{sec::poly-rep}
+\vspace{-.5mm}
+
+The idea of using a polynomial to represent a set's elements was proposed by Freedman  \et in \cite{DBLP:conf/eurocrypt/FreedmanNP04}. Since then,   the idea has been widely used,  e.g., in \cite{GhoshS19,DBLP:conf/crypto/KissnerS05}. In this representation, set elements $S=\{s_{\st 1},...,s_{\st d}\}$ are defined over a finite field $\mathbb{F}_{\st p}$ and  set $S$ is represented as a polynomial of   form: $\mathbf{p}(x)=\prod\limits ^{\st {d}}_{\st i=1}(x-s_{\st i})$, where $\mathbf{p}(x) \in \mathbb{F}_{\st p}[X]$ and $\mathbb{F}_{\st p}[X]$ is a polynomial ring.  Often a   polynomial,  $\mathbf{p}(x)$, of degree $d$ is  represented in the ``coefficient form'' as follows:  $\mathbf{p}(x)=a_{\st 0}+a_{\st 1}\cdot x+...+ a_{\st d}\cdot x^{\st d}$. The form $\prod\limits ^{\st {d}}_{\st i=1}(x-s_{\st i})$ is a special case of the coefficient form. As shown in \cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05}, for two sets $S^{\st (A)}$ and $S^{\st (B)}$ represented by polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ respectively, their product, which is polynomial $\mathbf{p}_{\st A}\cdot \mathbf{p}_{\st  B}$,  represents the set union, while their greatest common divisor, $gcd($$\mathbf{p}_{\st A}$$,\mathbf{p}_{\st B})$, represents the set intersection. For two polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ of degree $d$, and two random polynomials $\bm\gamma_{\st A}$ and  $\bm\gamma_{\st B}$ of degree $d$, it is proven in~\cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05} that: $\bm\theta=\bm\gamma_{\st A}\cdot \mathbf{p}_{\st A}+\bm\gamma_{\st B}\cdot\mathbf{p}_{\st B}=\bm\mu\cdot gcd(\mathbf{p}_{\st A},\mathbf{p}_{\st B})$, where $\bm\mu$ is a uniformly random polynomial, and polynomial $\bm\theta$ contains only information about the elements in  $S^{\st (A)}\cap S^{\st (B)}$, and contains no information about other elements in $S^{\st (A)}$ or $S^{\st (B)}$.  
+
+Given a polynomial $\bm\theta$ that encodes sets intersection, one can find the set elements in the intersection via one of the following approaches. First, via polynomial evaluation: the party who already has one of the original input sets, say  $\mathbf{p}_{\st A}$,  evaluates $\bm\theta$ at every element $s_{\st i}$ of $\mathbf{p}_{\st A}$ and considers $s_{\st i}$ in the intersection if $\mathbf{p}_{\st A}(s_{\st i})=0$. Second,   via polynomial root extraction:   the party who does not have one of the original input sets, extracts the roots of $\bm\theta$,  which contain  the roots of (i) random polynomial  $\bm\mu$ and (ii) the polynomial that represents the intersection, i.e., $gcd(\mathbf{p}_{\st A},\mathbf{p}_{\st B})$. In this approach, to distinguish errors (i.e., roots of $\bm\mu$) from the intersection, PSIs in \cite{eopsi,DBLP:conf/crypto/KissnerS05} use the \emph{``hash-based padding technique''}. In this technique, every element $u_{\st i}$ in the set universe $\mathcal{U}$, becomes $s_{\st i}=u_{\st i}||\mathtt{H}(u_{\st i})$, where $\mathtt{H}$ is a cryptographic hash function with a sufficiently large output size. Given a field's arbitrary element, $s \in \mathbb{F}_p$ and $\mathtt{H}$'s output size $|\mathtt{H}(.)|$, we can parse $s$ into $x_{\st 1}$ and $x_{\st 2}$, such that $s=x_{\st 1}||x_{\st 2}$ and  $|x_{\st 2}|=|\mathtt{H}(.)|$. In a  PSI that uses polynomial representation and this padding technique, after we extract each root of  $\bm\theta$, say $s$, we parse it into $(x_{\st 1}, x_{\st 2})$ and check $x_{\st 2}\stackrel{?}=\mathtt{H}(x_{\st 1})$.  If the equation holds, then we consider $s$ as an element of the intersection. 
+
+
+
+
+%\TZ{What is meant by ``$\bm\theta$ contains only information about $S^{\st (A)}\cap S^{\st (B)}$"?}--> addressed.. 
+
+%Polynomials can also be represented in the  ``point-value form''. In particular, a polynomial $\mathbf{p}(x)$ of degree $d$ can be represented as a set of $m$ ($m>d$) point-value pairs $\{(x_{\st 1},y_{\st 1}),...,$ $(x_{\st m},y_{\st m})\}$ such that all $x_{\st i}$ are distinct  non-zero points and $y_{\st i}=\mathbf{p}(x_{\st i})$ for all $i$, $1\le i\le m$. If  $x_{\st i}$  are fixed, then we can represent polynomials as a vector $\vv{\bm{y}}=[y_{\st 1}, ..., y_{\st m}]$. Polynomials in point-value form have  been used previously in PSIs~\cite{eopsi,opsi15,DBLP:conf/fc/AbadiTD16,Feather2020,GhoshS19,KolesnikovMPRT17}. A polynomial
+%in this form can be converted into coefficient form via polynomial interpolation, e.g., using Lagrange interpolation~\cite{aho19}. Moreover,  one can add or multiply two polynomials,  in point-value form, by adding or multiplying their corresponding y-coordinates. In this case, the  polynomial interpolated from the result would be the two polynomials' addition or product. Often PSIs  that use this representation  assume that all $x_{\st i}$ are picked from $\mathbb{F} \setminus \mathcal{U}$.
+
+
+\vspace{-3mm}
+
+\subsection{Horner's Method}
+\vspace{-.5mm}
+
+Horner's method \cite{DBLP:journals/ibmrd/Dorn62} allows for efficiently evaluating polynomials at a given point, e.g., $x_{\st 0}$. Specifically, given a polynomial of the form: $\bm\tau(x)= a_{\st 0}+a_{\st 1}\cdot x+a_{\st 2}\cdot x^{\st 2}+...+a_{\st d}\cdot x^{\st d}$ and a point: $x_{\st 0}$, one can efficiently evaluate the polynomial at $x_{\st 0}$ iteratively, in the following fashion: $\bm\tau(x_{\st 0})=a_{\st 0}+x_{\st 0}(a_{\st 1} + x_{\st 0}(a_{\st 2}+...+x_{\st 0}(a_{\st d-1}+x_{\st 0}\cdot a_{\st d})...)))$. Evaluating  a polynomial of degree $d$ naively requires  $d$ additions and $\frac{(d^{\st 2}+d)}{2}$ multiplications. However, using Horner's method the evaluation requires only $d$ additions and $2d$ multiplications. We use this method in this paper. 
+
+\vspace{-3mm}
+
+\subsection{Oblivious Linear Function Evaluation}\label{sec::OLE-plus}
+\vspace{-.5mm}
+
+Oblivious Linear function Evaluation (\ole) is a two-party protocol that involves a sender and receiver. In \ole,  the sender  has two  inputs  $a, b\in \mathbb{F}_{\st p}$ and the receiver has a single input, $c \in \mathbb{F}_{p}$.  The protocol allows the receiver to learn only $s = a\cdot c + b \in \mathbb{F}_{\st p}$, while the sender learns nothing. Ghosh \textit{et al.} \cite{GhoshNN17} proposed an efficient \ole that has $O(1)$ overhead and involves mainly symmetric key operations. Later, in \cite{GhoshN19} an enhanced \ole, called $\ole^{\st +}$ was proposed. The latter ensures that the receiver cannot learn anything about the sender's inputs,  even if it sets its input to $0$. In this paper, we use $\ole^{\st +}$. We refer readers to Appendix \ref{apndx:F-OLE-plus}, for its construction.  %In this case, each party picks a random string, 
+
+\vspace{-1mm}
+\input{short-coin-tossing}
+
+
+\input{notation-Table}
+
+%,  as an aborting party can be excluded from the next run of the protocol and the aborting party cannot learn partsets' intersection 
+
+
+
+
+
+
+

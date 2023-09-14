@@ -1,0 +1,143 @@
+% !TEX root =main.tex
+
+
+
+
+
+\section{Proof of \vopr}\label{sec::proof-of-vopr}
+\begin{proof}
+
+Before proving Theorem \ref{theorem::VOPR}, we present Lemma \ref{theorem::evaluation-of-random-poly} and Theorem \ref{theorem:coef-poly-prod} that will be used in the proof of Theorem \ref{theorem::VOPR}. 
+\input{vopr-two-theorems}
+
+
+
+
+
+We refer readers to Appendix \ref{sec::proof-of-poly-union} for the proof of Theorem \ref{theorem:coef-poly-prod}. Next, we  prove the main theorem, i.e., Theorem \ref{theorem::VOPR}, by considering the case where each party is corrupt, in turn. 
+
+
+% In each case, we invoke the simulator with the corresponding party’s input and output. 
+
+\
+
+\noindent\textbf{Case 1: Corrupt sender.} In the real execution, the sender's view is defined as follows: 
+
+
+$$ \mathsf{View}_{\st S}^{\st \vopr} \Big((\bm\psi, \bm{\alpha}), \bm\beta\Big)=\{\bm\psi, \bm{\alpha}, r_{\st S},  \bm\beta(z), \bm\theta(z), \mathsf{View}^{\st \ole^{\st +}}_{\st S}, \bot \}$$
+%
+where $r_{\st S}$ is the outcome of internal random coins of the sender and $\mathsf{View}^{\st \ole^{\st +}}_{\st S}$ refers to the sender's real-model view during the execution of  $\ole^{\st +}$. The simulator $\mathsf{Sim}^{\st \vopr}_{\st S}$, which receives $\bm\psi$ and $\bm \alpha$, works as follows. 
+%
+\begin{enumerate}
+\item generates an empty view. It appends to the view polynomials $(\bm\psi$, $\bm{\alpha})$ and coins $r'_{\st S}$ chosen uniformly at random. 
+%
+\item computes polynomial $\bm\beta=\bm\beta_{\st 1} \cdot \bm\beta_{\st 2}$, where $\bm\beta_{\st 1}$ is a random polynomial of degree $1$ and $\bm\beta_{\st 2}$ is an arbitrary polynomial of degree $e'-1$. Next,  it constructs polynomial $\bm\theta$ as follows: $\bm\theta=\bm\psi\cdot \bm\beta+\bm \alpha$.
+
+\item picks value $z\stackrel{\st\$}\leftarrow \mathbb{F}_{p}$. Then, it evaluates polynomials $\bm\beta$ and $\bm\theta$  at point $z$. This results in values $\beta_{\st z}$ and $\theta_{\st z}$ respectively. It appends these two values to the view. 
+\item extracts the sender-side simulation of $\ole^{\st +}$ from  $\ole^{\st +}$'s simulator. Let $\mathsf{Sim}^{\st \ole^{\st +}}_{\st S}$ be this simulation. Note, the latter simulation is guaranteed to exist, as $\ole^{\st +}$ has been proven secure (in \cite{GhoshN19}). It appends $\mathsf{Sim}^{\st \ole^{\st +}}_{\st S}$ and $\bot$ to its view. 
+\end{enumerate}
+
+
+Now, we are ready to show that the two views are computationally indistinguishable. The sender's inputs are identical in both models, so they have identical distributions. Since the real-model semi-honest adversary samples its randomness according to the protocol's description, the random coins in both models have identical distributions.  Next, we explain why values $\bm\beta(z)$ in the real model and $\beta_{\st z}$ in the ideal model are (computationally) indistinguishable. In the real model, $\bm\beta(z)$ is the evaluation of polynomial $\bm\beta=\bm\beta_{\st 1}\cdot \bm\beta_{\st 2}$ at random point $z$, where $\bm\beta_{\st 1}$ is a random polynomial. We know that $\bm\beta(z)=\bm\beta_{\st 1}(z)\cdot \bm\beta_{\st 2}(z)$, for any (non-zero) $z$.  Moreover, by Lemma \ref{theorem::evaluation-of-random-poly}, we know that $\bm\beta_{\st 1}(z)$ is a uniformly random value. Therefore, $\bm\beta(z)=\bm\beta_{\st 1}(z)\cdot \bm\beta_{\st 2}(z)$ is a uniformly random value as well. In the ideal world, polynomial $\bm\beta$ has the same structure as $\bm\beta$ has (i.e., $\bm\beta=\bm\beta_{\st 1}\cdot \bm\beta_{\st 2}$, where $\bm\beta_{\st 1}$ is a random polynomial). That means $\beta_{\st z}$ is a uniformly random value too. Thus,  $\bm\beta(z)$ and $\beta_{\st z}$ are computationally indistinguishable. Next, we turn our attention to values $\bm\theta(z)$ in the real model and $\theta_{\st z}$ in the ideal model. We know that $\bm\theta(z)$ is a function of $\bm\beta_{\st 1}(z)$, as polynomial $\bm\theta$ has been defined as $\bm\theta=\bm\psi\cdot \bm(\bm\beta_{\st 1}\cdot \bm\beta_{\st 2})+\bm\alpha$. Similarly, $\theta_{\st z}$ is a function of  $\beta_{\st z}$. As we have already discussed,  $\bm\beta(z)$ and $\beta_{\st z}$ are computationally indistinguishable, so are their functions $\bm\theta(z)$ and $\theta_{\st z}$. Moreover, as  $\ole^{\st +}$ has been proven secure,  $\mathsf{View}^{\st \ole^{\st +}}_{\st S}$ and  $\mathsf{Sim}^{\st \ole^{\st +}}_{\st S}$ are computationally indistinguishable. It is also clear that $\bot$ is identical in both models. We conclude that the two views are computationally indistinguishable.
+
+
+\
+
+
+\noindent\textbf{Case 2: Corrupt receiver.}  Let $\mathsf{Sim}^{\st\vopr}_{\st R}$ be the simulator, in this case, which uses a subroutine adversary, $\mathcal{A}_{\st R}$. $\mathsf{Sim}^{\st \vopr}_{\st R}$ works as follows. 
+%
+\begin{enumerate}
+%
+\item simulates ${\ole^{\st +}}$ and receives $\mathcal{A}_{\st R}$'s input coefficients $b_{\st j}$ for all $j$, $0\leq j \leq e'$, as we are in $f_{\st \ole^{\st +}}$-hybrid model.
+%
+\item reconstructs polynomial $\bm \beta$, given the above coefficients. 
+%
+\item simulates the honest sender's inputs as follows. 
+%%%%%%%%%
+It picks two random polynomials: ${\bm\psi}=\sum\limits^{\st e}_{\st i=0}{g}_{\st i}\cdot x^{\st i}$ and  ${\bm\alpha}=\sum\limits^{\st e+e'}_{\st j=0}{a}_{\st j}\cdot x^{\st j}$, such that ${g}_{\st i}\stackrel{\st \$}\leftarrow \mathbb{F}_{\st p}$ and  every $a_{\st j}$ has the  form: $a_{\st j}=\sum\limits^{\substack{\st k=e'\\ \st t=e}}_{\st t,k=0} a_{\st t,k}$,  where $t+k=j$ and $a_{\st t,k}\stackrel{\st \$}\leftarrow \mathbb{F}_{\st p}$. 
+%%%%%%%
+\item sends to ${\ole^{\st +}}$'s functionality values $g_{\st i}$ and $a_{\st i,j}$ and receives   $c_{\st i,j}$ from this functionality (for all $i,j$).
+%
+\item sends all ${c}_{\st i,j}$ to TTP and receives polynomial ${\bm\theta}$. 
+%
+\item picks a random value $ z$ from $\mathbb{F}_{\st p}$. Then, it computes $ \psi_{\st  z} = {\bm\psi}(  z)$ and $\alpha_{\st  z}= {\bm\alpha}(z)$. 
+%
+\item sends $ z$ and all ${c}_{\st i,j}$ to $\mathcal{A}_{\st R}$ which sends back $\theta_{ z}$ and $\beta_{\st z}$ to the simulator. 
+%
+\item sends  $ \psi_{\st  z}$ and $\alpha_{\st z}$ to $\mathcal{A}_{\st R}$. 
+%
+\item checks if the following relation hold:
+%
+\begin{equation}\label{equ::beta}
+ \beta_{\st \bar z}={\bm\beta}( z) \hspace{6mm} \wedge \hspace{6mm} \theta_{\st  z}={\bm\theta}( z) \hspace{6mm}\wedge\hspace{6mm} {\bm\theta}( z)=  \psi_{\st  z}\cdot \beta_{\st  z}+\alpha_{\st  z}
+ \end{equation}
+ %
+% \begin{equation}\label{equ::theta}
+% \bar\theta_{\st \bar z}=\bar{\bm\theta}(\bar z) 
+% \end{equation}
+% %
+%\begin{equation}\label{equ::theta-equals=psi}
+%\bar{\bm\theta}(\bar z)= \bar \psi_{\st \bar z}\cdot \bar\beta_{\st \bar z}+\bar\alpha_{\st  \bar z}
+%  \end{equation}
+%%
+% \begin{equation}\label{equ::theta-evl-equals=psi}
+% \bar\theta_{\st \bar z}= \bar \psi_{\st \bar z}\cdot \bar\beta_{\st \bar z}+\bar\alpha_{\st  \bar z}
+ %\end{equation}
+%
+
+
+
+
+
+%%%%%%%%%%%%%%%
+
+
+%
+% $\bar{\bm\theta}(\bar z) =\bar\theta_{\st \bar z} = \bar \psi_{\st \bar z}\cdot \bar\beta_{\st \bar z}+\bar\alpha_{\st  \bar z}$. 
+ %
+ If Relation \ref{equ::beta} does not hold, it aborts (i.e., sends abort signal $\Lambda$ to the sender) and still proceeds to the next step. 
+ 
+ \item outputs whatever $\mathcal{A}_{\st R}$ outputs. 
+%
+\end{enumerate}
+
+We first focus on the adversary's output. Both values of $z$ in the real and ideal models have been picked uniformly at random from $\mathbb{F}_{\st p}$; therefore, they have identical distributions. In the real model, values  $\psi_{\st z}$ and $\alpha_{\st z}$ are the result of the evaluations of two random polynomials at (random) point $z$. In the ideal model, values $\psi_{\st  z}$ and $\alpha_{\st z}$ are also the result of the evaluations of two random polynomials (i.e., ${\bm\psi}$ and ${\bm\alpha}$) at point $ z$.  By Lemma \ref{theorem::evaluation-of-random-poly}, we know that the evaluation of a random polynomial at an arbitrary value  
+ yields a uniformly random value in $\mathbb{F}_{\st p}$. Therefore, the distribution of pair $(\psi_{\st z}, \alpha_{\st z})$ in the real model is identical to that of pair $( \psi_{\st  z}, \alpha_{\st  z})$ in the ideal model. Moreover, the final result (i.e., values ${c}_{\st i,j}$) in the real model has the same distribution as the final result (i.e., values ${c}_{\st i,j}$)  in the ideal model, as they are the outputs of the ideal calls to $f_{\st \ole^{\st +}}$, as we are in the $f_{\st \ole^{\st +}}$-hybrid model. 
+
+Next, we turn our attention to the sender's output. We will show that the output distributions of the honest sender in the ideal and real models are statistically close. 
+%
+%Note that the messages distributions the sender receive from the ideal call to $f_{\st \text{OLE}^{\st +}}$ are identical in both models. 
+%
+Our focus will be on the probability that it aborts in each model, as it does not receive any other output. In the ideal model, $\mathsf{Sim}^{\st \vopr}_{\st R}$ is given the honestly generated result polynomial ${\bm \theta}$ (computed by TTP) and the adversary's input polynomial ${\bm \beta}$. $\mathsf{Sim}^{\st \vopr}_{\st R}$ aborts with a probability of 1 if Relation \ref{equ::beta} does not hold. However, in the real model, the honest sender (in addition to its inputs) is given only $\beta_{\st  z}$ and $\theta_{\st  z}$ and is not given polynomials ${\bm\beta}$ and  ${\bm\theta}$; it wants to check if the following equation holds, $\theta_{\st z} =  \psi_{\st z}\cdot  \beta_{\st z}+ \alpha_{\st z}$. Note, polynomial $\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha$ (resulted from ${c}_{\st i,j}$) is well-structured, as it satisfies the following three conditions, regardless of the adversary's input $\bm\beta$ to $\ole^{\st +}$, (i) $deg(\bm\theta)=Max \Big(deg(\bm\beta)+deg(\bm\psi), deg(\bm\alpha) \Big)$, as $\mathbb{F}_{\st p}[X]$ is an integral domain and ($\bm\psi,\bm\alpha$) are random polynomials, (ii)  the roots of the product polynomial $\bm\nu=\bm\psi\cdot \bm\beta$ contains exactly both polynomials' roots, by Theorem \ref{theorem:coef-poly-prod}, and (iii)  the roots of $\bm\nu+\bm\alpha$ is the intersection of the roots of $\bm\nu$ and $\bm\alpha$, as shown in \cite{DBLP:conf/crypto/KissnerS05}. Furthermore, polynomial $\bm \theta$ reveals no information (about  $\bm \psi$ and $\bm\alpha$ except their degrees) to the adversary and the pair $(\psi_{\st z}, \alpha_{\st z})$ is given to the adversary after it sends the pair $(\theta_{\st z}, \beta_{\st z})$ to the sender. 
+%
+There are exactly four cases where pair $(\theta_{\st z}, \beta_{\st z})$ can be constructed by the real-model adversary. Below, we state each case and the probability that the adversary is detected in that case during the verification, i.e., $\theta_{\st z}\stackrel{\st ?}=\psi{\st z}\cdot \beta_{\st z}+\alpha_{\st z}$. 
+%
+\begin{enumerate}
+%
+\item $\theta_{\st z}= \bm\theta(z) \wedge  \beta_{\st  z}={\bm\beta}( z)$. This is a trivial non-interesting case, as the adversary has behaved honestly, so it can always pass the verification. %, i.e., $\theta_{\st z}\stackrel{\st ?}=\psi{\st z}\cdot \beta_{\st z}+\alpha_{\st z}$.
+%
+\item $\theta_{\st z}\neq \bm\theta(z) \wedge  \beta_{\st  z}={\bm\beta}( z)$. In this case, the adversary is detected with a probability of 1. 
+%
+\item $\theta_{\st z}= \bm\theta(z) \wedge  \beta_{\st  z}\neq {\bm\beta}( z)$.  In this case, the adversary is also detected with a probability of 1.
+%
+\item $\theta_{\st z}\neq \bm\theta(z) \wedge  \beta_{\st  z} \neq {\bm\beta}( z)$. In this case, the adversary is detected with an overwhelming probability, i.e., $1-\frac{1}{2^{\st 2\lambda}}$. 
+%
+\end{enumerate}
+
+As we illustrated above, in the real model, the lowest probability that the honest sender would abort in case of adversarial behaviour is $1-\frac{1}{2^{\st 2\lambda}}$. Thus, the honest sender's output distributions in the ideal and real models are statistically close, i.e., $1$ \text{vs} $1-\frac{1}{2^{\st 2\lambda}}$. 
+
+We conclude that the distribution of the joint outputs of the honest sender and adversary in the real and ideal models are computationally indistinguishable. 
+%
+  \end{proof}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

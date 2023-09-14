@@ -5,7 +5,7 @@
 
 
 
-The PSIs proposed in \cite{GhoshN19} use an enhanced version of the  \ole.  The enhanced \ole ensures that the receiver cannot learn anything about the sender's inputs,  in the case where it sets its input to $0$, i.e., $c=0$. The enhanced \ole's protocol (denoted by $\ole^{\st +}$) is presented in Figure \ref{fig:OLE-plus-protocol}.
+The PSIs proposed in \cite{GhoshN19} use an enhanced version of the  \ole.  The enhanced \ole ensures that the receiver cannot learn anything about the sender's inputs,  in the case where it sets its input to $0$, i.e., $c=0$. The enhanced \ole's protocol (denoted by $\ole^{\st +}$) is presented in Figure \ref{fig:OLE-plus-protocol}. In this paper, $\ole^{\st +}$ is used as a subroutine in \vopr, in Section \ref{sec::vopr}. 
 
 
 
@@ -68,7 +68,7 @@ The PSIs proposed in \cite{GhoshN19} use an enhanced version of the  \ole.  The 
 \item Sender (input $a, b \in \mathbb{F} $): Pick a random value, $u \stackrel{\st\$}\leftarrow  \mathbb{F} $, and send $(\mathtt{inputR}, u)$ to the first $\mathcal{F}_{\st\ole}$, to learn $t =  c^{\st -1}\cdot u
  + r$. Send $(\mathtt{inputS},(t + a, b - u))$ to the second $\mathcal{F}_{\st\ole}$.
 %
-\item Receiver: Send $(\mathtt{inputR}, c)$ to the second $\mathcal{F}_{\st\ole}$ and obtain $k = (t+a)\cdot c+(b-u)=a\cdot c + b + r\cdot c$. Output $s=k - r\cdot c$.
+\item Receiver: Send $(\mathtt{inputR}, c)$ to the second $\mathcal{F}_{\st\ole}$ and obtain $k = (t+a)\cdot c+(b-u)=a\cdot c + b + r\cdot c$. Output $s=k - r\cdot c=a\cdot c + b$.
 
 %}
 \end{enumerate}

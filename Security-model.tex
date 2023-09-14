@@ -10,7 +10,7 @@ In this paper, we use the simulation-based paradigm of secure computation \cite{
  
  
  \subsubsection{Security in the Presence of Passive Adversaries.}  In the passive adversarial model, the party corrupted by such an adversary correctly follows the protocol specification. Nonetheless, the adversary obtains the internal state of the corrupted party, including the transcript of all the messages received, and tries to use this to learn information that should remain private. Loosely speaking, a protocol is secure if whatever can be computed by a party in the protocol can be computed using its input and output only. In the simulation-based model, it is required that a party’s view in a protocol's 
- execution can be simulated given only its input and output. This implies that the parties learn nothing from the protocol's execution. More formally, party $i$’s view (during the execution of $\Gamma$) on input pair  $(x, y)$ is denoted by $\mathsf{View}_{\st i}^{\st \Gamma}(x,y)$ and equals $(w, r^{\st i}, m_{\st 1}^{\st i}, ..., m_{\st t}^{\st i})$, where $w\in\{x,y\}$ is the input of $i^{\st th}$ party, $r_{\st i}$ is the outcome of this party's internal random coin tosses, and $m_{\st j}^{\st i}$ represents the $j^{\st th}$ message this party receives.  The output of the $i^{\st th}$ party during the execution of $\Gamma$ on $(x, y)$ is denoted by $\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y)$ and can be generated from its own view of the execution.  The joint output of both parties is denoted by $\mathsf{Output}^{\st \Gamma}(x,y):=(\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y), \mathsf{Output}_{\st 2}^{\st \Gamma}(x,y))$.
+ execution can be simulated given only its input and output. This implies that the parties learn nothing from the protocol's execution. More formally, party $i$’s view (during the execution of $\Gamma$) on input pair  $(x, y)$ is denoted by $\mathsf{View}_{\st i}^{\st \Gamma}(x,y)$ and equals $(w, r^{\st i}, m_{\st 1}^{\st i}, ..., m_{\st t}^{\st i})$, where $w\in\{x,y\}$ is the input of $i^{\st th}$ party, $r_{\st i}$ is the outcome of this party's internal random coin tosses, and $m_{\st j}^{\st i}$ represents the $j^{\st th}$ message this party receives.  The output of the $i^{\st th}$ party during the execution of $\Gamma$ on $(x, y)$ is denoted by $\mathsf{Output}_{\st i}^{\st \Gamma}(x,y)$ and can be generated from its own view of the execution.  The joint output of both parties is denoted by $\mathsf{Output}^{\st \Gamma}(x,y):=(\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y), \mathsf{Output}_{\st 2}^{\st \Gamma}(x,y))$.
 
 \begin{definition}
 Let $f$ be the deterministic functionality defined above. Protocol $\Gamma$ security computes $f$ in the presence of a static  passive adversary if there exist polynomial-time algorithms $(\mathsf {Sim}_{\st 1}, \mathsf {Sim}_{\st 2})$ such that:
@@ -21,7 +21,7 @@ Let $f$ be the deterministic functionality defined above. Protocol $\Gamma$ secu
   \end{equation*}
   %
   \begin{equation*}
-    \{\mathsf{Sim}_{\st 2}(x,f_{\st 2}(x,y))\}_{\st x,y}\stackrel{c}{\equiv} \{\mathsf{View}_{\st 2}^{\st \Gamma}(x,y) \}_{\st x,y}
+    \{\mathsf{Sim}_{\st 2}(y, f_{\st 2}(x,y))\}_{\st x,y}\stackrel{c}{\equiv} \{\mathsf{View}_{\st 2}^{\st \Gamma}(x,y) \}_{\st x,y}
   \end{equation*}
   
   

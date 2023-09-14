@@ -1,0 +1,35 @@
+% !TEX root =main.tex
+
+
+%%%%%%%%%%%%%%%%%
+ %%%%%%%%%%%%%
+\subsection{Main Challenges that \withFai Overcomes}\label{sec::Justitia-challenges}
+
+ We needed to address several key challenges, to design an efficient scheme that realises \p. Below, we outline these challenges.
+ 
+
+ \subsubsection{Keeping Overall Complexities Low.}
+ 
+ In general, in multi-party PSIs, each client needs to send messages to the rest of the clients and/or engage in secure computation with them, e.g., in \cite{DBLP:conf/scn/InbarOP18,DBLP:conf/ccs/KolesnikovMPRT17}, which would result in communication and/or computation quadratic with the number of clients. To address this challenge, we  (a) allow one of the clients as a dealer to interact with the rest of the clients,\footnote{This approach has similarity with the non-secure PSIs in \cite{GhoshN19}.} and   (b) we use a smart contract, which acts as a bulletin board to which most messages are sent and also performs lightweight computation on the clients' messages. The combination of these approaches will keep the overall communication and computation linear with the number of clients (and sets' cardinality). 
+ 
+ 
+
+ 
+ \subsubsection{Randomising Input Polynomials.}  In multi-party PSIs that use the polynomial representation, it is essential that a client's input polynomial be randomised by another client \cite{AbadiMZ21}. To do that securely and efficiently, we require the dealer and each client together to engage in an instance of \vopr, which we developed in Section \ref{sec::subroutines}. 
+ 
+
+ 
+ \subsubsection{Preserving the Privacy of Outgoing Messages.} Although the use of public smart contracts (e.g., Ethereum) will help keep overall complexity low, it introduces another challenge; namely, if clients do not protect the privacy of the messages they send to the smart contracts, then other clients (e.g., dealer) and non-participants of PSI (i.e., the public) can learn the clients' set elements and/or the intersection. To efficiently protect the privacy of each client's messages (sent to the contracts) from the dealer, we require the clients (except the dealer) to engage in \zspaa which lets each of them generate a pseudorandom polynomial with which it can blind its message. To protect the privacy of the intersection from the public, we require all clients to run a coin-tossing protocol to agree on a blinding polynomial, with which the final result that encodes the intersection on the smart contract will be blinded.  
+ 
+ 
+
+ \subsubsection{Ensuring the Correctness of Subroutine Protocols' Outputs.} 
+ 
+ In general, any MPC that must remain secure against an active adversary is equipped with a verification mechanism that ensures an adversary is detected if it affects messages' integrity, during the protocol's execution. This is the case for the subroutine protocols that we use, i.e., \vopr and \zspaa. However, this type of check itself is not always sufficient. Because in certain cases, the output of an MPC may be fed as input to another MPC and we need to ensure that the \emph{intact} output of the first MPC is fed to the second one. This is the case in our PSI's subroutines too. To address this challenge, we use unforgeable polynomials; specifically, the output of \vopr is an unforgeable polynomial (that encodes the actual output). If the adversary tampers with the \vopr's output and uses it later, then a verifier can detect it. We will have the same integrity guarantee for the output of \zspaa for free. Because (i) \vopr is called before \zspaa, and (ii) if clients use intact outputs of \zspaa, then the final result (i.e., the sum of all clients' messages) will not contain any output of \zspaa, as they will cancel out each other. Thus, by checking the correctness of the final result, one can ensure the correctness of the outputs of \vopr and \zspaa, in one go. 
+ %%%%%%%%%%%%%%
+
+
+
+
+
+ 

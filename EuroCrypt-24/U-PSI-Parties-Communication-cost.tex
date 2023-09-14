@@ -1,0 +1,145 @@
+% !TEX root =test.tex
+
+
+
+
+
+
+
+
+\begin{table*}[!htbp]
+\begin{footnotesize}
+\begin{center}
+\caption{ \small U-PSI communication: breakdown by step (in MB).}\label{tbl::PSI} 
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} 
+\hline 
+%{\rowcolors{2}{blue!80!gray!18}{blue!10!gray!18}
+\cellcolor{gray!20}\scriptsize \textbf{Party} &\cellcolor{gray!20} \scriptsize \textbf{Setting}&\cellcolor{gray!20} \scriptsize \textbf{Field-size} &\scriptsize\cellcolor{gray!20} $2^{\scriptscriptstyle 10}$\scriptsize &\scriptsize\cellcolor{gray!20}  $2^{\scriptscriptstyle 11}$&\scriptsize  \cellcolor{gray!20}$2^{\scriptscriptstyle 12}$&\scriptsize\cellcolor{gray!20}  $2^{\scriptscriptstyle 13}$&\scriptsize\cellcolor{gray!20} $2^{\scriptscriptstyle 14}$&\scriptsize\cellcolor{gray!20}   $2^{\scriptscriptstyle 15}$&\scriptsize\cellcolor{gray!20}  $2^{\scriptscriptstyle 16}$&\scriptsize\cellcolor{gray!20}   $2^{\scriptscriptstyle 17}$&\scriptsize \cellcolor{gray!20}  $2^{\scriptscriptstyle 18}$&\scriptsize \cellcolor{gray!20} $2^{\scriptscriptstyle 19}$&\scriptsize\cellcolor{gray!20}  $2^{\scriptscriptstyle 20}$ \\
+    \hline
+    
+     \hline
+%\NameEntry{\rotatebox{90}{standards}}
+\multirow{20}{*}{\rotatebox[origin=c]{90}{Result Recipient}}
+ \multirow{4}{*}&\multirow{5}{*}{\rotatebox[origin=c]{90}{2-Client}}&\cellcolor{cyan!20}\scriptsize 32-bit: &\cellcolor{cyan!20}\scriptsize  0.04&\cellcolor{cyan!20}\scriptsize  0.09&\cellcolor{cyan!20}\scriptsize 0.18   &\cellcolor{cyan!20}\scriptsize   0.37  &\cellcolor{cyan!20}\scriptsize    0.74 &\cellcolor{cyan!20}\scriptsize  1.49   &\cellcolor{cyan!20}\scriptsize 3.99  &\cellcolor{cyan!20} \scriptsize 7.99  &\cellcolor{cyan!20} \scriptsize 15.99  &\cellcolor{cyan!20}\scriptsize 31.98  & \cellcolor{cyan!20} \scriptsize 63.97 \\ 
+   \cline{3-13}
+  \multirow{4}{*}&&\cellcolor{white!20}\scriptsize  40-bit: &\cellcolor{white!20}\scriptsize 0.05 &\cellcolor{white!20}\scriptsize 0.1  &\cellcolor{white!20}\scriptsize  0.21 &\cellcolor{white!20}\scriptsize   0.42  &\cellcolor{white!20}\scriptsize   0.84  &\cellcolor{white!20}\scriptsize  1.69 &\cellcolor{white!20}\scriptsize 4.52 &\cellcolor{white!20} \scriptsize   9.04&\cellcolor{white!20} \scriptsize 18.1 &\cellcolor{white!20}\scriptsize 36.2  & \cellcolor{white!20} \scriptsize 72.4 \\ 
+    \cline{3-13}
+      \multirow{4}{*}&&\cellcolor{cyan!20}\scriptsize 60-bit: &\cellcolor{cyan!20}\scriptsize 0.06 &\cellcolor{cyan!20}\scriptsize 0.13&\cellcolor{cyan!20}\scriptsize   0.27&\cellcolor{cyan!20}\scriptsize    0.54 &\cellcolor{cyan!20}\scriptsize 1.09  &\cellcolor{cyan!20}\scriptsize  2.19   &\cellcolor{cyan!20}\scriptsize 5.84 &\cellcolor{cyan!20} \scriptsize   11.68&\cellcolor{cyan!20} \scriptsize  23.36 &\cellcolor{cyan!20}\scriptsize 46.74  & \cellcolor{cyan!20} \scriptsize 93.48 \\ 
+    \cline{3-13}
+          \multirow{4}{*}&&\cellcolor{white!20}\scriptsize  64-bit: &\cellcolor{white!20}\scriptsize 0.06 &\cellcolor{white!20}\scriptsize 0.14&\cellcolor{white!20}\scriptsize  0.28&\cellcolor{white!20}\scriptsize 0.57   &\cellcolor{white!20}\scriptsize  1.14  &\cellcolor{white!20}\scriptsize 2.28 &\cellcolor{white!20}\scriptsize 6.1 &\cellcolor{white!20} \scriptsize   12.21&\cellcolor{white!20} \scriptsize  24.42 &\cellcolor{white!20}\scriptsize  48.849 & \cellcolor{white!20} \scriptsize 97.7\\ 
+    \cline{3-13}
+              \multirow{4}{*}&&\cellcolor{cyan!20}\scriptsize  128-bit: &\cellcolor{cyan!20}\scriptsize  0.11&\cellcolor{cyan!20}\scriptsize  0.24&\cellcolor{cyan!20}\scriptsize  0.48  &\cellcolor{cyan!20}\scriptsize    0.96 &\cellcolor{cyan!20}\scriptsize 1.93  &\cellcolor{cyan!20}\scriptsize  3.87   &\cellcolor{cyan!20}\scriptsize   10.31&\cellcolor{cyan!20} \scriptsize  20.63 &\cellcolor{cyan!20} \scriptsize  41.28 &\cellcolor{cyan!20}\scriptsize  82.57 & \cellcolor{cyan!20} \scriptsize 165.14\\ 
+    \cline{2-13}
+
+&\multirow{5}{*}{\rotatebox[origin=c]{90}{3-Client}}&\cellcolor{white!20}\scriptsize  32-bit:&\cellcolor{white!20}\scriptsize    0.06&\cellcolor{white!20}  \scriptsize 0.14 &\cellcolor{white!20} \scriptsize 0.28&\cellcolor{white!20}\scriptsize 0.57   &\cellcolor{white!20}  \scriptsize 1.14 &\cellcolor{white!20}  \scriptsize 2.28  &\cellcolor{white!20} \scriptsize  6.1  &\cellcolor{white!20} \scriptsize 12.21 &\cellcolor{white!20} \scriptsize 41.28 &\cellcolor{white!20}\scriptsize 48.84  &\cellcolor{white!20}\scriptsize 97.7  \\ 
+    \cline{3-13}
+     &&\cellcolor{cyan!20}\scriptsize  40-bit:&\cellcolor{cyan!20}\scriptsize 0.08   &\cellcolor{cyan!20}  \scriptsize 0.16&\cellcolor{cyan!20} \scriptsize 0.33&\cellcolor{cyan!20}\scriptsize  0.66  &\cellcolor{cyan!20}  \scriptsize  1.34&\cellcolor{cyan!20}  \scriptsize 2.68&\cellcolor{cyan!20} \scriptsize 7.15  &\cellcolor{cyan!20} \scriptsize 14.31&\cellcolor{cyan!20} \scriptsize  28.63&\cellcolor{cyan!20}\scriptsize 57.27&\cellcolor{cyan!20}\scriptsize 114.56 \\ 
+    \cline{3-13}
+
+     &&\cellcolor{white!20}\scriptsize 60-bit:&\cellcolor{white!20}\scriptsize   0.11&\cellcolor{white!20}  \scriptsize  0.22&\cellcolor{white!20} \scriptsize 0.45&\cellcolor{white!20}\scriptsize  0.91 &\cellcolor{white!20}  \scriptsize  1.83&\cellcolor{white!20}  \scriptsize  3.67 &\cellcolor{white!20} \scriptsize   9.79&\cellcolor{white!20} \scriptsize  19.58&\cellcolor{white!20} \scriptsize 39.17&\cellcolor{white!20}\scriptsize 78.35&\cellcolor{white!20}\scriptsize 156.71 \\ 
+    \cline{3-13}
+     &&\cellcolor{cyan!20}\scriptsize 64-bit:&\cellcolor{cyan!20}\scriptsize  0.11  &\cellcolor{cyan!20}  \scriptsize 0.24&\cellcolor{cyan!20} \scriptsize 0.48&\cellcolor{cyan!20}\scriptsize 0.96 &\cellcolor{cyan!20}  \scriptsize 1.93&\cellcolor{cyan!20}  \scriptsize 3.87  &\cellcolor{cyan!20} \scriptsize 10.31&\cellcolor{cyan!20} \scriptsize 20.63&\cellcolor{cyan!20} \scriptsize 41.28&\cellcolor{cyan!20}\scriptsize  82.57&\cellcolor{cyan!20}\scriptsize  165.14 \\ 
+    \cline{3-13}
+         &&\cellcolor{white!20}\scriptsize   128-bit:&\cellcolor{white!20}\scriptsize   0.21&\cellcolor{white!20}  \scriptsize 0.43 &\cellcolor{white!20} \scriptsize  0.87&\cellcolor{white!20}\scriptsize    1.75&\cellcolor{white!20}  \scriptsize  3.51&\cellcolor{white!20}  \scriptsize    7.03&\cellcolor{white!20} \scriptsize 18.74  &\cellcolor{white!20} \scriptsize 37.49 &\cellcolor{white!20} \scriptsize 75&\cellcolor{white!20}\scriptsize  150.01  &\cellcolor{white!20}\scriptsize 300.03  \\ 
+    \cline{2-13}
+
+    &\multirow{5}{*}{\rotatebox[origin=c]{90}{5-Client}}&\cellcolor{cyan!20}\scriptsize 32-bit:&\cellcolor{cyan!20}\scriptsize  0.11&\cellcolor{cyan!20}  \scriptsize 0.24 &\cellcolor{cyan!20}\scriptsize   0.48&\cellcolor{cyan!20}\scriptsize   0.96&\cellcolor{cyan!20}\scriptsize 1.93&\cellcolor{cyan!20}  \scriptsize 3.87&\cellcolor{cyan!20}\scriptsize  10.31&\cellcolor{cyan!20}\scriptsize 20.63&\cellcolor{cyan!20}\scriptsize 83.43&\cellcolor{cyan!20}\scriptsize  82.57&\cellcolor{cyan!20}\scriptsize  165.14 \\ 
+        \cline{3-13}
+          & &\cellcolor{white!20}\scriptsize  40-bit:&\cellcolor{white!20}\scriptsize  0.14&\cellcolor{white!20}  \scriptsize  0.28&\cellcolor{white!20}\scriptsize   0.57 &\cellcolor{white!20}\scriptsize 1.16 &\cellcolor{white!20}\scriptsize 2.32&\cellcolor{white!20}  \scriptsize 4.66&\cellcolor{white!20}\scriptsize 12.42 &\cellcolor{white!20}\scriptsize  24.85&\cellcolor{white!20}\scriptsize  49.71&\cellcolor{white!20}\scriptsize 99.43&\cellcolor{white!20}\scriptsize  198.86\\ 
+        \cline{3-13}
+           &&\cellcolor{cyan!20}\scriptsize 60-bit:&\cellcolor{cyan!20}\scriptsize  0.2 &\cellcolor{cyan!20}  \scriptsize 0.41 &\cellcolor{cyan!20}\scriptsize 0.82 &\cellcolor{cyan!20}\scriptsize   1.65 &\cellcolor{cyan!20}\scriptsize 3.31&\cellcolor{cyan!20}  \scriptsize 6.63 &\cellcolor{cyan!20}\scriptsize  17.69&\cellcolor{cyan!20}\scriptsize 35.39&\cellcolor{cyan!20}\scriptsize  70.78&\cellcolor{cyan!20}\scriptsize  141.58&\cellcolor{cyan!20}\scriptsize  283.17  \\ 
+        \cline{3-13}
+          & &\cellcolor{white!20}\scriptsize  64-bit:&\cellcolor{white!20}\scriptsize  0.21&\cellcolor{white!20}  \scriptsize 0.43 &\cellcolor{white!20}\scriptsize   0.87&\cellcolor{white!20}\scriptsize  1.75&\cellcolor{white!20}\scriptsize 3.51&\cellcolor{white!20}  \scriptsize 7.03 &\cellcolor{white!20}\scriptsize  18.74&\cellcolor{white!20}\scriptsize  37.49&\cellcolor{white!20}\scriptsize  75&\cellcolor{white!20}\scriptsize 150&\cellcolor{white!20}\scriptsize  300 \\ 
+        \cline{3-13}
+          & &\cellcolor{cyan!20}\scriptsize 128-bit:&\cellcolor{cyan!20}\scriptsize  0.4&\cellcolor{cyan!20}  \scriptsize   0.82&\cellcolor{cyan!20}\scriptsize  1.65   &\cellcolor{cyan!20}\scriptsize  3.32&\cellcolor{cyan!20}\scriptsize  6.67&\cellcolor{cyan!20}  \scriptsize 13.35  &\cellcolor{cyan!20}\scriptsize  35.6 &\cellcolor{cyan!20}\scriptsize  71.21&\cellcolor{cyan!20}\scriptsize   142.44&\cellcolor{cyan!20}\scriptsize  284.89&\cellcolor{cyan!20}\scriptsize  569.81  \\ 
+        \cline{2-13}
+     &\multirow{5}{*}{\rotatebox[origin=c]{90}{10-Client}}&\cellcolor{white!20}\scriptsize  32-bit:&\cellcolor{white!20} \scriptsize  0.23&\cellcolor{white!20}\scriptsize 0.48  &\cellcolor{white!20}\scriptsize  0.97&\cellcolor{white!20}\scriptsize  1.94&\cellcolor{white!20} \scriptsize  3.9&\cellcolor{white!20}\scriptsize 7.82  &\cellcolor{white!20}\scriptsize 20.85  &\cellcolor{white!20}\scriptsize  41.71&\cellcolor{white!20}  \scriptsize 125.58&\cellcolor{white!20}\scriptsize 166.87 &\cellcolor{white!20} \scriptsize 333.75  \\ 
+        \cline{3-13}
+           &&\cellcolor{cyan!20}\scriptsize  40-bit:&\cellcolor{cyan!20}\scriptsize  0.29  &\cellcolor{cyan!20}  \scriptsize  0.59 &\cellcolor{cyan!20}\scriptsize 1.19    &\cellcolor{cyan!20}\scriptsize  2.39  &\cellcolor{cyan!20}\scriptsize 4.79 &\cellcolor{cyan!20}  \scriptsize 9.6 &\cellcolor{cyan!20}\scriptsize 25.59  &\cellcolor{cyan!20}\scriptsize  51.19 &\cellcolor{cyan!20}\scriptsize  102.4 &\cellcolor{cyan!20}\scriptsize 204.81 &\cellcolor{cyan!20}\scriptsize  409.63 \\ 
+        \cline{3-13}
+           &&\cellcolor{white!20}\scriptsize  60-bit:&\cellcolor{white!20}\scriptsize    0.42&\cellcolor{white!20}  \scriptsize   0.87&\cellcolor{white!20}\scriptsize   1.74 &\cellcolor{white!20}\scriptsize    3.5 &\cellcolor{white!20}\scriptsize  7.01&\cellcolor{white!20}  \scriptsize  14&\cellcolor{white!20}\scriptsize   37.45&\cellcolor{white!20}\scriptsize  74.9&\cellcolor{white!20}\scriptsize   149.81&\cellcolor{white!20}\scriptsize   299.65&\cellcolor{white!20}\scriptsize   599.31 \\ 
+        \cline{3-13}
+           &&\cellcolor{cyan!20}\scriptsize  64-bit:&\cellcolor{cyan!20}\scriptsize  0.45 &\cellcolor{cyan!20}  \scriptsize  0.92&\cellcolor{cyan!20}\scriptsize  1.85 &\cellcolor{cyan!20}\scriptsize   3.72 &\cellcolor{cyan!20}\scriptsize  7.46&\cellcolor{cyan!20}  \scriptsize  14.93 &\cellcolor{cyan!20}\scriptsize  39.82 &\cellcolor{cyan!20}\scriptsize  79.64 &\cellcolor{cyan!20}\scriptsize  159.3&\cellcolor{cyan!20}\scriptsize  318.62&\cellcolor{cyan!20}\scriptsize    637.25\\ 
+        \cline{3-13}
+          & &\cellcolor{white!20}\scriptsize  128-bit:&\cellcolor{white!20}\scriptsize  0.89&\cellcolor{white!20}  \scriptsize   1.8&\cellcolor{white!20}\scriptsize   3.61  &\cellcolor{white!20}\scriptsize 7.26   &\cellcolor{white!20}\scriptsize  14.56&\cellcolor{white!20}  \scriptsize 29.16 &\cellcolor{white!20}\scriptsize   77.75&\cellcolor{white!20}\scriptsize   155.5&\cellcolor{white!20}\scriptsize  311.04&\cellcolor{white!20}\scriptsize   622.11&\cellcolor{white!20}\scriptsize    1244.26 \\ 
+        \cline{3-13}
+       \hline
+
+%\scriptsize Each  Authoriser 
+\multirow{5}{*}{\rotatebox[origin=c]{90}{Each  Authoriser }}
+
+     &\cellcolor{gray!40}&\cellcolor{cyan!20}\scriptsize 32-bit&\cellcolor{cyan!20} \scriptsize  0.02  &\cellcolor{cyan!20}\scriptsize  0.04 &\cellcolor{cyan!20}\scriptsize   0.09 &\cellcolor{cyan!20}\scriptsize   0.19 &\cellcolor{cyan!20}\scriptsize   0.39&\cellcolor{cyan!20} \scriptsize 0.79 &\cellcolor{cyan!20}\scriptsize 2.12   &\cellcolor{cyan!20} \scriptsize  4.25  &\cellcolor{cyan!20} \scriptsize 8.51  &\cellcolor{cyan!20}\scriptsize 17.02   &\cellcolor{cyan!20}\scriptsize  34.05   \\
+        \cline{3-13}
+           &\cellcolor{gray!40}&\cellcolor{white!20}\scriptsize 40-bit:&\cellcolor{white!20}\scriptsize  0.03  &\cellcolor{white!20}  \scriptsize 0.06  &\cellcolor{white!20}\scriptsize  0.12   &\cellcolor{white!20}\scriptsize 0.24   &\cellcolor{white!20}\scriptsize 0.49 &\cellcolor{white!20}  \scriptsize 0.99 &\cellcolor{white!20}\scriptsize 2.66  &\cellcolor{white!20}\scriptsize  5.32 &\cellcolor{white!20}\scriptsize 10.64  &\cellcolor{white!20}\scriptsize 21.28 &\cellcolor{white!20}\scriptsize 42.57  \\ 
+        \cline{3-13}
+           &\cellcolor{gray!40}&\cellcolor{cyan!20}\scriptsize 60-bit:&\cellcolor{cyan!20}\scriptsize  0.04  &\cellcolor{cyan!20}  \scriptsize 0.09  &\cellcolor{cyan!20}\scriptsize 0.18    &\cellcolor{cyan!20}\scriptsize   0.37  &\cellcolor{cyan!20}\scriptsize  0.74&\cellcolor{cyan!20}  \scriptsize  1.49&\cellcolor{cyan!20}\scriptsize 3.99  &\cellcolor{cyan!20}\scriptsize  7.98&\cellcolor{cyan!20}\scriptsize 15.96  &\cellcolor{cyan!20}\scriptsize  31.92 &\cellcolor{cyan!20}\scriptsize 63.85   \\ 
+        \cline{3-13}
+           &\cellcolor{gray!40}&\cellcolor{white!20}\scriptsize 64-bit:&\cellcolor{white!20}\scriptsize  0.04 &\cellcolor{white!20}  \scriptsize  0.09&\cellcolor{white!20}\scriptsize   0.19&\cellcolor{white!20}\scriptsize    0.39&\cellcolor{white!20}\scriptsize  0.79&\cellcolor{white!20}  \scriptsize   1.59&\cellcolor{white!20}\scriptsize  4.25 &\cellcolor{white!20}\scriptsize  8.51 &\cellcolor{white!20}\scriptsize 17.02 &\cellcolor{white!20}\scriptsize  34.05&\cellcolor{white!20}\scriptsize   68.11 \\ 
+        \cline{3-13}
+           &\cellcolor{gray!40}&\cellcolor{cyan!20}\scriptsize 128-bit:&\cellcolor{cyan!20}\scriptsize  0.09&\cellcolor{cyan!20}  \scriptsize   0.19&\cellcolor{cyan!20}\scriptsize 0.39     &\cellcolor{cyan!20}\scriptsize  0.79  &\cellcolor{cyan!20}\scriptsize  1.59&\cellcolor{cyan!20}  \scriptsize  3.19&\cellcolor{cyan!20}\scriptsize   8.51&\cellcolor{cyan!20}\scriptsize 17.02  &\cellcolor{cyan!20}\scriptsize  34.05&\cellcolor{cyan!20}\scriptsize  68.11 &\cellcolor{cyan!20}\scriptsize   136.23  \\ 
+        \cline{3-13}
+   
+    \hline
+%\scriptsize Cloud
+\multirow{5}{*}{\rotatebox[origin=c]{90}{Cloud}}
+    &\cellcolor{gray!40}&\cellcolor{white!20}\scriptsize  32-bit &\cellcolor{white!20} \scriptsize  0.02&\cellcolor{white!20} \scriptsize 0.04 &\cellcolor{white!20}\scriptsize 0.09   &\cellcolor{white!20} \scriptsize  0.19&\cellcolor{white!20}\scriptsize  0.39&\cellcolor{white!20}\scriptsize 0.79&\cellcolor{white!20}\scriptsize  2.1  &\cellcolor{white!20}\scriptsize  4.21  & \cellcolor{white!20}\scriptsize 8.42  &\cellcolor{white!20}\scriptsize 16.86  &\cellcolor{white!20}\scriptsize 33.72 \\
+        \cline{3-13}
+           &\cellcolor{gray!40}&\cellcolor{cyan!20}\scriptsize 40-bit:&\cellcolor{cyan!20}\scriptsize   0.03 &\cellcolor{cyan!20}  \scriptsize  0.06 &\cellcolor{cyan!20}\scriptsize   0.12  &\cellcolor{cyan!20}\scriptsize  0.24  &\cellcolor{cyan!20}\scriptsize 0.49 &\cellcolor{cyan!20}  \scriptsize  0.98&\cellcolor{cyan!20}\scriptsize  2.63 &\cellcolor{cyan!20}\scriptsize 5.26  &\cellcolor{cyan!20}\scriptsize 10.53  &\cellcolor{cyan!20}\scriptsize 21.07 &\cellcolor{cyan!20}\scriptsize 42.15   \\ 
+        \cline{3-13}
+           &\cellcolor{gray!40}&\cellcolor{white!20}\scriptsize 60-bit:&\cellcolor{white!20}\scriptsize  0.04  &\cellcolor{white!20}  \scriptsize   0.09&\cellcolor{white!20}\scriptsize 0.18   &\cellcolor{white!20}\scriptsize  0.36   &\cellcolor{white!20}\scriptsize  0.74&\cellcolor{white!20}  \scriptsize  1.48&\cellcolor{white!20}\scriptsize   3.95&\cellcolor{white!20}\scriptsize  7.9&\cellcolor{white!20}\scriptsize   15.8&\cellcolor{white!20}\scriptsize  31.61 &\cellcolor{white!20}\scriptsize  63.22  \\ 
+        \cline{3-13}
+           &\cellcolor{gray!40}&\cellcolor{cyan!20}\scriptsize 64-bit:&\cellcolor{cyan!20}\scriptsize  0.04 &\cellcolor{cyan!20}  \scriptsize  0.09&\cellcolor{cyan!20}\scriptsize 0.19   &\cellcolor{cyan!20}\scriptsize   0.39 &\cellcolor{cyan!20}\scriptsize 0.78 &\cellcolor{cyan!20}  \scriptsize  1.58 &\cellcolor{cyan!20}\scriptsize 4.21  &\cellcolor{cyan!20}\scriptsize  8.42 &\cellcolor{cyan!20}\scriptsize 16.85 &\cellcolor{cyan!20}\scriptsize  33.72&\cellcolor{cyan!20}\scriptsize 67.44   \\ 
+        \cline{3-13}
+           &\cellcolor{gray!40}&\cellcolor{white!20}\scriptsize 128-bit:&\cellcolor{white!20}\scriptsize  0.09&\cellcolor{white!20}  \scriptsize 0.19  &\cellcolor{white!20}\scriptsize 0.39     &\cellcolor{white!20}\scriptsize   0.78 &\cellcolor{white!20}\scriptsize  1.57&\cellcolor{white!20}  \scriptsize  3.16&\cellcolor{white!20}\scriptsize 8.42  &\cellcolor{white!20}\scriptsize   16.85&\cellcolor{white!20}\scriptsize  33.71&\cellcolor{white!20}\scriptsize   67.44&\cellcolor{white!20}\scriptsize 134.88    \\ 
+        \cline{3-13}
+       \hline
+ 
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\end{table*}
+
+
+
+
+
+%
+%\begin{table*}[!htbp]
+%\begin{footnotesize}
+%\begin{center}
+%\caption{ \small U-PSI communication cost when element and field bit-size is $32$: breakdown by step (in MB).}\label{tbl::PSI} 
+%\renewcommand{\arraystretch}{1.3}
+%\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} 
+%\hline 
+%%{\rowcolors{2}{blue!80!gray!18}{blue!10!gray!18}
+%\cellcolor{gray!20}\scriptsize \textbf{Party} &\cellcolor{gray!20} \scriptsize \textbf{Setting} &\scriptsize\cellcolor{gray!20} $2^{\scriptscriptstyle 10}$\scriptsize &\scriptsize\cellcolor{gray!20}  $2^{\scriptscriptstyle 11}$&\scriptsize  \cellcolor{gray!20}$2^{\scriptscriptstyle 12}$&\scriptsize\cellcolor{gray!20}  $2^{\scriptscriptstyle 13}$&\scriptsize\cellcolor{gray!20} $2^{\scriptscriptstyle 14}$&\scriptsize\cellcolor{gray!20}   $2^{\scriptscriptstyle 15}$&\scriptsize\cellcolor{gray!20}  $2^{\scriptscriptstyle 16}$&\scriptsize\cellcolor{gray!20}   $2^{\scriptscriptstyle 17}$&\scriptsize \cellcolor{gray!20}  $2^{\scriptscriptstyle 18}$&\scriptsize \cellcolor{gray!20} $2^{\scriptscriptstyle 19}$&\scriptsize\cellcolor{gray!20}  $2^{\scriptscriptstyle 20}$ \\
+%    \hline
+%    
+%     \hline
+%\NameEntry{\center \scriptsize Result \\ \scriptsize Recipient}
+% \multirow{4}{*}&\cellcolor{cyan!20}  \scriptsize 2-Client: &\cellcolor{cyan!20}\scriptsize  0.04&\cellcolor{cyan!20}\scriptsize  0.09&\cellcolor{cyan!20}\scriptsize 0.18   &\cellcolor{cyan!20}\scriptsize   0.37  &\cellcolor{cyan!20}\scriptsize    0.74 &\cellcolor{cyan!20}\scriptsize  1.49   &\cellcolor{cyan!20}\scriptsize 3.99  &\cellcolor{cyan!20} \scriptsize 7.99  &\cellcolor{cyan!20} \scriptsize 15.99  &\cellcolor{cyan!20}\scriptsize 31.98  & \cellcolor{cyan!20} \scriptsize 63.97 \\ 
+%    \cline{2-13}
+% &\cellcolor{white!20}\scriptsize 3-Client:&\cellcolor{white!20}\scriptsize    0.06&\cellcolor{white!20}  \scriptsize 0.14 &\cellcolor{white!20} \scriptsize 0.28&\cellcolor{white!20}\scriptsize 0.57   &\cellcolor{white!20}  \scriptsize 1.14 &\cellcolor{white!20}  \scriptsize 2.28  &\cellcolor{white!20} \scriptsize  6.1  &\cellcolor{white!20} \scriptsize 12.21 &\cellcolor{white!20} \scriptsize 41.28 &\cellcolor{white!20}\scriptsize 48.84  &\cellcolor{white!20}\scriptsize 97.7  \\ 
+%    \cline{2-13}
+%    &\cellcolor{cyan!20}\scriptsize 5-Client:&\cellcolor{cyan!20}\scriptsize 0.11  &\cellcolor{cyan!20}  \scriptsize  0.24&\cellcolor{cyan!20}\scriptsize 0.48   &\cellcolor{cyan!20}\scriptsize 0.96   &\cellcolor{cyan!20}\scriptsize 1.93&\cellcolor{cyan!20}  \scriptsize 3.87 &\cellcolor{cyan!20}\scriptsize  10.31&\cellcolor{cyan!20}\scriptsize 20.63 &\cellcolor{cyan!20}\scriptsize 83.43 &\cellcolor{cyan!20}\scriptsize 82.57 &\cellcolor{cyan!20}\scriptsize 165.14   \\ 
+%        \cline{2-13}
+%    &\cellcolor{white!20}\scriptsize 10-Client:&\cellcolor{white!20} \scriptsize  0.23&\cellcolor{white!20}\scriptsize 0.48  &\cellcolor{white!20}\scriptsize  0.97&\cellcolor{white!20}\scriptsize  1.94&\cellcolor{white!20} \scriptsize  3.9&\cellcolor{white!20}\scriptsize 7.82  &\cellcolor{white!20}\scriptsize 20.85  &\cellcolor{white!20}\scriptsize  41.71&\cellcolor{white!20}  \scriptsize 125.58&\cellcolor{white!20}\scriptsize 166.87 &\cellcolor{white!20} \scriptsize 333.75  \\ 
+%       \hline
+%
+%\scriptsize Each  Authoriser 
+%
+%    \cellcolor{cyan!20} \scriptsize &\cellcolor{cyan!20} &\cellcolor{cyan!20} \scriptsize  0.02  &\cellcolor{cyan!20}\scriptsize  0.04 &\cellcolor{cyan!20}\scriptsize   0.09 &\cellcolor{cyan!20}\scriptsize   0.19 &\cellcolor{cyan!20}\scriptsize   0.39&\cellcolor{cyan!20} \scriptsize 0.79 &\cellcolor{cyan!20}\scriptsize 2.12   &\cellcolor{cyan!20} \scriptsize  4.25  &\cellcolor{cyan!20} \scriptsize 8.51  &\cellcolor{cyan!20}\scriptsize 17.02   &\cellcolor{cyan!20}\scriptsize  34.05   \\
+%   
+%    \hline
+%\scriptsize Cloud
+%
+%    \multirow{3}{*}%{\scriptsize Cloud-side computation}
+%    &\cellcolor{white!20}\scriptsize   &\cellcolor{white!20} \scriptsize  0.02&\cellcolor{white!20} \scriptsize 0.04 &\cellcolor{white!20}\scriptsize 0.09   &\cellcolor{white!20} \scriptsize  0.19&\cellcolor{white!20}\scriptsize  0.39&\cellcolor{white!20}\scriptsize 0.79&\cellcolor{white!20}\scriptsize  2.1  &\cellcolor{white!20}\scriptsize  4.21  & \cellcolor{white!20}\scriptsize 8.42  &\cellcolor{white!20}\scriptsize 16.86  &\cellcolor{white!20}\scriptsize 33.72 \\
+%       \hline
+% 
+%\end{tabular}
+%\end{center}
+%\end{footnotesize}
+%\end{table*}
+

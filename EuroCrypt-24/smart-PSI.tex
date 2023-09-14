@@ -1,0 +1,73 @@
+% !TEX root =U-PSI.tex
+
+\section{Smart PSI}
+
+
+In this section we provide smart PSI, a smart contract based private set intersection that charges the result recipients based on the number of set elements it learns. Here we consider stronger adversaries, economically rational semi-honest adversaries, who try to deviates from the protocol if doing so has let them gain some financial benefits. In the protocol, in addition to the roles in the previous protocol,   the is another role called: seller client who charges the result recipient client for the number of elements it learns. We assume that this client does not collude with the result recipient so the result recipient would bribe it and send other clients share to this client. Also, we do not consider fairness here, where either all clients must learn the result or no one. In this protocol, only client $B$ is interested in the intersection result. 
+
+\begin{enumerate}
+\item \textbf{Offline Phase} 
+
+\begin{enumerate}
+%\item It runs the off line phase in the previous advance protocol
+
+\item\label{smart-contract-agreement} All clients, in $\{\resizeT {\textit A}_{\resizeS {\textit  1}},..., \resizeT {\textit A}_{\resizeS {\textit  m}},\resizeT {\textit  D}_{\resizeS {\textit  1}},\resizeT {\textit  D}_{\resizeS {\textit  2}}, B\}$, agree on a smart contract: $\mathcal{SC}$, provided in Fig. \ref{}. The smart contract is deployed by one of the clients and the address is given to the rest. All clients check the contract, if any client does not agree on the contract, it aborts. Otherwise, it proceeds to the next steps. 
+
+
+\item\label{randomizing-elements} All clients, agree on  a pseudorandom permutation function, $\mathtt{PRP}$, and fresh secret key, $k_{\scriptscriptstyle o}$, for the function.  Then, each client $I \in \{\resizeT {\textit A}_{\resizeS {\textit  1}},..., \resizeT {\textit A}_{\resizeS {\textit  m}},\resizeT {\textit  D}_{\resizeS {\textit  1}},\resizeT {\textit  D}_{\resizeS {\textit  2}}, B\}$  uses $\mathtt{PRP}$ and the key to map its set elements to random values, as follows. $\forall i, 1\leq i\leq d: v^{\scriptscriptstyle I}_{\scriptscriptstyle i}=\mathtt{PRP}(k_{\scriptscriptstyle o}, s^{\scriptscriptstyle I}_{\scriptscriptstyle i})$. It considers  these encrypted values, $\vv{\bm{v}}^{\scriptscriptstyle I}=\{v^{\scriptscriptstyle I}_{\scriptscriptstyle 1},..,v^{\scriptscriptstyle I}_{\scriptscriptstyle d}\}$, as its set elements. Note that $\mathtt{PRP}$ is deterministic and also the client can always decrypt $v^{\scriptscriptstyle I}_{\scriptscriptstyle i}$ to get its actual set element: $s^{\scriptscriptstyle I}_{\scriptscriptstyle i}=\mathtt{PRP}^{\scriptscriptstyle -1}(k_{\scriptscriptstyle o}, v^{\scriptscriptstyle I}_{\scriptscriptstyle i})$
+
+\item All clients, excluding  $B$, agree on  a \emph{seller} client: $\resizeT {\textit A}_{\resizeS {\textit  s}}$, who  can be any client, e.g. a client with smallest set size;  except  the result recipient, client $B$. 
+
+\item All clients, including the seller,  run the Offline Phase as in previous protocol, where their inputs are the encrypted values computed in step \ref{randomizing-elements}. However, there are two   differences:  (a) the seller in step \ref{offline-autho-param} also picks a fresh key $k_{\scriptscriptstyle s}$ for the $\mathtt{PRF}$, and (b) the seller   in step \ref{offlinedealerrerand}, first picks a random polynomial $\beta(x)$ of degree $2d$ and then then computes: 
+
+$\forall i, 1\leq i \leq n : c^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i}     = \omega^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i}   \cdot \pi^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i}+\sum\limits^{\scriptscriptstyle 2}_{\scriptscriptstyle v=1} r^{\resizeS{\textit A}_{\resizeSS{\textit s}}\resizeS{,}  \resizeS { \textit D}_{\resizeSS {\textit v}}}_{\scriptscriptstyle i} +\sum\limits^{\scriptscriptstyle 2}_{\scriptscriptstyle v=1} q^{\resizeS{\textit A}_{\resizeSS{\textit s}}\resizeS{,}  \resizeS { \textit D}_{\resizeSS {\textit v}}}_{\scriptscriptstyle i}+ \beta_{\scriptscriptstyle i}$
+
+where  $r^{\resizeS{\textit A}_{\resizeSS{\textit s}}\resizeS{,}  \resizeS { \textit D}_{\resizeSS {\textit v}}}_{\scriptscriptstyle i}=\PRF(k^{\resizeS{\textit A}_{\resizeSS{\textit s}}\resizeS{,}  \resizeS { \textit D}_{\resizeSS {\textit v}}},i),\ q^{\resizeS{\textit A}_{\resizeSS{\textit s}}\resizeS{,}  \resizeS { \textit D}_{\resizeSS {\textit v}}}_{\scriptscriptstyle i}=\PRF(l^{\resizeS{\textit A}_{\resizeSS{\textit s}}\resizeS{,}  \resizeS { \textit D}_{\resizeSS {\textit v}}},i)$, $\beta_{i}=\beta(x_{\scriptscriptstyle i})$ and $1\leq v\leq 2$. Note that, if the seller is one of the dealers, e.g. $\resizeT {\textit  D}_{\resizeS {\textit v}}$, it computes the following value instead:  $\forall i, 1\leq i \leq n : c^{\resizeS {\textit  D}_{\resizeSS {\textit  v}}}_{\scriptscriptstyle i}     = \omega^{\resizeS {\textit  D}_{\resizeSS {\textit  v}}}_{\scriptscriptstyle i}   \cdot \pi^{\resizeS {\textit  D}_{\resizeSS {\textit  v}}}_{\scriptscriptstyle i}+\sum\limits^{\scriptscriptstyle 2}_{\scriptscriptstyle p=1} r^{\resizeS{\textit D}_{\resizeSS{\textit v}}\resizeS{,}  \resizeS { \textit A}_{\resizeSS {\textit p}}}_{\scriptscriptstyle i} +\sum\limits^{\scriptscriptstyle 2}_{\scriptscriptstyle p=1} q^{\resizeS{\textit D}_{\resizeSS{\textit v}}\resizeS{,}  \resizeS { \textit A}_{\resizeSS {\textit p}}}_{\scriptscriptstyle i}+ \beta_{\scriptscriptstyle i}$
+
+where  $r^{\resizeS{\textit D}_{\resizeSS{\textit v}}\resizeS{,}  \resizeS { \textit A}_{\resizeSS {\textit p}}}_{\scriptscriptstyle i}=\PRF(k^{\resizeS{\textit D}_{\resizeSS{\textit v}}\resizeS{,}  \resizeS { \textit A}_{\resizeSS {\textit p}}},i),\ q^{\resizeS{\textit D}_{\resizeSS{\textit v}}\resizeS{,}  \resizeS { \textit A}_{\resizeSS {\textit p}}}_{\scriptscriptstyle i}=\PRF(l^{\resizeS{\textit D}_{\resizeSS{\textit v}}\resizeS{,}  \resizeS { \textit A}_{\resizeSS {\textit p}}},i)$,  $\beta_{i}=\beta(x_{\scriptscriptstyle i})$ and $1\leq p\leq 2$ 
+
+\end{enumerate}
+
+\item \textbf{Online Phase} 
+
+
+
+\begin{enumerate}
+\item All clients, excluding   $B$, agree on parameter $c$: the maximum number of elements in the intersection that will be  sold/revealed to client $B$. Value $c$ is registered on $\mathcal{SC}$. To agree on value $c$, they can either negotiate out-of-the-bound or  use a voting scheme, e.g. by using a combination of commitment scheme and smart contract. See Appendix \ref{} for more detail.
+
+\item Client $B$ deposites $e\cdot c$ coin to the smart contract, $\mathcal{SC}$. The seller client, $\resizeT {\textit A}_{\resizeS {\textit  s}}$,  checks if $e\cdot c$ coin has been deposited to the contract. If not, it aborts and ask other clients to abort too. Otherwise, it commits to: the evaluation of the random polynomial, $\beta(x)$, at every element in $\vv{\bm{v}}^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}=\{v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle 1},..,v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle d}\}$.  In particular:  $\forall i, 1\leq i \leq d: t_{\scriptscriptstyle i}=\mathtt{PRF}(k_{\scriptscriptstyle s},v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i}),  h_{\scriptscriptstyle i}= \mathtt{H}(\beta(v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i})\ || \ t_{\scriptscriptstyle i})$.  Next, $\resizeT {\textit A}_{\resizeS {\textit  s}}$ stores the committed values: $h_{\scriptscriptstyle i}$'s, in the contract. 
+
+\item All clients, take the same steps as in steps \ref{clientBkeydist}-\ref{assistant-side-result-computation} in Online Phase in Fig.\ref{}. The only  difference is that the clients  (in steps \ref{authorizer-side-result-computation}, \ref{dealer-side-result-computation}, and \ref{assistant-side-result-computation}) send the messages to  smart contract $\mathcal{SC}$ instead of client $B$. 
+
+\item Contract $\mathcal{SC}$ combines all clients' messages to remove all blinding factors. $\forall i, 1\leq i \leq n :$
+
+$e_{\scriptscriptstyle i}=\sum\limits^{\scriptscriptstyle m}_{\scriptscriptstyle j=1} o^{\resizeS {\textit  A}_{\resizeSS {\textit  j}}}_{\scriptscriptstyle i}+ \sum\limits^{\scriptscriptstyle 2}_{\scriptscriptstyle v=1} o^{\resizeS {\textit  D}_{\resizeSS {\textit  v}}}_{\scriptscriptstyle i}$
+
+
+\ \  \ \  \ $=\sum\limits^{\scriptscriptstyle m}_{\scriptscriptstyle j=1} (\omega^{\resizeS {\textit  A}_{\resizeSS {\textit  j}}}_{\scriptscriptstyle i}   \cdot \pi^{\resizeS {\textit  A}_{\resizeSS {\textit  j}}}_{\scriptscriptstyle i})+\sum\limits^{\scriptscriptstyle 2}_{\scriptscriptstyle v=1} (\omega^{\resizeS {\textit  D}_{\resizeSS {\textit  v}}}_{\scriptscriptstyle i}   \cdot \pi^{\resizeS {\textit  D}_{\resizeSS {\textit  v}}}_{\scriptscriptstyle i})+  \pi^{\resizeS {\textit B} }_{\scriptscriptstyle i}\cdot(\sum\limits^{\scriptscriptstyle m}_{\scriptscriptstyle j=1} (\zeta^{\resizeS{\textit A}_{\resizeSS{\textit j}}\resizeS{,}  \resizeS { \textit D}_{\resizeSS {\textit 1}}}_{\scriptscriptstyle i}+\zeta^{\resizeS{\textit A}_{\resizeSS{\textit j}}\resizeS{,}  \resizeS { \textit D}_{\resizeSS {\textit 2}}}_{\scriptscriptstyle i})+\sum\limits^{\scriptscriptstyle 2}_{\scriptscriptstyle v=1} (\zeta^{\resizeS{\textit D}_{\resizeSS{\textit v}}\resizeS{,}  \resizeS { \textit A}_{\resizeSS {\textit 1}}}_{\scriptscriptstyle i}+\zeta^{\resizeS{\textit D}_{\resizeSS{\textit v}}\resizeS{,}  \resizeS { \textit A}_{\resizeSS {\textit 2}}}_{\scriptscriptstyle i}))+\beta_{\scriptscriptstyle i}$
+
+\item The contract uses $n$ pairs: $(z_{\scriptscriptstyle i}, e_{\scriptscriptstyle i})$ to interpolate a randomised polynomial: $\xi(x)$. The polynomial is of the form: $\xi(x)=\psi(x)+\beta(x)$, where $\psi(x)$ represents the intersection   and $\beta(x)$ is a uniformly random polynomial picked by the seller. 
+
+\item Client $\resizeT {\textit A}_{\resizeS {\textit  s}}$ \emph{locally}  removes the random polynomial from $\xi(x)$ and  then, evaluates the result polynomial: $\psi(x)$, at every element of its encrypted set: $v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle t}\in \vv{\bm{v}}^{\resizeS {\textit  A}_{\resizeSS {\textit s}}}$ ($\forall t, 1\leq t \leq d$). It considers the element in the intersection if the result of the polynomial evaluation is zero, i.e. if $\psi(v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle t})=0$.
+
+\item Client $\resizeT {\textit A}_{\resizeS {\textit  s}}$ sends the opening of (at most) $c$ elements in the intersection to the contract. In particular, it sends the following values to $\mathcal{SC}$. $\forall i, 1\leq i\leq c: (t_{\scriptscriptstyle i},v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i})$,  where $\psi(v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i})=0$.
+
+\item Contract $\mathcal{SC}$, given $c$ pairs of $(t_{\scriptscriptstyle i},v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i})$,  performs as follows. $\forall 1\leq i\leq c:$ 
+\begin{enumerate}
+ \item evaluates  $\xi(x)$ at every element  $\resizeT {\textit A}_{\resizeS {\textit  s}}$ has sent: $\xi(v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i})=\psi(v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i})+\beta(v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i})$
+ \item verifies if the polynomial evaluations matches the committed values already stored in the contract. $ \mathtt{H}(\xi(v^{\resizeS {\textit  A}_{\resizeSS {\textit  s}}}_{\scriptscriptstyle i}) \ || \ t_{\scriptscriptstyle i})\stackrel{\scriptscriptstyle ?}=h_{\scriptscriptstyle i}$.  If passed, it sends a share to every client in  $\{\resizeT {\textit A}_{\resizeS {\textit  1}},..., \resizeT {\textit A}_{\resizeS {\textit  m}},\resizeT {\textit  D}_{\resizeS {\textit  1}},\resizeT {\textit  D}_{\resizeS {\textit  2}}\}$. 
+ 
+\end{enumerate}
+
+
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+
+
+
+
+

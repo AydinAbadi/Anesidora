@@ -1,0 +1,148 @@
+% !TEX root =main.tex
+
+
+
+
+%\subsection{Proof of the ZSPA-A Protocol}\label{subsec::ZSPA-A-proof}
+
+%Below, we prove Theorem \ref{theorem::ZSPA-A}, i.e., the security of the ZSPA-A.  Note, to allow this proof to be self-contained, we repeat some content from the proof of Theorem \ref{theorem::ZSPA-comp-correctness}. 
+
+ \vspace{-2mm}
+\section{Proof of \zspaa}\label{sec::proof-of-zspa-a}
+\begin{proof}
+First, we consider the case where a sender, who (may collude with $m-2$ senders and) generates pairs $(g,q)$, is corrupt. 
+
+\
+
+\noindent\textbf{Case 1: Corrupt sender.}  Let $\mathsf{Sim}^{\st \zspaa}_{\st S}$ be the simulator using a subroutine adversary, $\mathcal{A}_{\st S}$. Below, we explain how $\mathsf{Sim}^{\st \zspaa}_{\st S}$ works.  
+
+
+%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+%
+\item simulates  \ct  and receives the output value $ k$ from $f_{\st \ct}$.
+%
+\item sends $ k$ to TTP and receives back from it $m$ pairs, where each pair is of the form $( g,  q)$. 
+%
+\item sends $ k$ to $\mathcal{A}_{\st S}$ and receives back from it $m$ pairs  where each pair is of the form $( g',  q')$. 
+%
+
+\item constructs an empty vector $ L$. $\mathsf{Sim}^{\st \zspaa}_{\st S}$ checks whether the following equations hold for each $j$-th pair: $ g= g' \hspace{2mm} \wedge  \hspace{2mm}  q= q'$. If these two equations do not hold, it sends an abort message $\Lambda$ to other receiver clients, appends the index of the pair (i.e., $j$) to $ L$, and proceeds to the next step for the valid pairs. In the case where there are no valid pairs, it moves on to step \ref{adversary-outputs}. 
+%
+\item picks a random polynomial ${\bm \zeta}$ of degree $1$. Moreover, for every $j\notin  L$, $\mathsf{Sim}^{\st \zspaa}_{\st S}$ picks a random polynomial ${\bm\xi}^{\st (j)}$ of degree $b'-1$, where $1\leq j \leq m$.
+%
+
+\item computes $m$ pseudorandom values  for every $i,j'$, where $0\leq i \leq b'$ and $j'\notin  L$ as follows.   
+%
+$$\forall j', 1\leq j' \leq m-1: z_{\st i,j}=\mathtt{PRF}( k,i||j')\hspace{5mm}  \text{and }\hspace{5mm} z_{\st i,m}=-\sum\limits^{\st m-1}_{\st j'=1}z_{\st i,j}$$ 
+%
+ \item generates polynomial ${\bm\mu}^{\st (j)}$, for every $j \notin L$, as follows:
+  %
+   ${\bm\mu}^{\st (j)} = {\bm\zeta}\cdot {\bm\xi}^{\st (j)}-\bm\tau^{\st (j)}$, where ${\bm\tau}^{\st (j)}=\sum\limits^{\st b'}_{\st i=0}z_{\st i,j}\cdot x^{\st i}$.
+%
+\item sends the above ${\bm \zeta}$,  ${\bm\xi}^{\st (j)}$, and ${\bm\mu}^{\st (j)}$ to all parties (i.e., $\mathcal{A}_{\st S}$ and the receivers), for every $j\notin L$. 
+%
+\item\label{adversary-outputs} outputs whatever $\mathcal{A}_{\st S}$ outputs.
+%
+ \end{enumerate}
+%%%%%%%%%%%%%%%%%
+
+ Now, we focus on the adversary’s output. In the real model, the messages that the adversary receives include those messages it receives as the result of the ideal call to $f_{\st \ct}$ and (${\bm \zeta}, {\bm\xi}^{\st (j)}, \bm\mu^{\st (j)}$), where $j \notin L$ and $1\leq j\leq m$. Those messages yielded from the ideal calls have identical distribution to the distribution of the messages in the ideal model, as \ct is secure. The distribution of each $\bm\mu^{\st (j)}$ depends on the distribution of its components; namely, ${\bm \zeta}, {\bm\xi}^{\st (j)}$, and $\bm \tau^{\st j}$. As we are in the $f_{\st \ct}$-hybrid model, the distributions of $\bm \tau^{\st (j)}$ in the real model and ${\bm \tau}^{\st (j)}$ in the ideal model are identical, as they were derived from the output of $f_{\st \ct}$. Furthermore, in the real model, each polynomial  ${\bm \zeta}$ and ${\bm\xi}^{\st (j)}$ has been picked uniformly at random and they are independent of the clients' and the adversary's inputs. The same arguments hold for  ($ {\bm \zeta}, {\bm\xi}^{\st (j)}, {\bm\mu}^{\st (j)}$) in the ideal model. Therefore, (${\bm \zeta}, {\bm\xi}^{\st (j)}, {\bm\mu}^{\st (j)}$) in the real model and ($ {\bm \zeta}, {\bm\xi}^{\st (j)}, {\bm\mu}^{\st (j)}$) in the ideal model have identical distributions. 
+ 
+ 
+ 
+ 
+ Next, we turn our attention to the receiver’s output. We will show that the output distributions of an honest receiver and the auditor in the ideal and real models are computationally indistinguishable. In the real model,  each element of the pair $(g, p)$ is the output of a deterministic function on the output of $f_{\st \ct}$. We know the outputs of $f_{\st \ct}$ in the real and ideal models have an identical distribution, and so do the evaluations of deterministic functions (namely Merkle tree, $\mathtt{H}$, and $\mathtt{PRF}$) on them. Therefore, each pair $(g,q)$ in the real model has an identical distribution to the pair $( g, q)$ in the ideal model.  For the same reasons, the honest receiver in the real model aborts with the same probability as  $\mathsf{Sim}^{\st \zspaa}_{\st S}$ does in the ideal model.  The same argument holds for the arbiter's output, as it performs the same checks that an honest receiver does.  Thus, the distribution of the joint outputs of the adversary, honest receiver, and honest in the real and ideal models is computationally indistinguishable. 
+
+\
+
+\noindent\textbf{Case 2: Corrupt receiver.}   Let $\mathsf{Sim}^{\st \zspaa}_{\st R}$ be the simulator that uses subroutine adversary $\mathcal{A}_{\st R}$. Below, we explain how $\mathsf{Sim}^{\st \zspaa}_{\st R}$ works. 
+
+
+
+
+\begin{enumerate}
+%
+\item simulates  \zspa and receives the $m$ output pairs of the form $( k,  g,  q) $ from $f^{\st \zspa}$.
+%
+\item sends $( k,  g,  q) $ to $\mathcal{A}_{\st R}$ and receives $m$ keys, $ k'_{\st j}$, where $1\leq j \leq m$. 
+%
+\item\label{ZSPA-A-Case-2-generate-z} generates an empty vector $ L$. Next, for every $j$, $\mathsf{Sim}^{\st \zspaa}_{\st R}$ computes $q'_{\st j}$ as $\mathtt {H}( k'_{\st j})=q_{\st j}$.  It generates $g_{\st j}$ as follows. 
+
+
+\begin{enumerate}
+
+\item\label{gen-pr-vals} for every $i$ (where $0\leq i \leq b'$), generates $m$ pseudorandom values as below. 
+%
+ $$\forall j, 1\leq j' \leq m-1: z_{\scriptscriptstyle i,j}=\mathtt{PRF}( k'_{\st j},i||j'), \hspace{5mm} z_{\scriptscriptstyle i,m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}$$
+%
+\item   constructs a Merkel tree on top of all pseudorandom values,  $\mathtt{MT.genTree}(z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle b', m})\rightarrow  g'_{\st j}$. 
+%
+\end{enumerate}
+%
+\item checks if the following equations hold for each $j$-th pair: 
+%
+$( k=    k'_{\st j}) \ \wedge\  ( g=   g'_{\st j})  \ \wedge\ ( q=  q'_{\st j})$.
+%
+%\item generates an empty vector $\bar L$ and then checks if the following equations hold for each $j$-th pair: 
+%%
+%$\bar k=   \bar k' \ \wedge\  \bar g=  \bar g'  \ \wedge\ \bar q= \bar q'$.
+%
+\item If these equations do not hold for $j$-th value, it appends $j$ to $ L$ and proceeds to the next step for the valid value. In the case where there is no valid value, it moves on to step \ref{adversary-outputs--}. 
+
+
+\item picks a random polynomial ${\bm \zeta}$ of degree $1$. Also, for every $j\notin  L$, it picks a random polynomial ${\bm\xi}^{\st (j)}$ of degree $b'-1$, where $1\leq j \leq m$. 
+%
+
+%\item computes $m$ pseudorandom values  for every $i,j'$, where $0\leq i \leq \bar d$ and $j'\notin \bar L$ as follows.   
+%%
+%$\forall j', 1\leq j' \leq m-1: z_{\st i,j}=\mathtt{PRF}(\bar k,i||j')\hspace{3mm}  \text{and }\hspace{3mm} z_{\st i,m}=-\sum\limits^{\st m-1}_{\st j'=1}z_{\st i,j}$.
+%
+ \item generates polynomial ${\bm\mu}^{\st (j)}$, for every $j \notin L$, as follows:
+  %
+   ${\bm\mu}^{\st (j)} = {\bm\zeta}\cdot {\bm\xi}^{\st (j)}-\bm\tau^{\st (j)}$, where ${\bm\tau}^{\st (j)}=\sum\limits^{\st b'}_{\st i=0}z_{\st i,j}\cdot x^{\st i}$, and values $z_{\st i,j}$ were generated in step \ref{gen-pr-vals}.
+%
+\item sends the above ${\bm \zeta}$,  ${\bm\xi}^{\st (j)}$, and ${\bm\mu}^{\st (j)}$ to $\mathcal{A}_{\st R}$, for every $j\notin L$ and $1\leq j \leq m$. 
+%
+\item\label{adversary-outputs--} outputs whatever  $\mathcal{A}_{\st R}$ outputs. 
+%
+ \end{enumerate}
+%
+ \vspace{-2mm}
+ 
+In the real model, the adversary receives two sets of messages, the first set includes the transcripts (including $ k,  g,  q$) it receives when it makes an ideal call to $f^{\st \zspa}$ and the second set includes pairs $({\bm \zeta},  {\bm\xi}^{\st (j)}, {\bm\mu}^{\st (j)})$, for every $j\notin  L$ and $1\leq j \leq m$. Since we are in the  $f^{\st \zspa}$-hybrid model and (based on our assumption) there is at least one honest party participated in  $\zspa$ (i.e., there are at most $m-1$ malicious participants of \zspa), the distribution of the messages it receives from $f^{\st \zspa}$ in the real and ideal models is identical. Furthermore, as we discussed in Case 1, (${\bm \zeta}, {\bm\xi}^{\st (j)}, {\bm\mu}^{\st (j)}$) in the real model and ($ {\bm \zeta}, {\bm\xi}^{\st (j)}, {\bm\mu}^{\st (j)}$) in the ideal model have identical distribution. The honest sender's output distribution in both models is identical, as the distribution of $f_{\st \ct}$'s output (i.e., $ k$) in both models is identical.
+
+
+
+Now we show that the probability that the auditor aborts in the ideal and real models are statistically close. In the ideal model, $\mathsf{Sim}^{\st \zspaa}_{\st R}$ is given the ideal functionality's output that includes key $ k$. Therefore, it can check whether the key that $\mathcal{A}_{\st R}$ sends to it equals $ k$, i.e., $ k\stackrel{\st ?}=    k'_{\st j}$. Thus, it aborts with the probability $1$. However, in the real model, an honest auditor is not given the output of \ct (say key $k$) and it can only check whether the key is consistent with the hash value $q$ and the Merkle tree's root $g$ stored on the blockchain. This means the adversary can distinguish the two models if in the real model it sends a key $\ddot k$, such that $\ddot k\neq k$ and still passes the checks. Specifically, it sends the invalid key $\ddot k$ that can generate  valid pair $(g, q)$, as follows: $\mathtt{H}(\ddot k)=q$ and $\mkgen(z'_{\scriptscriptstyle 0,1}, ..., z'_{\scriptscriptstyle b', m})\rightarrow  g$, where each $z'_{\scriptscriptstyle i,j}$ is derived from $\ddot k$ using the same technique described in step \ref{ZSPA-A-Case-2-generate-z} above. Nevertheless, this means that the adversary breaks the second preimage resistance property of  $\mathtt{H}$; however, $\mathtt{H}$ is the second-preimage resistance and the probability that the adversary succeeds in finding the second preimage is negligible in the security parameter, i.e., $\negl(\lambda)$ where $\lambda$ is the hash function's security parameter. Therefore, in the real model, the auditor aborts if an invalid key is provided with a probability $1-\negl(\lambda)$ which is statically close to the probability that $\mathsf{Sim}^{\st \zspaa}_{\st R}$ aborts in the same situation in the ideal model, i.e., $1-\negl(\lambda)$ vs $1$. 
+ % 
+Hence, the distribution of the joint outputs of the adversary, honest sender, and honest auditor in the real and ideal models is indistinguishable.
+%%%%%%%%%%%
+%\noindent\textbf{Case 3: Corrupt auditor.} In the real execution, the auditor's view is defined as follows: 
+%%
+%$$ \mathsf{View}_{\st \text{Aud}}^{\st \text{ZSPA-A}} \Big((\bm\zeta, \bm\xi^{\st (1)},...,\bm\xi^{\st (m)}), (\vv k,g,q)\Big)=\{r_{\st \text{Aud}}, \bm\zeta, \bm\xi^{\st (1)},...,\bm\xi^{\st (m)},  \vv k, g, q, \bot \}$$
+%%
+%where $\vv{k}=[k_{\st 1},..., k_{\st m}]$ and $r_{\st \text{Aud}}$ is the outcome of internal random coins of the sender. The simulator $\mathsf{Sim}^{\st \text{ZSPA}}_{\st \text{Aud}}$, which receives $({\bm\zeta}, {\bm\xi}^{\st (1)}, ..., {\bm\xi}^{\st (m)} )$, works as follows. 
+%
+%\begin{enumerate}
+%%
+%\item generates an empty view and appends to it coins $r'_{\st \text{Aud}}$ chosen uniformly at random and polynomials $({\bm\zeta}, {\bm\xi}^{\st (1)}, ..., {\bm\xi}^{\st (m)} )$. 
+%%
+%\item picks a random key, $ k\stackrel{\st\$}\leftarrow \{0,1\}^{\st \Lambda}$, and then constructs vector $\vv k'$ as follows: $\vv k'=[ k,...,  k]$, where $|\vv k'|=m$. It appends $\vv k'$ to the view. 
+%%
+%\item computes $ q$ as $\mathtt{H}( k)= q$. It computes $ g$ as $\mathtt{MT.genTree}(z_{\scriptscriptstyle 0,1}, ..., z_{\scriptscriptstyle b', m})\rightarrow  g$, where each $z_{\scriptscriptstyle i,j}$ is derived from $ k$ using the same technique described in step \ref{ZSPA-A::gen-z} of Figure \ref{fig:arbiter}. It appends $ g$, $ q$, and $\bot$ to the view. 
+%%
+%\end{enumerate}
+%
+%Now, we show that the two views are (computationally) indistinguishable. Both set of polynomials $\{\bm\zeta, \bm\xi^{\st (1)},..., $ $\bm\xi^{\st (m)} \}$ in the real model and $\{\bm\zeta, {\bm\xi}^{\st (1)}, ..., {\bm\xi}^{\st (m)}\}$ in the ideal model have identical distribution as the polynomials in the sets have been picked uniformly at random from $\mathbb{F}_{\st p}[x]$, by a semi-honest adversary. Moreover, since the real world semi-honest adversary samples its randomness according to the protocol's description, the random coins in both worlds (i.e., $r_{\st \text{Aud}}$ and $r'_{\st \text{Aud}}$) have identical distribution. Also, vector $\vv k$ in the real model has identical values, so does  $\vv k'$ in the ideal model. Moreover, the elements of $\vv k$ and $\vv k'$ have identical distribution as their elements have been picked uniformly at random from $\{0,1\}^{\st \Lambda}$. As we already discussed,   the evaluations of deterministic functions (namely Merkle tree, $\mathtt{H}$, and $\mathtt{PRF}$) on the uniformly random values $k$ and $k'$ have identical distributions as well; thus, $(g, q)$ in the real model and $( g,  q)$ in the ideal model have identical distribution component-wise. We conclude that the two views are indistinguishable.
+%%%%%%%%%%%%%%%%
+%
+ \end{proof}
+
+
+
+
+
+
+
+

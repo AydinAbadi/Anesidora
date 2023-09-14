@@ -1,0 +1,82 @@
+% !TEX root =U-PSI.tex
+
+
+\section{Performance Evaluation}
+
+We provide an empirical performance evaluation of U-PSI using  a prototype implementation developed in C++\footnote{\scriptsize U-PSI source code is available at  https://github.com/unknown-2018/U-PSI}. The implementation uses the efficient data representation presented in section \ref{BBF}. We compare the performance of U-PSI against  the protocol in \cite{eopsi}, as it is the fastest of the protocols we studied in section \ref{U-PSIEvaluation}. In order to do so, we have developed a prototype implementation of it\footnote{\scriptsize The update simulation for \cite{eopsi}  is available at \scriptsize https://github.com/unknown-2018/Update-Simulation} that allows clients to securely update their outsourced data by downloading and unblinding its entire outsourced data; updating a bin; re-encoding the elements of it; re-blinding the entire dataset; and uploading it to the cloud. More specifically, the implementations utilise  Cryptopp\footnote{\scriptsize https://www.cryptopp.com}, NTL\footnote{\scriptsize https://www.shoup.net/ntl} and Bloom Filter\footnote{\scriptsize http://www.partow.net/programming/bloomfilter/index.html} libraries  for   cryptographic primitives,  polynomial factorization and element membership checks respectively.
+
+All experiments were conducted on a macOS laptop, with an Intel $i5@2.3$ GHz CPU, and $16$ GB RAM. In the experiments, we use randomly generated $40$-bit integers as set elements, and a set size in the range $[2^{\scriptscriptstyle 10},2^{\scriptscriptstyle 20}]$. The probability of bin overflow in the hash table, for both U-PSI and \cite{eopsi}, and false positive in the Bloom filters, for U-PSI, is set to $2^{\scriptscriptstyle -40}$. The error probability in the padding scheme, for \cite{eopsi}, is also set to $2^{\scriptscriptstyle -40}$  that results in padding size in the range $[52,63]$ for the above set size  range. To achieve an optimal performance, similar to \cite{eopsi}, we set bin capacity to $d=100$. These choices of hash table parameters, according to section \ref{PreliminaryHashTable}, lead to a hash table length in the range $[30,41943]$. We also use two different field sizes for U-PSI $40$ and $60$ bits. 
+
+For the update operation in U-PSI, we measure the total run-time of four phases at the client-side: (a) computing an update query, (b) unblinding and decoding a bin, (c) applying the update, and (d) encoding and re-blinding the bin. For the update in \cite{eopsi}, we measure the total time when a client starts unblinding its dataset until it finishes re-blinding it. For the PSI computation in both protocols, we measure the total run-time of four phases: outsourcing, client-side PSI delegation (that includes both clients), cloud-side result computation and client-side result retrieval. Note that we include the run-time of outsourcing in the total time, although this step is performed only once by a client and  next time it delegates the PSI the protocol overall run-time would be lower. 
+
+Fig. \ref{performance} depicts the  performance comparison between the two protocols  for update and PSI computation (see Tables \ref{tbl::update} and \ref{tbl::PSI}  in Appendix \ref{perftables} for a detailed run-time). The x-axes  in the figure are on a \emph{logarithmic scale}. As it is evident in the left-hand side graph in the figure, the update run-time for U-PSI is much lower than for \cite{eopsi}, especially for a larger set size. In particular, the update run-time for \cite{eopsi} grows from  $0.1$ to $36$ seconds when the set size increases from $2^{\scriptscriptstyle 10}$ to $2^{\scriptscriptstyle 20}$; whereas for U-PSI, the update run-time remains $0.056$ and $0.063$ seconds for all set sizes, when the field size is $40$ and $60$ bits, respectively. Therefore, the update in U-PSI is $1.7-642$ times and $1.5-571$ times faster than \cite{eopsi}, for field size $40$ and $60$ bits respectively.  The reason for this huge difference in the performance is that in \cite{eopsi} the client needs to unblind and re-blind all the bins in the hash table; whereas, in U-PSI such operations are carried out only on one bin. 
+   
+% the update performance of the  protocol in \cite{eopsi} is slightly better than U-PSI when the  set cardinality is smaller than $2^{\scriptscriptstyle 15}$. However, when the  cardinality is  greater than  $2^{\scriptscriptstyle 18}$ the  performance of U-PSI is much better than the other protocol. In particular, when the  size increases from $2^{\scriptscriptstyle 10}$ to $2^{\scriptscriptstyle 20}$,  the update run-time in \cite{eopsi} increases from $0.72$ to $36$ seconds, whereas in U-PSI it remains $1.75$ and $1.87$ seconds when the field size is $40$ and $60$ bits, respectively. Therefore, when the set cardinality is $2^{\scriptscriptstyle 20}$ the update run-time in U-PSI is  a factor of $19-20$ faster than \cite{eopsi}. The reason is that in U-PSI the client and cloud apply the update to only one bin, whereas in \cite{eopsi} the client has to decode and re-encode its entire data.  We expected that for \emph{all set sizes} the update in U-PSI has a lower run-time than in \cite{eopsi}. This can be due to an inefficient prototype implementation of the update  in U-PSI.   
+
+%Here we compare the performance of our protocol against  the protocol proposed in \cite{eopsi}, as it is much faster than the other protocols that we studied in the previous section. Since this protocol  has been designed to  support  only PSI computation, we have also developed a prototype implementation that allows clients to securely update their outsourced date. To do that, a client needs to download and unblind its entire outsourced data,   update a bin, re-encode the elements of it, blind the entire dataset and then upload it to the cloud. We ran PSI and update operations for \cite{eopsi} using the same hash table parameters as those used in the U-PSI.  that results in padding size in the range $[52,63]$ for the above  set size  range. 
+
+
+% Fig. \ref{performance} depicts the  performance comparison between the two protocols  for the update and PSI computation phases (see Tables \ref{tbl::update} and \ref{tbl::PSI}  in appendix\ref{} for a detailed run-time). The x-axes  in the figure are based on a  logarithmic scale. As it is evident in the left-hand side graph in the figure, the update performance of the  protocol in \cite{eopsi} is slightly better than U-PSI when the  set cardinality is smaller than $2^{\scriptscriptstyle 15}$. However, when the  cardinality is  greater than  $2^{\scriptscriptstyle 18}$ the  performance of U-PSI is much better than the other protocol. In particular, when the  size increases from $2^{\scriptscriptstyle 10}$ to $2^{\scriptscriptstyle 20}$,  the update run-time in \cite{eopsi} increases from $0.72$ to $36$ seconds, whereas in U-PSI it remains $1.75$ and $1.87$ seconds when the field size is $40$ and $60$ bits, respectively. Therefore, when the set cardinality is $2^{\scriptscriptstyle 20}$ the update run-time in U-PSI is  a factor of $19-20$ faster than \cite{eopsi}. The reason is that in U-PSI the client and cloud apply the update to only one bin, whereas in \cite{eopsi} the client has to decode and re-encode its entire data.  We expected that for \emph{all set sizes} the update in U-PSI has a lower run-time than in \cite{eopsi}. This can be due to an inefficient prototype implementation of the update  in U-PSI.   
+ 
+ 
+Furthermore, as  the right-hand side graph in Fig. \ref{performance} indicates, the run-time for PSI computation in both protocols grows linearly when  the set size increases.  In particular, the PSI run-time  for \cite{eopsi}, grows from $3.9$ to $5388$ seconds when the set cardinality increases from $2^{\scriptscriptstyle 10}$ to $2^{\scriptscriptstyle 20}$.  Nevertheless, the growth for U-PSI is from $1.14$ to $2059$ seconds and from $1.17$ to $2438$ seconds for field size of $40$ and $60$ bits, respectively. Hence, the PSI computation run-time for U-PSI is a factor of $2.2-3.4$ faster than  \cite{eopsi}. The reason for this improvement is that in U-PSI all (arithmetic) operations, especially polynomial factorisations, are performed on a smaller field size. 
+
+\vspace{-4mm}
+
+\begin{figure}
+\centering
+\includegraphics[width=1 \textwidth]{pics/graphs2.pdf}
+\caption{\small Update performance comparison between \cite{eopsi} and U-PSI, left hand side graph. PSI computation performance comparison between \cite{eopsi} and U-PSI, right hand size graph. }\label{performance}
+\end{figure}
+
+\vspace{-9mm}
+
+
+
+%\begin{tikzpicture}
+%%\begin{loglogaxis}[
+%	xlabel=Cost,
+%	ylabel=Error]
+%\addplot[color=red,mark=x] coordinates {
+%	(5,    8.31160034e-02)
+%	(17,   2.54685628e-02)
+%	(49,   7.40715288e-03)
+%	(129,  2.10192154e-03)
+%	(321,  5.87352989e-04)
+%	(769,  1.62269942e-04)
+%	(1793, 4.44248889e-05)
+%	(4097, 1.20714122e-05)
+%	(9217, 3.26101452e-06)
+%};
+%
+
+
+%\legend{Case 1,Case 2}
+%%\end{loglogaxis}
+%\end{tikzpicture}
+
+
+
+
+
+
+
+%
+%\begin{tikzpicture}
+%	\begin{semilogyaxis}[
+%		xlabel=Index,ylabel=Value]
+%		\addplot[color=black,mark=*] coordinates {
+%		(2^10 ,8)
+%		(2^11,16)
+%		(2^12,88)
+%		
+%	};
+%
+%	\addplot[color=blue,mark=*] coordinates {
+%		(2^10 ,8)
+%		(2^11,16)
+%		(2^12,88)
+%	};
+%	\end{semilogyaxis}%
+%\end{tikzpicture}%
+

@@ -9,9 +9,9 @@ Informally, Lemma \ref{theorem::evaluation-of-random-poly} states that the evalu
 
 
 \begin{lemma}\label{theorem::evaluation-of-random-poly}
-Let $x_{\st i}$ be an element of a finite field $\mathbb{F}_{\st p}$, picked uniformly at random and $\bm\mu(x)$ be a random polynomial of constant degree $d$ and defined over $\mathbb{F}_{\st p}[X]$. 
+Let $x_{\st i}$ be an element of a finite field $\mathbb{F}_{\st p}$, picked uniformly at random and $\bm\mu(x)$ be a random polynomial of constant degree $d$ (where $d=const(p)$) and defined over $\mathbb{F}_{\st p}[X]$. 
 %
- Then, the evaluation of $\bm\mu(x)$ at $x_{\st i}$ is distributed uniformly at random over the non-zero elements of the  field, i.e., $Pr[\bm\mu(x_{\st i})=y]=\frac{1}{p-1}$, where $y$ is arbitrary elements of $\mathbb{F}^{\st *}_{\st p}$. 
+ Then, the evaluation of $\bm\mu(x)$ at $x_{\st i}$ is distributed uniformly at random over the elements of the  field, i.e., $Pr[\bm\mu(x_{\st i})=y]=\frac{1}{p}$, where $y\in \mathbb{F}_{\st p}$. 
 
 
 %equals $ y_{\st i}$ is negligible in the security parameter. More formally, for $x_{\st i}, y_{\st i} \in \mathbb{F}_{\st p}$ and $\bm\mu(x)\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$, $1\leq deg(\mu)\leq d$, we have: $Pr[\bm\mu(x_{\st i})=y_{\st i}]=\epsilon(p)$. 
@@ -19,7 +19,15 @@ Let $x_{\st i}$ be an element of a finite field $\mathbb{F}_{\st p}$, picked uni
 
 
 
-\begin{proof} Let $\bm\mu(x)=a_{\st 0}+\sum\limits^{\st d}_{\st j=1} a_{\st j}x^{\st j}$, where the  coefficients  are distributed uniformly at random over the field. We know that if $x_{\st i}$ is a root of  $\bm\mu(x)$, then because the polynomial can have at most $d$ roots, we have $Pr[\bm\mu(x_{\st i})=0]=\frac{d}{p}$. Next, we focus on the case where $x_{\st i}$ is not a root of the polynomial (thus $y\neq 0$). For any choice of $x_{\st i},   a_{\st 1},...,a_{\st d}$, there exists exactly   one value of $a_{\st 0}$ that makes $\bm\mu(x_{\st i})=y$, i.e., $\bm\mu(x_{\st i})=y$ iff $a_{\st 0}=y- \sum\limits^{\st d}_{\st j=1} a_{\st j}x_{\st i}^{\st j}$. As $a_{\st 0}$ is picked uniformly at random, the probability that it equals a certain value that makes $\bm\mu(x_{\st i})=y$ is  $\frac{1}{p-1}$. Thus, $Pr[\bm\mu(x_{\st i})=y]=\frac{1}{p-1}$, $\forall y\in \mathbb{F}^{\st *}_{\st p}$. 
+\begin{proof} Let $\bm\mu(x)=a_{\st 0}+\sum\limits^{\st d}_{\st j=1} a_{\st j}x^{\st j}$, where the  coefficients  are distributed uniformly at random over the field. 
+
+
+
+Then, for any choice of $x$ and random coefficients   $a_{\st 1},...,a_{\st d}$, it holds that:
+
+$$Pr[\bm\mu(x)=y]=Pr[\sum\limits_{\st i=0}^{\st d} a_{\st j}\cdot x^{\st j} = y] = Pr[a_{\st 0} = y-\sum\limits_{\st j=1}^{\st d} a_{\st j}\cdot x^{\st j}] = \frac{1}{p}$$
+
+  $\forall y\in \mathbb{F}_{\st p}$, as $a_{\st 0}$ has been picked uniformly at random from $\mathbb{F}_{\st p}$. 
 %
 \hfill\(\Box\)
 \end{proof} 

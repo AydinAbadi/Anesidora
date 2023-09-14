@@ -1,0 +1,218 @@
+% !TEX root =U-PSI.tex
+
+\section{Performance Evaluation:  Run-time Details}\label{perftables}
+
+
+%All experiments were conducted on a macOS laptop, with an Intel $i5@2.3$ GHz CPU, and $16$ GB RAM. U-PSI  implementation utilises Cryptopp\footnote{https://www.cryptopp.com/}, NTL\footnote{https://www.shoup.net/ntl/} , and Bloom Filter\footnote{http://www.partow.net/programming/bloomfilter/index.html} libraries  for the cryptographic primitives,  polynomial factorizations and checking elements membership respectively. In the experiments,  the probability of  bins overflow in the hash table, for both U-PSI and \cite{eopsi}, and false positive in the Bloom filters, for U-PSI, is set to $2^{\scriptscriptstyle -40}$. Furthermore, the   error probability in the padding scheme, for \cite{eopsi}, is also set to $2^{\scriptscriptstyle -40}$  that results in padding size in the range $[52,63]$ for the above  set size  range.  To achieve an optimal performance, similar to \cite{eopsi}, we set bin capacity to $d=100$. These choices of the hash table parameters, according to inequality \ref{},   leads to the hash table length in the range $[30,41943]$. 
+
+
+\vspace{-9mm}
+
+
+
+\begin{table*}[!htbp]
+\begin{footnotesize}
+\begin{center}
+\caption{\small Update run-time comparison (in sec.)}\label{tbl::update} 
+
+
+\renewcommand{\arraystretch}{1.3}
+
+\begin{tabular}{|c|ccccccccccc|c|c} 
+\hline 
+%{\rowcolors{2}{blue!80!gray!18}{blue!10!gray!18}
+\cellcolor{gray!20} \scriptsize \textbf{Protocols} &\cellcolor{gray!20} $2^{\scriptscriptstyle 10}$ &\cellcolor{gray!20}  $2^{\scriptscriptstyle 11}$&  \cellcolor{gray!20}$2^{\scriptscriptstyle 12}$&\cellcolor{gray!20}  $2^{\scriptscriptstyle 13}$&\cellcolor{gray!20} $2^{\scriptscriptstyle 14}$&\cellcolor{gray!20}   $2^{\scriptscriptstyle 15}$&\cellcolor{gray!20}  $2^{\scriptscriptstyle 16}$&\cellcolor{gray!20}   $2^{\scriptscriptstyle 17}$& \cellcolor{gray!20}  $2^{\scriptscriptstyle 18}$& \cellcolor{gray!20} $2^{\scriptscriptstyle 19}$&\cellcolor{gray!20}  $2^{\scriptscriptstyle 20}$ \\
+    \hline
+    
+    \hline
+
+
+
+\cellcolor{cyan!20}  \scriptsize \cite{eopsi}:&\cellcolor{cyan!20} 0.1&\cellcolor{cyan!20} 0.12&\cellcolor{cyan!20}  0.17&\cellcolor{cyan!20} 0.26&\cellcolor{cyan!20}  0.46&\cellcolor{cyan!20}  0.79 &\cellcolor{cyan!20}  2.05&\cellcolor{cyan!20}  4.71  &\cellcolor{cyan!20} 10.83 &\cellcolor{cyan!20} 15.49 & \cellcolor{cyan!20} 36.28    \\
+
+\cellcolor{white!20}  \scriptsize U-PSI 40-bit: &\cellcolor{white!20}   &\cellcolor{white!20}   &\cellcolor{white!20} &\cellcolor{white!20}   &\cellcolor{white!20} &\cellcolor{white!20}$\leftarrow$ 0.056 $\rightarrow$ &\cellcolor{white!20} &\cellcolor{white!20} &\cellcolor{white!20}   &\cellcolor{white!20}  &\cellcolor{white!20}  \\ 
+
+   \cellcolor{cyan!20}\scriptsize U-PSI 60-bit:      &\cellcolor{cyan!20} &\cellcolor{cyan!20} &\cellcolor{cyan!20}  &\cellcolor{cyan!20}  &\cellcolor{cyan!20} &\cellcolor{cyan!20} $\leftarrow$ 0.063$\rightarrow$ &\cellcolor{cyan!20} &\cellcolor{cyan!20}&\cellcolor{cyan!20} &\cellcolor{cyan!20} &\cellcolor{cyan!20}  \\ 
+       \hline
+
+
+
+
+
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\end{table*}
+
+
+
+
+
+
+
+%\begin{table*}[!htbp]
+%\begin{footnotesize}
+%\begin{center}
+%\caption{Update run-time comparison (in sec.)}\label{tbl::update} 
+%
+%
+%\renewcommand{\arraystretch}{1.3}
+%
+%\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c} 
+%\hline 
+%%{\rowcolors{2}{blue!80!gray!18}{blue!10!gray!18}
+%\cellcolor{gray!20} \scriptsize \textbf{Protocols} &\cellcolor{gray!20} $2^{\scriptscriptstyle 10}$ &\cellcolor{gray!20}  $2^{\scriptscriptstyle 11}$&  \cellcolor{gray!20}$2^{\scriptscriptstyle 12}$&\cellcolor{gray!20}  $2^{\scriptscriptstyle 13}$&\cellcolor{gray!20} $2^{\scriptscriptstyle 14}$&\cellcolor{gray!20}   $2^{\scriptscriptstyle 15}$&\cellcolor{gray!20}  $2^{\scriptscriptstyle 16}$&\cellcolor{gray!20}   $2^{\scriptscriptstyle 17}$& \cellcolor{gray!20}  $2^{\scriptscriptstyle 18}$& \cellcolor{gray!20} $2^{\scriptscriptstyle 19}$&\cellcolor{gray!20}  $2^{\scriptscriptstyle 20}$ \\
+%    \hline
+%    
+%    \hline
+%
+%
+%
+%\cellcolor{cyan!20}  \scriptsize \cite{eopsi}:&\cellcolor{cyan!20} 0.1&\cellcolor{cyan!20} 0.12&\cellcolor{cyan!20}  0.17&\cellcolor{cyan!20} 0.26&\cellcolor{cyan!20}  0.46&\cellcolor{cyan!20}  0.79 &\cellcolor{cyan!20}  2.05&\cellcolor{cyan!20}  4.71  &\cellcolor{cyan!20} 10.83 &\cellcolor{cyan!20} 15.49 & \cellcolor{cyan!20} 36.28    \\
+%
+%\cellcolor{white!20}  \scriptsize U-PSI 40-bit: &\cellcolor{white!20} 1.75  &\cellcolor{white!20}  1.75 &\cellcolor{white!20} 1.75&\cellcolor{white!20} 1.75  &\cellcolor{white!20}1.75 &\cellcolor{white!20}1.75&\cellcolor{white!20} 1.75 &\cellcolor{white!20} 1.75&\cellcolor{white!20} 1.75  &\cellcolor{white!20} 1.75 &\cellcolor{white!20} 1.75 \\ 
+%
+%   \cellcolor{cyan!20}\scriptsize U-PSI 60-bit:      &\cellcolor{cyan!20}1.87 &\cellcolor{cyan!20}1.87 &\cellcolor{cyan!20}1.87  &\cellcolor{cyan!20}1.87  &\cellcolor{cyan!20}1.87 &\cellcolor{cyan!20}1.87  &\cellcolor{cyan!20}1.87 &\cellcolor{cyan!20}1.87 &\cellcolor{cyan!20}1.87 &\cellcolor{cyan!20}1.87 &\cellcolor{cyan!20}1.87  \\ 
+%       \hline
+%
+%
+%
+%
+%
+%\end{tabular}
+%\end{center}
+%\end{footnotesize}
+%\end{table*}
+
+\vspace{-15mm}
+
+
+\begin{table*}[!htbp]
+\begin{footnotesize}
+\begin{center}
+\caption{ \small PSI computation run-time comparison: breakdown by step (in sec.)}\label{tbl::PSI} 
+
+
+\renewcommand{\arraystretch}{1.3}
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c} 
+\hline 
+%{\rowcolors{2}{blue!80!gray!18}{blue!10!gray!18}
+\cellcolor{gray!20}\scriptsize \textbf{Phases} &\cellcolor{gray!20} \scriptsize \textbf{Protocols} &\cellcolor{gray!20} $2^{\scriptscriptstyle 10}$ &\cellcolor{gray!20}  $2^{\scriptscriptstyle 11}$&  \cellcolor{gray!20}$2^{\scriptscriptstyle 12}$&\cellcolor{gray!20}  $2^{\scriptscriptstyle 13}$&\cellcolor{gray!20} $2^{\scriptscriptstyle 14}$&\cellcolor{gray!20}   $2^{\scriptscriptstyle 15}$&\cellcolor{gray!20}  $2^{\scriptscriptstyle 16}$&\cellcolor{gray!20}   $2^{\scriptscriptstyle 17}$& \cellcolor{gray!20}  $2^{\scriptscriptstyle 18}$& \cellcolor{gray!20} $2^{\scriptscriptstyle 19}$&\cellcolor{gray!20}  $2^{\scriptscriptstyle 20}$ \\
+    \hline
+    
+    \hline
+\NameEntry{\center \scriptsize Data \\ \scriptsize Preparation for \\ \scriptsize   Outsourcing}
+ \multirow{4}{*}&\cellcolor{cyan!20}  \scriptsize U-PSI 40-bit: &\cellcolor{cyan!20} 0.17&\cellcolor{cyan!20}  0.3&\cellcolor{cyan!20}  0.6&\cellcolor{cyan!20}  1.4 &\cellcolor{cyan!20}  2.8 &\cellcolor{cyan!20}  5.6  &\cellcolor{cyan!20}  14&\cellcolor{cyan!20}  44  &\cellcolor{cyan!20}  58 &\cellcolor{cyan!20}  121& \cellcolor{cyan!20} 240\\
+    \cline{2-13}
+ &\cellcolor{white!20}\scriptsize U-PSI 60-bit:&\cellcolor{white!20} 0.18  &\cellcolor{white!20}  0.3 &\cellcolor{white!20}  0.6&\cellcolor{white!20} 1.4  &\cellcolor{white!20} 2.8 &\cellcolor{white!20} 5.7  &\cellcolor{white!20} 14  &\cellcolor{white!20} 46 &\cellcolor{white!20} 60  &\cellcolor{white!20} 128 &\cellcolor{white!20} 253 \\ 
+    \cline{2-13}
+    &\cellcolor{cyan!20}\scriptsize \cite{eopsi}:&\cellcolor{cyan!20}0.7  &\cellcolor{cyan!20}0.8  &\cellcolor{cyan!20}1  &\cellcolor{cyan!20}1.5  &\cellcolor{cyan!20}3.4 &\cellcolor{cyan!20}8.8  &\cellcolor{cyan!20}15 &\cellcolor{cyan!20}48&\cellcolor{cyan!20}63 &\cellcolor{cyan!20}131 &\cellcolor{cyan!20}256   \\ 
+       \hline
+
+
+    \hline
+\NameEntry{\center \scriptsize Client-side \\ \scriptsize Computation \\ \scriptsize  Delegation}
+%\makecell{\scriptsize Computation \\ \scriptsize  Delegation}
+    \multirow{3}{*}%{\scriptsize Computation Delegation}
+    &\cellcolor{white!20} \scriptsize U-PSI 40-bit: &\cellcolor{white!20}  0.2  &\cellcolor{white!20}  0.3 &\cellcolor{white!20}  0.7 &\cellcolor{white!20} 1.5  &\cellcolor{white!20}  3.1 &\cellcolor{white!20}  6.4 &\cellcolor{white!20}  16 &\cellcolor{white!20}  32  &\cellcolor{white!20} 68  &\cellcolor{white!20}  121 &\cellcolor{white!20}  294  \\
+    \cline{2-13}
+    &\cellcolor{cyan!20}\scriptsize U-PSI 60-bit:&\cellcolor{cyan!20}  0.2&\cellcolor{cyan!20}0.4  &\cellcolor{cyan!20}0.7 &\cellcolor{cyan!20}  1.6  & \cellcolor{cyan!20}  3.3 &\cellcolor{cyan!20} 6.5  &\cellcolor{cyan!20}17 &\cellcolor{cyan!20}35 & \cellcolor{cyan!20}70  &\cellcolor{cyan!20} 141 &\cellcolor{cyan!20} 307  \\ 
+    \cline{2-13}
+    &\cellcolor{white!20}\scriptsize \cite{eopsi}: &\cellcolor{white!20}  0.4  &\cellcolor{white!20}  0.7 &\cellcolor{white!20} 1.5  &\cellcolor{white!20}   2.9&\cellcolor{white!20} 5.9 &\cellcolor{white!20} 11.9  &\cellcolor{white!20}  32 &\cellcolor{white!20}   63&\cellcolor{white!20} 129&\cellcolor{white!20} 268 &\cellcolor{white!20} 555 \\ 
+
+    \hline
+
+
+    \hline
+\NameEntry{\center \scriptsize Cloud-side \\ \scriptsize  Computation}
+%\makecell{\scriptsize Cloud-side \\ \scriptsize  Computation}
+    \multirow{3}{*}%{\scriptsize Cloud-side computation}
+    &\cellcolor{cyan!20}\scriptsize U-PSI 40-bit:  &\cellcolor{cyan!20} 0.18 &\cellcolor{cyan!20}0.3  &\cellcolor{cyan!20} 0.7  &\cellcolor{cyan!20}1.2  &\cellcolor{cyan!20}2.9  &\cellcolor{cyan!20}6 &\cellcolor{cyan!20}15 &\cellcolor{cyan!20} 30 & \cellcolor{cyan!20}71 &\cellcolor{cyan!20} 162&\cellcolor{cyan!20}473 \\
+    \cline{2-13}
+    &\cellcolor{white!20} \scriptsize U-PSI 60-bit: &\cellcolor{white!20} 0.19 &\cellcolor{white!20}  0.3  &\cellcolor{white!20} 0.7 &\cellcolor{white!20} 1.4  &\cellcolor{white!20} 3.3 &\cellcolor{white!20}  6.1 &\cellcolor{white!20}  15 &\cellcolor{white!20}  35 &\cellcolor{white!20}  72&\cellcolor{white!20}  164 &\cellcolor{white!20}  489 \\ 
+    \cline{2-13}
+    &\cellcolor{cyan!20}\scriptsize \cite{eopsi}: &\cellcolor{cyan!20} 0.4  &\cellcolor{cyan!20} 0.6 &\cellcolor{cyan!20} 1.4 &\cellcolor{cyan!20}  2.7&\cellcolor{cyan!20}5.4 & \cellcolor{cyan!20}10  &\cellcolor{cyan!20} 29&\cellcolor{cyan!20}57 &\cellcolor{cyan!20} 116 & \cellcolor{cyan!20}253&\cellcolor{cyan!20} 987  \\ 
+       \hline
+
+
+    \hline
+\NameEntry{\center  \scriptsize Client-side \\ \scriptsize Result \\ \scriptsize  Retrieval}
+%\makecell{\scriptsize Result \\   \scriptsize Retrieval}
+    \multirow{3}{*} %{\scriptsize Result Retrieval}
+    &\cellcolor{white!20}\scriptsize U-PSI 40-bit:  &\cellcolor{white!20}  0.59 &\cellcolor{white!20}  1.1 &\cellcolor{white!20}  2.2 &\cellcolor{white!20}  4.6&\cellcolor{white!20}  9.9 &\cellcolor{white!20}  18 &\cellcolor{white!20}   49&\cellcolor{white!20}  95  &\cellcolor{white!20} 195  &\cellcolor{white!20} 417 &\cellcolor{white!20}  1052 \\
+    \cline{2-13}
+   &\cellcolor{cyan!20} \scriptsize U-PSI 60-bit: &\cellcolor{cyan!20} 0.6  &\cellcolor{cyan!20}1.5   &\cellcolor{cyan!20} 2.8  &\cellcolor{cyan!20} 5.9 &\cellcolor{cyan!20}  12.5 &\cellcolor{cyan!20}24  &\cellcolor{cyan!20} 65 &\cellcolor{cyan!20} 131 &\cellcolor{cyan!20}  244 &\cellcolor{cyan!20} 568  &\cellcolor{cyan!20} 1389  \\ 
+   \cline{2-13}
+    &\cellcolor{white!20}\scriptsize \cite{eopsi}: &\cellcolor{white!20} 2.4  &\cellcolor{white!20}  5  &\cellcolor{white!20}   10.5 &\cellcolor{white!20}  20.8 &\cellcolor{white!20}    38.4 &\cellcolor{white!20}   81.2 &\cellcolor{white!20}  220   &\cellcolor{white!20}  424  &\cellcolor{white!20}  882  &\cellcolor{white!20}  1781  &\cellcolor{white!20} 3590 \\ 
+
+	    \hline
+	    
+   \hline
+
+\NameEntry{\center \scriptsize Total}
+
+    \multirow{3}{*} 
+    &\cellcolor{cyan!20}\scriptsize U-PSI 40-bit:   &\cellcolor{cyan!20}1.14  &\cellcolor{cyan!20} 2 &\cellcolor{cyan!20}4.2 &\cellcolor{cyan!20}8.7  & \cellcolor{cyan!20}18.7&\cellcolor{cyan!20}36  &\cellcolor{cyan!20}94 &\cellcolor{cyan!20}201  &\cellcolor{cyan!20}392 &\cellcolor{cyan!20} 821&\cellcolor{cyan!20}2059 \\
+    \cline{2-13}
+   &\cellcolor{white!20}\scriptsize U-PSI 60-bit: &\cellcolor{white!20} 1.17 &\cellcolor{white!20} 2.5 &\cellcolor{white!20} 4.8 &\cellcolor{white!20} 10.3 &\cellcolor{white!20}  21.9&\cellcolor{white!20} 42.3 &\cellcolor{white!20} 111 &\cellcolor{white!20} 247  &\cellcolor{white!20} 446&\cellcolor{white!20} 1001&\cellcolor{white!20} 2438 \\ 
+   \cline{2-13}
+    &\cellcolor{cyan!20}\scriptsize \cite{eopsi}: &\cellcolor{cyan!20} 3.9  &\cellcolor{cyan!20} 7.1 &\cellcolor{cyan!20} 14.3 &\cellcolor{cyan!20} 27.9  &\cellcolor{cyan!20} 53.1 &\cellcolor{cyan!20}  111.9 &\cellcolor{cyan!20}296&\cellcolor{cyan!20} 592  &\cellcolor{cyan!20}1190&\cellcolor{cyan!20}2433&\cellcolor{cyan!20} 5388 \\ 
+
+    \hline
+
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\end{table*}
+
+
+
+
+%\begin{tikzpicture}
+%%\begin{loglogaxis}[
+%	xlabel=Cost,
+%	ylabel=Error]
+%\addplot[color=red,mark=x] coordinates {
+%	(5,    8.31160034e-02)
+%	(17,   2.54685628e-02)
+%	(49,   7.40715288e-03)
+%	(129,  2.10192154e-03)
+%	(321,  5.87352989e-04)
+%	(769,  1.62269942e-04)
+%	(1793, 4.44248889e-05)
+%	(4097, 1.20714122e-05)
+%	(9217, 3.26101452e-06)
+%};
+%
+
+
+%\legend{Case 1,Case 2}
+%%\end{loglogaxis}
+%\end{tikzpicture}
+
+
+
+
+
+
+
+%
+%\begin{tikzpicture}
+%	\begin{semilogyaxis}[
+%		xlabel=Index,ylabel=Value]
+%		\addplot[color=black,mark=*] coordinates {
+%		(2^10 ,8)
+%		(2^11,16)
+%		(2^12,88)
+%		
+%	};
+%
+%	\addplot[color=blue,mark=*] coordinates {
+%		(2^10 ,8)
+%		(2^11,16)
+%		(2^12,88)
+%	};
+%	\end{semilogyaxis}%
+%\end{tikzpicture}%
+

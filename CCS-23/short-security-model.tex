@@ -1,0 +1,81 @@
+% !TEX root =main.tex
+
+
+ 
+  
+\vspace{-2mm}
+\subsection{Security Model}\label{sec::sec-model}
+\vspace{-.5mm}
+
+In this paper, we use the simulation-based model of secure computation \cite{DBLP:books/cu/Goldreich2004} to define and prove our protocols. Since both types of active and passive adversaries are involved in our protocols, we outline definitions for both types.  We consider a static adversary and assume there is a secure (off-chain) channel between the clients.% and we consider a standard public blockchain, e.g., Ethereum.
+%
+ 
+  \vspace{-1mm}
+  
+ \subsubsection{Two-party Computation.} A two-party protocol $\Gamma$ problem is captured by specifying a random process that maps pairs of inputs to pairs of outputs, one for each party. Such process is referred to as a functionality  $f:\{0,1\}^{\st *}\times\{0,1\}^{\st *}\rightarrow\{0,1\}^{\st *}\times\{0,1\}^{\st *}$, where $f:=(f_{\st 1},f_{\st 2})$. For every input pair $(x,y)$, the output pair is a random variable $(f_{\st 1} (x,y), f_{\st 2} (x,y))$, such that the party with input $x$ obtains $f_{\st 1} (x,y)$ while the party with input $y$ receives $f_{\st 2} (x,y)$. When $f$ is deterministic, then $f_{\st 1} =f_{\st 2}$. If $f$ is asymmetric and only one party (say the first one) receives the result, $f$ is defined as $f:=(f_{\st 1}(x,y), \bot)$. 
+ 
+  
+  \vspace{-2mm}
+ \subsubsection{Security in the Presence of Passive Adversaries.} 
+ 
+%  In the passive adversarial model, the party corrupted by such an adversary correctly follows the protocol specification. Nonetheless, the adversary obtains the internal state of the corrupted party, including the transcript of all the messages received, and tries to use this to learn information that should remain private. 
+  
+In this setting, a protocol is secure if whatever can be computed by a party in the protocol can be computed using its input and output only. 
+  %
+%  In the simulation-based model, it is required that a party’s view in a protocol's 
+% execution can be simulated given only its input and output. This implies that the parties learn nothing from the protocol's execution. 
+ %
+ 
+ \vspace{-1mm}
+ 
+\begin{definition}
+Let $f$ be the deterministic functionality which was defined above. Protocol $\Gamma$ security computes $f$ in the presence of a static  passive adversary if there exist polynomial time algorithms $(\mathsf {Sim}_{\st 1}, \mathsf {Sim}_{\st 2})$ such that: 
+%
+%\begin{center}
+{\small{
+$
+  \{\mathsf {Sim}_{\st 1}(x, f_{\st 1}(x,y))\}_{\st x,y}\stackrel{c}{\equiv} \{\mathsf{View}_{\st 1}^{\st \Gamma}(x,y) \}_{\st x,y}$ and 
+  %
+     $\{\mathsf{Sim}_{\st 2}(y, f_{\st 2}(x,y))\}_{\st x,y}\stackrel{c}{\equiv} \{\mathsf{View}_{\st 2}^{\st \Gamma}(x,y) \}_{\st x,y}
+$}}
+ % \end{center}
+  %
+  where party $i$’s view (during the execution of $\Gamma$) on input pair  $(x, y)$ is denoted by $\mathsf{View}_{\st i}^{\st \Gamma}(x,y)$ and equals $(w, r^{\st i}, m_{\st 1}^{\st i}, ..., m_{\st t}^{\st i})$, where $w\in\{x,y\}$ is the input of $i^{\st th}$ party, $r_{\st i}$ is the outcome of this party's internal random coin tosses, and $m_{\st j}^{\st i}$ represents the $j^{\st th}$ message this party receives.  %The output of the $i^{\st th}$ party during the execution of $\Gamma$ on $(x, y)$ is denoted by $\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y)$ and can be generated from its own view of the execution.  The joint output of both parties is denoted by $\mathsf{Output}^{\st \Gamma}(x,y):=(\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y), \mathsf{Output}_{\st 2}^{\st \Gamma}(x,y))$.
+%
+\end{definition}
+ 
+
+  \vspace{-2mm}
+  
+ \subsubsection{Security in the Presence of Active Adversaries.}  In this setting, correctness is required beyond the possibility that a corrupted party may learn more than it should. To capture the threats,
+a protocol's security is analyzed by comparing what an adversary can do in the real protocol to what it can do in an ideal scenario. This is formalized by considering an ideal computation involving an incorruptible Trusted Third Party (TTP) to whom the parties send their inputs and receive the output of the ideal functionality. %Below, we describe the executions in the ideal and real models. 
+
+%\
+%
+%\
+%
+%
+% 
+%First, we describe the execution in the ideal model. Let $P_{\st 1}$ and $P_{\st 2}$ be the parties participating in the
+%protocol, $i\in \{0, 1\}$ be the index of the corrupted party, and $\mathcal A$ be a non-uniform
+%probabilistic polynomial-time adversary. Also, let $z$ be an auxiliary input given to $\mathcal A$ while  $x$ and $y$ be the input of party $P_{\st 1}$ and $P_{\st 2}$  respectively.  The honest party, $P_{\st j}$, sends its received input to TTP.  The corrupted party $P_{\st i}$ may either abort (by replacing the input with a special abort message $\Lambda_{\st i}$),  send its received input or send some other input of the same length to TTP. This decision is made by the adversary and may depend on the input value of $P_{\st i}$ and $z$. If TTP receives $\Lambda_{\st i}$, then it sends $\Lambda_{\st i}$ to the honest party and the ideal execution terminates.  Upon obtaining an input pair $(x, y)$, TTP computes $f_{\st 1}(x, y)$ and $f_{\st 2}(x, y)$. It first sends $f_{\st i}(x, y)$ to  $P_{\st i}$ which replies with ``continue'' or $\Lambda_{\st i}$. In the former case, TTP sends  $f_{\st j}(x, y)$ to  $P_{\st j}$ and in the latter it sends $\Lambda_{\st i}$ to  $P_{\st j}$. The honest party always outputs the message that it obtained from TTP. A malicious party may output an arbitrary function of its initial inputs and the message it has obtained from TTP.  The ideal execution of $f$ on inputs $(x, y)$ and $z$ is denoted by $\mathsf{Ideal}^{\st f}_{\st\mathcal{A}(z), i}(x,y)$ and is defined as the output pair of the honest party and $\mathcal{A}$ from the above ideal execution.  In the real model, the real two-party protocol $\Gamma$ is executed
+%without the involvement of TTP. In this setting, $\mathcal{A}$ sends all messages on
+%behalf of the corrupted party and may follow an arbitrary strategy.
+%The honest party follows the instructions of $\Gamma$. The real execution of $\Gamma$ is denoted by $\mathsf{Real}^{\st \Gamma}_{\st\mathcal{A}(z), i}(x,y)$, it is defined as the joint output of the parties engaging in the real execution of $\Gamma$ (on the inputs), in the presence of $\mathcal{A}$.
+% 
+% 
+% Next, we define security. At a high level, the definition states that a secure protocol in the real model emulates the ideal model. This is formulated by stating that adversaries in the ideal model can simulate executions of the protocol in the real model. 
+ 
+ \vspace{-2mm} 
+  
+  
+\begin{definition}\label{def::MPC-active-adv}
+Let $f$ be the two-party functionality defined above and $\Gamma$ be a two-party protocol that computes $f$.   Protocol $\Gamma$ securely computes $f$ with abort in the presence of static active adversaries if for every non-uniform Probabilistic Polynomial Time (PPT) adversary $\mathcal{A}$ for the real model, there exists a non-uniform PPT adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $i\in \{0,1\}$, it holds that: 
+%
+$
+\{\mathsf {Ideal}^{\st f}_{\st \mathsf{Sim}(z), i}(x,y)\}_{\st x,y,z}\stackrel{c}{\equiv} \{\mathsf{Real}_{\st \mathcal{A}(z), i}^{\st \Gamma}(x,y) \}_{\st x,y,z},
+$
+%
+ where the ideal execution of $f$ on inputs $(x,$ $ y)$ and $z$ is denoted by $\mathsf{Ideal}^{\st f}_{\st\mathcal{A}(z), i}(x,$ $y)$ and is defined as the output pair of the honest party and $\mathcal{A}$ from the ideal execution. The real execution of $\Gamma$ is denoted by $\mathsf{Real}^{\st \Gamma}_{\st\mathcal{A}(z), i}(x,y)$, it is defined as the joint output of the parties engaging in the real execution of $\Gamma$, in the presence of $\mathcal{A}$.
+  \end{definition}
+  

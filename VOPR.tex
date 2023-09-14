@@ -20,7 +20,7 @@
 %\item[$\bullet$]  \textit{Sender}: picks an upper bound on input polynomials's degree:  $d$ and $d'$. It sends them to the receiver.
 \item[$\bullet$]  \textit{Sender Input}:  random polynomials: $\bm\psi=\sum\limits^{\st e}_{\st i=0}g_{\st i}\cdot x^{\st i}$ and  $\bm\alpha=\sum\limits^{\st e+e'}_{\st j=0}a_{\st j}\cdot x^{\st j}$, where $g_{\st i}\stackrel{\st \$}\leftarrow \mathbb{F}_p$.  Each $a_{\st j}$ has the  form: $a_{\st j}=\sum\limits^{\substack{\st k=e'\\ \st t=e}}_{\st t,k=0} a_{\st t,k}$,  such that $t+k=j$ and $a_{\st t,k}\stackrel{\st \$}\leftarrow \mathbb{F}_p$.
 
-\item[$\bullet$] \textit{Receiver Input}:  polynomial $\bm\beta=\bm\beta_{\st 1}\cdot \bm\beta_{\st 2}=\sum\limits^{\st e'}_{\st i=0}b_{\st i}\cdot x^{\st i}$, where $\bm\beta_{\st 1}$ is a random polynomial of degree $1$ and $\bm\beta_{\st 2}$ is an arbitrary polynomial of degree $e'-1$.
+\item[$\bullet$] \textit{Receiver Input}:  polynomial $\bm\beta=\bm\beta_{\st 1}\cdot \bm\beta_{\st 2}=\sum\limits^{\st e'}_{\st i=0}b_{\st i}\cdot x^{\st i}$, where $\bm\beta_{\st 1}$ is a random polynomial of degree $1$, $\bm\beta_{\st 2}$ is an arbitrary polynomial of degree $e'-1$, and $b_{\st i}\neq 0$.
 
 
 \end{enumerate}
@@ -52,7 +52,7 @@
 \item \label{Verification} \textbf{Verification:}
 \begin{enumerate}
 
-\item \label{picking-random-x}Sender: picks a random value  $z$ and sends it to the receiver. 
+\item \label{picking-random-x}Sender: picks a random (non-zero) value  $z$ and sends it to the receiver. 
 
 
 \item\label{receiver-OLE-invocation} Receiver: sends $\theta_{\st z}=\bm\theta(z)$ and $\beta_{\st z}=\bm\beta(z)$ to the sender.

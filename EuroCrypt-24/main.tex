@@ -1,0 +1,272 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+%\documentclass[A4paper,11pt,orivec]{llncs}
+\documentclass[runningheads]{llncs}
+%
+\pagestyle{plain}
+\usepackage[T1]{fontenc}
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{color}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+\newcommand{\scf}{\ensuremath{\mathcal{SC}_{\fpsi}}\xspace}
+\newcommand{\SCe}{\ensuremath{\mathcal{SC}_{\epsi}}\xspace}
+\newcommand{\resizeT}{\scalebox{.53}}
+\newcommand{\resizeS}{\scalebox{.52}}
+\newcommand{\resizeSS}{\scalebox{.38}}
+
+\newcommand{\st}{\scriptscriptstyle}
+
+\usepackage{lipsum}
+
+\newcommand{\et}{\textit{et al.}\xspace}
+\newcommand{\prf}{\ensuremath{\mathtt{PRF}}}
+
+\newcommand{\PRP}{\mathtt{PRP}}
+\newcommand{\minn}{\resizeS{{min}}}
+
+\newcommand{\fpsi}{\ensuremath{\mathtt{JUS}}\xspace}
+\newcommand{\epsi}{\ensuremath{\mathtt{ANE}}\xspace}
+\newcommand{\withRew}{{Anesidora}\xspace}
+\newcommand{\withFai}{{Justitia}\xspace}
+\newcommand{\aud}{${Aud}$\xspace}
+\newcommand{\ct}{\ensuremath{\mathtt{CT}}\xspace}
+\newcommand{\fct}{\ensuremath{f_{\st \ct}}\xspace}
+
+
+\newcommand{\cl}{\ensuremath{{CL}}\xspace}
+
+\newcommand{\for}{\ensuremath{\mathtt{FORTUNA}}\xspace}
+\newcommand{\ole}{\ensuremath{\mathtt{OLE}}\xspace}
+
+\newcommand{\vopr}{\ensuremath{\mathtt{VOPR}}\xspace}
+
+
+\newcommand{\zspa}{\ensuremath{\mathtt{ZSPA}}\xspace}
+\newcommand{\zspaa}{\ensuremath{\mathtt{ZSPA\text{-}A}}\xspace}
+
+\newcommand{\vs}{\vspace{-2.5mm}}
+\newcommand{\svs}{\vspace{-1.5mm}}
+
+\newcommand{\negl}{\ensuremath{\epsilon}\xspace}
+
+\newcommand{\Smin}{\ensuremath{S_{\st min}}\xspace}
+\newcommand{\Smax}{\ensuremath{S_{\st max}}\xspace}
+
+\usepackage{boxedminipage}
+
+
+
+%%%%%%%%%%%%%%%%%%%
+\newcommand{\mkver}{\ensuremath{\mathtt{MT.verify}}\xspace}
+\newcommand{\mkgen}{\ensuremath{\mathtt{MT.genTree}}\xspace}
+\newcommand{\mkprove}{\ensuremath{\mathtt{MT.prove}}\xspace}
+\newcommand{\comcom}{\ensuremath{\mathtt{Com}}\xspace}
+\newcommand{\comver}{\ensuremath{\mathtt{Ver}}\xspace}
+%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage[table]{xcolor}
+\usepackage{amssymb}
+%\usepackage{float}
+%\usepackage{placeins}
+\usepackage[most]{tcolorbox}
+\newtcolorbox{mybox}[2][]{%
+  attach boxed title to top center
+               = {yshift=-10pt},
+               %width=85mm,%
+                  %height=52mm,
+  %colback      = black,
+  colframe     =black,
+  %fonttitle    = \bfseries,
+  colbacktitle = black,
+  title        = #2,#1,
+  enhanced,
+}
+
+
+%%%%%%
+\newcommand{\yc}{\ensuremath\ddot{y}\xspace}
+\newcommand{\vc}{\ensuremath\ddot{v}\xspace}
+\newcommand{\lc}{\ensuremath\ddot{l}\xspace}
+\newcommand{\rc}{\ensuremath\ddot{r}\xspace}
+\newcommand{\fc}{\ensuremath\ddot{f}\xspace}
+%%%%%%%
+\newcommand{\bc}{\ensuremath\ddot{b}\xspace}
+\newcommand{\cc}{\ensuremath\ddot{c}\xspace}
+\newcommand{\chc}{\ensuremath\ddot{ch}\xspace}
+\newcommand{\dc}{\ensuremath\ddot{d}\xspace}
+\newcommand{\tc}{\ensuremath\ddot{t}\xspace}
+\newcommand{\wc}{\ensuremath\ddot{w}\xspace}
+%%%%%%%%
+
+\newcommand{\xc}{\ensuremath\ddot{x}\xspace}
+\newcommand{\xci}{\ensuremath\ddot{x}_{\st i}\xspace}
+\newcommand{\depsc}{\ensuremath\ddot{deps}\xspace}
+\newcommand{\rewci}{\ensuremath\ddot{rew}_{\st i}\xspace}
+%%%%%%%---Appendix: counter collusion contracts---%%
+\newcommand{\Xc}{\ensuremath\ddot{X}\xspace}
+
+
+\newcommand{\SCpc}{\ensuremath{\mathcal{SC}_{\pc}}\xspace}
+\newcommand{\SCtc}{\ensuremath{\mathcal{SC}_{\tcx}}\xspace}
+\newcommand{\SCcc}{\ensuremath{\mathcal{SC}_{\ccx}}\xspace}
+
+\newcommand{\pc}{\resizeS{{PC}}}
+\newcommand{\tcx}{\resizeS{{TC}}}
+\newcommand{\ccx}{\resizeS{{CC}}}
+%\newcommand{\wcc}{\ensuremath\ddot{w}\xspace}
+%%%%%%%%
+
+
+\usepackage{enumitem}
+\usepackage{makeidx}  % allows for indexgeneration
+%\usepackage{amsfonts,amsmath,amssymb,graphicx,setspace,tipx}
+%\usepackage{amsthm,amssymb}
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{esvect}
+\usepackage{tikz}
+\usepackage{latexsym}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplots, pgfplotstable}
+\usepackage{blkarray}% http://ctan.org/pkg/blkarra
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{adjustbox}
+\usepackage{blindtext}
+\usepackage{multicol}
+\usepackage{cancel}
+\usepackage[title]{appendix}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{blindtext}
+\usepackage{multicol}
+\usepackage{tablefootnote}
+
+\newcommand{\prp}{\ensuremath{\mathtt{PRP}}\xspace}
+
+\newcommand{\p}{$\mathcal{PSI}^{\st \mathcal{FC}}$\xspace}
+\newcommand{\ep}{$\mathcal{PSI}^{\st \mathcal{FCR}}$\xspace}
+%%
+\newcommand{\qdel}{\ensuremath{Q^{\st \text{Del}}}\xspace}
+\newcommand{\qdelwr}{\ensuremath{Q^{\st \text{Del}}_{\st\text{R}}}\xspace}
+%%
+\newcommand{\qinit}{\ensuremath{Q^{\st \text{Init}}}\xspace}
+\newcommand{\qUnFAbtwr}{\ensuremath{Q^{\st \text{UF-A}}_{\st \text{R}}}\xspace}
+\newcommand{\qUnFAbt}{\ensuremath{Q^{\st \text{UF-A}}}\xspace}
+\newcommand{\qFAbt}{\ensuremath{Q^{\st \text{F-A}}}\xspace}
+
+
+
+\newcommand\NameEntry[1]{%
+  \multirow{3}*{%
+    \begin{varwidth}{10em}% --- or minipage, if you prefer a fixed width
+    \flushright #1%
+    \end{varwidth}}}
+
+
+
+
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\begin{document}
+  \setlength\abovedisplayskip{0pt}
+  \setlength\belowdisplayskip{0pt}
+
+
+\newenvironment{packed_item}{
+\begin{itemize}
+	\setlength{\topsep}{0pt}
+	\setlength{\partopsep}{0pt}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+	\setlength{\topsep}{0pt}
+	\setlength{\partopsep}{0pt}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+
+
+
+\title{Earn While You Reveal: \\ Private Set Intersection that\\ Rewards Participants}
+%
+
+
+%\author{%
+%Aydin Abadi\thanks{aydin.abadi@ucl.ac.uk}\hspace{1mm} and \hspace{1mm} 
+%Steven J. Murdoch\thanks{s.murdoch@ucl.ac.uk}
+%\institute{University College London}}
+
+\author{}
+\institute{}
+\date{}
+\maketitle{}
+
+
+\begin{abstract}
+In Private Set Intersection protocols (PSIs), a non-empty result always discloses information about the private input sets of the parties. Moreover, in various variants of PSI, not all parties necessarily receive or are interested in the result. Nevertheless, to date, the literature has assumed that those parties who do not receive or are not interested in the result still contribute their private input sets to the PSI for free, although doing so would cost them their privacy. In this work, for the first time, we propose a multi-party PSI, called ``\withRew'', that \emph{rewards} parties who contribute their private input sets to the protocol.  % 
+\withRew is designed with efficiency in mind, primarily relying on symmetric key primitives, and its complexities scale linearly with the number of parties and set cardinality. It maintains security even in scenarios where the majority of parties are compromised by actively colluding adversaries. 
+\end{abstract}
+
+
+
+ \input{content.tex}
+ \input{conclusion}
+
+\bibliographystyle{splncs04}
+\bibliography{ref}
+
+\appendix
+%\input{notation-Table}
+\input{Security-model-long.tex}
+\input{counter-collusion-contracts.tex}
+\input{commitment}
+\input{hash-table}
+\input{Merkle-tree}
+\input{OLE-plus}
+\input{coin-tossing}
+\input{PSI-FC-predicates}
+\input{VOPR-proof}
+
+
+\input{ZSPA-proof}
+\input{ZSPA-A-proof}
+\input{Unforgeable-poly-proof}
+\input{Justitia-workflow}
+\input{justitia-further-discussion}
+ \input{F-PSI-proof}
+ \input{PSI-FCR-predicates}
+ %%%
+ \input{Anesidora-workflow}
+ %%%
+ \input{Anesidora-challenges}
+ 
+ \input{E-PSI-proof}
+ \input{anesidora-further-discussion}
+ %\input{Further-discussion}
+
+\input{proof-of-poly-union}
+
+
+\end{document}

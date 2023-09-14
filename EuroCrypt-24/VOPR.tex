@@ -1,0 +1,74 @@
+% !TEX root =main.tex
+
+
+
+%%%%%%%%
+\begin{figure}[ht]%[!htbp]
+\setlength{\fboxsep}{1pt}
+\begin{center}
+    \begin{tcolorbox}[enhanced,width=4.75in,height=110mm,right=.5mm,
+    drop fuzzy shadow southwest,
+    colframe=black,colback=white]
+%%%%%%%%
+\vspace{-2.2mm}
+\begin{enumerate}[leftmargin=-.2mm]
+\small{
+\item[$\bullet$] \textit{Input.}
+\begin{enumerate}
+\item[$\bullet$]  \textit{Public Parameters}: upper bound on input polynomials' degree: $e$ and $e'$. %, where $e\geq e'$.
+%\item[$\bullet$]  \textit{Sender}: picks an upper bound on input polynomials's degree:  $d$ and $d'$. It sends them to the receiver.
+
+\vspace{-1mm}
+\item[$\bullet$]  \textit{Sender Input}:  random polynomials: $\bm\psi=\sum\limits^{\st e}_{\st i=0}g_{\st i}\cdot x^{\st i}$ and  $\bm\alpha=\sum\limits^{\st e+e'}_{\st j=0}a_{\st j}\cdot x^{\st j}$, where $g_{\st i}\stackrel{\st \$}\leftarrow \mathbb{F}_p$.  Each $a_{\st j}$ has the  form: $a_{\st j}=\sum\limits^{\substack{\st k=e'\\ \st t=e}}_{\st t,k=0} a_{\st t,k}$,  such that $t+k=j$ and $a_{\st t,k}\stackrel{\st \$}\leftarrow \mathbb{F}_p$.
+
+\vspace{-1mm}
+\item[$\bullet$] \textit{Receiver Input}:  polynomial $\bm\beta=\bm\beta_{\st 1}\cdot \bm\beta_{\st 2}=\sum\limits^{\st e'}_{\st i=0}b_{\st i}\cdot x^{\st i}$, where $\bm\beta_{\st 1}$ is a random polynomial of degree $1$, $\bm\beta_{\st 2}$ is an arbitrary polynomial of degree $e'-1$, and $b_{\st i}\neq 0$.
+
+
+\end{enumerate}
+\item[$\bullet$] \textit{Output.} The receiver gets $\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha$.
+\item \textbf{Computation:}
+
+\begin{enumerate} 
+
+\item Sender and receiver together for every $j$, $0\leq j\leq e'$,  invoke $e+1$ instances of $\ole^{\st +}$. In particular, $\forall j, 0\leq j\leq e'$: sender sends $g_{\st i}$ and $a_{\st i,j}$ while the receiver sends $b_{\st j}$ to $\ole^{\st +}$ that returns: $c_{\st i,j}=g_{\st i}\cdot b_{\st j}+ a_{\st i,j}$ to the receiver ($\forall i, 0\leq i\leq e$). 
+
+
+ \item The receiver sums component-wise values $c_{\st i,j}$  that results in polynomial:
+ %
+ \vspace{-3mm}
+ %
+  $$\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha=\sum\limits^{\substack{\st i=e\\ \st j=e'}}_{\st i,j=0}c_{\st i, j}\cdot x^{\st i+j}$$ 
+ %
+  \vspace{-3mm}
+  %
+ 
+
+
+
+
+% \item The receiver sums component-wise values $c_{\st i,j}$  that results polynomial $\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha=\sum\limits^{\st e+e'}_{\st j=0}c_{\st j}\cdot x^{\st j}$, where  each $c_{\st j}$ has   form: $c_{\st j}=\sum\limits^{\substack{\st k=e'\\ \st t=e}}_{\st  t,k=0} c_{\st t,k}$, such that $ t+k=j$.
+%\item Sender: $\forall j, 1\leq j\leq 2d+1$, computes $a_{\st j}=a(x_{\st j})$ and $r_{\st j}=r(x_{\st j})$. Then, it  inserts $(a_{\st j}, r_{\st j})$ into  $\mathcal{F}_{\st OLE^{\st +}}$
+%\item\label{computing-receiver} Receiver:  $\forall j, 1 \leq j\leq 2d+1$, computes $b_{\st j}=b(x_{\st j})$. Then, it  inserts $b_{\st j}$ into  $\mathcal{F}_{\st OLE^{\st +}}$ and receives $s_{\st j}=a_{\st j}+b_{\st j}\cdot r_{\st j}$. It interpolates a polynomial $s(x)$ using pairs $s_{\st j},x_{\st j}$. 
+\end{enumerate}
+\vspace{-1.6mm}
+\item \label{Verification} \textbf{Verification:}
+\begin{enumerate}%[leftmargin=1mm]
+
+\item \label{picking-random-x}Sender: picks a random (non-zero) value  $z$ and sends it to the receiver. 
+
+\item\label{receiver-OLE-invocation} Receiver: sends $\theta_{\st z}=\bm\theta(z)$ and $\beta_{\st z}=\bm\beta(z)$ to the sender.
+
+\item\label{receiver-OLE-invocation} Sender:  computes $\psi_{\st z}=\bm\psi(z)$ and $\alpha_{\st z}=\bm\alpha(z)$ and checks   if equation  $\theta_{\st z}=\psi{\st z}\cdot \beta_{\st z}+\alpha_{\st z}$ holds. If the equation holds, it concludes that the computation was performed correctly. Otherwise, it aborts. 
+%
+\end{enumerate}
+}
+ \end{enumerate}
+ \end{tcolorbox}
+\end{center}
+\vspace{-5mm}
+\caption{Verifiable Oblivious Polynomial Randomization} 
+\label{fig:VOPR}
+\vspace{-5mm}
+\end{figure}
+ %%%%%%%

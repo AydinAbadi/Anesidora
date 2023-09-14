@@ -8,7 +8,7 @@
 \section{Other Subroutines Used in \withFai}\label{sec::subroutines}
 In this section, we present three subroutines and a primitive that we developed and are used in the instantiation of \p, i.e., \withFai. 
 
-\subsection{Verifiable Oblivious Polynomial Randomisation (\vopr)}
+\subsection{Verifiable Oblivious Polynomial Randomisation (\vopr)}\label{sec::vopr}
 
 
 %In this section, we present ``Verifiable Oblivious Polynomial Randomisation'' (VOPR) protocol. 
@@ -17,7 +17,7 @@ In the \vopr, two parties are involved, (i) a sender which is potentially a pass
 %
 We will use {\vopr} in \withFai for two main reasons:  (a) to let a party re-randomise its counterparty's polynomial (representing its set) and (b) to impose a MAC-like structure to the randomised polynomial; such a structure will allow a verifier to detect if \vopr's output has been modified. 
 
-Now, we outline how we design \vopr without using any (expensive) zero-knowledge proofs.\footnote{Previously, Ghosh \textit{et al.}  \cite{GhoshN19} designed a protocol called Oblivious Polynomial Addition (OPA) to meet similar security requirements that we laid out above. But, as shown in \cite{AbadiMZ21}, OPA  is susceptible to several serious attacks. } In the setup phase, both parties represent their input polynomials in the regular coefficient form; therefore, the sender's polynomials are defined as $\bm\psi=\sum\limits^{\st e}_{\st i=0}g_{\st i}\cdot x^{\st i}$ and  $\bm\alpha=\sum\limits^{\st e+e'}_{\st j=0}a_{\st j}\cdot x^{\st j}$ and the receiver's polynomial is defined as $\bm\beta=\sum\limits^{\st e'}_{\st i=0}b_{\st i}\cdot x^{\st i}$. However, the sender computes each coefficient $a_{\st j}$ (of polynomial $\bm \alpha$) as follows,  $a_{\st j}=\sum\limits^{\substack{\st k=e'\\ \st t=e}}_{\st t,k=0} a_{\st t,k}$,  where  $t+k=j$ and each $a_{\st t,k}$ is a random value. For instance, if $e=4$ and $e'=3$, then $a_{\st 3}=a_{\st \st 0,3}+a_{\st 3,0}+a_{\st 1,2}+a_{\st 2,1}$. Shortly, we explain why polynomial $\bm\alpha$ is constructed this way. 
+Now, we outline how we design \vopr without using any (expensive) zero-knowledge proofs.\footnote{Previously, Ghosh \textit{et al.}  \cite{GhoshN19} designed a protocol called Oblivious Polynomial Addition (OPA) to meet similar security requirements that we laid out above. But, as shown in \cite{AbadiMZ21}, OPA  is susceptible to several serious attacks. } In the setup phase, both parties represent their input polynomials in the regular coefficient form; therefore, the sender's polynomials are defined as $\bm\psi=\sum\limits^{\st e}_{\st i=0}g_{\st i}\cdot x^{\st i}$ and  $\bm\alpha=\sum\limits^{\st e+e'}_{\st j=0}a_{\st j}\cdot x^{\st j}$ and the receiver's polynomial is defined as $\bm\beta=\sum\limits^{\st e'}_{\st i=0}b_{\st i}\cdot x^{\st i}$, where $b_{\st i}\neq 0$. However, the sender computes each coefficient $a_{\st j}$ (of polynomial $\bm \alpha$) as follows,  $a_{\st j}=\sum\limits^{\substack{\st k=e'\\ \st t=e}}_{\st t,k=0} a_{\st t,k}$,  where  $t+k=j$ and each $a_{\st t,k}$ is a random value. For instance, if $e=4$ and $e'=3$, then $a_{\st 3}=a_{\st \st 0,3}+a_{\st 3,0}+a_{\st 1,2}+a_{\st 2,1}$. Shortly, we explain why polynomial $\bm\alpha$ is constructed this way. 
 
 
 
@@ -31,7 +31,9 @@ for every $j$  (where $0\leq j\leq e'$) the sender sends $g_{\st i}$ and $a_{\st
 The reason that the sender imposes the above structure to (the coefficients of)  $\bm\alpha$ in the setup, is to let the parties securely compute $\bm\theta$ via  $\ole^{\st +}$. Specifically, by imposing this structure (1) the sender  can blind each product $g_{\st i}\cdot b_{\st j}$  with  random value $a_{\st i,j}$ which is a component of $\bm\alpha$'s coefficient and (2) the receiver can construct a result polynomial of the form $\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha$. 
 
 
-Now, we outline how the verification works. To check the result's correctness, the sender picks and sends a random value $z$ to the receiver which computes  $\bm\theta(z)$ and $\bm\beta(z)$ and sends these two values  to the sender. The sender computes  $\bm\psi(z)$ and $\bm\alpha(z)$ and then checks if equation  $\bm\theta({ z})=\bm\psi({ z})\cdot \bm\beta({ z})+\bm\alpha({ z})$ holds. It accepts the result if the check passes.   Figure \ref{fig:VOPR} describes \vopr in detail.
+Now, we outline how the verification works. To check the result's correctness, the sender picks and sends a random value $z$ to the receiver which computes  $\bm\theta(z)$ and $\bm\beta(z)$ and sends these two values  to the sender. The sender computes  $\bm\psi(z)$ and $\bm\alpha(z)$ and then checks if equation  $\bm\theta({ z})=\bm\psi({ z})\cdot \bm\beta({ z})+\bm\alpha({ z})$ holds. It accepts the result if the check passes.   
+
+Figure \ref{fig:VOPR} describes \vopr in detail. Note, \vopr requires that the sender to insert non-zero coefficients, i.e., $b_{\st i}\neq 0$ for all $i,0 \leq i \leq e'$. If a   sender inserts a zero-coefficient, then it will learn only a random value (due to  $\ole^{\st +}$), accordingly it cannot pass \vopr's verification phase. However, such a requirement will not affect Justitia's correctness, as we will discuss in Section \ref{Fair-PSI-Protocol} and Appendix \ref{sec::error-prob}.  
 
 
 \input{VOPR}

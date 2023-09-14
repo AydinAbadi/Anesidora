@@ -95,6 +95,10 @@ Duong, T., Phan, D.H., Trieu, N.: Catalic: Delegated {PSI} cardinality with
 Freedman, M.J., Nissim, K., Pinkas, B.: Efficient private matching and set
   intersection. In: {EUROCRYPT} (2004)
 
+\bibitem{GarayKL15}
+Garay, J.A., Kiayias, A., Leonardos, N.: The bitcoin backbone protocol:
+  Analysis and applications. In: Advances in Cryptology - {EUROCRYPT} (2015)
+
 \bibitem{GhoshNN17}
 Ghosh, S., Nielsen, J.B., Nilges, T.: Maliciously secure oblivious linear
   function evaluation with constant overhead. In: {ASIACRYPT} (2007)
@@ -183,6 +187,10 @@ Raghuraman, S., Rindal, P.: Blazing fast {PSI} from improved {OKVS} and
   subfield {VOLE}. In: Proceedings of the 2022 {ACM} {SIGSAC} Conference on
   Computer and Communications Security, {CCS} 2022, Los Angeles, CA, USA,
   November 7-11, 2022 (2022)
+
+\bibitem{Schneier0078909}
+Schneier, B.: Applied cryptography - protocols, algorithms, and source code in
+  C, 2nd Edition. Wiley (1996)
 
 \bibitem{TamrakarLPEPA17}
 Tamrakar, S., Liu, J., Paverd, A., Ekberg, J., Pinkas, B., Asokan, N.: The

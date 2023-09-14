@@ -2,14 +2,14 @@
 
 \subsection{Zero-sum Pseudorandom Values Agreement Protocol (\zspa)}
 
-The \zspa  allows $m$ parties (the majority of which is potentially malicious) to efficiently agree on (a set of vectors, where each vector has) $m$ pseudorandom values such that their sum equals zero. At a high level, the parties first sign a smart contract and then run a  coin-tossing protocol \ct to agree on a key: $k$.  Next, one of the parties generates $m-1$ pseudorandom values $z_{\scriptscriptstyle j}$ (where $1\leq j\leq m-1$) using key $k$ and $\mathtt{PRF}$. It sets the last value as the additive inverse of the sum of the values generated, i.e. $z_{\scriptscriptstyle m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle j}$. 
+The \zspa  allows $m$ parties (the majority of which is potentially malicious) to efficiently agree on (a set of vectors, where each $i$-th vector has) $m$ pseudorandom values such that their sum equals zero. At a high level, the parties first sign a smart contract, register their accounts/addresses in it, and then run a  coin-tossing protocol \ct to agree on a key: $k$.  Next, one of the parties generates $m-1$ pseudorandom values $z_{\scriptscriptstyle i, j}$ (where $1\leq j\leq m-1$) using key $k$ and $\mathtt{PRF}$. It sets the last value as the additive inverse of the sum of the values generated, i.e. $z_{\scriptscriptstyle i, m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i, j}$ (similar to the standard XOR-based secret sharing \cite{Schneier0078909}). 
 %
 %Next, it commits to each value, where it uses $k_{\scriptscriptstyle 2}$ to generate the randomness of each commitment. 
 %
-Then, it constructs a Merkel tree on top of the pseudorandom values and stores only the tree's root $g$ and the key's hash value $q$ in the smart contract.  Then, each party (using the key) locally checks if the values (on the contract) have been constructed correctly; if so, then it sends a signed ``approved" message to the contract. Hence, the functionality that \zspa computes is defined as $f^{\st \zspa}\underbrace{(\bot,..., \bot)}_{\st m}\rightarrow \underbrace{((k, g, q),..., (k, g,q))}_{\st m}$, where $g$ is the Markle tree's root built on the pseudorandom values $z_{\st i, j}$, $q$ is the hash value of the key used to generate the pseudorandom values, and $m\geq 2$. Figure \ref{fig:ZSPA} presents \zspa in detail.  
+Then, it constructs a Merkel tree on top of the pseudorandom values and stores only the tree's root $g$ and the key's hash value $q$ in the smart contract.  Then, each party (using the key) locally checks if the values (on the contract) have been constructed correctly; if so, then it sends a (signed) ``approved" message to the contract which only accepts messages from registered parties. Hence, the functionality that \zspa computes is defined as $f^{\st \zspa}\underbrace{(\bot,..., \bot)}_{\st m}\rightarrow \underbrace{((k, g, q),..., (k, g,q))}_{\st m}$, where $g$ is the Markle tree's root built on the pseudorandom values $z_{\st i, j}$, $q$ is the hash value of the key used to generate the pseudorandom values, and $m\geq 2$. Figure \ref{fig:ZSPA} presents \zspa in detail.  
 
 
-Briefly, \zspa will be used in \withFai to allow clients $\{A_{\st 1},...,A_{\st m}\}$ to provably agree on a set of pseudorandom polynomials whose sum is zero.  Each of these polynomials will be used by a client to blind/encrypt the messages it sends to the smart contract, to protect the privacy of the plaintext message (from \aud, D, and the public). To compute the sum of the plaintext messages, one can easily sum the blinded messages, which removes the blinding polynomials. 
+Briefly, \zspa will be used in \withFai to allow clients $\{A_{\st 1},...,A_{\st m}\}$ to provably agree on a set of pseudorandom values, where each set represents a pseudorandom polynomial (as the elements of the set are considered the polynomial's coefficients). Due to \zspa's property, the sum of these polynomials is zero.  Each of these polynomials will be used by a client to blind/encrypt the messages it sends to the smart contract, to protect the privacy of the plaintext message (from \aud, D, and the public). To compute the sum of the plaintext messages, one can easily sum the blinded messages, which removes the blinding polynomials. 
 
 \input{ZSPA-protocol}
 
@@ -65,15 +65,36 @@ In addition to the security guarantee (i.e., computation's correctness against m
 
 
 
+
 \begin{theorem}
-If  $\mathtt{H}$ is preimage resistance, $\mathtt{PRF}$ is secure, the signature scheme used in the smart contract is secure (i.e., existentially unforgeable under chosen message attacks), and the blockchain is secure (i.e., offers liveness property and the hash power of the adversary is lower than those of honest miners) then \zspa offers (i) privacy against the public and (ii) non-refutability. 
+If  $\mathtt{H}$ is preimage resistance, $\mathtt{PRF}$ is secure, the signature scheme used in the smart contract is secure (i.e., existentially unforgeable under chosen message attacks), and the blockchain is secure (i.e., offers persistence and liveness properties \cite{GarayKL15}) then \zspa offers (i) privacy against the public and (ii) non-refutability. 
 \end{theorem}
  
  
 
 \begin{proof}
 First, we focus on privacy. Since key $k$, for $\mathtt{PRF}$, has been picked uniformly at random and $\mathtt{H}$ is preimage resistance, the probability that given $g$ the adversary can find $k$ is negligible in the security parameter, i.e., $\negl(\lambda)$. Furthermore, because $\mathtt{PRF}$ is secure (i.e., its outputs are indistinguishable from random values) and  $\mathtt{H}$ is preimage resistance, given the Merkle tree's root $g$, the probability that the adversary can find a leaf node, which is the output of $\mathtt{PRF}$, is $\negl(\lambda)$ too. 
-  \hfill\(\Box\)\end{proof}
+
+Now we move on the non-refutability. Due to the persistency property of the blockchain, once a transaction/message goes more than $v$ blocks deep into the blockchain of one honest player (where $v$ is a security parameter), then it will be included in every honest player's blockchain with overwhelming probability, and it will be assigned a permanent
+position in the blockchain (so it will not be modified with an overwhelming probability). Also, due to the liveness property,   all transactions originating from honest parties will eventually end up at a depth of more than $v$ blocks in an honest player's blockchain; therefore, the adversary cannot
+perform a selective denial of service attack against honest account holders.  Moreover, due to the security of the digital signature (i.e., existentially unforgeable under chosen message attacks), one cannot deny sending the messages it sent to the blockchain and smart contract. 
+%
+\hfill\(\Box\)
+\end{proof}
+
+
+
+%
+%
+%\begin{theorem}
+%If  $\mathtt{H}$ is preimage resistance, $\mathtt{PRF}$ is secure, the signature scheme used in the smart contract is secure (i.e., existentially unforgeable under chosen message attacks), and the blockchain is secure (i.e., offers liveness property and the hash power of the adversary is lower than those of honest miners) then \zspa offers (i) privacy against the public and (ii) non-refutability. 
+%\end{theorem}
+% 
+% 
+%
+%\begin{proof}
+%First, we focus on privacy. Since key $k$, for $\mathtt{PRF}$, has been picked uniformly at random and $\mathtt{H}$ is preimage resistance, the probability that given $g$ the adversary can find $k$ is negligible in the security parameter, i.e., $\negl(\lambda)$. Furthermore, because $\mathtt{PRF}$ is secure (i.e., its outputs are indistinguishable from random values) and  $\mathtt{H}$ is preimage resistance, given the Merkle tree's root $g$, the probability that the adversary can find a leaf node, which is the output of $\mathtt{PRF}$, is $\negl(\lambda)$ too. 
+%  \hfill\(\Box\)\end{proof}
 
 
 

@@ -1,0 +1,51 @@
+% !TEX root =main.tex
+
+
+\section{Formal Definitions of Predicates of \p}\label{sec::Formal-Definitions-of-F-PSI-Predicates}
+
+ In this section, we present the formal definitions of predicates $\qinit, \qdel, \qUnFAbt$ and \qFAbt. We borrowed  the first three predicates from the ``fair and robust multi-party computation'' initially proposed in \cite{KiayiasZZ16}; nevertheless, we  (i) have introduced an additional predicate  \qFAbt and (ii) will provide more formal accurate definitions of these predicates. 
+ 
+ 
+ 
+ \begin{definition}
+ %
+  [\qinit: Initiation predicate] Let $\mathcal{G}$ be a stable ledger, $adr_{\st sc}$ be smart contract $sc$'s address, $Adr$ be a set of $m+1$ distinct addresses, and $\xc$ be a fixed amount of coins. Then, predicate $\qinit(\mathcal{G}, adr_{\st sc}, m+1, Adr, \xc)$ returns $1$ if every address in $Adr$ has at least $\xc$ coins in $sc$; otherwise, it returns $0$. 
+ %
+ \end{definition}
+
+ 
+ 
+    \begin{definition}  [\qdel:
+    %
+    Delivery predicate] Let $pram:=(\mathcal{G}, adr_{\st sc}, \xc)$ be the parameters defined above, and   $adr_{\st i}\in Adr$ be the address of an honest party. 
+    %
+%    Let also $G$ be a compensation function that takes as input  two parameters $(deps, m')$, where $deps$ is the amount of coins  that all $m+1$ parties  deposit; it returns the amount of compensation each honest party must receive, i.e., $G(deps, m')\rightarrow c'$. 
+    %
+    Then, predicate $\qdel(pram, adr_{\st i})$ returns $1$ if $adr_{\st i}$ has sent $\xc$ amount to $sc$ and received  $\xc$ amount from it; thus,  its balance in $sc$ is $0$. Otherwise, it returns $0$. 
+ %
+  \end{definition}
+ 
+ 
+ 
+   \begin{definition}  [\qUnFAbt: UnFair-Abort predicate]
+   %
+ Let $pram:=(\mathcal{G}, $ $adr_{\st sc}, \xc)$ be the parameters defined above, and $Adr'\subset Adr$ be a set containing honest parties' addresses, $m' = |Adr'|$,  and   $adr_{\st i}\in Adr'$. Let also $G$ be a compensation function that takes as input  three parameters $(\depsc, adr_{\st i}, m')$, where $\depsc$ is the amount of coins  that all $m+1$ parties  deposit. It returns the amount of compensation each honest party must receive, i.e., $G(\depsc, ard_{\st i}, m')\rightarrow \xci$. Then, predicate $\qUnFAbt$ is defined as $\qUnFAbt(pram, G, \depsc, m', adr_{\st i})\rightarrow (a,b)$, where $a=1$ if $adr_{\st i}$ is an honest party's address and $adr_{\st i}$ has sent $\xc$ amount to $sc$ and received  $\xc+\xci$  from it, and $b=1$ if $adr_{\st i}$ is \aud's address and $adr_{\st i}$ received $\xci$  from $sc$. Otherwise, $a=b=0$. 
+  %
+  \end{definition}
+  
+  
+\begin{definition}  [\qFAbt: Fair-Abort predicate]
+   %
+ Let $pram:=(\mathcal{G},$ $ adr_{\st sc},$ $ \xc)$ be the parameters defined above, and $Adr'\subset Adr$ be a set containing honest parties' addresses, $m' = |Adr'|$,     $adr_{\st i}\in Adr'$, and  $adr_{\st j}$ be \aud's address. Let $G$ be the compensation function, defined above and let $G(deps, ard_{\st j}, m')\rightarrow \xc_{\st j}$ be the compensation that the auditor must receive.  Then, predicate $\qFAbt(pram, G,$ $ \depsc, m', adr_{\st i}, adr_{\st j})$ returns $1$, if $adr_{\st i}$ (s.t. $adr_{\st i}\neq adr_{\st j}$) has sent $\xc$ amount to $sc$ and received  $\xc$  from it, and $adr_{\st j}$ received $\xc_{\st j}$  from $sc$. Otherwise, it returns $0$. 
+  %
+ \end{definition}
+ 
+ 
+
+ 
+ 
+
+    
+    We observed that predicate \qFAbt should have been defined in the generic framework in \cite{KiayiasZZ16} too; as the framework should have also captured the cases where an adversary may abort without learning any output after the onset of the protocol.  
+ 
+ 

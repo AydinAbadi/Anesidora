@@ -1,0 +1,80 @@
+%!TEX root = main.tex
+
+\begin{table*} 
+
+\begin{center}
+ \vspace{-6mm}
+\caption{ \small{Comparison of the asymptotic complexities and features of state-of-the-art PSIs. In the table, $t$ is a parameter that determines the maximum number of colluding parties and $\kappa$ is a security parameter.}}  \label{table::comparisonTable} 
+%\vspace{-1mm}
+%\renewcommand{\arraystretch}{1}
+\scalebox{.78}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} 
+\hline
+
+%\multicolumn{3}{c|}
+
+%\multirow{2}{*} {\scriptsize {Schemes}} &{\scriptsize {Computation}}& \scriptsize{Communication}&{\scriptsize{Fairness}}&{ \scriptsize Rewarding}& {\scriptsize{ Sym-key based}}& {\scriptsize{Multi-party}}&\scriptsize Active Adversary \\
+%\hline
+
+\multirow{2}{*} {\scriptsize {Schemes}} &\multicolumn{2}{c|}{\scriptsize Asymptotic Cost}&\multicolumn{5}{c|}{\scriptsize{Features}} \\
+
+\cline{2-8}
+
+& \scriptsize{Computation}&\scriptsize{Communication}&{\scriptsize{Fairness}}&{ \scriptsize Rewarding}& {\scriptsize{ Sym-key based}}& {\scriptsize{Multi-party}}&\scriptsize Active Adversary\\
+
+
+
+
+\hline 
+
+%&\scriptsize {Modular expo.}&\cellcolor{gray!20}\scriptsize {$0$}&\cellcolor{gray!20}\scriptsize$5$&\cellcolor{gray!20}\scriptsize$12$\\
+
+
+\scriptsize  \scriptsize{ \cite{AbadiDMT22}}&\cellcolor{gray!20}\scriptsize{$O( h\cdot d^{\st 2}\cdot m)$}&\cellcolor{gray!20}\scriptsize$O(h\cdot d\cdot m)$&\cellcolor{gray!20}\scriptsize\textcolor{red}{$\times$}&\cellcolor{gray!20}\scriptsize\textcolor{red}{$\times$}&\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark  &\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark&\cellcolor{gray!20}\scriptsize\textcolor{red}{$\times$} \\
+
+
+\hline 
+
+
+\scriptsize \cite{DebnathD16}&\cellcolor{gray!50}\scriptsize{$O(|S|)$}&\cellcolor{gray!50}\scriptsize{$O(|S|)$}&\cellcolor{gray!50}\scriptsize\textcolor{blue}\checkmark&\cellcolor{gray!50}\scriptsize\textcolor{red}{$\times$}&\cellcolor{gray!50}\scriptsize\textcolor{red}{$\times$} &\cellcolor{gray!50}\scriptsize\textcolor{red}{$\times$}&\cellcolor{gray!50}\scriptsize\textcolor{blue}\checkmark \\ 
+
+
+
+
+\hline
+
+\scriptsize {\cite{DBLP:conf/dbsec/DongCCR13}}&\cellcolor{gray!20}\scriptsize{$O(|S|^{\st 2}$)}&\cellcolor{gray!20}\scriptsize$O(|S|)$&\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark&\cellcolor{gray!20}\scriptsize\textcolor{red}{$\times$}  &\cellcolor{gray!20}\scriptsize\textcolor{red}{$\times$} &\cellcolor{gray!20}\scriptsize\textcolor{red}{$\times$}&\cellcolor{gray!20} \scriptsize\textcolor{blue}\checkmark\\ 
+
+\hline
+\scriptsize \cite{DBLP:conf/ccs/KolesnikovMPRT17}   &\cellcolor{gray!50}\scriptsize{$O(|S|\cdot m^{\st 2}+|S|\cdot m )$}&\cellcolor{gray!50}\scriptsize$O(|S|\cdot m^{\st 2})$&\cellcolor{gray!50}\scriptsize\textcolor{red}{$\times$}&\cellcolor{gray!50}\scriptsize\textcolor{red}{$\times$}  &\cellcolor{gray!50}\scriptsize\textcolor{blue}\checkmark &\cellcolor{gray!50}\scriptsize\textcolor{blue}\checkmark&\cellcolor{gray!50}\scriptsize\textcolor{red}{$\times$}\\ 
+
+\hline
+
+
+\scriptsize \cite{NevoTY21}&\cellcolor{gray!20}\scriptsize{$O(|S|\cdot \kappa(m+t^{\st 2}-t(m+1)))$}&\cellcolor{gray!20}\scriptsize{$O(|S|\cdot m\cdot \kappa)$}&\cellcolor{gray!20}\scriptsize{\textcolor{red}{$\times$}}&\cellcolor{gray!20}\scriptsize\textcolor{red}{$\times$}&\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark  &\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark&\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark\\ 
+
+\hline
+
+
+\scriptsize \cite{RaghuramanR22}&\cellcolor{gray!50}\scriptsize{$O(|S|)$}&\cellcolor{gray!50}\scriptsize{$O(|S|\cdot \kappa)$}&\cellcolor{gray!50}\scriptsize{\textcolor{red}{$\times$}}&\cellcolor{gray!50}\scriptsize\textcolor{red}{$\times$} &\cellcolor{gray!50}\scriptsize\textcolor{blue}\checkmark &\cellcolor{gray!50}\scriptsize{\textcolor{red}{$\times$}} &\cellcolor{gray!50}\scriptsize\textcolor{blue}\checkmark\\ 
+
+\hline
+
+
+
+{\scriptsize \textbf{Ours:} \epsi}&\cellcolor{gray!20}\scriptsize{$O (h\cdot d^{2}\cdot m)$}&\cellcolor{gray!20}\scriptsize$O (h\cdot d^{\st 2}\cdot \bar\xi\cdot m )$&\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark&\cellcolor{gray!20}\scriptsize \textcolor{blue}\checkmark&\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark &\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark&\cellcolor{gray!20}\scriptsize\textcolor{blue}\checkmark \\
+
+\hline 
+
+\end{tabular}
+}
+%\renewcommand{\arraystretch}{1}
+%\end{footnotesize}
+\end{center}
+%}
+\vspace{-5mm}
+\end{table*}
+
+
+
+

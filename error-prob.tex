@@ -1,0 +1,97 @@
+% !TEX root =main.tex
+
+
+\section{Error Probability}\label{sec::error-prob}
+
+
+Recall that in \fpsi, in step \ref{JUS::check-non-zero-coeff},  each client $C$ needs to ensure polynomials $\bm\omega^{\st (C,D)}\cdot \bm\pi^{\st  {  {(C)}}}$ and  $\bm\rho^{\st (C,D)}$ do not contain any zero coefficient. This check ensures that client $C$ (the receiver in \vopr) does not insert any zero values to  \vopr (in particular to $\ole^{\st +}$ which is a subroutine of \vopr). If a zero value is inserted in \vopr, then an honest receiver will learn only a random value and more importantly cannot pass \vopr's verification phase. 
+%
+Nevertheless,  this check can be removed from step \ref{JUS::check-non-zero-coeff}, if we allow \fpsi to output an error with a small probability.\footnote{By error we mean even if all parties are honest,  \vopr halts when an honest party inserts $0$ to it.} In the remainder of this section, we show that this probability is negligible. 
+
+
+First, we focus on the product $\bm\omega^{\st (C,D)}\cdot \bm\pi^{\st  {  {(C)}}}$. We know that $\bm\pi^{\st  {  {(C)}}}$ is of the form $\prod\limits^{\st d}_{\st i=1} (x-s'_{\st i})$, where $s'_{\st i}$ is either a set element $s_{\st i}$ or a random value.  Thus, all of its coefficients are non-zero. Also, the probability that at least one of the coefficients  of $d$-degree random polynomial $\bm\omega^{\st (C,D)}$ equals $0$ is at most $\frac{d+1}{p}$.  Below, we state it formally.
+
+
+\begin{theorem}\label{theorem::zero-coeff-in-ran-poly}
+Let $\bm\delta=\sum\limits_{\st t=0}^{\st d}u_{\st  t} \cdot x^{\st t}$, where  $u_{\st  t}\stackrel{\st\$}\leftarrow\mathbb{F}_{\st p}$, for all $t, 0\leq t\leq d$. Then, the probability that at least one of the coefficients equals $0$ is at most $\frac{d+1}{p}$, i.e., 
+
+$$Pr[\exists u_{\st t}, u_{\st t}=0]\leq \frac{d+1}{p}$$
+\end{theorem}
+
+
+\begin{proof}
+The proof is straightforward. Since $\bm\delta$'s coefficients are picked uniformly at random from  $\mathbb{F}_{\st p}$, the probability that $u_{\st t}$ equals $0$ is $\frac{1}{p}$. Since $\bm\delta$ is of degree $d$, due to the union bound, the probability that at least one of $c_{\st t}$s equals $0$ is at most $\frac{d+1}{p}$. 
+ \hfill\(\Box\)\end{proof}
+
+
+
+Next, we show that the probability that the polynomial  $\bm\omega^{\st (C,D)}\cdot \bm\pi^{\st  {  {(C)}}}$ has at least one zero coefficient is negligible in the security parameter; we assume polynomial $\bm\omega^{\st (C,D)}$  has no zero coefficient. 
+
+
+%For the sake of simplicity,  we set $\bm{p}_1=\bm\omega^{\st (C,D)}=a_{\st 0}\cdot a_{\st 1}\cdot x+...+a_{\st d}\cdot x^{\st d}$ and $\bm{p}_2= \bm\pi^{\st  {  {(C)}}}$. 
+
+\begin{theorem}\label{theorem::zero-coeff-in-product}
+Let  $\bm\alpha=\sum\limits_{\st j=0}^{\st m}a_{\st  i} \cdot x^{\st i}$ and  $\bm\beta=\sum\limits_{\st j=0}^{\st n}b_{\st  j} \cdot x^{\st j}$,  where $a_{\st i}\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}$ and $a_{\st i}, b_{\st j}\neq0$, for all $i,j, 0\leq i \leq m$ and $0\leq j \leq n$. Also, let $\bm\gamma=\bm\alpha\cdot\bm\beta=\sum\limits_{\st j=0}^{\st m+n}c_{\st  j} \cdot x^{\st j}$. Then, the probability that at lest one of the coefficients of polynomial $\bm\gamma$ equals $0$ is at most $\frac{m+n+1}{p}$, i.e., 
+%
+$$Pr[\exists c_{\st j}, c_{\st j}=0]\leq \frac{m+n+1}{p}$$
+%
+\end{theorem}
+
+
+
+\begin{proof}
+Each coefficient $c_{\st  k}$ of $\bm\gamma$ can be defined as $c_{\st  k}=\sum\limits_{\substack{\st j=0\\ \st i=0}}^{\substack{\st i=m\\ \st j=n}}a_{\st i}\cdot b_{\st j}$, where $i+j=k$. We can rewrite $c_{\st  k}$ as  $c_{\st  k}=a_{\st w}\cdot b_{\st z}+ \sum\limits_{\substack{\st j=0, j\neq z\\ \st i=0, i\neq w}}^{\substack{\st i=m\\ \st j=n}}a_{\st i}\cdot b_{\st j}$, where $w+z=i+j=k$. 
+%
+We consider two cases for each $c_{\st  k}$:
+
+\begin{itemize}
+
+\item[$\bullet$]  {Case 1}: $\sum\limits_{\substack{\st j=0, j\neq z\\ \st i=0, i\neq w}}^{\substack{\st i=m\\ \st j=n}}a_{\st i}\cdot b_{\st j}=0$.  This is a trivial case, because with the  probability of $1$ it holds that $c_{\st  k}=a_{\st w}\cdot b_{\st z}\neq 0$, as by  definition $a_{\st w}, b_{\st z}\neq0$ and $\mathbb{F}_{\st p}$ is an integral domain. 
+
+%In this case, since $a_{\st w}$ has been picked uniformly at random, the probability that $c_{\st  k}=a_{\st w}\cdot b_{\st z}=0$ is $\frac{1}{p}$.
+
+%
+% This is a trivial case, because with the  probability of $1$ it holds that $c_{\st  k}=a_{\st w}\cdot b_{\st z}\neq 0$. 
+
+
+%In this case, because $a_{\st w}$ has been picked uniformly at random, with the  probability of $\frac{1}{p}$ it holds that $c_{\st  k}=a_{\st w}\cdot b_{\st z}=0$. 
+
+
+\item[$\bullet$]  {Case 2}: $q=\sum\limits_{\substack{\st j=0, j\neq z\\ \st i=0, i\neq w}}^{\substack{\st i=m\\ \st j=n}}a_{\st i}\cdot b_{\st j}\neq 0$. In this case, for  event $c_{\st  k}=a_{\st w}\cdot b_{\st z}+q=0$ to occure, $a_{\st w}\cdot b_{\st z}$ must equal the additive inverse of $q$. Since $a_{\st w}$ has been picked uniformly at random, the probability that such an even occurs is $\frac{1}{p}$.
+\end{itemize}
+
+The above analysis is for a single $c_{\st  k}$. Thus, due to the union bound, the probability that at least one of the coefficients $c_{\st  k}$ equals $0$ is at most $\sum\limits^{\st m+n}_{\st j=0}\frac{1}{p}= \frac{m+n+1}{p}$.
+%
+ \hfill\(\Box\)\end{proof}
+
+
+
+
+Next we turn out attention to $\bm\rho^{\st (C,D)}$. Due to Theorem \ref{theorem::zero-coeff-in-ran-poly}, the probability that at least one of the coefficients of $\bm\rho^{\st (C,D)}$ equals $0$ is at most $\frac{d+1}{p}$, . 
+
+%\begin{theorem}\label{theorem::zero-coeff-in-ran-poly}
+%Let $\bm\delta=\sum\limits_{\st t=0}^{\st d}u_{\st  t} \cdot x^{\st t}$, where  $u_{\st  t}\stackrel{\st\$}\leftarrow\mathbb{F}_{\st p}$, for all $t, 0\leq t\leq d$. Then, the probability that at least one of coefficients equals $0$ is at most $\frac{d}{p}$, i.e., 
+%$Pr[\exists d_{\st j}, d_{\st j}=0]\leq \frac{d+1}{p}$.
+%\end{theorem}
+%
+%
+%\begin{proof}
+%The proof is straightforward. Since $\bm\delta$'s coefficients are picked uniformly at random from  $\mathbb{F}_{\st p}$, the probability that $c_{\st j}$ equals $0$ is $\frac{1}{p}$. Since $\bm\delta$ is of degree $d$, due to the union bound, the probability that at least one of $c_{\st j}$s equals $0$ is at most $\frac{d+1}{p}$. 
+% \hfill\(\Box\)\end{proof}
+
+Hence, due to Theorems \ref{theorem::zero-coeff-in-ran-poly}, \ref{theorem::zero-coeff-in-product}, and union bound, the probability that at least one of the coefficients in $\bm\omega^{\st (C,D)}\cdot \bm\pi^{\st  {  {(C)}}}$ and  $\bm\rho^{\st (C,D)}$ equals $0$ is at most $\frac{3d+2}{p}$, which is negligible is the security parameter $p$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

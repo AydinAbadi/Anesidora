@@ -1,0 +1,29 @@
+% !TEX root =main.tex
+
+
+%%%%%%%%%%%%%%%%%
+ %%%%%%%%%%%%%
+
+
+
+\section{Main Challenges that \withRew Overcomes}\label{sec::Annesidora-challenges}
+
+
+\subsection{Rewarding Clients Proportionate to the Intersection Size.}
+In PSIs, the main private information about the clients which is revealed to a result recipient is the private set elements that the clients have in common. Thus, honest clients must receive a reward proportionate to the intersection cardinality, from a buyer. To receive the reward, the clients need to reach a consensus on the intersection cardinality. The naive way to do that is to let every client find the intersection and declare it to the smart contract. Under the assumption that the majority of clients are honest, then the smart contract can reward the honest result recipient (from the buyer's deposit). But, the honest majority assumption is strong in the context of multi-party PSI. Moreover, this approach requires all clients to extract the intersection, which would increase the overall costs.  Some clients may not even be interested in or available to do so. This task could also be conducted by a single entity, such as the dealer; but this approach would introduce a single point of failure and all clients have to depend on this entity.  
+%
+To address these challenges, we allow any two clients to become extractors.  Each of them finds and sends to the contract the (encrypted) elements in the intersection. It is paid by the contract if the contract concludes that it is honest. This lets us avoid (i) the honest majority assumption, (ii) requiring all clients to find the intersection, and (iii) relying on a single trusted/semi-honest party to complete the task. 
+
+
+
+
+
+ \vspace{-1mm}
+\subsection{Dealing with Extractors' Collusion.}
+%
+Using two extractors itself introduces another challenge; namely, they may collude with each other (and the buyer) to provide a consistent but incorrect result. This behaviour can not be detected by a verifier unless it always conducts the delegated task itself, which would defeat the purpose of delegation. To efficiently address this challenge, we use the counter-collusion smart contracts (from Section \ref{Counter-Collusion-Smart-Contracts}) that creates distrust among the extractors and incentivises them to act honestly. 
+
+
+
+
+ 

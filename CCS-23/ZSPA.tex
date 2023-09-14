@@ -1,0 +1,134 @@
+% !TEX root =main.tex
+
+
+\vspace{-3mm}
+\subsection{Zero-sum Pseudorandom Values Agreement Protocol (\zspa)}
+
+
+The \zspa  allows $m$ parties (the majority of which is potentially malicious) to efficiently agree on (a set of vectors, where each $i$-th vector has) $m$ pseudorandom values such that their sum equals zero. At a high level, the parties first sign a smart contract, register their accounts/addresses in it, and then run a  coin-tossing protocol \ct to agree on a key: $k$.  Next, one of the parties generates $m-1$ pseudorandom values $z_{\scriptscriptstyle i, j}$ (where $1\leq j\leq m-1$) using key $k$ and $\mathtt{PRF}$. It sets the last value as the additive inverse of the sum of the values generated, i.e. $z_{\scriptscriptstyle i, m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i, j}$ (similar to the standard XOR-based secret sharing \cite{Schneier0078909}). 
+%
+%Next, it commits to each value, where it uses $k_{\scriptscriptstyle 2}$ to generate the randomness of each commitment. 
+%
+Then, it constructs a Merkel tree on top of the pseudorandom values and stores only the tree's root $g$ and the key's hash value $q$ in the smart contract.  Then, each party (using the key) locally checks if the values (on the contract) have been constructed correctly; if so, then it sends a (signed) ``approved" message to the contract which only accepts messages from registered parties. Hence, the functionality that \zspa computes is defined as $f^{\st \zspa}\underbrace{(\bot,..., \bot)}_{\st m}\rightarrow \underbrace{((k, g, q),..., (k, g,q))}_{\st m}$, where $g$ is the root of the Markle tree built on the pseudorandom values $z_{\st i, j}$, $q$ is the hash value of the key used to generate the pseudorandom values, and $m\geq 2$. Figure \ref{fig:ZSPA} presents \zspa in detail.  
+
+
+
+\zspa will be used in \withFai to let clients $\{A_{\st 1},...,A_{\st m}\}$ provably agree on sets of pseudorandom values. Every client uses the elements of these sets (as coefficients) to generate a distinct pseudorandom polynomial such that when all clients' pseudorandom polynomials are added it would result in $0$, due to \zspa's property.  Each of these polynomials will be used by a client to blind the messages it sends to the smart contract, to protect the privacy of the plaintext message (from \aud, D, and the public). To compute the sum of the plaintext messages, one can easily sum the blinded messages, which removes the blinding polynomials. 
+
+
+
+%\zspa will be used in \withFai to let clients $\{A_{\st 1},...,A_{\st m}\}$ provably agree on sets of pseudorandom values, where each set represents a pseudorandom polynomial (as the set's elements are considered the polynomial's coefficients). Due to \zspa's property, the sum of these polynomials is zero.  Each of these polynomials will be used by a client to blind the messages it sends to the smart contract, to protect the privacy of the plaintext message (from \aud, D, and the public). To compute the sum of the plaintext messages, one can easily sum the blinded messages, which removes the blinding polynomials. 
+
+\vspace{-3.5mm}
+\input{ZSPA-protocol}
+
+\vspace{-2mm}
+\begin{theorem}\label{theorem::ZSPA-comp-correctness}
+Let $f^{\st \zspa}$ be the functionality defined above. If \ct is secure against a malicious adversary and the correctness of $\mathtt{PRF}$, $\mathtt{H}$, and Merkle tree hold, then \zspa,  in Figure \ref{fig:ZSPA}, securely computes $f^{\st \zspa}$ in the presence of $m-1 $ malicious adversaries. 
+\end{theorem}
+
+
+We refer readers to Appendix \ref{sec::proof-of-zspa} for the proof of Theorem \ref{theorem::ZSPA-comp-correctness}. 
+
+
+%Informally, there are four main security requirements that ZSPA must meet: (a) privacy, (b)  non-refutability, (c) indistinguishability, and (d) result correctness. Privacy here means given the state of the contract, an external party cannot learn any information about any of the (pseudorandom) values:  $z_{\scriptscriptstyle j}$; while non-refutability means that if a party sends ``approved" then in future cannot deny the knowledge of the values whose representation is stored in the contract. Furthermore, indistinguishability means that every $z_{\scriptscriptstyle j}$ ($1\leq j \leq m$) should be indistinguishable from a truly random value and result correctness means that a malicious result generator cannot convince other parties to accept an invalid final result, i.e., the root constructed on the invalid leaf node(s). In Figure \ref{fig:ZSPA}, we provide ZSPA that efficiently generates $b$ vectors where each vector elements is sum to zero. 
+
+
+
+
+
+
+%\begin{figure}[ht]
+%\setlength{\fboxsep}{0.7pt}
+%\begin{center}
+%\begin{boxedminipage}{12.3cm}
+
+%
+%\begin{figure}[ht]%[!htbp]
+%\setlength{\fboxsep}{1pt}
+%\begin{center}
+%    \begin{tcolorbox}[enhanced,width=5.5in, 
+%    drop fuzzy shadow southwest,
+%    colframe=black,colback=white]
+%
+%
+%\small{
+%
+%\begin{enumerate}
+%\item[$\bullet$]  \textit{Parties.} $\{\resizeT {\textit A}_{\resizeS {\textit  1}},..., \resizeT {\textit A}_{\resizeS {\textit  m}}\}$
+%\item[$\bullet$]  \textit{Input.}  $m$: the total number of participants and a deployed smart contract's address. 
+%\item[$\bullet$] \textit{Output.}  $k$: a secret key that generates $b+1$ vectors $[z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle 1,m}],...,[z_{\scriptscriptstyle b,1},...,z_{\scriptscriptstyle b,m}]$ of pseudorandom values, $h$: hash of the key,  $g$: a Merkle tree's root, and a vector of signed messages. 
+%
+%
+%%, such that the sum of each vector's elements equals zero: $\sum\limits^{\scriptscriptstyle m}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}=0$. 
+%
+%
+%\item All participants run a coin tossing protocol to agree on a key $k$  of $\mathtt{PRF}$.
+%\item\label{ZSPA:val-gen} One of the parties:  
+%\begin{enumerate}
+%
+%\item for every $i$ (where $0\leq i \leq b$), generates $m$ pseudorandom values as follows. 
+%%
+% $$\forall j, 1\leq j \leq m-1: z_{\scriptscriptstyle i,j}=\mathtt{PRF}(k,i||j), \hspace{5mm} z_{\scriptscriptstyle i,m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}$$
+%%
+%\item   constructs a Merkel tree on top of all pseudorandom values,  $\mathtt{MT.genTree}(z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle b,m})\rightarrow g$. 
+%
+%\item  sends the Merkel tree's root: $g$,   and the key's hash: $q=\mathtt {H}(k)$ to the smart contract. 
+%
+%\end{enumerate}
+%
+%\item\label{ZSPA:verify} The rest of parties (given $k_{\scriptscriptstyle 1}, k_{\scriptscriptstyle 2}$) check if, all $z_{\scriptscriptstyle i,j}$ values, the root $g$ and key's hash have been correctly generated (by redoing  step \ref{ZSPA:val-gen}). If the checks pass, each party sends a singed ``approved'' message to the  contract. Otherwise, it aborts. 
+%
+%
+% \end{enumerate}
+%}
+% \end{tcolorbox}
+%\end{center}
+%\caption{Zero-sum Pseudorandom Values Agreement (ZSPA) Protocol} 
+%\label{fig:ZSPA}
+%\end{figure}
+%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{figure}[ht]
+%\setlength{\fboxsep}{0.7pt}
+%\begin{center}
+%\begin{boxedminipage}{12.3cm}
+%
+%\small{
+%
+%\begin{enumerate}
+%\item[$\bullet$]  \textit{Parties:} $\{\resizeT {\textit A}_{\resizeS {\textit  1}},..., \resizeT {\textit A}_{\resizeS {\textit  m}}\}$
+%\item[$\bullet$]  \textit{Public Parameters and Functions:} A pseudorandom function: $\mathtt{PRF}$, a deployed smart contract, and total number of participants: $m$. 
+%\item[$\bullet$] \textit{Output}:  All parties agree on $b+1$ vectors $[z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle 1,m}],...,[z_{\scriptscriptstyle b,1},...,z_{\scriptscriptstyle b,m}]$, of pseudorandom values, such that the sum of each vector's elements equals zero: $\sum\limits^{\scriptscriptstyle m}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}=0$
+%
+%
+%\item All participants run a coin tossing protocol to agree on two keys $k_{\scriptscriptstyle 1}$ and $k_{\scriptscriptstyle 2}$ of $\mathtt{PRF}$.
+%\item\label{ZSPA:val-gen} One of the parties:  
+%\begin{enumerate}
+%
+%\item For every $i$, computes $m$ pseudorandom values: $\forall j, 1\leq j \leq m-1: z_{\scriptscriptstyle i,j}=\mathtt{PRF}(k_{\scriptscriptstyle 1},i||j)$ and sets $z_{\scriptscriptstyle i,m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}$, where $0\leq i \leq b$
+%
+%\item   commits to every $z_{\scriptscriptstyle i,j}$  as follows: $\mathtt{a}_{\scriptscriptstyle i,j}=\mathtt{Com}(z_{\scriptscriptstyle i,j}, q_{\scriptscriptstyle i,j})$, where the randomness of the commitment is computed as: $ q_{\scriptscriptstyle i,j}=\mathtt{PRF}(k_{\scriptscriptstyle 2},i||j)$ and  $1\leq j \leq m$.
+%
+%\item   constructs a Merkel tree on top of the committed values: $\mathtt{MT}(\mathtt{a}_{\scriptscriptstyle 0,1},...,\mathtt{a}_{\scriptscriptstyle b,m})\rightarrow g$ 
+%
+%\item  sends the Merkel tree's root: $g$,   and the keys' hashes: $\mathtt {H}(k_{\scriptscriptstyle 1})$ and $ \mathtt {H}(k_{\scriptscriptstyle 2})$, to the contract. 
+%
+%\end{enumerate}
+%
+%\item\label{ZSPA:verify} The rest of parties (given $k_{\scriptscriptstyle 1}, k_{\scriptscriptstyle 2}$) check if, all $z_{\scriptscriptstyle i,j}$ values, the root $g$ and keys' hashes have been correctly generated (by redoing  step \ref{ZSPA:val-gen}). If passed, each party sends a singed ``approved'' message to the  contract. Otherwise, it aborts. 
+%
+%
+% \end{enumerate}
+%}
+%\end{boxedminipage}
+%\end{center}
+%\caption{Zero-sum Pseudorandom Values Agreement ($\mathtt{ZSPA}$) Protocol} 
+%\label{fig:ZSPA}
+%\end{figure}
+
+

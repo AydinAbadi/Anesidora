@@ -40,14 +40,14 @@
 All parties in $\{A_{\st 1},...,  A_{\st m}\}$ call the same instance of \zspa, which results in  $(k, g, q), ..., (k, g, q)$. 
 %
 
-\item\label{ZSPA-A::Auditor-computation}  {\textbf{Auditor computation.} $\mathtt{Audit}( \vv{{k}},  q, \bm\zeta, b, g)\rightarrow (L, \vv{{\mu}})$}. 
+\item\label{ZSPA-A::Auditor-computation}  {\textbf{Auditor computation.} $\mathtt{Audit}(m, \vv{{k}},  q, \bm\zeta, b, g)\rightarrow (L, \vv{{\mu}})$}. 
 
 \aud\ takes the below steps. Note,  each $k_{\st j}\in \vv{{k}}$ is given by  $  A_{\st j}$. An honest party's input, $k_{\st j}$,  equals $k$, where $1\leq j \leq m$. 
 
 
 \begin{enumerate}
 %
-\item runs the checks in the verification phase (i.e., Phase \ref{ZSPA:verify}) of \zspa for every $j$, i.e., $\mathtt{Verify}(k_{\st j}, g, q, m)\rightarrow (a_{\st j}, s)$.
+\item runs the checks in the verification phase (i.e., Phase \ref{ZSPA:verify}) of \zspa for every $j$, i.e., $\mathtt{Verify}(k_{\st j}, g, q, m, auditor)\rightarrow (a_{\st j}, s)$.
 \item appends $j$ to $L$, if any checks fails, i.e., if $a_{\st j}=0$. In this case, it skips the next two steps for the current $j$. 
 
 

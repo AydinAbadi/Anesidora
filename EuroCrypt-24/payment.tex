@@ -1,0 +1,174 @@
+% !TEX root =main.tex
+
+
+
+
+\item The parties are paid as follows. 
+
+\begin{itemize}
+%
+\item[$\bullet$]  if the extractors' proofs are valid, they provided identical elements of the intersections (for each bin), and there is no traitor, then $\mathcal{SC}_{\epsi}$:
+\begin{enumerate}
+%
+ \item takes $|S_{\st\cap}|\cdot m\cdot \lc$ amount from the buyer's deposit (in $\mathcal{SC}_{\epsi}$) and distributes it among all clients, except the buyer. 
+ %
+ \item calls \SCpc which returns the extractors' deposit (i.e., $\dc'$ amount each) and pays each extractor $|S_{\st\cap}|\cdot \rc$ amount, for doing their job correctly. 
+  %
+ \item checks if $|{ { {S}}}_{\scriptscriptstyle\cap}|<\Smin$. If the check passes, then it returns $(\Smin-|S_{\scriptscriptstyle\cap}|)\cdot \vc$ amount  to the buyer.
+ %
+ \end{enumerate}
+% 
+\item[$\bullet$] if both extractors failed to deliver any result, then $\mathcal{SC}_{\epsi}$:
+%
+\begin{enumerate}
+%
+\item refunds the buyer, by sending $\Smin\cdot \vc$ amount (deposited in $\mathcal{SC}_{\epsi}$) back to the buyer. 
+%
+\item retrieves each extractor's deposit (i.e., $\dc$ amount) from the \SCpc and distributes it among the rest of the clients (except the buyer and extractors).  
+%
+ \end{enumerate}
+ %
+ \item[$\bullet$]\label{smart-PSI-inconsistency} Otherwise (e.g., if some proofs are invalid, if an extractor's result is inconsistent with the other extractor's result, or there is a traitor), $\mathcal{SC}_{\epsi}$ invokes (steps 8.c and 9 of) \SCpc and its auditor to identify the misbehaving extractor, with the help of $ct_{\st mk}$ after decrypting it. $\mathcal{SC}_{\epsi}$ asks \SCpc to pay the auditor the total amount of $\chc$ taken from the deposit of the extractor(s) who provided incorrect result to $\mathcal{SC}_{\epsi}$. Moreover,
+%
+
+\begin{enumerate}
+%
+\item if \underline{both extractors cheated}:
+%
+\begin{enumerate}
+%
+\item\label{both-cheated-no-traitor} if there \underline{is no traitor}, then $\mathcal{SC}_{\epsi}$ refunds the buyer, by sending $\Smin\cdot \vc$ amount (deposited in $\mathcal{SC}_{\epsi}$) back to the buyer. It also distributes $2\cdot \dc'- \chc$ amount (taken from the extractors' deposit in \SCpc) among the rest of  the clients  (except the buyer and extractors). %The Prisoner's contract pays its dispute resolver $ch$ amount. 
+%
+%
+\item if there \underline{is a traitor}, then:
+%%%%%
+\begin{enumerate}
+%
+%
+\item\label{both-cheated-honest-traitor} if the traitor delivered a \underline{correct result} in \SCtc, $\mathcal{SC}_{\epsi}$ retrieves $\dc'-\dc$ amount from the other dishonest extractor's deposit (in \SCpc) and distributes it among the rest of the clients (except the buyer and dishonest extractor). It asks \SCpc to send $|S_{\st\cap}|\cdot \rc+\dc'+\dc-\chc$ amount to the traitor (via \SCtc). % and $\hat{ch}$ amount to the dispute resolver.
+%
+\SCtc refunds the traitor's deposit, i.e., $\chc$ amount. It refunds the buyer, by sending $\Smin\cdot \vc-|S_{\st\cap}|\cdot \rc$ amount (deposited in $\mathcal{SC}_{\epsi}$) to it.
+
+
+ %Otherwise (i.e., if it delivered an incorrect result in the Traitor's contract), the Traitor's contract refunds the traitor's deposit (i.e., $ch$ amount).
+%
+\item if the traitor delivered an \underline{incorrect result} in \SCtc, then $\mathcal{SC}_{\epsi}$ pays the buyer and the rest of the clients in the same way it does in step \ref{both-cheated-no-traitor}. 
+%
+%distributes $2\cdot \hat d- \hat{ch}$ amount (taken from the extractors deposit in the Prisoner's contract) among the rest of the clients (except the buyer and extractors). 
+%
+%The Prisoner's contract pays its dispute resolver $\hat{ch}$ amount.
+%
+\SCtc refunds the traitor,  $\chc$ amount.  %It refunds the buyer, by sending ${\resizeT {\textit {S}}}_{\resizeS {\textit  min}}\cdot v$ amount (deposited in $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$) back to the buyer.
+
+
+%
+\end{enumerate}
+%%%%%
+\end{enumerate}
+%
+\item if \underline{one of the extractors cheated}: 
+%
+\begin{enumerate}
+%
+\item if there \underline{is no traitor},  $\mathcal{SC}_{\epsi}$ calls \SCpc that (a) returns the honest extractor's deposit ($\dc'$ amount), (b) pays this extractor $|S_{\st\cap}|\cdot \rc$ amount, for doing its job honestly, and (c) pays this extractor $ \dc-\chc$ amount taken from the dishonest extractor's deposit. 
+%
+%and (d) pays its dispute resolver $\hat {ch}$ amount taken from the dishonest extractor's deposit. 
+%
+%Also, $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$ sends ${\resizeT {\textit {S}}}_{\resizeS {\textit  min}}\cdot v-|S_{\st\cap}|\cdot r$ amount (deposited in $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$) back to the buyer.
+%
+ $\mathcal{SC}_{\epsi}$ pays the buyer and the rest of the clients in the same way it does in step \ref{both-cheated-honest-traitor}. 
+
+
+% It retreives  $\hat d - \hat c - \hat{ch}$ amount from the dishonest extractor's deposit (in the Prisoner’s contract) and distributes it among the rest of clients (except the buyer and dishonest extractor). %
+%
+\item if there \underline{is a traitor}
+%
+%%%%%
+
+
+\begin{enumerate}
+%
+\item\label{one-cheated-exists-traitor-honest-traitor}  if the traitor delivered a \underline{correct result} in \SCtc (but  cheated in $\mathcal{SC}_{\epsi}$),  $\mathcal{SC}_{\epsi}$ calls \SCpc that (a) returns the other honest extractor's deposit ($\dc'$ amount), (b) pays the honest extractor $|S_{\st\cap}|\cdot \rc$ amount taken from the buyer's deposit, for doing its job honestly,  (c) pays the honest extractor $\dc- \chc$ amount taken from the traitor's deposit,  
+%
+%(d) pays its dispute resolver $\hat{ch}$ amount taken from the traitor extractor's deposit (deposited in $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$), 
+%
+ (d)
+ pays to the traitor $|S_{\st\cap}|\cdot \rc$ amount taken from the buyer’s deposit (via the \SCtc), and (e) refunds the traitor $\dc'-\dc$ amount taken from its own deposit.  \SCtc refunds the traitor's deposit (i.e., $\chc$ amount).  $\mathcal{SC}_{\epsi}$ takes $|S_{\st\cap}|\cdot m\cdot \lc$ amount from the buyer's deposit (in $\mathcal{SC}_{\epsi}$) and distributes it among all clients, except the buyer. If $|{ { {S}}}_{\scriptscriptstyle\cap}|<\Smin$,   $\mathcal{SC}_{\epsi}$ returns $(\Smin-|{ { {S}}}_{\scriptscriptstyle\cap}|)\cdot \vc$ amount (deposited in $\mathcal{SC}_{\epsi}$)  to the buyer. 
+ 
+ 
+%
+\item  if the traitor delivered an \underline{incorrect result} in \SCtc (and it cheated in $\mathcal{SC}_{\epsi}$), then $\mathcal{SC}_{\epsi}$ pays the honest extractor in the same way it does in step \ref{one-cheated-exists-traitor-honest-traitor}.  
+%
+%calls Prisoner's contract that (a) returns the other honest extractor's deposit (i.e., $\hat d$ amount), (b) pays the honest extractor $|S_{\st\cap}|\cdot r$ amount, for doing its job honestly, and (c) pays the honest extractor $\hat c$ amount taken from the traitor extractor's deposit. 
+%
+%, and  (d) pays its dispute resolver $\hat{ch}$ amount taken from the traitor extractor's deposit (deposited in $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$). 
+%
+\SCtc refunds the traitor's deposit, i.e., $\chc$ amount. 
+%
+%$\mathcal{SC}_{\resizeS {\textit  {EXT}}}$ takes ${\resizeT {\textit {S}}}_{\resizeS {\textit  min}} \cdot f$ amount from the traitor's deposit (in $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$) and distributes it among all clients, except the buyer and traitor. 
+%
+%Also, $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$ sends ${\resizeT {\textit {S}}}_{\resizeS {\textit  min}}\cdot v-|S_{\st\cap}|\cdot r$ amount (deposited in $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$) back to the buyer. 
+%
+Also, $\mathcal{SC}_{\epsi}$ pays the buyer and the rest of the clients in the same way it does in step \ref{both-cheated-honest-traitor}.
+
+
+%
+\end{enumerate}
+
+
+\end{enumerate}
+
+\end{enumerate}
+\end{itemize}
+
+
+
+%
+%\begin{enumerate}
+%
+%\item fully refunds the buyer, as before.
+%%
+%\item calls Prisoner's contract that (a) returns the honest extractor's deposit (i.e., $\hat d$ amount), (b) pays this extractor $|S_{\st\cap}|\cdot r$ amount, for doing its job honestly,  (c) pays this extractor $\hat c$ amount taken from the dishonest extractor's deposit, and (d) pays its dispute resolver $ch$ amount taken from the dishonest extractor's deposit.
+%%
+%\item retrieves $\hat d-\hat c- ch$ amount from dishonest extractor's deposit (in the Prisoner's contract) and distributes it among the rest of the clients (except the buyer and dishonest extractor). 
+%
+%\end{enumerate}
+%
+
+ 
+ 
+ %%%%%%%%%%%. without Traitor
+% \item Otherwise (e.g., if some proofs are invalid or if an extractor's result is inconsistent with the other extractor's result), $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$ invokes (steps 8.c and 9 of) the Prisoner's contract to identify the misbehaving extractor. 
+%%
+%
+%\begin{itemize}
+%%
+%\item[$\bullet$] if both extractors cheated, then $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$:
+%%
+%\begin{enumerate}
+%%
+%\item refunds the buyer, by sending ${\resizeT {\textit {S}}}_{\resizeS {\textit  min}}\cdot v$ amount (deposited in $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$) back to the buyer.
+%%
+%\item retrieves $\hat d-ch$ amount from each extractor's deposit (in the Prisoner's contract) and distributes it among the rest of the clients (except the buyer and extractors). The Prisoner's contract pays its dispute resolver $ch$ amount for each dishonest extractor. 
+%%
+%\end{enumerate}
+%%
+%\item[$\bullet$] if one of the extractors cheated, then $\mathcal{SC}_{\resizeS {\textit  {EXT}}}$:
+%%
+%\begin{enumerate}
+%%
+%\item fully refunds the buyer, as before.
+%%
+%\item calls Prisoner's contract that (a) returns the honest extractor's deposit (i.e., $\hat d$ amount), (b) pays this extractor $|S_{\st\cap}|\cdot r$ amount, for doing its job honestly,  (c) pays this extractor $\hat c$ amount taken from the dishonest extractor's deposit, and (d) pays its dispute resolver $ch$ amount taken from the dishonest extractor's deposit.
+%%
+%\item retrieves $\hat d-\hat c- ch$ amount from dishonest extractor's deposit (in the Prisoner's contract) and distributes it among the rest of the clients (except the buyer and dishonest extractor). 
+%%
+%\end{enumerate}
+%%
+%\end{itemize}
+
+
+
+
+
+

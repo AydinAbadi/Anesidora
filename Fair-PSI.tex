@@ -27,7 +27,7 @@ In this section, we present the notion of multi-party PSI with Fair Compensation
   %\subsection{The Model}\label{sec::F-PSI-model}
   
   
-In a  $\mathcal{PSI}^{\st \mathcal{MFC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially \emph{malicious} (i.e., active adversaries) and all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest (i.e., a passive adversary) and has an input set, and (3) an auditor \aud potentially semi-honest, where all parties except \aud have input set. For simplicity, we assume that given an address one can determine whether it belongs to \aud. 
+In a  $\mathcal{PSI}^{\st \mathcal{FC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially \emph{malicious} (i.e., active adversaries) and all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest (i.e., a passive adversary) and has an input set, and (3) an auditor \aud potentially semi-honest, where all parties except \aud have input set. For simplicity, we assume that given an address one can determine whether it belongs to \aud. 
 
 
 The basic functionality that any multi-party PSI computes can be defined as $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m+1})\rightarrow\underbrace{(S_{\st\cap},..., S_{\st\cap})}_{\st m+1}$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m+1}$.  To formally define a \p, we equip the above PSI functionality with four predicates,  $Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$, which ensure that certain financial conditions are met. 
@@ -61,7 +61,7 @@ Predicate \qinit specifies under which condition a protocol that realises \p sho
  
    \begin{definition}  [\qUnFAbt: UnFair-Abort predicate]
    %
- Let $pram:=(\mathcal{G}, adr_{\st sc}, \xc)$ be the parameters defined above, and $Adr'\subset Adr$ be a set containing honest parties' addresses, $m' = |Adr'|$,  and   $adr_{\st i}\in Adr'$. Let also $G$ be a compensation function that takes as input  three parameters $(\depsc, adr_{\st i}, m')$, where $\depsc$ is the amount of coins  that all $m+1$ parties  deposit. It returns the amount of compensation each honest party must receive, i.e., $G(\depsc, ard_{\st i}, m')\rightarrow \xci$. Then, predicate $Q^{\st \text{UnF-Abt}}$ is defined as $\qUnFAbt(pram, G, \depsc, m', adr_{\st i})\rightarrow (a,b)$, where $a=1$ if $adr_{\st i}$ is an honest party's address and $adr_{\st i}$ has sent $\xc$ amount to $sc$ and received  $\xc+\xci$  from it, and $b=1$ if $adr_{\st i}$ is \aud's address and $adr_{\st i}$ received $\xci$  from $sc$. Otherwise, $a=b=0$. 
+ Let $pram:=(\mathcal{G}, adr_{\st sc}, \xc)$ be the parameters defined above, and $Adr'\subset Adr$ be a set containing honest parties' addresses, $m' = |Adr'|$,  and   $adr_{\st i}\in Adr'$. Let also $G$ be a compensation function that takes as input  three parameters $(\depsc, adr_{\st i}, m')$, where $\depsc$ is the amount of coins  that all $m+1$ parties  deposit. It returns the amount of compensation each honest party must receive, i.e., $G(\depsc, ard_{\st i}, m')\rightarrow \xci$. Then, predicate $\qUnFAbt$ is defined as $\qUnFAbt(pram, G, \depsc, m', adr_{\st i})\rightarrow (a,b)$, where $a=1$ if $adr_{\st i}$ is an honest party's address and $adr_{\st i}$ has sent $\xc$ amount to $sc$ and received  $\xc+\xci$  from it, and $b=1$ if $adr_{\st i}$ is \aud's address and $adr_{\st i}$ received $\xci$  from $sc$. Otherwise, $a=b=0$. 
   %
   \end{definition}
   
@@ -209,8 +209,8 @@ Next, $D$ sends to \scf a secret polynomial, $\bm\zeta$, that will allow \scf to
 
 
 
-\item  $D$ picks a  random polynomial $\bm\zeta \stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $1$, for each bin.  
-It, for each client $C$, allocates to each bin two random polynomials: $\bm\omega^{\st(D,C)}, \bm\rho^{\st (D,C)}\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $d$, and  two  random polynomials: $\bm\gamma^{\st (D,C)}, \bm\delta^{\st (D,C)} \leftarrow \mathbb{F}_{\st p}[X]$ of degree $3d+1$. Also, each client $C$, for each bin, picks two  random polynomials: $\bm\omega^{\st (C,D)}, \bm\rho^{\st (C,D)}\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $d$. %It also evaluates each polynomial at every element of $\vv{\bm{x}}$ that results in  $\omega^{  {  {D,C}}}_{\st i}$ and $\rho^{  {  {D,C}}}_{\st i}$.
+\item\label{JUS::check-non-zero-coeff}  $D$ picks a  random polynomial $\bm\zeta \stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $1$, for each bin.  
+It, for each client $C$, allocates to each bin two random polynomials: $\bm\omega^{\st(D,C)}, \bm\rho^{\st (D,C)}\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $d$, and  two  random polynomials: $\bm\gamma^{\st (D,C)}, \bm\delta^{\st (D,C)} \leftarrow \mathbb{F}_{\st p}[X]$ of degree $3d+1$. Also, each client $C$, for each bin, picks two  random polynomials: $\bm\omega^{\st (C,D)}, \bm\rho^{\st (C,D)}\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $d$, and ensures polynomials $\bm\omega^{\st (C,D)}\cdot \bm\pi^{\st  {  {(C)}}}$ and  $\bm\rho^{\st (C,D)}$ do not contain zero coefficients. %It also evaluates each polynomial at every element of $\vv{\bm{x}}$ that results in  $\omega^{  {  {D,C}}}_{\st i}$ and $\rho^{  {  {D,C}}}_{\st i}$.
 
 
 
@@ -303,7 +303,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  \begin{enumerate}
  
 
- \item\label{auditor}  \aud asks every client $    {  C}$ to send to it the  $\mathtt{PRF}$'s key (generated in step \ref{ZSPA}), for every bin. It inserts the keys to $\vv k$.  It generates a list $\bar L$ initially empty. Then, for every bin,  \aud takes step \ref{ZSPA-A::Auditor-computation} of \zspaa, i.e., invokes  $\mathtt{Audit}( \vv{{k}},  q, \bm\zeta, 3d+3, g)\rightarrow (L, \vv{{\mu}})$.  Every time it invokes $\mathtt{Audit}$, it appends the elements of returned $L$ to $\bar L$.  \aud for each bin sends  $ \vv{{\mu}}$ to $\mathcal{SC}_{\fpsi}$. It also sends  to $\mathcal{SC}_{\fpsi}$ the list $\bar L$ of all misbehaving clients detected so far.
+ \item\label{auditor}  \aud asks every client $    {  C}$ to send to it the  $\mathtt{PRF}$'s key (generated in step \ref{ZSPA}), for every bin. It inserts the keys to $\vv k$.  It generates a list $\bar L$ initially empty. Then, for every bin,  \aud takes step \ref{ZSPA-A::Auditor-computation} of \zspaa, i.e., invokes  $\mathtt{Audit}(m, \vv{{k}},  q, \bm\zeta, 3d+3, g)\rightarrow (L, \vv{{\mu}})$.  Every time it invokes $\mathtt{Audit}$, it appends the elements of returned $L$ to $\bar L$.  \aud for each bin sends  $ \vv{{\mu}}$ to $\mathcal{SC}_{\fpsi}$. It also sends  to $\mathcal{SC}_{\fpsi}$ the list $\bar L$ of all misbehaving clients detected so far.
  
 
  
@@ -397,6 +397,9 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
 
 %\begin{remark}
 One may be tempted to replace $\withFai$ with a scheme in which all clients send their encrypted sets to a server (potentially semi-honest and plays \aud's role) which computes the result in a privacy-preserving manner.  We highlight that the main difference is that in this (hypothetical) scheme the server is \emph{always involved};  whereas, in our protocol, \aud remains offline as long as the clients behave honestly and it is invoked only when the contract detects misbehaviours.  
+
+In step \ref{JUS::check-non-zero-coeff}, \fpsi requires each client $C$ to ensure polynomials $\bm\omega^{\st (C,D)}\cdot \bm\pi^{\st  {  {(C)}}}$ and  $\bm\rho^{\st (C,D)}$ do not contain zero coefficients. However,  this check can be removed from this step, if we allow the protocol to output error with a negligible probability. We refer readers to Appendix \ref{sec::error-prob} for further discussion. 
+
 %\end{remark}
  
  

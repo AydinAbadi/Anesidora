@@ -1,0 +1,235 @@
+% !TEX root =main.tex
+
+
+\subsection{Notation Table}\label{sec::notation-table}
+Table \ref{commu-breakdown-party} summarises the main notations used in the paper. 
+
+
+
+\begin{table}[!h]
+\begin{scriptsize}
+\begin{center}
+\footnotesize{
+\vspace{-6mm}
+\caption{ \small{Notation Table}.}\label{commu-breakdown-party} 
+\renewcommand{\arraystretch}{.88}
+\scalebox{0.65}{
+% 1st table
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} 
+
+%\hline 
+%\multicolumn{1}{|c|}{\cellcolor{yellow!10}\scriptsize{Setting}}&\cellcolor{yellow!10} \scriptsize{Symbol}&\cellcolor{yellow!10} \scriptsize{Description}\\
+%\hline 
+
+\hline 
+\multicolumn{1}{|c|}{\rotatebox[origin=c]{45}{\cellcolor{yellow!10}\scriptsize{ {Setting}}}}&\cellcolor{yellow!10} \scriptsize{Symbol}&\cellcolor{yellow!10} \scriptsize{Description}\\
+\hline 
+
+%{\rotatebox[origin=c]{90}{\scriptsize{ {Contracts}}}}
+
+%%%%%%%%%. Generic %%%%%
+
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$p$&\cellcolor{gray!20}\scriptsize \text{Large prime number}\\   
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize{$\mathbb{F}_{\st p}$}&\cellcolor{white!20}\scriptsize \text{A finite field of prime order $p$}\\   
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\cl$&\cellcolor{gray!20}\scriptsize \text{Set of all clients, $\{ A_{\st 1},...,   A_{\st m},  D\}$ }\\   
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$D$&\cellcolor{white!20}\scriptsize \text{Dealer client}\\   
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$A_{\st m}$&\cellcolor{gray!20}\scriptsize{Buyer client}\\ 
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$m$&\cellcolor{white!20}\scriptsize \text{Total number of clients (excluding $D$)}\\   
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\mathtt{H}$&\cellcolor{gray!20}\scriptsize \text{Hash function}\\ 
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$|S_{\st\cap}|$&\cellcolor{white!20}\scriptsize{Intersection size}\\ 
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\Smin$&\cellcolor{gray!20}\scriptsize{Smallest set's size}\\
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\Smax$&\cellcolor{white!20}\scriptsize{Largest set's size}\\
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$|$&\cellcolor{gray!20}\scriptsize{Divisible}\\
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\setminus$&\cellcolor{white!20}\scriptsize{Set subtraction}\\
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$c$&\cellcolor{gray!20}\scriptsize{Set's cardinality}\\ 
+ %
+ \cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$h$&\cellcolor{white!20}\scriptsize{Total number of bins in a hash table}\\ 
+ %
+ \cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$d$&\cellcolor{gray!20}\scriptsize{A bin's capacity}\\ 
+ %
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\lambda$ &\cellcolor{white!20}\scriptsize Security parameter  \\  
+
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize \ole&\cellcolor{gray!20}\scriptsize{Oblivious Linear Evaluation}\\ 
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\ole^{\st +}$&\cellcolor{white!20}\scriptsize{Advanced \ole}\\ 
+
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\comcom$&\cellcolor{gray!20}\scriptsize \text{Commitment algorithm of commitment}\\ 
+
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\comver$&\cellcolor{white!20}\scriptsize \text{Verification algorithm of commitment}\\ 
+
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\mkgen$&\cellcolor{gray!20}\scriptsize \text{Tree construction algorithm of Merkle tree}\\ 
+
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\mkprove$&\cellcolor{white!20}\scriptsize \text{Proof generation algorithm of Merkle tree}\\ 
+
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\mkver$&\cellcolor{gray!20}\scriptsize \text{Verification algorithm of Merkle tree}\\ 
+
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize{\ct}&\cellcolor{white!20}\scriptsize \text{Coin tossing protocol}\\  
+
+ \cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize{\vopr}&\cellcolor{gray!20}\scriptsize \text{Verifiable Oblivious Poly. Randomization}\\
+ 
+ \cellcolor{yellow!10} &\cellcolor{white!20}\scriptsize{\zspa}&\cellcolor{white!20}\scriptsize \text{ Zero-sum Pseudorandom Values Agreement}\\
+  
+  \cellcolor{yellow!10}   &\cellcolor{gray!20}\scriptsize{\zspaa}&\cellcolor{gray!20}\scriptsize \text{\zspa with an External Auditor}\\
+
+   \cellcolor{yellow!10}  &\cellcolor{white!20}\scriptsize{\p}&\cellcolor{white!20}\scriptsize \text{Multi-party PSI with Fair Compensation}\\
+     
+    \cellcolor{yellow!10}      &\cellcolor{gray!20}\scriptsize{\ep}&\cellcolor{gray!20}\scriptsize \text{Multi-party PSI with Fair Compensation and Reward}\\
+
+  \cellcolor{yellow!10}   &\cellcolor{white!20}\scriptsize{\fpsi}&\cellcolor{white!20}\scriptsize \text{Protocol that realises \p}\\
+     
+     
+  \cellcolor{yellow!10}   &\cellcolor{gray!20}\scriptsize{\epsi}&\cellcolor{gray!20}\scriptsize \text{
+          Protocol that realises \ep}\\
+
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\prf$ &\cellcolor{white!20}\scriptsize  Pseudorandom function \\ 
+
+
+  \cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\prp$ &\cellcolor{gray!20}\scriptsize  Pseudorandom permutation \\ 
+
+%
+  \cellcolor{yellow!10}   &\cellcolor{white!20}\scriptsize{$gcd$}&\cellcolor{white!20}\scriptsize \text{Greatest common divisor}\\
+%
+
+\cellcolor{yellow!10}\multirow{-34}{*}{\rotatebox[origin=c]{90}{\cellcolor{yellow!10}\scriptsize{ {Generic}}}}
+  \cellcolor{yellow!10}   &\cellcolor{gray!20}\scriptsize{$\negl$}&\cellcolor{gray!20}\scriptsize \text{Negligible function}\\
+%
+     \hline
+%%%%%%%%%%%%
+\end{tabular}
+
+}
+\scalebox{.667}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} 
+%%%%%%%%%%%
+\hline 
+\multicolumn{1}{|c|}{\rotatebox[origin=c]{45}{\cellcolor{yellow!10}\scriptsize{ {Setting}}}}&\cellcolor{yellow!10} \scriptsize{Symbol}&\cellcolor{yellow!10} \scriptsize{Description}\\
+\hline 
+     
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\SCpc$&\cellcolor{white!20}\scriptsize \text{Prisoner's Contract}\\   
+
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\SCcc$&\cellcolor{gray!20}\scriptsize \text{Colluder’s Contract}\\   
+
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\SCtc$&\cellcolor{white!20}\scriptsize \text{Traitor's Contract}\\   
+%
+\cellcolor{yellow!10}&\scriptsize  \cellcolor{gray!20}\scriptsize$\cc$&\cellcolor{gray!20}\scriptsize \text{Server’s cost for computing a task}\\   
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\chc$&\cellcolor{white!20}\scriptsize \text{Auditor's cost for resolving disputes
+}\\   
+%
+\cellcolor{yellow!10}&\scriptsize  \cellcolor{gray!20}\scriptsize$\dc$&\cellcolor{gray!20}\scriptsize \text{Deposit a server pays to get the job}\\  
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\wc$&\cellcolor{white!20}\scriptsize \text{Amount a server receives for completing the task}\\  
+%
+\multirow{-8}{*}{\rotatebox[origin=c]{90}{\cellcolor{yellow!10}\scriptsize{ {Counter}}}}
+%
+\multirow{-8}{*}{\rotatebox[origin=c]{90}{\scriptsize{ {Collusion}}}}
+%
+\multirow{-8}{*}{\rotatebox[origin=c]{90}{\scriptsize{ {Contracts}}}}
+&\cellcolor{gray!20}\scriptsize$(pk, sk)$&\cellcolor{gray!20}\scriptsize \text{\scf's auditor's public-private key pair}\\  
+ %
+\hline 
+%%%% End of Counter Collusion Contacts %%%%%
+
+%%%%%%%.      F-PSI      %%%%%%
+
+%\qinit: Initiation predicate
+
+
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\scf$&\cellcolor{white!20}\scriptsize {\fpsi's smart contract}\\   
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\bm\omega, \bm\omega',\bm\rho  $&\cellcolor{gray!20}\scriptsize {Random poly. of degree} $d$\\   
+ %
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\bm\gamma, \bm\delta$&\cellcolor{white!20}\scriptsize {Random poly. of degree} $d+1$\\
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\bm\nu^{\st{{(C)}}}$&\cellcolor{gray!20}\scriptsize {Blinded poly. sent by each $C$ to \scf}\\ 
+%  
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\bm\phi$&\cellcolor{white!20}\scriptsize {Blinded poly. encoding the intersection}\\   
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\bm\chi$&\cellcolor{gray!20}\scriptsize {Poly. sent to \scf to identify misbehaving parties}\\ 
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\bar L$&\cellcolor{white!20}\scriptsize {List of identified misbehaving parties}\\ 
+%
+
+%%%%%%%%%%%%%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize&\cellcolor{gray!20}\scriptsize {A portion of a party's deposit into \scf}\\   
+
+\cellcolor{yellow!10}&\multirow{-2}{*}{\cellcolor{gray!20}\scriptsize$\yc$}&\cellcolor{gray!20}\scriptsize{transferred to honest clients if it misbehaves}\\ 
+%%%%%%
+
+
+
+
+\cellcolor{yellow!10}&\scriptsize$mk$&\scriptsize{Master key of \prf}\\ 
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\qinit$&\cellcolor{gray!20}\scriptsize{Initiation predicate}\\ 
+%
+\cellcolor{yellow!10}&\scriptsize$\qdel$&\scriptsize{Delivery predicate}\\ 
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\qUnFAbt$&\cellcolor{gray!20}\scriptsize{UnFair-Abort predicate}\\ 
+
+\multirow{-14}{*}{\rotatebox[origin=c]{90}{\cellcolor{yellow!10}\scriptsize{ {\withFai (\fpsi)}}}}
+%
+\cellcolor{yellow!10}&\scriptsize$\qFAbt$&\scriptsize{Fair-Abort predicate}\\ 
+%
+
+\hline 
+%%%%%   End of F-PSI  %%%%
+
+%%%%%%%    E-PSI    %%%%%%
+
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\SCe$&\cellcolor{gray!20}\scriptsize {\epsi's smart contract} \\   
+ %
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\dc'$&\cellcolor{white!20}\scriptsize {Extractor's deposit} \\
+  %   
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\yc'$&\cellcolor{gray!20}\scriptsize {Each client's deposit into \scf}\\   
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\lc$&\cellcolor{white!20}\scriptsize {Reward a client earns for an intersection element}\\   
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\rc$&\cellcolor{gray!20}\scriptsize {Extractor's cost for extracting an intersection element}\\  
+%
+\cellcolor{yellow!10}&\cellcolor{white!20}\scriptsize$\fc$&\cellcolor{white!20}\scriptsize {Shorthand for $\lc(m-1)$}\\ 
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}&\cellcolor{gray!20}\scriptsize{Price a buyer pays for an intersection element}\\ 
+%
+\cellcolor{yellow!10}&\multirow{-2}{*}{\cellcolor{gray!20}\scriptsize$\vc$}&\cellcolor{gray!20}\scriptsize{$\vc=m\cdot \lc+2 \rc$}\\ 
+%
+\cellcolor{yellow!10}&\scriptsize$mk'$&\scriptsize{Another master key of \prf}\\ 
+%
+
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$ct_{\st mk}$&\cellcolor{gray!20}\scriptsize {Encryption of $mk$ under $pk$}\\   
+%            
+\cellcolor{yellow!10}&\scriptsize$\qdelwr$&\scriptsize{Delivery-with-Reward predicate}\\ 
+
+\multirow{-12}{*}{\rotatebox[origin=c]{90}{\cellcolor{yellow!10}\scriptsize{ {\withRew (\epsi)}}}}
+%
+\cellcolor{yellow!10}&\cellcolor{gray!20}\scriptsize$\qUnFAbtwr$&\cellcolor{gray!20}\scriptsize{UnFair-Abort-with-Reward predicate}\\ 
+
+
+
+\hline  
+
+
+
+%%%%%%%%%%%
+
+\end{tabular}\label{table:notation-table}}}
+\end{center}
+\end{scriptsize}
+\vspace{-5mm}
+\end{table}
+
+
+

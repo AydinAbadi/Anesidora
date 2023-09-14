@@ -1,0 +1,98 @@
+% !TEX root =main.tex
+
+
+
+
+
+\vspace{-2mm}
+
+\subsection{\zspa's Extension: \zspa with an External Auditor (\zspaa)}
+\vspace{-1mm}
+
+Now, we present an extension of \zspa, called \zspaa, which lets a (trusted) third-party auditor, \aud, help identify misbehaving clients in the \zspa and generate a vector of random polynomials with a specific structure. Specifically, the functionality that \zspaa computes is defined as 
+%
+$f^{\st \zspaa}(\underbrace{\bot,..., \bot}_{\st m}, b, \bm\zeta)\rightarrow (\underbrace{(k, g, q),..., (k, g,q)}_{\st m},$ $\bm\mu^{\st (1)},..., \bm\mu^{\st (m)})$, where $g$ is the root of the Markle tree built on the pseudorandom values $z_{\st i, j}$, $q$ is the hash value of the key used to generate the pseudorandom values, $m\geq 2$, $b$ is constant value, $\bm\zeta$ is a random polynomial of degree $1$, each $\bm\mu^{\st (j)} $ has the form $\bm\mu^{\st (j)} = \bm\zeta\cdot \bm\xi^{\st (j)}-\bm\tau^{\st (j)}$,  $\bm\xi^{\st (j)}$ is a random polynomial of degree $b-2$, and $\bm\tau^{\st (j)}=\sum\limits^{\st b-1}_{\st i=0}z_{\st i,j}\cdot x^{\st i}$. 
+
+
+
+Informally, \zspaa requires that misbehaving parties are always detected, except with a negligible probability. \aud of this protocol will be invoked by \withFai when \withFai's smart contract detects that a combination of the messages sent by the clients is not well-formed. Later, in \withFai's proof, we will show that even a \emph{semi-honest} \aud who observes all messages that clients send to \withFai's smart contracts, cannot learn anything about their set elements. We present \zspaa in Figure \ref{fig:arbiter}. 
+
+\vspace{-1mm}
+\input{Arbiter-algorithm}
+
+
+\vspace{-1mm}
+\begin{theorem}\label{theorem::ZSPA-A}
+If\ $\zspa$ is secure, $\mathtt{H}$ is second-preimage resistant, and the correctness of $\mathtt{PRF}$, $\mathtt{H}$, and Merkle tree hold,  then \zspaa securely computes $f^{\st \zspaa}$ in the presence of $m-1 $ malicious adversaries.% or (ii) a semi-honest auditor. 
+\end{theorem}
+
+%As we stated previously, the ZSPA-A protocol will be invoked as a subroutine in the fair PSI protocol. As part of proving Theorem \ref{theorem::ZSPA-A}, we would like to show that the semi-honest auditor's view can be simulated (so it cannot learn the parties' set elements), even if it has access to those transcripts of the fair PSI protocol sent to the smart contract; because such an approach offers a stronger security guarantee than proving the ZSPA-A protocol in isolation.  Therefore, we will present the proof of Theorem \ref{theorem::ZSPA-A} after we present the fair PSI protocol. 
+
+\vspace{-1mm}
+
+We refer readers to Appendix \ref{sec::proof-of-zspa-a} for the proof of Theorem \ref{theorem::ZSPA-A}. 
+
+
+
+
+%\begin{theorem}\label{theorem::ZSPA-comp-correctness}
+%If the coin-tossing protocol is secure against a malicious adversary, then the ZSPA protocol,  in Figure \ref{fig:ZSPA}, securely computes $f^{\st \text {ZSPA}}$ in the presence of a malicious adversary. 
+%\end{theorem}
+
+
+%\begin{figure}%[ht]
+%\setlength{\fboxsep}{0.7pt}
+%\begin{center}
+%\begin{boxedminipage}{12.3cm}
+%
+%\small{
+%
+%\begin{enumerate}
+%\item[$\bullet$] Parties: clients: $\{\resizeT {\textit A}_{\resizeS {\textit  1}},..., \resizeT {\textit A}_{\resizeS {\textit  m}}\}$, the dealer and  an Arbiter.
+%\item[$\bullet$] Input: Empty malicious clients list: $L$ and a deployed smart contract's address. 
+%\item[$\bullet$] Output: Misbehaving clients list: $L$
+%\item Every client sends to the Arbiter  two keys: $k_{\scriptscriptstyle 1}, k_{\scriptscriptstyle 2}$, used to generate the zero-sum values and their commitments. 
+%%
+%\item  The Arbiter checks if the clients  provided correct keys, by ensuring that the keys' hashes matches the ones stored in the contract. It appends the IDs of those  provided inconsistent keys to $L$. If all clients provided inconsistent keys it aborts. Otherwise, it proceed to the next step where it uses correct keys: $k_{\scriptscriptstyle 1}, k_{\scriptscriptstyle 2}$. 
+%%
+%\item\label{zero-sum-arbiter-verification} The Arbiter (given correct keys) regenerate the  zero-sum values $z_{\scriptscriptstyle i, j}$ and verify the correctness of their commitments and the Merkel tree root contracted on top of the commitments, i.e. takes the same step as step \ref{ZSPA:verify} in Fig \ref{fig:ZSPA}.   It aborts if any of the   checks is rejected, and appends to $L$ the IDs of the clients which sent the ``approved'' message to the contract. 
+%%
+% \item The Arbiter for each client $\resizeT {\textit C}$, who provided correct keys,  generates polynomial $\bm\mu^{\resizeS {\textit {(C)}}}$, for each bin, as follows:
+%  %
+%   $$\bm\mu^{\resizeS {\textit {(C)}}} = \bm\zeta\cdot \bm\xi^{\resizeS {\textit {(C)}}}-\bm\tau^{\resizeS {\textit {(C)}}}$$
+%   %
+%    where $\bm\xi^{\resizeS {\textit {(C)}}}$ is a random polynomial of degree $3d+1$ and $\bm\tau^{\resizeS {\textit {(C)}}}=\sum\limits^{\st 3d+2}_{\st i=0}z_{\st i,c}\cdot x^{\st i}$. By the end of this step, a vector $\vv{\bm{\mu}}$ containing polynomial $\bm\mu^{\resizeS {\textit {(C)}}}$ for every bin of client $\resizeT {\textit C}$ that is not in list $L$. 
+%    %
+%     \item returns   list $L$ and $\vv{\bm{\mu}}$.
+ 
+%
+%
+% \item The dealer, for each client $\resizeT {\textit C}\in \{\resizeT {\textit A}_{\resizeS {\textit  1}},..., \resizeT {\textit A}_{\resizeS {\textit  m}}\}$,  sends to the Arbiter a blind polynomial of the form: $\bm\zeta\cdot \bm\eta^{\resizeS {\textit {(D,C)}}}-(\bm\gamma^{\resizeS {\textit {(D,C)}}}+\bm\delta^{\resizeS {\textit {(D,C)}}})$, where $\bm\eta^{\resizeS {\textit {(D,C)}}}$ is a fresh random degree $3d+1$ polynomial. The blind polynomial will allow the arbiter to obliviously verify the correctness of the message each client sent to the  contract. 
+% 
+% \item The Arbiter for each client $\resizeT {\textit C}$ who provided correct keys: 
+% 
+% \begin{enumerate}
+% \item adds together the blind polynomial above and the blind polynomial $\bm\nu^{\resizeS {\textit {(C)}}}$ the client sent to the contract (in step \ref{blindPoly-C-sends-to-contract} in the PSI protocol). Then, it removes the client's zero-sum pseudorandom values from the result. In particular, it computes:    
+%\begin{equation*}
+%\begin{split}
+% \bm\iota^{\resizeS {\textit {(C)}}}&=\bm\zeta\cdot \bm\eta^{\resizeS {\textit {(D,C)}}}-(\bm\gamma^{\resizeS {\textit {(D,C)}}}+\bm\delta^{\resizeS {\textit {(D,C)}}})+\bm\nu^{\resizeS {\textit {(C)}}}-\sum\limits^{\scriptscriptstyle 3d+1}_{\scriptscriptstyle i=0}z_{\scriptscriptstyle i,c}\cdot x^{\scriptscriptstyle i} \\ &=\bm\zeta\cdot(\bm\eta^{\resizeS {\textit {(D,C)}}} + \bm\omega^{\resizeS {\textit {(D,C)}}}\cdot \bm\omega^{\resizeS {\textit {(C,D)}}}\cdot \bm\pi^{\resizeS {\textit {(C)}}}+\bm\rho^{\resizeS {\textit {(D,C)}}}\cdot \bm\rho^{\resizeS {\textit {(C,D)}}}\cdot \bm\pi^{\resizeS {\textit {(D)}}})
+% \end{split}
+%\end{equation*}
+%  \item checks if $\bm\zeta$ can divide $\bm\iota^{\resizeS {\textit {(C)}}}$. If can not, it appends the client's ID to $L$.
+%  \end{enumerate}
+  %$deg(\eta^{\resizeS {\textit {D,C}}})=3d+1$
+% \end{enumerate}
+%}
+%\end{boxedminipage}
+%\end{center}
+%\caption{$\mathtt{Arbiter}$ Protocol} 
+%\label{fig:arbiter}
+%\end{figure}
+
+
+
+
+
+
+
+

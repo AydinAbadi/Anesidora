@@ -1,0 +1,30 @@
+% !TEX root =main.tex
+
+
+%%%%%%%%%%%%%%%%%
+\section{Further Discussion on  \withFai}\label{sec::Discussion-justitia}
+
+
+\subsection{Strawman Approaches}
+
+
+\subsubsection{Relying on a Server-aide PSI} One may be tempted to replace $\withFai$ with a scheme in which all clients send their encrypted sets to a server (potentially semi-honest and plays \aud's role) which computes the result in a privacy-preserving manner.  We highlight that the main difference is that in this (hypothetical) scheme the server is \emph{always involved};  whereas, in our protocol, \aud remains offline as long as the clients behave honestly and it is invoked only when the contract detects misbehaviours.  
+
+
+\subsubsection{Charging the Buyer a Flat Fee}
+One may want to add a straightforward payment mechanism to an existing multi-party PSI in such a way that a buyer always must pay a fixed amount, e.g., depending on the total number of clients and the minimum size of the sets. However, this approach is problematic, because it:
+
+\begin{enumerate}
+\item forces the buyer to always pay even if some malicious clients misbehave during the protocol execution and affect the results' correctness which would allow malicious clients to learn the result at the buyer's expense without letting it learn the correct result, as there exists no fair multi-party PSI in the literature to ensure either all parties learn a correct result or neither does. 
+
+\item forces the buyer to always pay independent of the exact size of the intersection. If it has to pay more than the amount it would have paid for the exact cardinality of the intersection then the buyer would be discouraged to participate in the protocol in the first place. On the other hand, if the buyer has to pay less than what it would have paid for the size of the intersection, then other clients would be discouraged to participate in the protocol. 
+
+\end{enumerate}
+
+
+
+\input{error-prob}
+
+
+ 
+\input{Justitia-challenges}

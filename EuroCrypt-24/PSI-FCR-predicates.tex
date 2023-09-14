@@ -1,0 +1,30 @@
+% !TEX root =main.tex
+
+ \vspace{-3mm}
+\section{Formal Definitions of Predicates of \ep}\label{sec::Formal-Definitions-of-E-PSI-Predicates}
+
+ 
+ Below, we present the formal definition of predicates \qdelwr and \qUnFAbtwr. 
+
+    \begin{definition}  [\qdelwr:
+    %
+    Delivery-with-Reward predicate] Let $\mathcal{G}$ be a stable ledger, $adr_{\st sc}$ be smart contract $sc$'s address, $adr_{\st i}\in Adr$ be the address of an honest party, $\xc$ be a fixed amount of coins, and $pram:=(\mathcal{G}, adr_{\st sc}, \xc)$. Let $R$ be a reward function that takes as input the computation result: $res$, a party's address: $adr_{\st i}$, a reward a party should receive for each unit of revealed information:  $\lc$, and input size: $inSize$.  Then $R$ is defined as follows, if $adr_{\st i}$ belongs to a non-buyer, then it returns the total amount that $adr_{\st i}$ should be rewarded and if $adr_{\st i}$ belongs to a buyer client, then it returns the reward's leftover that the buyer can collect, i.e., $R(res, adr_{\st i}, \lc, inSize)\rightarrow \rewci$.    Then, the delivery with reward predicate $\qdelwr(pram,  adr_{\st i}, res, \lc, inSize)$ returns $1$ if $adr_{\st i}$ has sent $\xc$ amount to $sc$ and received at least $\xc+\rewci$ amount from it. Else, it returns $0$. 
+    
+    
+    
+    %
+%    Let also $G$ be a compensation function that takes as input  two parameters $(deps, m')$, where $deps$ is the amount of coins  that all $m+1$ parties  deposit; it returns the amount of compensation each honest party must receive, i.e., $G(deps, m')\rightarrow c'$. 
+    %
+
+ %
+  \end{definition}
+
+
+ \vspace{-2mm}
+
+
+   \begin{definition}  [\qUnFAbtwr: UnFair-Abort-with-Reward predicate]
+   %
+ Let $pram:=(\mathcal{G}, adr_{\st sc}, \xc)$ be the parameters defined above, and $Adr'\subset Adr$ be a set containing honest parties' addresses, $m' = |Adr'|$,  and   $adr_{\st i}\in Adr'$. Let also $G$ be a compensation function that takes as input  three parameters $(\depsc, adr_{\st i}, m')$, where $\depsc$ is the amount of coins that all $m+1$ parties deposit, $adr_{\st i}$ is an honest party's address, and $m' = |Adr'|$; it returns the amount of compensation each honest party must receive, i.e., $G(\depsc, ard_{\st i}, m')\rightarrow \xci$. Let $R$ be the reward function defined above, i.e., $R(res, adr_{\st i}, \lc, inSize)\rightarrow \rewci$, and let $\hat {pram}:=(res, \lc, inSize)$.  Then, predicate \qUnFAbtwr is defined as $\qUnFAbtwr(pram, \hat {pram}, G, R, \depsc, m', adr_{\st i})\rightarrow (a,b)$, where $a=1$ if $adr_{\st i}$ is an honest party's address which has sent $\xc$ amount to $sc$ and received  $\xc+\xci+\rewci$  from it, and $b=1$ if $adr_{\st i}$ is an auditor's address which received $\xci$  from $sc$. Otherwise, $a=b=0$. 
+  %
+  \end{definition}

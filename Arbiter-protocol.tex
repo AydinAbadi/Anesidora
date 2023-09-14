@@ -8,7 +8,13 @@
 
 \subsection{\zspa's Extension: \zspa with an External Auditor (\zspaa)}
 
-In this section, we present an extension of \zspa, called \zspaa which lets a (trusted) third-party auditor, \aud, help identify misbehaving clients in the \zspa and generate a vector of random polynomials. Informally, \zspaa requires that misbehaving parties are always detected, except with a negligible probability. \aud of this protocol will be invoked by \withFai when \withFai's smart contract detects that a combination of the messages sent by the clients is not well-formed. Later, in \withFai's proof, we will show that even a \emph{semi-honest} \aud who observes all messages that clients send to \withFai's smart contracts, cannot learn anything about their set elements. We present \zspaa in Figure \ref{fig:arbiter}. 
+In this section, we present an extension of \zspa, called \zspaa which lets a (trusted) third-party auditor, \aud, help identify misbehaving clients in the \zspa and generate a vector of random polynomials with a specific structure. Specifically, the functionality that \zspaa computes is defined as 
+%
+$f^{\st \zspaa}(\underbrace{\bot,..., \bot}_{\st m}, b, \bm\zeta)\rightarrow (\underbrace{(k, g, q),..., (k, g,q)}_{\st m},$ $\bm\mu^{\st (1)},..., \bm\mu^{\st (m)})$, where $g$ is the Markle tree's root built on the pseudorandom values $z_{\st i, j}$, $q$ is the hash value of the key used to generate the pseudorandom values, $m\geq 2$, $b$ is constant value, $\bm\zeta$ is a random polynomial of degree $1$, each $\bm\mu^{\st (j)} $ has the form $\bm\mu^{\st (j)} = \bm\zeta\cdot \bm\xi^{\st (j)}-\bm\tau^{\st (j)}$,  $\bm\xi^{\st (j)}$ is a random polynomial of degree $b-2$, and $\bm\tau^{\st (j)}=\sum\limits^{\st b-1}_{\st i=0}z_{\st i,j}\cdot x^{\st i}$. 
+
+
+
+Informally, \zspaa requires that misbehaving parties are always detected, except with a negligible probability. \aud of this protocol will be invoked by \withFai when \withFai's smart contract detects that a combination of the messages sent by the clients is not well-formed. Later, in \withFai's proof, we will show that even a \emph{semi-honest} \aud who observes all messages that clients send to \withFai's smart contracts, cannot learn anything about their set elements. We present \zspaa in Figure \ref{fig:arbiter}. 
 
 
 \input{Arbiter-algorithm}

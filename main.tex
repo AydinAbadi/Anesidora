@@ -241,7 +241,7 @@
 
 
 \author{%
-Aydin Abadi\thanks{aydin.abadi@ucl.ac.uk}\hspace{1mm} and \hspace{1mm} 
+Aydin Abadi\thanks{aydin.abadi@ucl.ac.uk}\hspace{1mm} and  \hspace{1mm} 
 Steven J. Murdoch\thanks{s.murdoch@ucl.ac.uk}
 \institute{University College London}}
 
@@ -252,8 +252,9 @@ Steven J. Murdoch\thanks{s.murdoch@ucl.ac.uk}
 
 
 \begin{abstract}
-In Private Set Intersection protocols (PSIs), a non-empty result always reveals something about the private input sets of the parties. Moreover, in various variants of PSI, not all parties necessarily receive or are interested in the result. Nevertheless, to date, the literature has assumed that those parties who do not receive or are not interested in the result still contribute their private input sets to the PSI for free, although doing so would cost them their privacy. In this work, for the first time, we propose a multi-party PSI, called ``\withRew'', that \emph{rewards} parties who contribute their private input sets to the protocol.  %
-\withRew is efficient; it mainly relies on symmetric key primitives and its computation and communication complexities are linear with the number of parties and set cardinality. It remains secure even if the majority of parties are corrupted by active colluding adversaries.
+In Private Set Intersection protocols (PSIs), a non-empty result always reveals something about the private input sets of the parties. Moreover, in various variants of PSI, not all parties necessarily receive or are interested in the result. Nevertheless, to date, the literature has assumed that those parties who do not receive or are not interested in the result still contribute their private input sets to the PSI for free, although doing so would cost them their privacy. In this work, for the first time, we propose a multi-party PSI, called ``\withRew'', that \emph{rewards} parties who contribute their private input sets to the protocol.  
+%
+\withRew is efficient; it relies on symmetric key primitives and its computation and communication complexities are linear with the number of parties and set cardinality. It remains secure even if the majority of parties are corrupted by active colluding adversaries.  Along the way, we devise the first fair multi-party PSI called ``\withFai'' and also propose the notion of \emph{unforgeable polynomials} each of which can be of independent interest.
 
 
 
@@ -270,6 +271,7 @@ In Private Set Intersection protocols (PSIs), a non-empty result always reveals 
 \input{OLE-plus}
 \input{counter-collusion-contracts.tex}
 \input{proof-of-poly-union}
+\input{error-prob}
 %\input{Peisoner-contract}
 %\input{Colluder-contract}
 %\input{Traitor-contract}

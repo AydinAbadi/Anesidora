@@ -1,0 +1,223 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{eopsi}
+Abadi, A., Terzis, S., Metere, R., Dong, C.: Efficient delegated private set
+  intersection on outsourced private datasets. IEEE TDSC  (2018).
+  \doi{10.1109/TDSC.2017.2708710}
+
+\bibitem{AbadiDMT22}
+Abadi, A., Dong, C., Murdoch, S.J., Terzis, S.: Multi-party updatable delegated
+  private set intersection. In: {FC} (2022)
+
+\bibitem{AbadiMZ21}
+Abadi, A., Murdoch, S.J., Zacharias, T.: Polynomial representation is tricky:
+  Maliciously secure private set intersection revisited. {IACR} Cryptol. ePrint
+  Arch.  (2021), \url{https://eprint.iacr.org/2021/1009}
+
+\bibitem{BadertscherGKRZ19}
+Badertscher, C., Gazi, P., Kiayias, A., Russell, A., Zikas, V.: Ouroboros
+  chronos: Permissionless clock synchronization via proof-of-stake. {IACR}
+  Cryptol. ePrint Arch.  (2019)
+
+\bibitem{BadertscherMTZ17}
+Badertscher, C., Maurer, U., Tschudi, D., Zikas, V.: Bitcoin as a transaction
+  ledger: {A} composable treatment. In: {CRYPTO} (2017)
+
+\bibitem{BeimelOO10}
+Beimel, A., Omri, E., Orlov, I.: Protocols for multiparty coin toss with
+  dishonest majority. In: Advances in Cryptology - {CRYPTO} 2010, 30th Annual
+  Cryptology Conference, Santa Barbara, CA, USA, August 15-19, 2010.
+  Proceedings (2010)
+
+\bibitem{Ben-EfraimNOP21}
+Ben{-}Efraim, A., Nissenbaum, O., Omri, E., Paskin{-}Cherniavsky, A.: Psimple:
+  Practical multiparty maliciously-secure private set intersection, eprint
+  arch.  (2021)
+
+\bibitem{DBLP:conf/stoc/BerenbrinkCSV00}
+Berenbrink, P., Czumaj, A., Steger, A., V{\"{o}}cking, B.: Balanced
+  allocations: the heavily loaded case. In: {STOC}. pp. 745--754 (2000)
+
+\bibitem{Blum82}
+Blum, M.: Coin flipping by telephone - {A} protocol for solving impossible
+  problems. In: COMPCON'82, Digest of Papers, Twenty-Fourth {IEEE} Computer
+  Society International Conference, San Francisco, California, USA, February
+  22-25, 1982. pp. 133--137. {IEEE} Computer Society (1982)
+
+\bibitem{BonehGHWW13}
+Boneh, D., Gentry, C., Halevi, S., Wang, F., Wu, D.J.: Private database queries
+  using somewhat homomorphic encryption. In: {ACNS} (2013)
+
+\bibitem{BrickellPSW07}
+Brickell, J., Porter, D.E., Shmatikov, V., Witchel, E.: Privacy-preserving
+  remote diagnostics. In: {CCS} (2007)
+
+\bibitem{ChandranD0OSS21}
+Chandran, N., Dasgupta, N., Gupta, D., Obbattu, S.L.B., Sekar, S., Shah, A.:
+  Efficient linear multiparty {PSI} and extensions to circuit/quorum {PSI}. In:
+  {CCS} (2021)
+
+\bibitem{ChengLCY20}
+Cheng, Y., Liu, Y., Chen, T., Yang, Q.: Federated learning for
+  privacy-preserving {AI}. Commun. {ACM}  (2020)
+
+\bibitem{DebnathD14}
+Debnath, S.K., Dutta, R.: A fair and efficient mutual private set intersection
+  protocol from a two-way oblivious pseudorandom function. In: {ICISC} (2014)
+
+\bibitem{DebnathD16}
+Debnath, S.K., Dutta, R.: New realizations of efficient and secure private set
+  intersection protocols preserving fairness. In: {ICISC} (2016)
+
+\bibitem{DebnathD16-}
+Debnath, S.K., Dutta, R.: Towards fair mutual private set intersection with
+  linear complexity. Secur. Commun. Networks  (2016)
+
+\bibitem{DBLP:conf/dbsec/DongCCR13}
+Dong, C., Chen, L., Camenisch, J., Russello, G.: Fair private set intersection
+  with a semi-trusted arbiter. In: {DBSec}. pp. 128--144 (2013)
+
+\bibitem{dong2017betrayal}
+Dong, C., Wang, Y., Aldweesh, A., McCorry, P., van Moorsel, A.: Betrayal,
+  distrust, and rationality: Smart counter-collusion contracts for verifiable
+  cloud computing. In: Proceedings of the 2017 ACM SIGSAC Conference on
+  Computer and Communications Security. pp. 211--227. ACM (2017)
+
+\bibitem{DBLP:journals/ibmrd/Dorn62}
+Dorn, W.S.: Generalizations of horner's rule for polynomial evaluation. {IBM}
+  Journal of Research and Development  (1962)
+
+\bibitem{DBLP:conf/asiacrypt/DuongPT20}
+Duong, T., Phan, D.H., Trieu, N.: Catalic: Delegated {PSI} cardinality with
+  applications to contact tracing. In: {ASIACRYPT} (2020)
+
+\bibitem{DBLP:conf/eurocrypt/FreedmanNP04}
+Freedman, M.J., Nissim, K., Pinkas, B.: Efficient private matching and set
+  intersection. In: {EUROCRYPT} (2004)
+
+\bibitem{GarayKL15}
+Garay, J.A., Kiayias, A., Leonardos, N.: The bitcoin backbone protocol:
+  Analysis and applications. In: Advances in Cryptology - {EUROCRYPT} (2015)
+
+\bibitem{GhoshNN17}
+Ghosh, S., Nielsen, J.B., Nilges, T.: Maliciously secure oblivious linear
+  function evaluation with constant overhead. In: {ASIACRYPT} (2007)
+
+\bibitem{GhoshN19}
+Ghosh, S., Nilges, T.: An algebraic approach to maliciously secure private set
+  intersection. In: {EUROCRYPT} (2019)
+
+\bibitem{GhoshS19}
+Ghosh, S., Simkin, M.: The communication complexity of threshold private set
+  intersection. In: {CRYPTO} (2019)
+
+\bibitem{DBLP:books/cu/Goldreich2004}
+Goldreich, O.: The Foundations of Cryptography - Volume 2, Basic Applications.
+  Cambridge University Press (2004)
+
+\bibitem{DBLP:conf/scn/InbarOP18}
+Inbar, R., Omri, E., Pinkas, B.: Efficient scalable multiparty private
+  set-intersection via garbled bloom filters. In: {SCN} (2018)
+
+\bibitem{IonKNPSS0SY20}
+Ion, M., Kreuter, B., Nergiz, A.E., Patel, S., Saxena, S., Seth, K., Raykova,
+  M., Shanahan, D., Yung, M.: On deploying secure computing: Private
+  intersection-sum-with-cardinality. In: {IEEE} European Symposium on Security
+  and Privacy, EuroS{\&}P 2020, Genoa, Italy, September 7-11, 2020 (2020)
+
+\bibitem{kamarascaling}
+Kamara, S., Mohassel, P., Raykova, M., Sadeghian, S.: Scaling private set
+  intersection to billion-element sets. In: {FC} (2014)
+
+\bibitem{DBLP:books/crc/KatzLindell2007}
+Katz, J., Lindell, Y.: Introduction to Modern Cryptography. CRC Press (2007)
+
+\bibitem{kerschbaum12}
+Kerschbaum, F.: Outsourced private set intersection using homomorphic
+  encryption. In: {ASIACCS} (2012)
+
+\bibitem{KiayiasRDO17}
+Kiayias, A., Russell, A., David, B., Oliynykov, R.: Ouroboros: {A} provably
+  secure proof-of-stake blockchain protocol. In: Advances in Cryptology -
+  {CRYPTO} 2017 - 37th Annual International Cryptology Conference, Santa
+  Barbara, CA, USA, August 20-24, 2017, Proceedings, Part {I} (2017)
+
+\bibitem{KiayiasZZ16}
+Kiayias, A., Zhou, H., Zikas, V.: Fair and robust multi-party computation using
+  a global transaction ledger. In: Fischlin, M., Coron, J. (eds.) {EUROCRYPT}
+  (2016)
+
+\bibitem{DBLP:conf/crypto/KissnerS05}
+Kissner, L., Song, D.X.: Privacy-preserving set operations. In: {CRYPTO} (2005)
+
+\bibitem{DBLP:conf/ccs/KolesnikovMPRT17}
+Kolesnikov, V., Matania, N., Pinkas, B., Rosulek, M., Trieu, N.: Practical
+  multi-party private set intersection from symmetric-key techniques. In: {CCS}
+  (2017)
+
+\bibitem{LuD20}
+Lu, L., Ding, N.: Multi-party private set intersection in vertical federated
+  learning. In: {IEEE} International Conference on Trust, Security and Privacy
+  in Computing and Communications, TrustCom 2020, Guangzhou, China, December
+  29, 2020 - January 1, 2021 (2020)
+
+\bibitem{MoranNS09}
+Moran, T., Naor, M., Segev, G.: An optimally fair coin toss. In: Theory of
+  Cryptography, 6th Theory of Cryptography Conference, {TCC} 2009, San
+  Francisco, CA, USA, March 15-17, 2009. Proceedings (2009)
+
+\bibitem{bitcoin}
+Nakamoto, S.: Bitcoin: A peer-to-peer electronic cash system. Tech. rep. (2019)
+
+\bibitem{NevoTY21}
+Nevo, O., Trieu, N., Yanai, A.: Simple, fast malicious multiparty private set
+  intersection. In: {CCS} '21: 2021 {ACM} {SIGSAC} Conference on Computer and
+  Communications Security (2021)
+
+\bibitem{DBLP:conf/ccs/PapamanthouTT08}
+Papamanthou, C., Tamassia, R., Triandopoulos, N.: Authenticated hash tables.
+  In: {ACM CCS}. pp. 437--448 (2008)
+
+\bibitem{Pedersen91}
+Pedersen, T.P.: Non-interactive and information-theoretic secure verifiable
+  secret sharing. In: {CRYPTO} (1991)
+
+\bibitem{RaghuramanR22}
+Raghuraman, S., Rindal, P.: Blazing fast {PSI} from improved {OKVS} and
+  subfield {VOLE}. In: Proceedings of the 2022 {ACM} {SIGSAC} Conference on
+  Computer and Communications Security, {CCS} 2022, Los Angeles, CA, USA,
+  November 7-11, 2022 (2022)
+
+\bibitem{Schneier0078909}
+Schneier, B.: Applied cryptography - protocols, algorithms, and source code in
+  C, 2nd Edition. Wiley (1996)
+
+\bibitem{TamrakarLPEPA17}
+Tamrakar, S., Liu, J., Paverd, A., Ekberg, J., Pinkas, B., Asokan, N.: The
+  circle game: Scalable private membership test using trusted hardware. In:
+  Proceedings of the 2017 {ACM} on Asia Conference on Computer and
+  Communications Security, AsiaCCS 2017, Abu Dhabi, United Arab Emirates, April
+  2-6, 2017 (2017)
+
+\bibitem{ThomasPYRKIBPPB19}
+Thomas, K., Pullman, J., Yeo, K., Raghunathan, A., Kelley, P.G., Invernizzi,
+  L., Benko, B., Pietraszek, T., Patel, S., Boneh, D., Bursztein, E.:
+  Protecting accounts from credential stuffing with password breach alerting.
+  In: {USENIX} Security (2019)
+
+\bibitem{ethereum}
+Wood, G., et~al.: Ethereum: A secure decentralised generalised transaction
+  ledger. Ethereum project yellow paper  (2014)
+
+\bibitem{ZhangLLJL19}
+Zhang, E., Liu, F., Lai, Q., Jin, G., Li, Y.: Efficient multi-party private set
+  intersection against malicious adversaries. In: {CCSW} (2019)
+
+\bibitem{c18}
+Zhao, Y., Chow, S.S.M.: Can you find the one for me? privacy-preserving
+  matchmaking via threshold {PSI}. ePrint Arch.  (2018)
+
+\end{thebibliography}

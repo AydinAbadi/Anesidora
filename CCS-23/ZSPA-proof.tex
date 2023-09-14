@@ -1,0 +1,69 @@
+% !TEX root =main.tex
+
+
+
+\section{Proof of \zspa}\label{sec::proof-of-zspa}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}
+For the sake of simplicity, we will assume the sender, which generates the result, sends the result directly to the rest of the parties, i.e., receivers, instead of sending it to a smart contract. We first consider the case in which the sender is corrupt. 
+
+
+
+\noindent\textbf{Case 1: Corrupt sender.}  Let $\mathsf{Sim}^{\st \zspa}_{\st S}$ be the simulator using a subroutine adversary, $\mathcal{A}_{\st S}$. $\mathsf{Sim}^{\st \zspa}_{\st S}$ works as follows. 
+%
+\begin{enumerate}
+%
+\item simulates  \ct  and receives the output value $k$ from $f_{\st \ct}$, as we are in $f_{\st \ct}$-hybrid model.
+%
+\item sends $k$ to TTP and receives back from it $m$ pairs, where each pair is of the form $( g,  q)$. 
+%
+\item sends $ k$ to $\mathcal{A}_{\st S}$ and receives back from it $m$ pairs  where each pair is of the form $( g',  q')$. 
+%
+\item checks whether the following equations hold (for each pair): $ g= g' \hspace{2mm} \wedge  \hspace{2mm}  q= q'$. If the two equations do not hold, then it aborts (i.e., sends abort signal $\Lambda$ to the receiver) and proceeds to the next step.
+%
+\item outputs whatever $\mathcal{A}_{\st S}$ outputs.
+%
+ \end{enumerate}
+ 
+ We first focus on the adversary’s output. In the real model, the only messages that the adversary receives are those messages it receives as the result of the ideal call to $f_{\st \ct}$. These messages have identical distribution to the distribution of the messages in the ideal model, as the \ct is secure. Now, we move on to the receiver’s output. We will show that the output distributions of the honest receiver in the ideal and real models are computationally indistinguishable. In the real model,  each element of pair $(g, p)$ is the output of a deterministic function on the output of $f_{\st \ct}$. We know the output of $f_{\st \ct}$ in the real and ideal models have an identical distribution, and so do the evaluations of deterministic functions (i.e., Merkle tree, $\mathtt{H}$, and $\mathtt{PRF}$) on them, as long as these three functions' correctness hold. Therefore, each pair $(g,q)$ in the real model has an identical distribution to pair $(g,  q)$ in the ideal model.  For the same reasons, the honest receiver in the real model aborts with the same probability as  $\mathsf{Sim}^{\st \zspa}_{\st S}$ does in the ideal model.  We conclude that the distributions of the joint outputs of the adversary and honest receiver in the real and ideal models are  (computationally) indistinguishable. 
+
+
+\
+
+\noindent\textbf{Case 2: Corrupt receiver.}   Let $\mathsf{Sim}^{\st \zspa}_{\st R}$ be the simulator that uses subroutine adversary $\mathcal{A}_{\st R}$. $\mathsf{Sim}^{\st \zspa}_{\st R}$ works as follows. 
+
+\begin{enumerate}
+%
+\item simulates   \ct  and receives the output value $ k$ from $f_{\st \ct}$.
+%
+\item sends $ k$ to TTP and receives back $m$ pairs of the form $( g,  q)$ from TTP. 
+%
+\item sends $( k,  g,  q)$ to $\mathcal{A}_{\st R}$ and outputs whatever  $\mathcal{A}_{\st R}$ outputs. 
+%
+ \end{enumerate}
+ 
+ 
+In the real model, the adversary receives two sets of messages, the first set includes the transcripts (including $ k$) it receives when it makes an ideal call to $f_{\st \ct}$ and the second set includes pair $(g, q)$. As we already discussed above (because we are in the  $f_{\st \ct}$-hybrid model) the distributions of the messages it receives from $f_{\st \ct}$ in the real and ideal models are identical. Moreover, the distribution of $f_{\st \ct}$'s output (i.e., $\bar k$ and $k$) in both models is identical; therefore, the honest sender's output distribution in both models is identical. As we already discussed,  the evaluations of deterministic functions (i.e., Merkle tree, $\mathtt{H}$, and $\mathtt{PRF}$) on $f_{\st \ct}$'s outputs have an identical distribution. Therefore, each pair $(g, q)$ in the real model has an identical distribution to the pair $(g, q)$ in the ideal model.  Hence, the distribution of the joint outputs of the adversary and honest receiver in the real and ideal models is indistinguishable.
+%
+\end{proof}
+
+In addition to the security guarantee (i.e., computation's correctness against malicious sender or receiver) stated by Theorem \ref{theorem::ZSPA-comp-correctness}, \zspa offers  (a) privacy against the public, and (b)  non-refutability. Informally, privacy here means that given the state of the contract (i.e., $g$ and  $q$), an external party cannot learn any information about any of the pseudorandom values,  $z_{\scriptscriptstyle j}$; while non-refutability means that if a party sends ``approved" then in future cannot deny the knowledge of the values whose representation is stored in the contract. %Furthermore, indistinguishability means that every $z_{\scriptscriptstyle j}$ ($1\leq j \leq m$) should be indistinguishable from a truly random value. 
+
+
+ \vspace{-2mm}
+\begin{theorem}
+If  $\mathtt{H}$ is preimage resistance, $\mathtt{PRF}$ is secure, the signature scheme used in the smart contract is secure (i.e., existentially unforgeable under chosen message attacks), and the blockchain is secure (i.e., offers persistence and liveness properties \cite{GarayKL15}) then \zspa offers (i) privacy against the public and (ii) non-refutability. 
+\end{theorem}
+ 
+ 
+
+\begin{proof}
+First, we focus on privacy. Since key $k$, for $\mathtt{PRF}$, has been picked uniformly at random and $\mathtt{H}$ is preimage resistance, the probability that given $g$ the adversary can find $k$ is negligible in the security parameter, i.e., $\negl(\lambda)$. Furthermore, because $\mathtt{PRF}$ is secure (i.e., its outputs are indistinguishable from random values) and  $\mathtt{H}$ is preimage resistance, given the Merkle tree's root $g$, the probability that the adversary can find a leaf node, which is the output of $\mathtt{PRF}$, is $\negl(\lambda)$ too. 
+
+Now we move on the non-refutability. Due to the persistency property of the blockchain, once a transaction/message goes more than $v$ blocks deep into the blockchain of one honest player (where $v$ is a security parameter), then it will be included in every honest player's blockchain with overwhelming probability, and it will be assigned a permanent
+position in the blockchain (so it will not be modified with an overwhelming probability). Also, due to the liveness property,   all transactions originating from honest parties will eventually end up at a depth of more than $v$ blocks in an honest player's blockchain; therefore, the adversary cannot
+perform a selective denial of service attack against honest account holders.  Moreover, due to the security of the digital signature (i.e., existentially unforgeable under chosen message attacks), one cannot deny sending the messages it sent to the blockchain and smart contract. 
+\end{proof}
+%%%%%%%%%%%

@@ -1,0 +1,83 @@
+% !TEX root =main.tex
+
+
+\section{Enhanced OLE's Protocol}\label{apndx:F-OLE-plus}
+
+
+
+The PSIs proposed in \cite{GhoshN19} use an enhanced version of the  \ole.  The enhanced \ole ensures that the receiver cannot learn anything about the sender's inputs,  in the case where it sets its input to $0$, i.e., $c=0$. The enhanced \ole's protocol (denoted by $\ole^{\st +}$) is presented in Figure \ref{fig:OLE-plus-protocol}. In this paper, $\ole^{\st +}$ is used as a subroutine in \vopr, in Section \ref{sec::vopr}. 
+
+
+
+%
+%The PSIs in \cite{GhoshN19} also use an enhanced version of the  OLE. In short, the enhanced OLE  ensures that the receiver cannot learn anything (other than a random value) about the sender's inputs,  in the case where it  sets its input to $0$, i.e., $c=0$. The enhanced OLE's ideal functionality (denoted by $\mathcal{F}_{\st \text{OLE}^{+}}$) and protocol  (denoted by $\text{OLE}^{\st +}$)  are presented in  Figures \ref{fig:OLE-plus-func} and \ref{fig:OLE-plus-protocol} respectively.
+
+
+
+
+
+
+%\begin{figure}[!htb]
+%\setlength{\fboxsep}{1pt}
+%\begin{center}
+%\begin{boxedminipage}{12.3cm}
+%
+%\begin{small}
+%
+%
+%\begin{enumerate}
+%
+%%\small{
+%\item Upon receiving a message $(\mathtt{inputS},(a, b))$ from the sender, where $a, b \in \mathbb{F} $, verify that there is no 
+%tuple stored; otherwise, ignore that message. Store $a$ and $b$ and send a message $(\mathtt{input})$ to the adversary, $\mathcal{A}$.
+%
+%
+%
+%\item Upon receiving a message $(\mathtt{inputR}, c)$ from the receiver, where $c \in \mathbb{F} $, verify that there is no 
+%value stored; otherwise, ignore the message. Store $c$ and send a message $(\mathtt{input})$ to $\mathcal{A}$.
+%
+%
+%\item Upon receiving a message $(\mathtt{deliver})$ from $\mathcal{A}$, check if both $(a, b)$ and $c$ have been stored; otherwise, ignore that message.  If $x \neq 0$, set $s = a\cdot c + b$. Otherwise, pick a uniformly random value, $s\stackrel{\st\$}\leftarrow  \mathbb{F} $,  and send $(\mathtt{output}, s)$  to the receiver. Ignore all further messages.
+%
+%
+%%}
+%\end{enumerate}
+%
+%\end{small}
+%\end{boxedminipage}
+%\end{center}
+%\caption{
+%\small {Enhanced oblivious linear function evaluation ($\text{OLE}^{\st +}$) ideal functionality, $\mathcal{F}_{\st\text{OLE}^{+}}$  \cite{GhoshN19}}.} 
+%\label{fig:OLE-plus-func}
+%\end{figure}
+
+
+
+
+\begin{figure}[ht]
+\setlength{\fboxsep}{1pt}
+\begin{center}
+\begin{boxedminipage}{8.5cm}
+\begin{small}
+\begin{enumerate}[leftmargin=5.5mm]
+%
+\item  Receiver (input $c \in \mathbb{F}_{\st p} $): Pick a random value, $r\stackrel{\st\$}\leftarrow  \mathbb{F}_{\st p} $, and send  $(\mathtt{inputS}, (c^{\st -1}, r))$ to the first $\mathcal{F}_{\st\ole}$.
+%
+%Upon receiving a message $(\mathtt{inputS},(a, b))$ from the sender, where $a, b \in \mathbb{F} $, verify that there is no  tuple stored; otherwise, ignore that message. Store $a$ and $b$ and send a message $(\mathtt{input})$ to the adversary, $\mathcal{A}$.
+%
+\item Sender (input $a, b \in \mathbb{F}_{\st p} $): Pick a random value, $u \stackrel{\st\$}\leftarrow  \mathbb{F}_{\st p} $, and send $(\mathtt{inputR}, u)$ to the first $\mathcal{F}_{\st\ole}$, to learn $t =  c^{\st -1}\cdot u
+ + r$. Send $(\mathtt{inputS},(t + a, b - u))$ to the second $\mathcal{F}_{\st\ole}$.
+%
+\item Receiver: Send $(\mathtt{inputR}, c)$ to the second $\mathcal{F}_{\st\ole}$ and obtain $k = (t+a)\cdot c+(b-u)=a\cdot c + b + r\cdot c$. Output $s=k - r\cdot c=a\cdot c + b$.
+
+%}
+\end{enumerate}
+\end{small}
+\end{boxedminipage}
+\end{center}
+ \vspace{-2mm}
+\caption{
+\small {Enhanced Oblivious Linear function Evaluation  ($\ole^{\st +}$)  \cite{GhoshN19}}.} 
+\label{fig:OLE-plus-protocol}
+ \vspace{-2mm}
+\end{figure}

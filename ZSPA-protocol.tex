@@ -16,9 +16,9 @@
 \begin{enumerate}
 \item[$\bullet$]    {Parties.} A set of clients $\{    A_{\st 1},...,  A_{\st m}\}$.
 %
-\item[$\bullet$]    {Input.}  $m$: the total number of participants, $adr$: a deployed smart contract's address, and $b$: the total number of vectors. Let $b'=b-1$. 
+\item[$\bullet$]    {Input.}  $m$: the total number of participants, $adr$: an address of a deployed smart contract which maintains the clients' addresses and accepts messages only from them, and $b$: the total number of vectors. Let $b'=b-1$. 
 %
-\item[$\bullet$]   {Output.}  $k$: a secret key that generates $b$ vectors $[z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle 0,m}],...,[z_{\scriptscriptstyle b',1},...,z_{\scriptscriptstyle b',m}]$ of pseudorandom values, $h$: hash of the key,  $g$: a Merkle tree's root, and a vector of signed messages. 
+\item[$\bullet$]   {Output.}  $k$: a secret key that generates $b$ vectors $[z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle 0,m}],...,[z_{\scriptscriptstyle b',1},...,z_{\scriptscriptstyle b',m}]$ of pseudorandom values, $q$: hash of the key,  $g$: a Merkle tree's root, and a vector of (signed) messages. 
 
 
 %, such that the sum of each vector's elements equals zero: $\sum\limits^{\scriptscriptstyle m}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}=0$. 
@@ -42,16 +42,27 @@ All participants run a coin-tossing protocol to agree on $\mathtt{PRF}$'s key, $
 
 \end{enumerate}
 
-\item\label{ZSPA:verify}{\textbf{Verification.} $\mathtt{Verify}(k, g, q, m)\rightarrow (a, s)$}. 
-
-Each party checks if, all $z_{\scriptscriptstyle i,j}$ values, the root $g$, and key's hash $q$ have been correctly generated, by retaking  step \ref{ZSPA:val-gen}. If the checks pass, it sets $a=1$,  sets $s$ to a singed ``approved'' message, and sends $s$ to $adr$. Otherwise, it aborts by returning $a=0$ and $s = \bot$. 
-
-
+\item\label{ZSPA:verify}{\textbf{Verification.} $\mathtt{Verify}(k, g, q, m, flag)\rightarrow (a, s)$}. 
+%
+Each party $A_{\st t}$ checks if, all $z_{\scriptscriptstyle i,j}$ values, the root $g$, and key's hash $q$ have been correctly generated, by retaking  step \ref{ZSPA:val-gen}. 
+%
+\begin{itemize}
+\item If the checks pass, then it sets $a=1$ and
+\begin{itemize}
+\item if $flag=A$, where $A\in \{    A_{\st 1},...,  A_{\st m}\}$, then  it sets $s$ to a (signed) ``approved'' message, and sends $s$ to $adr$
+\item  if $flag= A$, where $A\notin \{    A_{\st 1},...,  A_{\st m}\}$, then it sets $s = \bot$. 
+\end{itemize}
+%it sets $a=1$,  sets $s$ to a signed ``approved'' message, and sends $s$ to $adr$. 
+\item If the checks do not pass, it aborts by returning $a=0$ and $s = \bot$. 
+\end{itemize}
+%\item\label{ZSPA:verify}\textbf{Sending-approval.} $\mathtt{Approve}(a)\rightarrow s$.
+%Each party  sets $s$ to a signed ``approved'' message if $a=1$, and sends $s$ to $adr$. Otherwise, it sets $s = \bot$ and aborts if $a=0$. 
+%
  \end{enumerate}
 }
  \end{tcolorbox}
 \end{center}
-\caption{Zero-sum Pseudorandom Values Agreement (\zspa) } 
+\caption{Zero-sum Pseudorandom Values Agreement (\zspa). The use of $flag$ allows an external party (e.g., an auditor) to locally run the verification without having to send any messages to the smart contract.} 
 \label{fig:ZSPA}
 \end{figure}
 
