@@ -115,7 +115,7 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
  
 
  
-
+\vspace{-3mm}
   
 \input{Sub-protocols.tex}
   
@@ -155,12 +155,14 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
  
  
 
-
+\vspace{-2mm}
   
 \subsection{An Overview of \withFai (\fpsi)}\label{Fair-PSI-Protocol}
 %This section presents \fpsi, a protocol that realises \p. 
 
 %\subsubsection{An Overview.} 
+
+\vspace{-1mm}
 
 At a very high level, \withFai (\fpsi) works as follows. First, each client encodes its set elements into a polynomial. All clients sign a smart contract \scf and deposit a predefined amount of coins into it.  One of the clients as a dealer, $D$, randomises the rest of the clients' polynomials and imposes a certain structure to their polynomials. The clients also randomise $D$'s polynomials. Next, all clients send their randomised polynomials to \scf.  
 
@@ -194,10 +196,8 @@ One of the novelties of \fpsi is a lightweight verification mechanism which lets
 
 Now, we describe \fpsi in more detail. First, all clients sign and deploy \scf. Each of them put a certain amount of deposit into it. Then, they together run \ct to agree on a key, $mk$, that will be used to generate a set of blinding polynomials to hide the final result from the public. Next, each client locally maps its set elements to a hash table and represents the content of each hash table's bin as a polynomial, $\bm\pi$. After that, for each bin, the following steps are taken.  All clients, except $D$, engage in \zspaa to agree on a set of pseudorandom blinding factors such that their sum is zero.  %The clients will use these polynomials to hide from $D$ the polynomials that they will send to \scf. 
 
-Then, $D$ randomises and constructs an unforgeable polynomial on each client's polynomial, $\bm\pi$. To do that, $D$ and every other client, say $C$, engage in \vopr that returns to $C$ a polynomial. $D$ and every $C$ invoke \vopr again to randomise $D$'s polynomial. \vopr returns to $C$ another unforgeable polynomial. Note, the output of \vopr reveals nothing about any client's original polynomial $\bm\pi$, as this polynomial has been blinded with another secret random polynomial by $D$, during the execution of \vopr. Each $C$ sums the two polynomials,  blinds the result (using the output of  \zspaa), and sends it to \scf. 
-
-
-
+Then, $D$ randomises and constructs an unforgeable polynomial on each client's polynomial, $\bm\pi$. To do that, $D$ and every other client, say $C$, engage in \vopr that returns to $C$ a polynomial. $D$ and every $C$ invoke \vopr again to randomise $D$'s polynomial. \vopr returns to $C$ another unforgeable polynomial. Note, the output of \vopr reveals nothing about any client's original polynomial $\bm\pi$, as this polynomial has been blinded with another secret random polynomial by $D$, during the execution of \vopr. Each $C$ sums the two polynomials blinds the result (using the output of  \zspaa), and sends it to \scf. 
+%
 After all of the clients send their input polynomials to \scf, $D$ sends to \scf a \emph{switching polynomial} that will let \scf obliviously switch the secret blinding polynomials used by $D$ (during the execution of \vopr) to blind each client's original polynomial $\bm\pi$  to another blinding polynomial that all clients can generate themselves, by using key $mk$.  %The switching polynomial is constructed in a way that does not affect the verification of unforgeable polynomials. 
 
 
@@ -353,11 +353,11 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  \begin{enumerate}
  \item\label{gen-unmaking-poly} computes polynomial $\bm\chi^{  {  {(D, C)}}}$ as follows. 
  %
- \vspace{-1mm}
+ \vspace{-.2mm}
  %
  $$\bm\chi^{ \st {  {(D, C)}}}=\bm\zeta\cdot \bm\eta^{ \st {  {(D,C)}}}-(\bm\gamma^{ \st {  {(D,C)}}}+\bm\delta^{ \st {  {(D,C)}}})$$
  
- \vspace{-1mm}
+ \vspace{-.3mm}
  
   where $\bm\eta^{ \st {  {(D,C)}}}$ is a fresh random polynomial of degree $3d+1$. 
   
@@ -444,7 +444,9 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
 
 %\begin{remark}
 
-We refer readers to Appendix \ref{sec::Discussion-justitia} for further discussion on $\withFai$ that includes (i) the unsuitability of strawman approaches (i.e., using a server-aided PSI or charging the buyer a flat fee), (ii) how to remove the check in step \ref{JUS::check-non-zero-coeff}, and (iii) the main challenges that we needed to overcome during the design of  $\withFai$. Next, we present a theorem that formally states the security of \fpsi. 
+We refer readers to Appendix \ref{sec::Discussion-justitia} for a more in-depth discussion of $\withFai$ which encompasses (i) the inadequacy of strawman approaches such as using a server-aided PSI or charging the buyer a flat fee, (ii) instructions on how to eliminate the check in step \ref{JUS::check-non-zero-coeff}, (iii) an outline of the primary challenges we addressed during $\withFai$ design, and (iv) setting up of concrete (security) parameters.  
+
+Next, we present a theorem that formally states the security of \fpsi. 
  
  \vspace{-2mm}
  

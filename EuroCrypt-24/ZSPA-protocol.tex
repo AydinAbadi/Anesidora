@@ -6,7 +6,7 @@
 \begin{figure}[ht]%[!htbp]
 \setlength{\fboxsep}{1pt}
 \begin{center}
-    \begin{tcolorbox}[enhanced,width=4.77in, height=100mm,right=.5mm,
+    \begin{tcolorbox}[enhanced,width=4.77in, height=95mm,right=.5mm,
     drop fuzzy shadow southwest,
     colframe=black,colback=white]
 
@@ -34,7 +34,7 @@ All participants run a coin-tossing protocol to agree on $\mathtt{PRF}$'s key, $
 
 \item for every $i$ ($0\leq i \leq b'$), generates $m$ pseudorandom values: 
 %
-\vspace{-2mm}
+\vspace{-3mm}
 %
  $$\forall j, 1\leq j \leq m-1: z_{\scriptscriptstyle i,j}=\mathtt{PRF}(k,i||j), \hspace{5mm} z_{\scriptscriptstyle i,m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}$$
  %
@@ -47,7 +47,7 @@ All participants run a coin-tossing protocol to agree on $\mathtt{PRF}$'s key, $
 
 \item\label{ZSPA:verify}{\textbf{Verification.} $\mathtt{Verify}(k, g, q, m, flag)\rightarrow (a, s)$}. 
 %
-Each party $A_{\st t}$ checks if, all $z_{\scriptscriptstyle i,j}$ values, the root $g$, and key's hash $q$ have been correctly generated, by retaking  step \ref{ZSPA:val-gen}. 
+Each $A_{\st t}$ checks if, all $z_{\scriptscriptstyle i,j}$ values, the root $g$, and key's hash $q$ have been correctly generated, by retaking  step \ref{ZSPA:val-gen}. 
 %
 \begin{itemize}
 \item If the checks pass, then it sets $a=1$ and
@@ -65,8 +65,8 @@ Each party $A_{\st t}$ checks if, all $z_{\scriptscriptstyle i,j}$ values, the r
 }
  \end{tcolorbox}
 \end{center}
-\vspace{-4mm}
-\caption{Zero-sum Pseudorandom Values Agreement (\zspa). Note, $flag$ lets an external auditor locally run the verification without having to send a message to the smart contract.} 
+\vspace{-4.3mm}
+\caption{Zero-sum Pseudorandom Values Agreement (\zspa). $flag$ lets an external auditor locally run the verification without having to send a message to the smart contract.} 
 \label{fig:ZSPA}
 \vspace{-4mm}
 \end{figure}

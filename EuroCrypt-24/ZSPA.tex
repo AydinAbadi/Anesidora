@@ -1,7 +1,7 @@
 % !TEX root =main.tex
 
 
-%\vspace{-1mm}
+\vspace{-3mm}
 \subsection{Zero-sum Pseudorandom Values Agreement Protocol (\zspa)}
 \vspace{-1mm}
 
@@ -22,7 +22,7 @@ Then, it constructs a Merkel tree on top of the pseudorandom values and stores o
 \vspace{-3.5mm}
 \input{ZSPA-protocol}
 
-\vspace{-2mm}
+%\vspace{-2mm}
 \begin{theorem}\label{theorem::ZSPA-comp-correctness}
 Let $f^{\st \zspa}$ be the functionality defined above. If \ct is secure against a malicious adversary and the correctness of $\mathtt{PRF}$, $\mathtt{H}$, and Merkle tree hold, then \zspa,  in Figure \ref{fig:ZSPA}, securely computes $f^{\st \zspa}$ in the presence of $m-1 $ malicious adversaries. 
 \end{theorem}

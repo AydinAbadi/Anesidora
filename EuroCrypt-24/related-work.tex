@@ -3,18 +3,22 @@
 
 \vspace{-2.5mm}
 \section{Related Work}\label{sec::related-work}
-
+\vspace{-1mm}
 
 Since their introduction in \cite{DBLP:conf/eurocrypt/FreedmanNP04}, various PSIs have been designed. PSIs can be divided into \textit{traditional} and \textit{delegated} ones.  
 %
 In \textit{traditional} PSIs, data owners interactively compute the result using their local data. 
 %
-Recently, Raghuraman and Rindal \cite{RaghuramanR22} proposed two two-party PSIs, one secure against semi-honest/passive and the other against malicious/active adversaries. To date, these two protocols are the fastest two-party PSIs. They mainly rely on  Oblivious Key-Value Stores (OKVS) data structure and Vector Oblivious Linear Evaluation (VOLE). The protocols' computation cost is $O(c)$, where $c$ is  a set's cardinality.  They also impose $O(c\log c^{\st 2}+\kappa)$ and $O(c\cdot \kappa)$ communication costs in the semi-honest and malicious models respectively, 
+Recently, Raghuraman and Rindal \cite{RaghuramanR22} proposed two two-party PSIs, one secure against semi-honest/passive and the other against malicious/active adversaries. To date, these two protocols are the fastest two-party PSIs. They mainly rely on  Oblivious Key-Value Stores (OKVS) data structure and Vector Oblivious Linear Evaluation (VOLE). These PSIs' computation cost is $O(c)$, where $c$ is  a set's cardinality.  They also impose $O(c\log c^{\st 2}+\kappa)$ and $O(c\cdot \kappa)$ communication costs in the semi-honest and malicious models respectively, 
 where 
 %$l$ is a set element's bit-size, and  
 $\kappa$ is a security parameter.  
 %
-Also, researchers designed PSIs that  let multiple (i.e., more than two) parties efficiently compute the intersection. The multi-party PSIs in  \cite{DBLP:conf/scn/InbarOP18,DBLP:conf/ccs/KolesnikovMPRT17} are secure against  passive adversaries while those in \cite{Ben-EfraimNOP21,GhoshN19,ZhangLLJL19,DBLP:conf/ccs/KolesnikovMPRT17,NevoTY21} were designed to remain secure against  active ones. Abadi \et  \cite{AbadiMZ21} showed that the PSIs in  \cite{GhoshN19} are susceptible to several attacks.  To date, the  protocols  in   \cite{DBLP:conf/ccs/KolesnikovMPRT17} and  \cite{NevoTY21} are the most  efficient multi-party PSIs  designed to be  secure against passive and active  adversaries respectively. These protocols are secure even if  the majority of parties are corrupt.  
+Also, researchers designed PSIs that enable multiple (i.e., more than two) parties to efficiently compute the intersection. The multi-party PSIs in  \cite{DBLP:conf/scn/InbarOP18,DBLP:conf/ccs/KolesnikovMPRT17} are secure against  passive adversaries while those in \cite{Ben-EfraimNOP21,GhoshN19,ZhangLLJL19,DBLP:conf/ccs/KolesnikovMPRT17,NevoTY21} were designed to remain secure against active ones. 
+%
+%Abadi \et  \cite{AbadiMZ21} showed that the PSIs in  \cite{GhoshN19} are susceptible to several attacks.  
+%
+To date, the  protocols  in   \cite{DBLP:conf/ccs/KolesnikovMPRT17} and  \cite{NevoTY21} are the most  efficient multi-party PSIs  designed to be  secure against passive and active  adversaries respectively. These protocols are secure even if  the majority of parties are corrupt.  
 %
 %The PSIs in  \cite{DBLP:conf/ccs/KolesnikovMPRT17,NevoTY21} to keep the overall costs low and avoid requiring all clients to interact with each other in all steps of the protocols, use a ``leader'' client which interacts with the rest of the clients. 
 %
@@ -35,7 +39,7 @@ Dong \et proposed a ``fair'' two-party PSIs \cite{DBLP:conf/dbsec/DongCCR13} tha
  
 The protocol in \cite{eopsi} is the first PSI that efficiently supports repeated delegation in the semi-honest model. It uses the polynomial representation of sets, pseudorandom function, and hash table. Its communication and computation complexities are $O(h\cdot d^{\st 2})$ and $O(h\cdot d)$ respectively, where $h$ is the total number of bins in the hash table, $d$ is a bin's capacity (often $d=100$), and $h\cdot d$ is linear with $c$.  
 %
-Recently, a multi-party PSI that supports repeated delegation and efficient \emph{updates} has been proposed in \cite{AbadiDMT22}. It is also in the semi-honest model and uses a pseudorandom function, hash table, and Bloom filters. It imposes $O(h\cdot d^{\st 2}\cdot m)$ and $O(h\cdot d\cdot m)$  computation and communication costs respectively, during the PSI computation. It also imposes $O(d^{\st 2})$  computation and communication overheads, during the update phase.  Its runtime, during the PSI computation, is up to two times faster than the  PSI in \cite{eopsi}. It is yet to be seen how a fair delegated (two/multi-party) PSI can be designed.
+Recently, a multi-party PSI that supports repeated delegation and efficient \emph{updates} has been proposed in \cite{AbadiDMT22}. It is also in the semi-honest model. It imposes $O(h\cdot d^{\st 2}\cdot m)$ and $O(h\cdot d\cdot m)$  computation and communication costs respectively, during the PSI computation. It also imposes $O(d^{\st 2})$  computation and communication overheads, during the update phase.  Its runtime, during the PSI computation, is up to two times faster than the  PSI in \cite{eopsi}. It is yet to be seen how a fair delegated (two/multi-party) PSI can be designed.
 
 
 

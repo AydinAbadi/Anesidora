@@ -18,23 +18,20 @@ Secure Multi-Party Computation (MPC)  allows multiple mutually distrustful parti
 
 
 
-Two facts about PSIs exist: (i) a non-empty result always reveals something about the parties' private input sets (i.e., the set elements that are in the intersection), and (ii) various variants of PSIs do not output the result to all parties, even in those PSIs that do,  not all of the parties are necessarily interested in it.  Given these facts, a natural question arises:  
-
-
-
+Two facts about PSIs exist: (i) a non-empty result always reveals something about the parties' private input sets (i.e., the set elements that are in the intersection), and (ii) various variants of PSIs do not output the result to all parties, even in those PSIs that do,  not all of the parties are necessarily interested in it.  Given these facts, a natural question arises:   
+%
+%\vspace{-2mm}
 %\begin{center}
-%\emph{Why do the parties that do not receive the result or are not interested in it participate in a PSI which would ultimately reveal some information about their private inputs?}
-%\end{center}
-
-\vspace{-2mm}
-\begin{center}
 %\emph{How can we incentivise the parties that do not receive the result or\\ are not interested in it to participate in a PSI?}
 \emph{How can we incentivise parties that neither receive the result nor express interest in it to participate in a PSI?}
-\end{center}
-\vspace{-2mm}
+%\end{center}
+%\vspace{-2mm}
 
 
-To date, the literature has not answered the above question. The literature has assumed that all parties will participate in a PSI for free and bear the privacy cost (in addition to computation and computation overheads imposed by the PSI).\footnote{Directly combining a multi-party PSI with a payment mechanism that always charges a buyer (who initiates the PSI computation and is interested in the result) a fixed amount is problematic. Because, it (1) forces the buyer to pay even if some malicious clients affect the results' correctness making the buyer learn an incorrect result while they learn the correct result, as there exists no fair multi-party PSI in the literature, and (2) forces the buyer to pay an amount independent of the exact size of the intersection; if it has to pay more than what it should pay for the exact intersection, then the buyer would be discouraged to participate in the protocol. If the buyer has to pay less than what it should pay for the exact intersection, then other clients would be discouraged to participate in the protocol.} 
+As of now, the literature has yet to address the question mentioned above. It has commonly assumed that all parties would engage in a PSI for free, leading them to bear the privacy cost in addition to the computational and overhead burdens imposed by the PSI.\footnote{Combining a multi-party PSI with a payment mechanism that consistently charges a fixed amount to the initiating buyer presents significant issues. Firstly, this approach compels the buyer to pay, even if malicious clients tamper with result accuracy, enabling them to gain knowledge without the buyer learning the correct result, as there is no existing fair multi-party PSI solution in the literature. Secondly, it enforces a fixed fee irrespective of the actual intersection size. Overcharging dissuades buyers from participation while undercharging discourages other clients from engaging in the protocol. This highlights the need for a more equitable and flexible payment model in such scenarios.}
+
+
+%\footnote{Directly combining a multi-party PSI with a payment mechanism that always charges a buyer (who initiates the PSI computation and is interested in the result) a fixed amount is problematic. Because, it (1) forces the buyer to pay even if some malicious clients affect the results' correctness making the buyer learn an incorrect result while they learn the correct result, as there exists no fair multi-party PSI in the literature, and (2) forces the buyer to pay an amount independent of the exact size of the intersection; if it has to pay more than what it should pay for the exact intersection, then the buyer would be discouraged to participate in the protocol. If the buyer has to pay less than what it should pay for the exact intersection, then other clients would be discouraged to participate in the protocol.} 
 %
 In this work, we answer the above question for the first time. We present a multi-party PSI, called ``\withRew'', that allows a buyer who initiates the PSI computation (and is interested in the result) to pay other parties proportionate to the number of elements it learns about other parties' private inputs. 
 %

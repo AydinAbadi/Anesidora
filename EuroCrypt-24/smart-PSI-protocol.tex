@@ -187,7 +187,7 @@ $\mkgen(com_{\st 1,1},...,com_{\st d,h})\rightarrow g$. %Let $\mathtt{MT}^{\st g
 \end{enumerate}
 
 
-\item\label{e-psi::invoke-remainer-F-PSI} All clients in $\cl$   run steps \ref{ZSPA}--\ref{compute-res-poly} of \fpsi, where each client now deposits (in the $\mathcal{SC}_{\fpsi}$) $\yc'$ amount where $\yc'>\Smin\cdot \vc+{\chc}$. Recall, at the end of step \ref{compute-res-poly}  of \fpsi for each $j$-th bin (i) a random polynomial $\bm\zeta$ has been registered in $\mathcal{SC}_{\fpsi}$, (ii) a polynomial $\bm\phi$ (blinded by a random polynomial $\bm\gamma'$) has been extracted by $\mathcal{SC}_{\fpsi}$, and (iii) $\mathcal{SC}_{\fpsi}$  has checked this polynomial's  correctness. If the latter check:
+\item\label{e-psi::invoke-remainer-F-PSI} All clients in $\cl$   run steps \ref{ZSPA}--\ref{compute-res-poly} of \fpsi, where each client now deposits (in the $\mathcal{SC}_{\fpsi}$) $\yc'$ amount where $\yc'>\Smin\cdot \vc+{\chc}$. Recall, at the end of step \ref{compute-res-poly}  of \fpsi for each $j$-th bin (i) a random polynomial $\bm\zeta$ is registered in $\mathcal{SC}_{\fpsi}$, (ii) a polynomial $\bm\phi$ (blinded by a random polynomial $\bm\gamma'$) is extracted by $\mathcal{SC}_{\fpsi}$, and (iii) $\mathcal{SC}_{\fpsi}$  checkes this polynomial's  correctness. If the latter check:
 
 \begin{itemize}
 \item[$\bullet$] passes (i.e., $Flag=True$), then all parties run step \ref{F-PSI::flag-is-true} of \fpsi (with a minor difference, see Appendix \ref{sec::Extracting-Elements-in-Intersection}).  In this case, each party receives $\yc'$ amount it deposited in $\mathcal{SC}_{\fpsi}$. They proceed to step \ref{smart-PSI::extractors} below.
@@ -253,8 +253,11 @@ It determines to which bin the encrypted value belongs, i.e., ${ {  {j}}}=\matht
 \end{enumerate}
 
 
- \vspace{-1mm}
-In Appendix \ref{sec::Annesidora-challenges}, we explain the main challenges that we needed to address during the protocol design (including rewarding clients proportionate to the intersection size and dealing with extractors’ collusion). We refer readers to Appendix \ref{sec::Discussion-Anesidora} for further discussion on \withRew (which explains the unsuitability of a  naive approach and why hash-based padding and double-layered commitment are used). 
+ \vspace{-2mm}
+ In Appendix \ref{sec::Annesidora-challenges}, we elaborate on the primary challenges we had to confront during the protocol design, which encompassed rewarding clients proportionately to the intersection size and managing collusions among extractors. Additionally, we direct readers to Appendix \ref{sec::Discussion-Anesidora} for a more comprehensive discussion of \withRew, where we elucidate why a naive approach is inadequate and provide insights into the use of hash-based padding and double-layered commitment.
+ 
+ 
+ 
 
  \vspace{-2mm}
  \begin{theorem}\label{theorem::E-PSI-security}

@@ -1,15 +1,17 @@
 % !TEX root =main.tex
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 \section{Preliminaries}
 
 
+\vspace{-2mm}
+\input{notation-Table}
 %\subsection{Notations}
 
 %Table \ref{table:notation-table}summarises the notations used in this paper. 
 
-
+\vspace{-2mm}
 
 
 \input{short-security-model}
@@ -26,14 +28,14 @@ Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, b
 
 %Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, beyond offering a decentralised currency,  support computations on transactions. In this setting, often a certain computation logic is encoded in a computer program, called a \emph{``smart contract''}. To date, Ethereum is the most predominant cryptocurrency framework that enables users to define arbitrary smart contracts. In this framework,  contract code is stored on the blockchain and executed by all parties (i.e., miners) maintaining the cryptocurrency,  when the program inputs are provided by transactions. The program execution's correctness is guaranteed by the security of the underlying blockchain components. To prevent a denial-of-service attack, the framework requires a transaction creator to pay a  fee, called \emph{``gas''}, depending on the complexity of the contract running on it. 
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 \subsection{Counter Collusion Smart Contracts}\label{Counter-Collusion-Smart-Contracts}
 \vspace{-.5mm}
 
 To let a party, e.g., a client, efficiently delegate a computation to a  couple of potentially colluding third parties, e.g., servers, Dong   \et \cite{dong2017betrayal} proposed two main smart contracts, ``Prisoner's Contract'' ($\SCpc$) and ``Traitor's Contract'' (\SCtc).  
 %
-$\SCpc$ is signed by the client and the servers. This contract tries to incentivize correct computation by using the following idea. It requires each server to pay a deposit before the computation is delegated. It is equipped with an external auditor that is invoked to detect a misbehaving server when the servers provide non-equal results. 
+$\SCpc$ is signed by the client and the servers. This contract aims to incentivise correct computation. It requires each server to pay a deposit before the computation is delegated. It is equipped with an external auditor that is invoked to detect a misbehaving server when the servers provide non-equal results. 
 
 
 
@@ -72,10 +74,10 @@ If a server behaves honestly, then it can withdraw its deposit. But, if a cheati
 %
 \vspace{-3mm}
 \subsection{Pseudorandom Function and Permutation}
-\vspace{-.5mm}
+\vspace{-1mm}
 
 A pseudorandom function is a deterministic function that takes a key of length $\lambda$ and an input; and outputs a value  indistinguishable from that of  a truly random function.  In this paper, we use pseudorandom functions:   $\mathtt {PRF}: \{0,1\}^{\st \lambda}\times \{0,1\}^{\st *} \rightarrow  \mathbb{F}_{\st p}$, where $\log_{\st 2}(p)=\lambda$ is the security parameter. In practice, a pseudorandom function can be obtained from an efficient block cipher \cite{DBLP:books/crc/KatzLindell2007}. 
-
+%
 The definition of a pseudorandom permutation, $\mathtt {PRP}: \{0,1\}^{\st \lambda}\times \{0,1\}^{\st *} \rightarrow  \mathbb{F}_{\st p}$, is similar to that of a pseudorandom function, with a difference, it is required  $\PRP(k,.)$ to be indistinguishable from a uniform permutation, instead of a uniform function. %In cryptographic schemes that involve $\PRP$, sometimes honest parties may require to compute the inverse of pseudorandom permutation, i.e., $\mathtt {PRP}^{\st -1}(k, .)$, as well. In this case, it would require that $\PRP(k,.)$ be indistinguishable from a uniform permutation even if the distinguisher is additionally given oracle access to the inverse of the permutation. 
 
 
@@ -88,7 +90,7 @@ The definition of a pseudorandom permutation, $\mathtt {PRP}: \{0,1\}^{\st \lamb
 
 \input{short-commitment}
 
-\vspace{-2mm}
+\vspace{-1mm}
 
 \subsection{Hash Tables}
 \vspace{-.5mm}
@@ -99,14 +101,14 @@ A hash table is an array of   bins each of which can hold a set of elements. It 
 
 %\subsection{Merkel Tree}
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 \input{Merkle-tree-short}
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 \subsection{Polynomial Representation of Sets}\label{sec::poly-rep}
-\vspace{-.5mm}
+\vspace{-1mm}
 
 The idea of using a polynomial to represent a set's elements was proposed by Freedman  \et in \cite{DBLP:conf/eurocrypt/FreedmanNP04}. Since then,   the idea has been widely used,  e.g., in \cite{GhoshS19,DBLP:conf/crypto/KissnerS05}. In this representation, set elements $S=\{s_{\st 1},...,s_{\st d}\}$ are defined over a finite field $\mathbb{F}_{\st p}$ and  set $S$ is represented as a polynomial of   form: $\mathbf{p}(x)=\prod\limits ^{\st {d}}_{\st i=1}(x-s_{\st i})$, where $\mathbf{p}(x) \in \mathbb{F}_{\st p}[X]$ and $\mathbb{F}_{\st p}[X]$ is a polynomial ring.  Often a   polynomial,  $\mathbf{p}(x)$, of degree $d$ is  represented in the ``coefficient form'' as follows:  $\mathbf{p}(x)=a_{\st 0}+a_{\st 1}\cdot x+...+ a_{\st d}\cdot x^{\st d}$. The form $\prod\limits ^{\st {d}}_{\st i=1}(x-s_{\st i})$ is a special case of the coefficient form. As shown in \cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05}, for two sets $S^{\st (A)}$ and $S^{\st (B)}$ represented by polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ respectively, their product, which is polynomial $\mathbf{p}_{\st A}\cdot \mathbf{p}_{\st  B}$,  represents the set union, while their greatest common divisor, $gcd($$\mathbf{p}_{\st A}$$,\mathbf{p}_{\st B})$, represents the set intersection. For two polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ of degree $d$, and two random polynomials $\bm\gamma_{\st A}$ and  $\bm\gamma_{\st B}$ of degree $d$, it is proven in~\cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05} that: $\bm\theta=\bm\gamma_{\st A}\cdot \mathbf{p}_{\st A}+\bm\gamma_{\st B}\cdot\mathbf{p}_{\st B}=\bm\mu\cdot gcd(\mathbf{p}_{\st A},\mathbf{p}_{\st B})$, where $\bm\mu$ is a uniformly random polynomial, and polynomial $\bm\theta$ contains only information about the elements in  $S^{\st (A)}\cap S^{\st (B)}$, and contains no information about other elements in $S^{\st (A)}$ or $S^{\st (B)}$.  
 
@@ -139,7 +141,7 @@ Oblivious Linear function Evaluation (\ole) is a two-party protocol that involve
 \input{short-coin-tossing}
 
 
-\input{notation-Table}
+
 
 %,  as an aborting party can be excluded from the next run of the protocol and the aborting party cannot learn partsets' intersection 
 
