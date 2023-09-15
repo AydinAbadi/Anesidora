@@ -5,7 +5,7 @@
 
 
 
-\vspace{-4mm}
+\vspace{-3mm}
 
 \subsection{Unforgeable Polynomials}
 
@@ -13,7 +13,7 @@
 
 In this section, we introduce the new notion of unforgeable polynomials. Informally, an unforgeable polynomial has a secret factor. To ensure that an unforgeable polynomial has not been tampered with, a verifier can check if the polynomial is divisible by the secret factor. 
 %
-To turn an arbitrary polynomial $\bm\pi$ of degree $d$ into an unforgeable polynomial $\bm\theta$, one can (i) pick three secret random polynomials $(\bm\zeta, \bm\omega, \bm \gamma)$ and (ii) compute $\bm\theta=\bm\zeta\cdot \bm\omega\cdot\bm \pi + \bm \gamma \bmod p$, where  $deg(\bm\zeta)= 1, deg(\bm\omega)=d,$ and   $deg(\bm\gamma)= 2d+1$. 
+To turn an arbitrary polynomial $\bm\pi$ of degree $d$ into an unforgeable polynomial $\bm\theta$, one can (i) pick two secret random polynomials $(\bm\zeta, \bm \gamma)$ and (ii) compute $\bm\theta=\bm\zeta\cdot\bm \pi + \bm \gamma \bmod p$, where  $deg(\bm\zeta)= 1, $ and   $deg(\bm\gamma)= d+1$. 
 
 To verify whether $\bm\theta$ has been tampered with, a verifier (given $\bm\theta, \bm \gamma$, and $\bm\zeta$) can check if $\bm\theta-\bm \gamma$ is divisible by $\bm\zeta$. Informally, the security of an unforgeable polynomial states that an adversary (who does not know the three secret random polynomials) cannot tamper with an unforgeable polynomial without being detected, except with a negligible probability. Below, we formally state it. 
 
@@ -21,7 +21,7 @@ To verify whether $\bm\theta$ has been tampered with, a verifier (given $\bm\the
 \begin{theorem}[Unforgeable Polynomial]\label{proof::unforgeable-poly}
 %Let polynomials $\zeta$ and $\gamma$ be two secret uniformly random polynomials (i.e., $\zeta, \gamma\stackrel{\st\$}\leftarrow \mathbb F_{\st p}[x]$),   $GCD(\zeta, \gamma)=1$, polynomial $\pi$ be an arbitrary polynomial,   $deg(\zeta)= 1, deg(\gamma)= d+1$,  $deg(\pi)=d$, and $p$ be a $\lambda$-bit prime number. Also, let polynomial $\theta$ be defined as  $\theta=\zeta\cdot \pi+ \gamma \bmod p$. Given $(\theta,\pi)$, the probability that a PPT adversary (which does not know $\zeta$ and $\gamma$) can forge $\theta$ to an arbitrary polynomial $\theta'$ such that  $\theta'\neq \theta$, $deg(\theta')\leq poly(\lambda)$, and $\zeta$ divides $\theta'-\gamma$ is negligible in the security parameter, i.e.,
 %
-Let polynomials $\bm\zeta$, $\bm\omega$, and $\bm\gamma$ be three secret uniformly random polynomials (i.e., $\bm\zeta,\bm\omega, \bm\gamma\stackrel{\st\$}\leftarrow \mathbb F_{\st p}[x]$), polynomial $\bm\pi$ be an arbitrary polynomial,   $deg(\bm\zeta)= 1,$ $ deg(\bm\omega)=d,  deg(\bm\gamma)= 2d+1$,  $deg(\bm\pi)=d$, and $p$ be a $\lambda$-bit prime number. Also, let polynomial $\bm\theta$ be defined as  $\bm\theta=\bm\zeta\cdot \bm\omega\cdot\bm \pi+\bm \gamma \bmod p$. Given $(\bm\theta,\bm\pi)$, the probability that an adversary (which does not know $\bm\zeta, \bm\omega$, and $\bm\gamma$) can forge $\bm\theta$ to an arbitrary polynomial $\bm\delta$ such that  $\bm\delta\neq \bm\theta$, $deg(\bm\delta)= const(\lambda)$, and $\bm\zeta$ divides $\bm\delta-\bm\gamma$ is negligible in the security parameter $\lambda$, i.e., 
+Let polynomials $\bm\zeta$ and $\bm\gamma$ be three secret uniformly random polynomials (i.e., $\bm\zeta, \bm\gamma\stackrel{\st\$}\leftarrow \mathbb F_{\st p}[x]$), polynomial $\bm\pi$ be an arbitrary polynomial,   $deg(\bm\zeta)= 1,$ $ deg(\bm\gamma)= d+1$,  $deg(\bm\pi)=d$, and $p$ be a $\lambda$-bit prime number. Also, let polynomial $\bm\theta$ be defined as  $\bm\theta=\bm\zeta\cdot\bm \pi+\bm \gamma \bmod p$. Given $(\bm\theta,\bm\pi)$, the probability that an adversary (which does not know $\bm\zeta$ and $\bm\gamma$) can forge $\bm\theta$ to an arbitrary polynomial $\bm\delta$ such that  $\bm\delta\neq \bm\theta$, $deg(\bm\delta)= const(\lambda)$, and $\bm\zeta$ divides $\bm\delta-\bm\gamma$ is negligible in the security parameter $\lambda$, i.e., 
 %
 $Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma) ]\leq \negl(\lambda)$.
 
@@ -37,7 +37,7 @@ $Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma) ]\leq \negl(\lambda)$.
 %\end{proof} 
 
 %$Max\big(deg(\theta'), d+1\big)$
- An interesting feature of an unforgeable polynomial is that the verifier can perform the check without needing to know the original polynomial $\bm\pi$. Another appealing feature of the unforgeable polynomial is that it supports \emph{linear combination} and accordingly \emph{batch verification}. Specifically, to turn $n$ arbitrary polynomials $[\bm\pi_{\st 1},..., \bm\pi_{\st n}]$ into unforgeable polynomials, one can construct  $\bm\theta_{\st i}=\bm\zeta\cdot \bm\omega_{\st i}\cdot \bm\pi_{\st i}+ \bm\gamma_{\st i} \bmod p$, where $\forall i, 1\leq i\leq n$.  
+ An interesting feature of an unforgeable polynomial is that the verifier can perform the check without needing to know the original polynomial $\bm\pi$. Another appealing feature of the unforgeable polynomial is that it supports \emph{linear combination} and accordingly \emph{batch verification}. Specifically, to turn $n$ arbitrary polynomials $[\bm\pi_{\st 1},..., \bm\pi_{\st n}]$ into unforgeable polynomials, one can construct  $\bm\theta_{\st i}=\bm\zeta\cdot \bm\pi_{\st i}+ \bm\gamma_{\st i} \bmod p$, where $\forall i, 1\leq i\leq n$.  
  
  
 
@@ -49,7 +49,7 @@ To check whether all polynomials $[\bm\theta_{\st 1},..., \bm\theta_{\st n}]$ ar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{theorem}[Unforgeable Polynomials' Linear Combination]\label{Unforgeable-Polynomials-Linear-Combination}
 %
- Let polynomial $\bm\zeta$ be a secret polynomial picked uniformly at random; also, let   $\vv{\bm\omega}=[\bm\omega_{\st 1},..., \bm\omega_{\st n}]$ and $\vv{\bm\gamma}=[\bm\gamma_{\st 1},..., \bm\gamma_{\st n}]$ be two vectors of secret uniformly random polynomials (i.e., ${\bm\zeta}, \bm\omega_{\st i}, \bm\gamma_{\st i} \stackrel{\st\$}\leftarrow \mathbb F_{\st p}[x]$),  $\vv{\bm\pi}=[\bm\pi_{\st 1},..., \bm\pi_{\st n}]$ be a vector of arbitrary polynomials,   $deg(\bm\zeta)= 1, deg(\bm\omega_{\st i})=d,  deg(\bm\gamma_{\st i})= 2d+1$,  $deg(\bm\pi_{\st i})=d$,  $p$ be a $\lambda$-bit prime number, and $1\leq i \leq n$. Moreover, let polynomial $\bm\theta_{\st i}$ be defined as  $\bm\theta_{\st i}=\bm\zeta\cdot \bm\omega_{\st i}\cdot \bm\pi_{\st i}+ \bm\gamma_{\st i} \bmod p$, and $\vv{\bm\theta} = [\bm\theta_{\st 1},..., \bm\theta_{\st n}]$.  Given $(\vv{\bm\theta}, \vv{\bm\pi})$, the probability that an adversary (which does not know $\bm\zeta, \vv{\bm\omega}$, and $\vv{\bm\gamma}$) can forge $t$ polynomials, without loss of generality, say $\bm\theta_{\st 1},..., \bm\theta_{\st t} \in \vv{\bm\theta}$ to arbitrary polynomials $\bm\delta_{\st 1},..., \bm\delta_{\st t}$ such that   $\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j}\neq \sum\limits_{\st j=1}^{\st t}\bm\theta_{\st j}$, $deg(\bm\delta_{\st j})= const(\lambda)$, and $\bm\zeta$ divides $(\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j} )$ is negligible in the security parameter $\lambda$, i.e.,  
+ Let polynomial $\bm\zeta$ be a secret polynomial picked uniformly at random; also, let   $\vv{\bm\gamma}=[\bm\gamma_{\st 1},..., \bm\gamma_{\st n}]$ be a vector of secret uniformly random polynomials (i.e., ${\bm\zeta}, \bm\gamma_{\st i} \stackrel{\st\$}\leftarrow \mathbb F_{\st p}[x]$),  $\vv{\bm\pi}=[\bm\pi_{\st 1},..., \bm\pi_{\st n}]$ be a vector of arbitrary polynomials,   $deg(\bm\zeta)= 1,  deg(\bm\gamma_{\st i})= d+1$,  $deg(\bm\pi_{\st i})=d$,  $p$ be a $\lambda$-bit prime number, and $1\leq i \leq n$. Moreover, let polynomial $\bm\theta_{\st i}$ be defined as  $\bm\theta_{\st i}=\bm\zeta\cdot  \bm\pi_{\st i}+ \bm\gamma_{\st i} \bmod p$, and $\vv{\bm\theta} = [\bm\theta_{\st 1},..., \bm\theta_{\st n}]$.  Given $(\vv{\bm\theta}, \vv{\bm\pi})$, the probability that an adversary (which does not know $\bm\zeta$ and $\vv{\bm\gamma}$) can forge $t$ polynomials, without loss of generality, say $\bm\theta_{\st 1},..., \bm\theta_{\st t} \in \vv{\bm\theta}$ to arbitrary polynomials $\bm\delta_{\st 1},..., \bm\delta_{\st t}$ such that   $\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j}\neq \sum\limits_{\st j=1}^{\st t}\bm\theta_{\st j}$, $deg(\bm\delta_{\st j})= const(\lambda)$, and $\bm\zeta$ divides $(\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j} )$ is negligible in the security parameter $\lambda$, i.e.,  
 %
 $Pr[ \bm\zeta \ | \ (\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j} ) ]\leq \negl(\lambda)$. 
 

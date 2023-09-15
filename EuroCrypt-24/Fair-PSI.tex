@@ -31,7 +31,10 @@ Now, we present the notion of multi-party PSI with Fair Compensation  (\p) which
 In a  $\mathcal{PSI}^{\st \mathcal{FC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially \emph{malicious} (i.e., active adversaries) and all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest (i.e., a passive adversary), and (3) an auditor \aud potentially semi-honest, where all parties except \aud have input set. For simplicity, we assume that given an address one can determine whether it belongs to \aud. 
 
 
-The basic functionality that any multi-party PSI computes can be defined as $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m+1})\rightarrow\underbrace{(S_{\st\cap},..., S_{\st\cap})}_{\st m+1}$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m+1}$.  At a high level, the standard simulation-based paradigm ensures only privacy and output correctness \cite{DBLP:books/cu/Goldreich2004}. To enhance the standard simulation-based model and accommodate additional security requirements (such as fairness, compensation, or transactions' correctness) researchers often define a set of predicates and parameterise the paradigm with the defined predicates, such an approach can be seen in \cite{KiayiasZZ16,BadertscherMTZ17,BadertscherGKRZ19}. Consequently, to formally define a \p, we parameterise $f^{\st\text{PSI}}$ with four predicates,  $Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$, which ensure that certain financial conditions are met. We borrow three of these predicates (i.e., $\qinit, \qdel, \qUnFAbt$) from \cite{KiayiasZZ16}. Nevertheless, we will (i) introduce an additional predicate  \qFAbt and (ii) provide more formal accurate definitions of these predicates (in Appendix \ref{sec::Formal-Definitions-of-F-PSI-Predicates}). 
+The basic functionality that any multi-party PSI computes can be defined as $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m+1})\rightarrow\underbrace{(S_{\st\cap},..., S_{\st\cap})}_{\st m+1}$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m+1}$.  At a high level, the standard simulation-based paradigm ensures only privacy and output correctness \cite{DBLP:books/cu/Goldreich2004}. 
+
+
+To upgrade the standard simulation-based model and accommodate additional security requirements (such as fairness, compensation, or transactions' correctness) researchers often follow these steps: (i) define a set of predicates and (ii) define a wrapper that basically encloses and  parameterises the original paradigm with the defined predicates. Such an approach can be observed in \cite{KiayiasZZ16,BadertscherMTZ17,BadertscherGKRZ19}. Consequently, to formally define a \p, we parameterise $f^{\st\text{PSI}}$ with four predicates,  $Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$, which ensure that certain financial conditions are met. We borrow three of these predicates (i.e., $\qinit, \qdel, \qUnFAbt$) from \cite{KiayiasZZ16}. Nevertheless, we will (i) introduce an additional predicate  \qFAbt and (ii) provide more formal accurate definitions of these predicates (in Appendix \ref{sec::Formal-Definitions-of-F-PSI-Predicates}). 
 
 
 
@@ -88,7 +91,7 @@ Intuitively, by requiring any protocol that realises \p to implement a wrapped v
  
  Next, we present a formal definition of \p. %Note that we have upgraded the simulation-based definition of secure computation (i.e., Definition \ref{def::MPC-active-adv}) to define the security requirements of \p, by incorporating the above predicates into the definition. 
  
- \vspace{-2mm}
+ \vspace{-1mm}
  
 \begin{definition}[\p]\label{def::PSI-Q-fair}
 Let $f^{\st \text{PSI}}$ be the multi-party PSI functionality defined above. Then, protocol $\Gamma$ realises  $f^{\st \text{PSI}}$ with $Q$-fairness in the presence of $m-1$ static active-adversary clients (i.e., $A_{\st j}$s) or a static passive dealer $D$ or passive auditor $Aud$, if for every PPT adversary $\mathcal{A}$ for the real model, there exists a PPT adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $I\in \{A_{\st 1},...,A_{\st m}, D, Aud\}$, it holds that: 
@@ -122,10 +125,10 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 \input{Unforgeable-polynomials}
 
 
- \vspace{-3mm}
+ \vspace{-2.3mm}
 \section{Concrete Construction of \p}
 
-\vspace{-1mm}
+\vspace{-.3mm}
  
 % %%%%%%%%%%%%%
 %\subsection{Main Challenges to Overcome}
@@ -444,7 +447,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
 
 %\begin{remark}
 
-We refer readers to Appendix \ref{sec::Discussion-justitia} for a more in-depth discussion of $\withFai$ which encompasses (i) the inadequacy of strawman approaches such as using a server-aided PSI or charging the buyer a flat fee, (ii) instructions on how to eliminate the check in step \ref{JUS::check-non-zero-coeff}, (iii) an outline of the primary challenges we addressed during $\withFai$ design, and (iv) setting up of concrete (security) parameters.  
+We refer readers to Appendix \ref{sec::Discussion-justitia} for a more in-depth discussion of $\withFai$ which encompasses (i) the inadequacy of strawman approaches such as using a server-aided PSI or charging the buyer a flat fee, (ii) instructions on how to eliminate the check in step \ref{JUS::check-non-zero-coeff}, (iii) an outline of the primary challenges we addressed during $\withFai$ design, and (iv) choice of concrete (security) parameters.  
 
 Next, we present a theorem that formally states the security of \fpsi. 
  

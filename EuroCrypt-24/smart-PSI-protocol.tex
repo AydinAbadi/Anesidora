@@ -7,7 +7,7 @@
  \vspace{-2mm}
 
 \section{Definition of Multi-party PSI with Fair Compensation and Reward}
-
+ \vspace{-1mm}
 
 In this section, we upgrade \p to ``multi-party PSI with Fair Compensation and Reward'' (\ep), which (in addition to offering the features of \p) lets honest clients who contribute their set receive a reward from a buyer who initiates the PSI computation. % and is interested in the result.
 
@@ -39,7 +39,7 @@ Next, we present the formal definition of  \ep.
 
 %%%%%%%%
 
-% \vspace{-2.3mm}
+ \vspace{-1mm}
 \begin{definition}[\ep]\label{def::PSI-Q-fair-reward}
 Let $f^{\st \text{PSI}}$ be the multi-party PSI functionality defined in Section \ref{sec::F-PSI-model}. Protocol $\Gamma$ realises  $f^{\st \text{PSI}}$ with $\bar Q$-fairness-and-reward in the presence of $m-3$ static active-adversary clients $A_{\st j}$s and $two$ rational clients $A_{\st i}s$ or a static passive dealer  $D$ or passive auditor $Aud$, if for every non-uniform PPT adversary $\mathcal{A}$ for the real model, there exists a non-uniform PPT adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $I\in \{A_{\st 1},...,A_{\st m}, D, Aud\}$, it holds that: 
 %\begin{equation*}
@@ -55,7 +55,7 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
  \vspace{-5mm}
 \section{Concrete Construction of \ep}
 
- \vspace{-2mm}
+ \vspace{-3mm}
  
  %%%%%%%%%%%
 
@@ -253,7 +253,7 @@ It determines to which bin the encrypted value belongs, i.e., ${ {  {j}}}=\matht
 \end{enumerate}
 
 
- \vspace{-2mm}
+ \vspace{-2.5mm}
  In Appendix \ref{sec::Annesidora-challenges}, we elaborate on the primary challenges we had to confront during the protocol design, which encompassed rewarding clients proportionately to the intersection size and managing collusions among extractors. Additionally, we direct readers to Appendix \ref{sec::Discussion-Anesidora} for a more comprehensive discussion of \withRew, where we elucidate why a naive approach is inadequate and provide insights into the use of hash-based padding and double-layered commitment.
  
  

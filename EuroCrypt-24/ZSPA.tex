@@ -19,7 +19,7 @@ Then, it constructs a Merkel tree on top of the pseudorandom values and stores o
 
 %\zspa will be used in \withFai to let clients $\{A_{\st 1},...,A_{\st m}\}$ provably agree on sets of pseudorandom values, where each set represents a pseudorandom polynomial (as the set's elements are considered the polynomial's coefficients). Due to \zspa's property, the sum of these polynomials is zero.  Each of these polynomials will be used by a client to blind the messages it sends to the smart contract, to protect the privacy of the plaintext message (from \aud, D, and the public). To compute the sum of the plaintext messages, one can easily sum the blinded messages, which removes the blinding polynomials. 
 
-\vspace{-3.5mm}
+\vspace{-1.5mm}
 \input{ZSPA-protocol}
 
 %\vspace{-2mm}

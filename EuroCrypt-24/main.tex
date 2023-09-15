@@ -12,7 +12,7 @@
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 \usepackage{color}
-\renewcommand\UrlFont{\color{blue}\rmfamily}
+\renewcommand\UrlFont{\color{black}\rmfamily}
 \newcommand{\scf}{\ensuremath{\mathcal{SC}_{\fpsi}}\xspace}
 \newcommand{\SCe}{\ensuremath{\mathcal{SC}_{\epsi}}\xspace}
 \newcommand{\resizeT}{\scalebox{.53}}
@@ -209,7 +209,7 @@
 
 
 
-\title{Earn While You Reveal: \\ Private Set Intersection that\\ Rewards Participants}
+\title{Earn While You Reveal: Private Set Intersection that Rewards Participants}
 %
 
 
@@ -225,8 +225,8 @@
 
 
 \begin{abstract}
-In Private Set Intersection protocols (PSIs), a non-empty result always discloses information about the private input sets of the parties. Moreover, in various variants of PSI, not all parties necessarily receive or are interested in the result. Nevertheless, to date, the literature has assumed that those parties who do not receive or are not interested in the result still contribute their private input sets to the PSI for free, although doing so would cost them their privacy. In this work, for the first time, we propose a multi-party PSI, called ``\withRew'', that \emph{rewards} parties who contribute their private input sets to the protocol.  % 
-\withRew is designed with efficiency in mind, primarily relying on symmetric key primitives, and its complexities scale linearly with the number of parties and set cardinality. It maintains security even in scenarios where the majority of parties are compromised by actively colluding adversaries. 
+In Private Set Intersection protocols (PSIs), a non-empty result always reveals information about the private input sets of the parties. Moreover, in various variants of PSI, not all parties necessarily receive or are interested in the result. Nevertheless, to date, the literature has assumed that those parties not receiving or not interested in the result still contribute their private input sets to the PSI for free of charge, although doing so would cost them their privacy. In this work, we introduce a novel multi-party PSI, called ``\withRew'', which \emph{rewards} parties for contributing their private input sets to the protocol.  % 
+\withRew is designed with efficiency in mind, primarily relying on symmetric key primitives.  Its complexities scale linearly with the number of parties and set cardinality. It maintains security even when the majority of parties are compromised by malicious colluding adversaries.
 \end{abstract}
 
 

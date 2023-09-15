@@ -5,11 +5,11 @@
 \section{Related Work}\label{sec::related-work}
 \vspace{-1mm}
 
-Since their introduction in \cite{DBLP:conf/eurocrypt/FreedmanNP04}, various PSIs have been designed. PSIs can be divided into \textit{traditional} and \textit{delegated} ones.  
+Since their introduction in \cite{DBLP:conf/eurocrypt/FreedmanNP04}, various PSIs have been designed, categorised into \textit{traditional} and \textit{delegated} types.  
 %
-In \textit{traditional} PSIs, data owners interactively compute the result using their local data. 
+In traditional PSIs, data owners compute the result interactively using their local data.
 %
-Recently, Raghuraman and Rindal \cite{RaghuramanR22} proposed two two-party PSIs, one secure against semi-honest/passive and the other against malicious/active adversaries. To date, these two protocols are the fastest two-party PSIs. They mainly rely on  Oblivious Key-Value Stores (OKVS) data structure and Vector Oblivious Linear Evaluation (VOLE). These PSIs' computation cost is $O(c)$, where $c$ is  a set's cardinality.  They also impose $O(c\log c^{\st 2}+\kappa)$ and $O(c\cdot \kappa)$ communication costs in the semi-honest and malicious models respectively, 
+In this research domain, Raghuraman and Rindal \cite{RaghuramanR22} proposed two two-party PSIs, one secure against semi-honest/passive and the other against malicious/active adversaries. To date, these these protocols are the fastest two-party PSIs. They rely on  Oblivious Key-Value Stores (OKVS) data structure and Vector Oblivious Linear Evaluation (VOLE). These PSIs' computation cost is $O(c)$, where $c$ is  a set's cardinality.  They also impose $O(c\log c^{\st 2}+\kappa)$ and $O(c\cdot \kappa)$ communication costs in the semi-honest and malicious models respectively, 
 where 
 %$l$ is a set element's bit-size, and  
 $\kappa$ is a security parameter.  
@@ -18,28 +18,30 @@ Also, researchers designed PSIs that enable multiple (i.e., more than two) parti
 %
 %Abadi \et  \cite{AbadiMZ21} showed that the PSIs in  \cite{GhoshN19} are susceptible to several attacks.  
 %
-To date, the  protocols  in   \cite{DBLP:conf/ccs/KolesnikovMPRT17} and  \cite{NevoTY21} are the most  efficient multi-party PSIs  designed to be  secure against passive and active  adversaries respectively. These protocols are secure even if  the majority of parties are corrupt.  
+To date, the  protocols  in   \cite{DBLP:conf/ccs/KolesnikovMPRT17} and  \cite{NevoTY21} are the most  efficient multi-party PSIs  designed to be  secure against passive and active  adversaries respectively. They maintain security even if  the majority of parties are corrupt.  The overall computation and communication complexities of the PSI in  \cite{DBLP:conf/ccs/KolesnikovMPRT17} are  $O(c\cdot m^{\st 2}+c\cdot m )$ and $O(c\cdot m^{\st 2})$. 
 %
-%The PSIs in  \cite{DBLP:conf/ccs/KolesnikovMPRT17,NevoTY21} to keep the overall costs low and avoid requiring all clients to interact with each other in all steps of the protocols, use a ``leader'' client which interacts with the rest of the clients. 
+%Later, to achieve efficiency, Chandran \et \cite{ChandranD0OSS21} proposed a multi-party PSI that remains secure only if the minority of the parties is corrupt by a semi-honest adversary. 
 %
-%The former relies on inexpensive symmetric key primitives such as  Programmable Pseudorandom Function (OPPRF) and Cuckoo Hashing, while the latter mainly uses OPPRF and OKVS. 
-
-The overall computation and communication complexities of the PSI in  \cite{DBLP:conf/ccs/KolesnikovMPRT17} are  $O(c\cdot m^{\st 2}+c\cdot m )$ and $O(c\cdot m^{\st 2})$. Later, to achieve efficiency, Chandran \et \cite{ChandranD0OSS21} proposed a multi-party PSI that remains secure only if the minority of the parties is corrupt by a semi-honest adversary. The PSI in \cite{NevoTY21} has a parameter $t$ that determines how many parties can collude with each other and must be set before the protocol's execution, where $t\in [2, m)$.  
+The PSI in \cite{NevoTY21} has a parameter $t$ that determines how many parties can collude with each other and must be set before the protocol's execution, where $t\in [2, m)$.  
 %
 %The protocol divides the parties into three groups, clients: $A_{\st 1},..A_{\st m-t-1}$, leader: $A_{\st m-t}$, and servers: $A_{\st m-t+1},..A_{\st m}$. Each client needs to send a set of messages to every server and the leader which jointly compute the final result. Hence, 
 %
 Its computation and communication complexities are $O(c\cdot \kappa(m+t^{\st 2}-t(m+1)))$ and $O(c\cdot m\cdot \kappa)$ respectively.
 
 
-Dong \et proposed a ``fair'' two-party PSIs \cite{DBLP:conf/dbsec/DongCCR13} that ensure either both parties receive the result or neither does, even if a malicious party aborts prematurely during the protocol's execution. It uses homomorphic encryption,  zero-knowledge proofs, and polynomial representation of sets. The protocol's  computation and communication complexities are $O(c^{\st 2})$ and $O(c)$  respectively. Since then, various fair two-party PSIs have been proposed, e.g.,  in \cite{DebnathD14,DebnathD16-,DebnathD16}. To date, the fair PSI in \cite{DebnathD16} has better complexity and performance compared to previous fair PSIs. It mainly uses  ElGamal encryption, verifiable encryption, and zero-knowledge proofs. The protocol's computation and communication cost is $O(c)$. But, its overall overhead is still high, as it relies on asymmetric key primitives, e.g.,  zero-knowledge proofs. So far, there exists no fair \emph{multi-party} PSI in the literature. Our \withFai is the first  fair multi-party PSI.%, which is also efficient.  
+Dong \et introduced a ``fair'' two-party PSI \cite{DBLP:conf/dbsec/DongCCR13},  ensuring that both parties receive the result or neither does, even if a malicious party aborts prematurely during the protocol's execution. This protocol utilises homomorphic encryption, zero-knowledge proofs, and polynomial set representation. The protocol's  computation and communication complexities are $O(c^{\st 2})$ and $O(c)$  respectively. Since then, various fair two-party PSIs have been proposed, e.g.,  in \cite{DebnathD14,DebnathD16-,DebnathD16}. As of now, the fair PSI presented in cite{DebnathD16} exhibits superior complexity and performance when compared to previous fair PSIs. It primarily relies on ElGamal encryption, verifiable encryption, and zero-knowledge proofs. The protocol's computation and communication cost is $O(c)$. However, its overall overhead remains high, primarily due to its reliance on asymmetric key primitives, such as zero-knowledge proofs. To date, there has been no fair multi-party PSI in the literature. \withFai, our protocol, stands as the inaugural fair multi-party PSI.
 
 
- \textit{Delegated} PSIs use  cloud computing  for computation and/or storage while preserving the privacy of  the computation inputs and outputs from the cloud. They can be divided further into protocols that support \textit{one-off} and \textit{repeated} delegation of PSI computation. The former like \cite{kamarascaling,kerschbaum12,c18} cannot reuse their outsourced encrypted data and require clients to re-encode their data locally for each computation. The most efficient such protocol is \cite{kamarascaling}, which has been designed for the two-party setting and its computation and communication complexity is $O(c)$.  In contrast, those protocols that support repeated PSI delegation let clients outsource the storage of their encrypted data to the cloud only once, and then execute an unlimited number of computations on the outsourced data. 
+
+%But, its overall overhead is still high, as it relies on asymmetric key primitives, e.g.,  zero-knowledge proofs. So far, there exists no fair \emph{multi-party} PSI in the literature. Our \withFai is the first  fair multi-party PSI.%, which is also efficient.  
+
+
+Delegated PSIs leverage cloud computing for computation and/or storage, ensuring the confidentiality of the computation inputs and outputs from the cloud. These protocols can be further categorised into those that facilitate \textit{one-off} and \textit{repeated} delegation of PSI computation. The former, such as \cite{kamarascaling,kerschbaum12,c18}, cannot reuse their outsourced encrypted data and require clients to re-encode their data for each computation. The most efficient protocol among them is \cite{kamarascaling}, designed for the two-party setting, with a computation and communication complexity of $O(c)$.  In contrast, protocols supporting repeated PSI delegation let clients outsource their encrypted data to the cloud just once and subsequently perform an unlimited number of computations on the outsourced data.
  %
  
 The protocol in \cite{eopsi} is the first PSI that efficiently supports repeated delegation in the semi-honest model. It uses the polynomial representation of sets, pseudorandom function, and hash table. Its communication and computation complexities are $O(h\cdot d^{\st 2})$ and $O(h\cdot d)$ respectively, where $h$ is the total number of bins in the hash table, $d$ is a bin's capacity (often $d=100$), and $h\cdot d$ is linear with $c$.  
 %
-Recently, a multi-party PSI that supports repeated delegation and efficient \emph{updates} has been proposed in \cite{AbadiDMT22}. It is also in the semi-honest model. It imposes $O(h\cdot d^{\st 2}\cdot m)$ and $O(h\cdot d\cdot m)$  computation and communication costs respectively, during the PSI computation. It also imposes $O(d^{\st 2})$  computation and communication overheads, during the update phase.  Its runtime, during the PSI computation, is up to two times faster than the  PSI in \cite{eopsi}. It is yet to be seen how a fair delegated (two/multi-party) PSI can be designed.
+Recently, a multi-party PSI that supports repeated delegation and efficient \emph{updates} has been proposed in \cite{AbadiDMT22}. It is also in the semi-honest model. It imposes $O(h\cdot d^{\st 2}\cdot m)$ and $O(h\cdot d\cdot m)$  computation and communication costs respectively, during the PSI computation. It remains to be seen how a fair delegated PSI can be designed.
 
 
 

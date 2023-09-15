@@ -5,13 +5,18 @@
 \section{Further Discussion on  \withFai}\label{sec::Discussion-justitia}
 
 
+\subsection{Input and Output Privacy}
+
+Intuitively, all parties locally blind/encrypt all (set element related) messages before they send them the smart contract \scf. Also, the resulting polynomial that \scf computes is in a blinded form. Thus, (i) no party (including the protocol's participants) can learn other parties input set elements and (ii) the non-participants of the protocol cannot learn anything about the protocol's output, not even the intersection cardinality. 
+
+
 \subsection{Strawman Approaches}
 
 
-\subsubsection{Relying on a Server-aide PSI} One may be tempted to replace $\withFai$ with a scheme in which all clients send their encrypted sets to a server (potentially semi-honest and plays \aud's role) which computes the result in a privacy-preserving manner.  We highlight that the main difference is that in this (hypothetical) scheme the server is \emph{always involved};  whereas, in our protocol, \aud remains offline as long as the clients behave honestly and it is invoked only when the contract detects misbehaviours.  
+\subsubsection{Relying on a Server-aide PSI.} One may be tempted to replace $\withFai$ with a scheme in which all clients send their encrypted sets to a server (potentially semi-honest and plays \aud's role) which computes the result in a privacy-preserving manner.  We highlight that the main difference is that in this (hypothetical) scheme the server is \emph{always involved};  whereas, in our protocol, \aud remains offline as long as the clients behave honestly and it is invoked only when the contract detects misbehaviours.  
 
 
-\subsubsection{Charging the Buyer a Flat Fee}
+\subsubsection{Charging the Buyer a Flat Fee.}
 One may want to add a straightforward payment mechanism to an existing multi-party PSI in such a way that a buyer always must pay a fixed amount, e.g., depending on the total number of clients and the minimum size of the sets. However, this approach is problematic, because it:
 
 \begin{enumerate}
@@ -29,6 +34,6 @@ One may want to add a straightforward payment mechanism to an existing multi-par
  
 \input{Justitia-challenges}
 
-
+\input{zeta}
 
 \input{Concrete-parameters}

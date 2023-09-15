@@ -12,10 +12,10 @@ We first prove Theorem \ref{proof::unforgeable-poly}, i.e., unforgeable polynomi
 
 \begin{proof}
 
-Let $\bm\tau=\bm\delta-\bm\gamma$ and $\bm\zeta=a\cdot x+b$. Since $\bm\gamma$ is a random polynomial of degree $2d+1$ and unknown to the adversary, given $(\bm\theta, \bm\pi)$,  the adversary cannot learn anything about the factor $\bm\zeta$; as from its point of view every polynomial of degree $1$ in $\mathbb{F}_{\st p}[X]$ is equally likely to be $\bm\zeta$. Moreover,  polynomial $\bm\tau$ has at most $Max\big(deg(\bm\delta), 2d+1\big)$ irreducible non-constant factors.  For $\bm\zeta $ to divide $\bm\tau$,  one of the factors of $\bm\tau$ must be equal to $\bm\zeta$. We  also know that $\bm\zeta$ has been picked uniformly at random (i.e., $a,b
+Let $\bm\tau=\bm\delta-\bm\gamma$ and $\bm\zeta=a\cdot x+b$. Since $\bm\gamma$ is a random polynomial of degree $d+1$ and unknown to the adversary, given $(\bm\theta, \bm\pi)$,  the adversary cannot learn anything about the factor $\bm\zeta$; as from its point of view every polynomial of degree $1$ in $\mathbb{F}_{\st p}[X]$ is equally likely to be $\bm\zeta$. Moreover,  polynomial $\bm\tau$ has at most $Max\big(deg(\bm\delta), d+1\big)$ irreducible non-constant factors.  For $\bm\zeta $ to divide $\bm\tau$,  one of the factors of $\bm\tau$ must be equal to $\bm\zeta$. We  also know that $\bm\zeta$ has been picked uniformly at random (i.e., $a,b
 \stackrel{\st \$}\leftarrow \mathbb F_{\st p}$). Thus, the probability that $\bm\zeta $ divides $\bm\tau$ is negligible in the security parameter, $\lambda$. Specifically,
 
-$$Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma)]\leq \frac{Max\big(deg(\bm\delta), 2d+1\big)} {2^{\st \lambda}}=\negl(\lambda)$$
+$$Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma)]\leq \frac{Max\big(deg(\bm\delta), d+1\big)} {2^{\st \lambda}}=\negl(\lambda)$$
 \end{proof} 
 
 %$Max\big(deg(\theta'), d+1\big)$
@@ -33,7 +33,7 @@ Next, we prove Theorem \ref{Unforgeable-Polynomials-Linear-Combination}, i.e., u
 %%%%
 \begin{proof}  
 This proof is a generalisation of that of Theorem \ref{proof::unforgeable-poly}.  
-Let $\bm\tau_{\st j}=\bm\delta_{\st j}-\bm\gamma_{\st j}$ and $\bm\zeta=a\cdot x+b$. Since  every $\bm\gamma_{\st j}$ is a random polynomial of degree $2d+1$ and unknown to the adversary, given $(\vv{\bm\theta}, \vv{\bm\pi})$,  the adversary cannot learn anything about the factor $\bm\zeta$. Each polynomial $\bm\tau_{\st j}$ has at most $Max\big(deg(\bm\delta_{\st j}), 2d+1\big)$ irreducible non-constant factors. 
+Let $\bm\tau_{\st j}=\bm\delta_{\st j}-\bm\gamma_{\st j}$ and $\bm\zeta=a\cdot x+b$. Since  every $\bm\gamma_{\st j}$ is a random polynomial of degree $d+1$ and unknown to the adversary, given $(\vv{\bm\theta}, \vv{\bm\pi})$,  the adversary cannot learn anything about the factor $\bm\zeta$. Each polynomial $\bm\tau_{\st j}$ has at most $Max\big(deg(\bm\delta_{\st j}), d+1\big)$ irreducible non-constant factors. 
 %
 %In order for $\bm\zeta$ to divide polynomial $\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j}$  one of the factors of every $\bm\tau_{\st j}$ needs to equal $\bm\zeta$, where $1 \leq j \leq t$. 
 %
@@ -41,7 +41,7 @@ We  know that $\bm\zeta$ has been picked uniformly at random (i.e., $a,b
 \stackrel{\st \$}\leftarrow \mathbb F_{\st p}$). Therefore, the probability that $\bm\zeta$ divides $\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j}$ equals the probability that $\bm\zeta$ equals to one of the factors of  every $\bm\tau_{\st j}$, that is negligible in the security parameter. Concretely,
 
 
-$$Pr[ \bm\zeta \ | \ (\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j} ) ]\leq  \frac{\prod \limits^{\st t}_{\st j=1}Max\big(deg(\bm\delta_{\st j}), 2d+1\big)} {2^{\st \lambda t}}=\negl(\lambda)$$
+$$Pr[ \bm\zeta \ | \ (\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j} ) ]\leq  \frac{\prod \limits^{\st t}_{\st j=1}Max\big(deg(\bm\delta_{\st j}), d+1\big)} {2^{\st \lambda t}}=\negl(\lambda)$$
 %
 \end{proof} 
 
