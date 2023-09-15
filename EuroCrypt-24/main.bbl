@@ -33,6 +33,11 @@ Badertscher, C., Maurer, U., Tschudi, D., Zikas, V.: Bitcoin as a transaction
 Beimel, A., Omri, E., Orlov, I.: Protocols for multiparty coin toss with
   dishonest majority. In: {CRYPTO} (2010)
 
+\bibitem{Ben-EfraimNOP22}
+Ben{-}Efraim, A., Nissenbaum, O., Omri, E., Paskin{-}Cherniavsky, A.: Psimple:
+  Practical multiparty maliciously-secure private set intersection. In: {ASIA}
+  {CCS} (2022)
+
 \bibitem{DBLP:conf/stoc/BerenbrinkCSV00}
 Berenbrink, P., Czumaj, A., Steger, A., V{\"{o}}cking, B.: Balanced
   allocations: the heavily loaded case. In: {STOC} (2000)

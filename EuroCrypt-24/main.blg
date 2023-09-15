@@ -3,48 +3,47 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: splncs04.bst
 Database file #1: ref.bib
-Warning--I didn't find a database entry for "Ben-EfraimNOP21"
 Warning--empty journal in Feather2020-full
 Warning--missing institution in bitcoin
-You've used 44 entries,
+You've used 45 entries,
             2850 wiz_defined-function locations,
-            816 strings with 11245 characters,
-and the built_in function-call counts, 20079 in all, are:
-= -- 1466
-> -- 773
+            819 strings with 11411 characters,
+and the built_in function-call counts, 20577 in all, are:
+= -- 1502
+> -- 795
 < -- 1
-+ -- 325
-- -- 274
-* -- 1162
-:= -- 2786
-add.period$ -- 44
-call.type$ -- 44
-change.case$ -- 330
++ -- 334
+- -- 282
+* -- 1192
+:= -- 2855
+add.period$ -- 45
+call.type$ -- 45
+change.case$ -- 339
 chr.to.int$ -- 0
-cite$ -- 46
-duplicate$ -- 1904
-empty$ -- 1961
-format.name$ -- 311
-if$ -- 4251
+cite$ -- 47
+duplicate$ -- 1950
+empty$ -- 2008
+format.name$ -- 320
+if$ -- 4356
 int.to.chr$ -- 0
-int.to.str$ -- 44
-missing$ -- 403
-newline$ -- 138
-num.names$ -- 88
-pop$ -- 949
+int.to.str$ -- 45
+missing$ -- 413
+newline$ -- 141
+num.names$ -- 90
+pop$ -- 973
 preamble$ -- 1
-purify$ -- 224
+purify$ -- 230
 quote$ -- 0
-skip$ -- 429
+skip$ -- 439
 stack$ -- 0
-substring$ -- 611
-swap$ -- 759
+substring$ -- 624
+swap$ -- 778
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 170
+type$ -- 174
 warning$ -- 2
-while$ -- 135
-width$ -- 46
-write$ -- 401
-(There were 3 warnings)
+while$ -- 138
+width$ -- 47
+write$ -- 410
+(There were 2 warnings)
