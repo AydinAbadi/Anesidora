@@ -23,7 +23,9 @@
 \subsection{Smart Contracts}
 \vspace{-.5mm}
 
-Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, beyond offering a decentralised currency,  support computations on transactions. They let a certain computation logic be encoded in a computer program, called a \emph{``smart contract''}. To date, Ethereum is the most predominant cryptocurrency framework that enables users to define arbitrary smart contracts. In this framework,  contract code is stored on the blockchain and executed by all parties maintaining the cryptocurrency. The program execution's correctness is guaranteed by the security of the underlying blockchain components. In this work,  \textbf{standard} public (Ethereum) smart contracts meet our protocols' requirements.
+Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum},  go beyond merely providing a decentralised currency; they also facilitate computations on transactions. These cryptocurrencies allow for a specific computational logic to be encoded in a computer program known as a \emph{``smart contract''}.  As of now, Ethereum stands as the foremost cryptocurrency framework that empowers users to define arbitrary smart contracts. Within this framework, contract code resides on the blockchain and is executed by all parties involved in maintaining the cryptocurrency. The correctness of program execution is ensured by the security of the underlying blockchain components. In the context of this work, \textbf{standard} public (Ethereum) smart contracts align with the requirements of our protocols.
+
+
 
 
 %Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, beyond offering a decentralised currency,  support computations on transactions. In this setting, often a certain computation logic is encoded in a computer program, called a \emph{``smart contract''}. To date, Ethereum is the most predominant cryptocurrency framework that enables users to define arbitrary smart contracts. In this framework,  contract code is stored on the blockchain and executed by all parties (i.e., miners) maintaining the cryptocurrency,  when the program inputs are provided by transactions. The program execution's correctness is guaranteed by the security of the underlying blockchain components. To prevent a denial-of-service attack, the framework requires a transaction creator to pay a  fee, called \emph{``gas''}, depending on the complexity of the contract running on it. 
@@ -33,13 +35,17 @@ Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum}, b
 \subsection{Counter Collusion Smart Contracts}\label{Counter-Collusion-Smart-Contracts}
 \vspace{-.5mm}
 
-To let a party, e.g., a client, efficiently delegate a computation to a  couple of potentially colluding third parties, e.g., servers, Dong   \et \cite{dong2017betrayal} proposed two main smart contracts, ``Prisoner's Contract'' ($\SCpc$) and ``Traitor's Contract'' (\SCtc).  
+
+To enable a party, such as a client, to efficiently delegate computation to multiple potentially colluding third parties, like servers, Dong   \et \cite{dong2017betrayal}  
+introduced two primary smart contracts: the ``Prisoner's Contract'' ($\SCpc$) and the ``Traitor's Contract'' (\SCtc).  
 %
-$\SCpc$ is signed by the client and the servers. This contract aims to incentivise correct computation. It requires each server to pay a deposit before the computation is delegated. It is equipped with an external auditor that is invoked to detect a misbehaving server when the servers provide non-equal results. 
+$\SCpc$ jointly signed by both the client and the servers and is designed to incentivise accurate computation. This contract mandates that each server must submit a deposit before the computation is delegated. Furthermore, it is equipped with an external auditor that can be invoked to identify any misbehaving server when they provide dissimilar results. 
 
+If a server behaves honestly, it is eligible to withdraw its deposit. However, if the auditor detects a cheating server, a portion of its deposit is transferred to the client. In the scenario where one server is honest while the other one cheats, the honest server receives a reward sourced from the deposit of the cheating server.
 
-
-If a server behaves honestly, then it can withdraw its deposit. But, if a cheating server is detected by the auditor, then (a portion) of its deposit is transferred to the client. If one of the servers is honest and the other one cheats, then the honest server receives a reward taken from the cheating server's deposit. However, the dilemma, created by \SCpc between the two servers, can be addressed if they can make an enforceable promise, say via a ``Colluder's Contract'' (\SCcc),  in which one party, called ``ringleader'', would pay its counterparty a bribe if both follow the collusion and provide an incorrect computation to \SCpc. To counter \SCcc, Dong   \et proposed \SCtc, that incentivises a colluding server to betray the other server and report the collusion without being penalised by \SCpc. In this work, we slightly adjust and use these contracts. We have stated the related parameters of these tree contracts in Table \ref{table:notation-table}. We refer readers to Appendix \ref{appendix::Counter-Collusion-Contracts} for the full description of the parameters and contracts. 
+However, the dilemma, created by \SCpc between the two servers, can be resolved if they are able to establish an enforceable promise, such as through a ``Colluder's Contract'' (\SCcc). In this contract,  one party, referred to as the ``ringleader'', commits to paying a bribe to its counterpart if both parties engage in collusion and deliver an incorrect result to \SCpc. 
+%
+To counter \SCcc, Dong   \et proposed \SCtc, which provides incentives for a colluding server to expose the other server and report the collusion without facing penalties from \SCpc. In this study, we have made slight adjustments and employed these contracts. The relevant parameters for these contracts are outlined in \ref{table:notation-table}. For a comprehensive description of the parameters and contracts, we direct readers to Appendix \ref{appendix::Counter-Collusion-Contracts}. 
 
 
 
@@ -95,7 +101,7 @@ The definition of a pseudorandom permutation, $\mathtt {PRP}: \{0,1\}^{\st \lamb
 \subsection{Hash Tables}
 \vspace{-.5mm}
 
-A hash table is an array of   bins each of which can hold a set of elements. It is accompanied by a hash function. To insert an element, we first compute the element's hash,  and then store the element in the bin whose index is the element's hash. In this paper, we set the table's parameters appropriately to ensure the number of elements in each bin does not exceed a predefined capacity. Given the maximum number of elements $c$ and the bin's maximum size $d$, we can determine the number of bins, $h$, by analysing hash tables under the balls into the bins model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}. In Appendix \ref{Preliminary-Hash-Table}, we explain how the hash table parameters are set.
+A hash table is an array of bins, each capable of containing a set of elements, and is paired with a hash function. To insert an element, we initially compute the element's hash and subsequently place the element into the bin corresponding to the computed hash value. In this paper, we ensure that the number of elements in each bin does not surpass a predefined capacity. By considering the maximum number of elements as $c$ and the maximum size of a bin as $d$, we can calculate the number of bins, denoted as $h$, through an analysis of hash tables using the the ``balls into the bins'' model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}. In Appendix \ref{Preliminary-Hash-Table}, we provide an explanation of how the hash table parameters are configured.
 
 
 
