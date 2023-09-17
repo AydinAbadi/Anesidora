@@ -2,17 +2,17 @@
 
 
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 
 
 \subsection{Coin-Tossing Protocol}\label{sec::short-coin-tossing}
-\vspace{-.5mm}
+\vspace{-1mm}
 
 A Coin-Tossing protocol, \ct, allows two mutually distrustful parties, say $A$ and $B$, to jointly generate a single random bit. Formally, \ct computes the functionality $\fct(in_{\st A}, in_{\st B})\rightarrow (out_{\st A}, out_{\st B})$, which takes $in_{\st A}$ and  $in_{\st B}$ as inputs of $A$ and $B$ respectively and outputs $out_{\st A}$ to $A$ and $out_{\st B}$ to $B$, where $out_{\st A}=out_{\st B}$. A basic security requirement of a \ct is that the resulting bit is (computationally) indistinguishable from a truly random bit. 
 %
 Two-party coin-tossing protocols can be generalised to \emph{multi-party} coin-tossing ones to generate a \emph{random string} (rather than a single bit). 
-
+%
 The overheads of multi-party coin-tossing protocols are often linear with the number of participants. In this paper, any secure multi-party \ct that generates a random string can be used. For the sake of simplicity, we let a multi-party \fct take $m$ inputs and output a single value, i.e., $\fct(in_{\st 1}, ..., in_{\st m})\rightarrow out$. We refer readers to Appendix \ref{sec::coin-tossing} for further details. 
 
  

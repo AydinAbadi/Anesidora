@@ -1,14 +1,14 @@
 % !TEX root =main.tex
 
-\vspace{-3.5mm}
+\vspace{-3.6mm}
 
 \section{Definition of Multi-party PSI with Fair Compensation}\label{sec::F-PSI-model}%\label{Fair-PSI-Protocol}
 
 
-\vspace{-1mm}
+\vspace{-1.2mm}
 
 
-Now, we present the notion of multi-party PSI with Fair Compensation  (\p) which lets either all clients get the result or the honest parties be financially compensated if the protocol aborts in an unfair manner, where only dishonest parties learn the result.  
+Now, we present the concept of multi-party PSI with Fair Compensation  (\p) which ensures that  either all clients receive the result or that honest parties are financially compensated in the event of an unfair protocol abortion, wherein only dishonest parties gain access to the result.  
 
 
 %We first provide the security model and assumptions used in \p. After that, we provide three subprotocols utilised by a construction, called \withFai (\fpsi), that realises \p; namely, \vopr, \zspa, and its extension \zspaa.  After that, we will give an overview of \fpsi followed by \fpsi's detailed description. 
@@ -28,13 +28,9 @@ Now, we present the notion of multi-party PSI with Fair Compensation  (\p) which
   %\subsection{The Model}\label{sec::F-PSI-model}
   
   
-In a  $\mathcal{PSI}^{\st \mathcal{FC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially \emph{malicious} (i.e., active adversaries) and all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest (i.e., a passive adversary), and (3) an auditor \aud potentially semi-honest, where all parties except \aud have input set. For simplicity, we assume that given an address one can determine whether it belongs to \aud. 
+In a  $\mathcal{PSI}^{\st \mathcal{FC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially \emph{malicious} (i.e., active adversaries), where  all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest (i.e., a passive adversary), and (3) an auditor, \aud, potentially semi-honest, where all parties except \aud have input set. For simplicity, we assume that one can determine whether a given address belongs to \aud. The fundamental functionality computed by any  multi-party PSI can be defined as  $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m+1})\rightarrow\underbrace{(S_{\st\cap},..., S_{\st\cap})}_{\st m+1}$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m+1}$.  
 
-
-The basic functionality that any multi-party PSI computes can be defined as $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m+1})\rightarrow\underbrace{(S_{\st\cap},..., S_{\st\cap})}_{\st m+1}$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m+1}$.  At a high level, the standard simulation-based paradigm ensures only privacy and output correctness \cite{DBLP:books/cu/Goldreich2004}. 
-
-
-To upgrade the standard simulation-based model and accommodate additional security requirements (such as fairness, compensation, or transactions' correctness) researchers often follow these steps: (i) define a set of predicates and (ii) define a wrapper that basically encloses and  parameterises the original paradigm with the defined predicates. Such an approach can be observed in \cite{KiayiasZZ16,BadertscherMTZ17,BadertscherGKRZ19}. Consequently, to formally define a \p, we parameterise $f^{\st\text{PSI}}$ with four predicates,  $Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$, which ensure that certain financial conditions are met. We borrow three of these predicates (i.e., $\qinit, \qdel, \qUnFAbt$) from \cite{KiayiasZZ16}. Nevertheless, we will (i) introduce an additional predicate  \qFAbt and (ii) provide more formal accurate definitions of these predicates (in Appendix \ref{sec::Formal-Definitions-of-F-PSI-Predicates}). 
+At a high level, the standard simulation-based paradigm ensures only privacy and output correctness \cite{DBLP:books/cu/Goldreich2004}. To enhance the standard simulation-based model and accommodate additional security requirements (such as fairness, compensation, or transactions' correctness) researchers often follow these steps: (i) define a set of predicates and (ii) define a wrapper that encapsulates and  parameterises the original paradigm with the defined predicates. This approach can be observed in \cite{KiayiasZZ16,BadertscherMTZ17,BadertscherGKRZ19}. Consequently, to formally define a \p, we parameterise $f^{\st\text{PSI}}$ with four predicates,  $Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$, which ensure that certain financial conditions are met. We borrow three of these predicates (i.e., $\qinit, \qdel, \qUnFAbt$) from \cite{KiayiasZZ16}. Nevertheless, we will (i) introduce an additional predicate  \qFAbt and (ii) provide more formal accurate definitions of these predicates. Below, we provide a brief description of these predicates.% (in Appendix \ref{sec::Formal-Definitions-of-F-PSI-Predicates}). 
 
 
 
@@ -43,12 +39,25 @@ To upgrade the standard simulation-based model and accommodate additional securi
 
    %  that are invoked after the functionality $f^{\st \text{PSI}}$ is executed. 
 %   We borrow  $\qinit, \qdel$ and $\qUnFAbt$ from \cite{KiayiasZZ16}; nevertheless, we will (i) introduce an additional predicate  \qFAbt and (ii) provide more formal accurate definitions of these predicates. 
-   
- \qinit states under which condition a protocol that realises \p should start executing, i.e., when all set owners have enough deposit.  \qdel determines in which situation parties receive their output, i.e., when honest parties receive their deposit back.  \qUnFAbt specifies under which condition the simulator can force parties to abort if the adversary learns the output,  i.e., when an honest party receives its deposit back plus a predefined amount of compensation.  \qFAbt specifies under which condition the simulator can force parties to abort if the adversary receives no output, i.e., when honest parties receive their deposits back. 
+
+\vspace{-1.6mm}
+\begin{itemize}
+    \item[$\bullet$]  \qinit  defines the conditions under which a protocol realising \p should begin execution, i.e., when all set owners have sufficient deposit. 
+ 
+  \item[$\bullet$] \qdel determines the circumstances in which parties receive their output, specifically when honest parties receive their deposit back.
+ 
+  \item[$\bullet$] \qUnFAbt specifies the conditions under which the simulator can force parties to abort if the adversary learns the output, i.e., when an honest party receives its deposit back along with a predefined amount of compensation.
+ 
+ 
+ 
+ \item[$\bullet$] \qFAbt specifies the conditions under which the simulator can compel parties to abort if the adversary receives no output, i.e., when honest parties receive their deposits back. 
+ 
+   \end{itemize}
+   \vspace{-2mm}
 %
 %We observed that the latter predicate should have been defined in the generic framework in \cite{KiayiasZZ16} too; as the framework should have also captured the cases where an adversary may abort without learning any output after the onset of the protocol.  
-%
-Intuitively, by requiring any protocol that realises \p to implement a wrapped version of $f^{\st\text{PSI}}$ that includes $Q$, we will ensure that an honest set owner only aborts in an unfair manner if \qUnFAbt returns  $1$, it only aborts in a fair manner if \qFAbt returns  $1$, and outputs a valid value if \qdel returns $1$. We refer readers to Appendix \ref{sec::Formal-Definitions-of-F-PSI-Predicates} for formal definitions of these predicates.  
+
+By requiring any protocol that realises \p to implement a wrapped version of $f^{\st\text{PSI}}$ that includes $Q$, we will ensure that an honest set owner only aborts in an unfair manner if \qUnFAbt returns  $1$, it only aborts in a fair manner if \qFAbt returns  $1$, and outputs a valid value if \qdel returns $1$. We refer readers to Appendix \ref{sec::Formal-Definitions-of-F-PSI-Predicates} for formal definitions of these predicates.   Next, we present a formal definition of \p. 
  
 
 % 
@@ -89,7 +98,7 @@ Intuitively, by requiring any protocol that realises \p to implement a wrapped v
   
   
  
- Next, we present a formal definition of \p. %Note that we have upgraded the simulation-based definition of secure computation (i.e., Definition \ref{def::MPC-active-adv}) to define the security requirements of \p, by incorporating the above predicates into the definition. 
+%Note that we have upgraded the simulation-based definition of secure computation (i.e., Definition \ref{def::MPC-active-adv}) to define the security requirements of \p, by incorporating the above predicates into the definition. 
  
  \vspace{-1mm}
  

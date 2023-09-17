@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  16 SEP 2023 15:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  17 SEP 2023 19:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1393,29 +1393,28 @@ m/m/it/9 x; y\OT1/cmr/m/n/9 ))\OMS/cmsy/m/n/9 g[][]
  []
 
 ) [5] (./short-commitment.tex [6]) (./Merkle-tree-short.tex) [7]
-(./short-coin-tossing.tex [8])) (./security-definition.tex) (./Fair-PSI.tex
-[9]
-Overfull \hbox (2.60262pt too wide) in paragraph at lines 96--102
+(./short-coin-tossing.tex)) (./security-definition.tex) (./Fair-PSI.tex
+Overfull \hbox (1.31804pt too wide) in paragraph at lines 11--12
+\T1/cmr/m/n/10 Now, we present the con-cept of multi-party PSI with Fair Com-pe
+n-sa-tion ($[][]$)
+ []
+
+[8]
+Overfull \hbox (2.60262pt too wide) in paragraph at lines 105--111
 \T1/cmr/m/it/10 and $\OMS/cmsy/m/n/10 W\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 f[]; Q
 \OT1/cmr/m/n/10 )$ \T1/cmr/m/it/10 is a func-tion-al-ity that wraps $\OML/cmm/m
 /it/10 f[]$ \T1/cmr/m/it/10 with pred-i-cates $\OML/cmm/m/it/10 Q \OT1/cmr/m/n/
 10 := (\OML/cmm/m/it/10 Q[]; Q[];$
  []
 
-(./Sub-protocols.tex [10] (./VOPR.tex) (./ZSPA.tex [11] (./ZSPA-protocol.tex
+[9] (./Sub-protocols.tex [10] (./VOPR.tex) [11] (./ZSPA.tex
+(./ZSPA-protocol.tex
 Underfull \hbox (badness 10000) in paragraph at lines 42--43
 []\T1/cmr/m/n/9 constructs a Merkel tree on top of all pseu-do-ran-dom val-ues,
 
  []
 
-) [12]) (./Arbiter-protocol.tex
-Overfull \hbox (8.97914pt too wide) in paragraph at lines 12--15
-\T1/cmr/m/n/10 al-ity that $[]$ com-putes is de-fined as $\OML/cmm/m/it/10 f[]\
-OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 ; b; \OML/cmm/b/it/10 ^^P\OT1/cmr/m/n/10 ) \
-OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 ;$
- []
-
-[13] (./Arbiter-algorithm.tex
+)) (./Arbiter-protocol.tex [12] (./Arbiter-algorithm.tex [13]
 Underfull \hbox (badness 10000) in paragraph at lines 31--32
 []\T1/cmr/m/n/9 Output of each $\OML/cmm/m/it/9 A[]$\T1/cmr/m/n/9 . $\OML/cmm/m
 /it/9 k$\T1/cmr/m/n/9 : a se-cret key that gen-er-ates $\OML/cmm/m/it/9 b$ \T1/
@@ -1423,7 +1422,7 @@ cmr/m/n/9 vec-tors
  []
 
 ))) (./Unforgeable-polynomials.tex [14]
-Overfull \hbox (2.60046pt too wide) in paragraph at lines 50--55
+Overfull \hbox (2.60046pt too wide) in paragraph at lines 49--54
 \U/msb/m/n/10 F[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ]$\T1/cmr/m
 /it/10 ), $[] \OT1/cmr/m/n/10 = [\OML/cmm/b/it/10 ^^Y[]\OML/cmm/m/it/10 ; :::; 
 \OML/cmm/b/it/10 ^^Y[]\OT1/cmr/m/n/10 ]$ \T1/cmr/m/it/10 be a vec-tor of ar-bi-
@@ -1432,16 +1431,16 @@ P\OT1/cmr/m/n/10 ) = 1\OML/cmm/m/it/10 ; deg\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 ^
 ^M[]\OT1/cmr/m/n/10 ) =
  []
 
-) [15]
+)
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 129.
-
-Overfull \hbox (2.54822pt too wide) in paragraph at lines 202--205
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 138.
+ [15]
+Overfull \hbox (2.54822pt too wide) in paragraph at lines 211--214
 []\T1/cmr/m/n/10 Then, $\OML/cmm/m/it/10 D$ \T1/cmr/m/n/10 ran-domises and con-
 structs an un-forge-able poly-no-mial on each client's
  []
 
-[16] [17] [18] [19]) (./smart-PSI-protocol.tex
+[16] [17] [18]) (./smart-PSI-protocol.tex [19]
 Overfull \hbox (2.01343pt too wide) in paragraph at lines 77--86
 \T1/cmr/m/n/10 com-mit-ments, the hash-based padding tech-nique, and the counte
 r-collusion smart
@@ -1480,7 +1479,7 @@ Overfull \hbox (0.11578pt too wide) in paragraph at lines 37--38
 
 [42] [43]) (./ZSPA-proof.tex [44] [45]) (./ZSPA-A-proof.tex [46] [47])
 (./Unforgeable-poly-proof.tex [48]) (./Justitia-workflow.tex
-<Diag-1.pdf, id=994, 1525.7pt x 883.3pt>
+<Diag-1.pdf, id=992, 1525.7pt x 883.3pt>
 File: Diag-1.pdf Graphic file (type pdf)
 <use Diag-1.pdf>
 Package pdftex.def Info: Diag-1.pdf  used on input line 15.
@@ -1537,7 +1536,7 @@ Underfull \vbox (badness 2460) has occurred while \output is active []
 
  [62]
 [63]) (./PSI-FCR-predicates.tex) (./Anesidora-workflow.tex
-<Diag-2.pdf, id=1807, 1525.7pt x 883.3pt>
+<Diag-2.pdf, id=1805, 1525.7pt x 883.3pt>
 File: Diag-2.pdf Graphic file (type pdf)
 <use Diag-2.pdf>
 Package pdftex.def Info: Diag-2.pdf  used on input line 14.
@@ -1583,7 +1582,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 272.
 Here is how much of TeX's memory you used:
  40540 strings out of 480608
  939978 string characters out of 5903630
- 1479173 words of memory out of 5000000
+ 1480176 words of memory out of 5000000
  54981 multiletter control sequences out of 15000+600000
  564006 words of font info for 118 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1640,10 +1639,10 @@ fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2020/texmf-dist/fo
 nts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2020/texmf-dist/font
 s/type1/public/esvect/vect10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type
 1/public/esvect/vect9.pfb>
-Output written on main.pdf (77 pages, 2842452 bytes).
+Output written on main.pdf (77 pages, 2842799 bytes).
 PDF statistics:
- 2608 PDF objects out of 2984 (max. 8388607)
- 2033 compressed objects within 21 object streams
+ 2606 PDF objects out of 2984 (max. 8388607)
+ 2031 compressed objects within 21 object streams
  546 named destinations out of 1000 (max. 500000)
  175 words of extra memory for PDF output out of 10000 (max. 10000000)
 

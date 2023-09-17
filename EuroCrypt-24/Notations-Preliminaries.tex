@@ -1,11 +1,11 @@
 % !TEX root =main.tex
 
-\vspace{-3mm}
+\vspace{-4mm}
 
 \section{Preliminaries}
 
 
-\vspace{-2mm}
+\vspace{-3mm}
 \input{notation-Table}
 %\subsection{Notations}
 
@@ -21,7 +21,7 @@
 \vspace{-4mm}
 
 \subsection{Smart Contracts}
-\vspace{-.5mm}
+\vspace{-1mm}
 
 Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum},  go beyond merely providing a decentralised currency; they also facilitate computations on transactions. These cryptocurrencies allow for a specific computational logic to be encoded in a computer program known as a \emph{``smart contract''}.  As of now, Ethereum stands as the foremost cryptocurrency framework that empowers users to define arbitrary smart contracts. Within this framework, contract code resides on the blockchain and is executed by all parties involved in maintaining the cryptocurrency. The correctness of program execution is ensured by the security of the underlying blockchain components. In the context of this work, \textbf{standard} public (Ethereum) smart contracts align with the requirements of our protocols.
 
@@ -33,7 +33,7 @@ Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum},  
 \vspace{-3mm}
 
 \subsection{Counter Collusion Smart Contracts}\label{Counter-Collusion-Smart-Contracts}
-\vspace{-.5mm}
+\vspace{-1mm}
 
 
 To enable a party, such as a client, to efficiently delegate computation to multiple potentially colluding third parties, like servers, Dong   \et \cite{dong2017betrayal}  
@@ -92,14 +92,14 @@ The definition of a pseudorandom permutation, $\mathtt {PRP}: \{0,1\}^{\st \lamb
 %\subsection{Random Extraction Beacon}
 %\subsection{Commitment Scheme}
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 \input{short-commitment}
 
-\vspace{-1mm}
+\vspace{-4mm}
 
 \subsection{Hash Tables}
-\vspace{-.5mm}
+\vspace{-1mm}
 
 A hash table is an array of bins, each capable of containing a set of elements, and is paired with a hash function. To insert an element, we initially compute the element's hash and subsequently place the element into the bin corresponding to the computed hash value. In this paper, we ensure that the number of elements in each bin does not surpass a predefined capacity. By considering the maximum number of elements as $c$ and the maximum size of a bin as $d$, we can calculate the number of bins, denoted as $h$, through an analysis of hash tables using the the ``balls into the bins'' model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}. In Appendix \ref{Preliminary-Hash-Table}, we provide an explanation of how the hash table parameters are configured.
 
@@ -132,14 +132,14 @@ Given a polynomial $\bm\theta$ that encodes sets intersection, one can find the 
 \vspace{-3mm}
 
 \subsection{Horner's Method}
-\vspace{-.5mm}
+\vspace{-1mm}
 
 Horner's method \cite{DBLP:journals/ibmrd/Dorn62} allows for efficiently evaluating polynomials at a given point, e.g., $x_{\st 0}$. Specifically, given a polynomial of the form: $\bm\tau(x)= a_{\st 0}+a_{\st 1}\cdot x+a_{\st 2}\cdot x^{\st 2}+...+a_{\st d}\cdot x^{\st d}$ and a point: $x_{\st 0}$, one can efficiently evaluate the polynomial at $x_{\st 0}$ iteratively, in the following fashion: $\bm\tau(x_{\st 0})=a_{\st 0}+x_{\st 0}(a_{\st 1} + x_{\st 0}(a_{\st 2}+...+x_{\st 0}(a_{\st d-1}+x_{\st 0}\cdot a_{\st d})...)))$. Evaluating  a polynomial of degree $d$ naively requires  $d$ additions and $\frac{(d^{\st 2}+d)}{2}$ multiplications. However, using Horner's method the evaluation requires only $d$ additions and $2d$ multiplications. We use this method in this paper. 
 
 \vspace{-3mm}
 
 \subsection{Oblivious Linear Function Evaluation}\label{sec::OLE-plus}
-\vspace{-.5mm}
+\vspace{-1mm}
 
 Oblivious Linear function Evaluation (\ole) is a two-party protocol that involves a sender and receiver. In \ole,  the sender  has two  inputs  $a, b\in \mathbb{F}_{\st p}$ and the receiver has a single input, $c \in \mathbb{F}_{p}$.  The protocol allows the receiver to learn only $s = a\cdot c + b \in \mathbb{F}_{\st p}$, while the sender learns nothing. Ghosh \textit{et al.} \cite{GhoshNN17} proposed an efficient \ole that has $O(1)$ overhead and involves mainly symmetric key operations. Later, in \cite{GhoshN19} an enhanced \ole, called $\ole^{\st +}$ was proposed. The latter ensures that the receiver cannot learn anything about the sender's inputs,  even if it sets its input to $0$. In this paper, we use $\ole^{\st +}$. We refer readers to Appendix \ref{apndx:F-OLE-plus}, for its construction.  %In this case, each party picks a random string, 
 
