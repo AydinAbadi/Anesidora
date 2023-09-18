@@ -4,12 +4,15 @@
 %\section{Sub Protocols}
 
 
+ \vspace{-5mm}
+
+\section{Definition of \ep}
  \vspace{-2mm}
 
-\section{Definition of Multi-party PSI with Fair Compensation and Reward}
- \vspace{-1mm}
+In this section, we enhance \p to ``multi-party PSI with Fair Compensation and Reward'' (\ep), which not only provides the functionalities of \p,  but also allows honest clients contributing their set to receive a reward from the buyer who initiates the PSI computation.
 
-In this section, we upgrade \p to ``multi-party PSI with Fair Compensation and Reward'' (\ep), which (in addition to offering the features of \p) lets honest clients who contribute their set receive a reward from a buyer who initiates the PSI computation. % and is interested in the result.
+
+
 
 
 %In this section, we present the notion of ``Earn while You Reveal PSI'' (\ep), which allows honest clients who contribute their set to get paid by a buyer who initiates the PSI computation and is interested in the result. 
@@ -22,14 +25,19 @@ In this section, we upgrade \p to ``multi-party PSI with Fair Compensation and R
 %  
 
 
-In \ep, there are (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ a subset of which can be active adversaries and may collude with each other, (2) a non-colluding dealer client, $D$, potentially semi-honest, and (3) an auditor $Aud$ potentially semi-honest, where all clients have input set. Also,   there are two ``extractor'' clients, say $A_{\st 1}$ and $A_{\st 2}$, where $(A_{\st 1},A_{\st 2})\in \{A_{\st 1},...,A_{\st m}\}$. These extractor clients volunteer to extract the (encoded) elements of the intersection and send them to a public bulletin board, i.e., a smart contract. In return, they will be paid. 
+In \ep, there are (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ within which a subset can potentially be active adversaries and engage in collusion, (2) a non-colluding dealer client, $D$, who may be semi-honest, and (3) an auditor $Aud$, who may also be semi-honest.  All clients possess an input set. 
+
+
+Additionally,  there are two ``extractor'' clients, specifically $A_{\st 1}$ and $A_{\st 2}$, where $(A_{\st 1},A_{\st 2})\in \{A_{\st 1},...,A_{\st m}\}$.  These extractor clients voluntarily undertake the task of extracting the (encoded) elements of the intersection and transmitting them to a public bulletin board, represented by a smart contract. In exchange for this service, they will receive payment.
 %
 %We assume these two extractors are corrupted by an active adversary during interacting with other parties (and clients) until they collaborate with the rest of the clients to compute the intersection; 
 %
-We assume these two extractors act rationally only when they want to carry out the paid task of extracting the intersection and reporting it to the smart contract, so they can maximise their profit.\footnote{Thus, similar to any $A_{\st i}$ in \p, these extractors might be corrupted by an active adversary during the PSI computation.} For simplicity, we let client $A_{\st m}$ be the buyer, i.e., the party which initiates the PSI computation and is interested in the result. 
+We assume that these two extractors act rationally only when they intend to perform the paid task of extracting the intersection and reporting it to the smart contract. This rational behaviour allows them to maximise their profit.\footnote{Thus, similar to any $A_{\st i}$ in \p, these extractors might be corrupted by an active adversary during the PSI computation.} For simplicity, we designate client $A_{\st m}$ as the buyer, implying that this party initiates the PSI computation and holds an interest in the outcome
 
 
- The formal definition of \ep is built upon the definition of \p; nevertheless, in \ep, we ensure that honest non-buyer clients receive a \emph{reward} for participating in the protocol and revealing a portion of their inputs deduced from the result. We:  (i)  upgrade \qdel to  \qdelwr to ensure that when honest clients receive the result, an honest non-buyer client receives its deposit back plus a reward and a buyer client receives its deposit back minus the paid reward, and (ii) upgrade  \qUnFAbt to \qUnFAbtwr to ensure when an adversary aborts in an unfair manner, then an honest party receives its deposit back plus a predefined amount of compensation plus a reward.  Predicates  \qinit and \qFAbt remain unchanged. We denote the four predicates as $\bar Q:=(\qinit,  \qdelwr, \qUnFAbtwr, \qFAbt)$. We refer readers to Appendix \ref{sec::Formal-Definitions-of-E-PSI-Predicates} for formal definitions of predicates \qdelwr and \qUnFAbtwr. 
+ The formal definition of \ep is constructed based on the definition of \p. Nevertheless, in \ep, we ensure that honest non-buyer clients receive a \emph{reward} for their participation in the protocol and for disclosing a portion of their inputs derived from the outcome. We achieve this through two main upgrades:  (i)  we enhance \qdel to  \qdelwr to ensure that when honest clients receive the result, an honest non-buyer client receives its deposit back along with a reward, while a buyer client receives its deposit back minus the paid reward and (ii) we upgrade  \qUnFAbt to \qUnFAbtwr to ensure that when an adversary aborts in the protocol unfairly, an honest party receives its deposit back along with a predefined amount of compensation and a reward.  
+ %
+ Predicates  \qinit and \qFAbt remain unchanged. We denote these four predicates as $\bar Q:=(\qinit,  \qdelwr, \qUnFAbtwr, \qFAbt)$. For formal definitions of predicates \qdelwr and \qUnFAbtwr, please refer to Appendix \ref{sec::Formal-Definitions-of-E-PSI-Predicates}. 
  
  
  
@@ -41,9 +49,9 @@ Next, we present the formal definition of  \ep.
 
  \vspace{-1mm}
 \begin{definition}[\ep]\label{def::PSI-Q-fair-reward}
-Let $f^{\st \text{PSI}}$ be the multi-party PSI functionality defined in Section \ref{sec::F-PSI-model}. Protocol $\Gamma$ realises  $f^{\st \text{PSI}}$ with $\bar Q$-fairness-and-reward in the presence of $m-3$ static active-adversary clients $A_{\st j}$s and $two$ rational clients $A_{\st i}s$ or a static passive dealer  $D$ or passive auditor $Aud$, if for every non-uniform PPT adversary $\mathcal{A}$ for the real model, there exists a non-uniform PPT adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $I\in \{A_{\st 1},...,A_{\st m}, D, Aud\}$, it holds that: 
+Let $f^{\st \text{PSI}}$ be the multi-party PSI functionality defined in Section \ref{sec::F-PSI-model}. Protocol $\Gamma$ realises  $f^{\st \text{PSI}}$ with $\bar Q$-fairness-and-reward in the presence of $m-3$ static active-adversary clients $A_{\st j}$s and $two$ rational clients $A_{\st i}s$ or a static passive dealer  $D$ or passive auditor $Aud$, if for every non-uniform PPT adversary $\mathcal{A}$ for the real model, there exists a non-uniform PPT adversary (or simulator) $\mathsf{Sim}$ for the ideal model, such that for every $I\in \{A_{\st 1},...,A_{\st m}, D, Aud\}$, it holds: 
 %\begin{equation*}
-$\{\mathsf {Ideal}^{\st \mathcal{W}(f^{\st \text{PSI}}, \bar Q)}_{\st \mathsf{Sim}(z), I}(S_{\st 1},..., S_{\st m+1})\}_{\st S_{\st 1},..., S_{\st m+1},z}\stackrel{c}{\equiv} \{\mathsf{Real}_{\st \mathcal{A}(z), I}^{\st \Gamma}(S_{\st 1}\\,..., S_{\st m+1}) \}_{\st S_{\st 1},..., S_{\st m+1},z}$, 
+$\{\mathsf {Ideal}^{\st \mathcal{W}(f^{\st \text{PSI}}, \bar Q)}_{\st \mathsf{Sim}(z), I}(S_{\st 1},..., S_{\st m+1})\}_{\st S_{\st 1},..., S_{\st m+1},z}\stackrel{c}{\equiv} \{\mathsf{Real}_{\st \mathcal{A}(z), I}^{\st \Gamma}(S_{\st 1},..., S_{\st m+1}) \}_{\st S_{\st 1},..., S_{\st m+1},z}$, \\
 %\end{equation*}
 where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st \text{PSI}}, \bar Q)$ is a functionality that wraps $f^{\st \text{PSI}}$ with predicates $\bar Q:=(\qinit,  \qdelwr, \qUnFAbtwr, \qFAbt)$. 
   \end{definition}
@@ -52,10 +60,10 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 
 %%%%%%%%
 
- \vspace{-2mm}
+ \vspace{-5mm}
 \section{Concrete Construction of \ep}
 
- \vspace{-3mm}
+ \vspace{-2mm}
  
  %%%%%%%%%%%
 
@@ -64,9 +72,9 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 
 %\subsubsection{Preserving the Intersection Privacy.} As stated above, the extractors are required to prove to a smart contract that they know 
 
-
-\subsection{Description of \withRew (\epsi)}
  \vspace{-1mm}
+\subsection{Description of \withRew (\epsi)}
+ \vspace{-2mm}
 %An Overview of E-PSI}
 
 %This section presents a protocol, called E-PSI, that realises \ep. 
@@ -76,13 +84,15 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 
 To construct  \epsi, we mainly use \fpsi, deterministic encryption, ``double-layered'' commitments, the hash-based padding technique, and the counter-collusion smart contracts. % (described in Section \ref{Counter-Collusion-Smart-Contracts}). 
 %
-At a high level, \epsi works as follows. First, all clients run step \ref{gen-FPSI-cont} of \fpsi to agree on a set of parameters and \fpsi's smart contract.  They deploy another smart contract, say $\SCe$. They also agree on a secret key, $mk'$. Next, the buyer places a certain deposit into $\SCe$. This deposit will be distributed among honest clients as a reward. 
+At a high level, \epsi works as follows. Initially, all clients execute step \ref{gen-FPSI-cont} of \fpsi to reach an agreement on a set of parameters and \fpsi's smart contract.  They also deploy another smart contract, denoted as $\SCe$, and agree on a secret key, $mk'$. 
+%
+Next, the buyer deposits a certain amount into $\SCe$. This deposit will be distributed among honest clients as a reward. 
 %
 %All clients check the buyer's deposit and proceed to the next step if they agree with the deposit amount.  
 %
-The extractors and $D$ deploy one of the counter-collusion smart contracts, i.e., \SCpc. These three parties deposit a certain amount on this contract.  Each honest extractor will receive a portion of $D$'s deposit for carrying out its task honestly and each dishonest extractor will lose a portion of its deposit for acting maliciously. 
+The extractors and $D$ deploy one of the counter-collusion smart contracts, namely \SCpc. These three parties contribute a specific sum to \SCpc.  Each honest extractor will receive a portion of $D$'s deposit for carrying out its task honestly, while each dishonest extractor will incur a penalty, causing a deduction from their deposit for engaging in malicious behaviour. 
 %
-Then, each client encrypts its set elements (under $mk'$ using deterministic encryption) and then represents the encrypted elements as a polynomial. %The reason each client encrypts its set elements is to ensure that the privacy of the plaintext elements in the intersection will be preserved from the public. 
+Each client encrypts its set elements (under $mk'$ using deterministic encryption) and represents the encrypted elements as a polynomial. %The reason each client encrypts its set elements is to ensure that the privacy of the plaintext elements in the intersection will be preserved from the public. 
 
 
 
@@ -93,16 +103,14 @@ Then, each client encrypts its set elements (under $mk'$ using deterministic enc
 
 
 %
-Next, the extractors commit to the encryption of their set elements and publish the result. 
-%
-All clients (including $D$) take the rest of the steps in \fpsi using their input polynomials. This yields a blinded polynomial,  whose correctness is checked by \scf. 
 
-If  \scf approves the result's correctness, then all parties receive their deposit put  in \scf. In this case, each extractor finds the set elements in the intersection. Each extractor proves to $\SCe$ that the encryptions of the elements in the intersection are among the commitments that the extractor previously published. 
-%
-If $\SCe$ accepts both extractors' proofs, then it pays each client (except the buyer) a reward, where the reward is taken from the buyer's deposit. The extractors receive their deposits back and are paid for carrying out the task honestly. Nevertheless, if $\SCe$ does not accept one of the extractors' proofs (or one extractor betrays the other), then it invokes the auditor in the counter-collusion contracts to identify the misbehaving extractor.  Then, $\SCe$ pays each honest client (except the buyer) a reward, taken from the misbehaving extractor. $\SCe$ also refunds the buyer's deposit.
-%
+Following this, the extractors make a commitment to the encryption of their set elements and publicly disclose the outcome. Subsequently, all clients (including $D$) proceed with the remaining steps outlined in \fpsi using their input polynomials. This process results in the creation of a blinded polynomial, the correctness of which is verified by \scf. 
 
-If \scf does not approve the result's correctness and \aud identified misbehaving clients, then honest clients will receive (1) their deposit back from \fpsi's contract, and (2)  compensation and reward, taken from misbehaving clients. Moreover, the buyer and extractors receive their deposit back from $\SCe$. Figure \ref{fig:parties-interactions-in-ANE} in Appendix \ref{sec::Workflow-of-withRew} outlines the interaction between parties in \withRew. 
+If  \scf confirms the correctness of the result,  all parties receive the deposits they initially placed in \scf. In this case, each extractor finds the set elements in the intersection. Additionally, each extractor provides proof to $\SCe$ that the encryptions of the elements in the intersection match the commitments they previously published. If $\SCe$ accepts the proofs from both extractors, it compensates each client  with a reward. This reward is funded from the buyer's deposit. The extractors receive refunds of their deposits and are also remunerated for their honest execution of the task. 
+%
+However, should  $\SCe$ decline to accept one of the extractors' proofs (or if one extractor betrays the other), it then activates the auditor specified in the counter-collusion contracts to identify the misbehaving extractor. Subsequently, $\SCe$ pays a reward to each honest client, with the reward sourced from the misbehaving extractor's deposit. Additionally, $\SCe$ provides a refund of the buyer's deposit. 
+
+If \scf does not approve the result's correctness and \aud identified misbehaving clients, honest clients will receive (1) their deposit back from \fpsi's contract, and (2)  compensation and reward, funded by the misbehaving clients. Also, the buyer and extractors will have their deposits refunded by $\SCe$. Figure \ref{fig:parties-interactions-in-ANE} in Appendix \ref{sec::Workflow-of-withRew}  illustrates the interaction among the parties in \withRew. 
 
 
 
@@ -119,11 +127,11 @@ If \scf does not approve the result's correctness and \aud identified misbehavin
 
 %However, we have to apply two essential modifications to F-PSI protocol. Generally speaking, the modifications are applied to (a) preserve the privacy of the elements in the intersection when each extractor proves the knowledge of them to the contract and (b) to identify misbehaving extractor without needing to have access to the extractor's set elements.  The role of collusion smart contracts is to create a distrust  between the extractors and buyer who may collude (out of the bound) to increase their profit.  
 
- \vspace{-3.4mm}
+ \vspace{-4mm}
 \subsection{Detailed Description of \epsi} 
  \vspace{-1mm}
 
-Next, we describe the protocol in more detail (Table \ref{table:notation-table} in Appendix \ref{sec::notation-table} summarises the main notations used). 
+Next, we will provide a more detailed description of the protocol (Table \ref{table:notation-table} in Appendix \ref{sec::notation-table} summarises the main notations used). 
 
 
 
@@ -134,12 +142,12 @@ Next, we describe the protocol in more detail (Table \ref{table:notation-table} 
 
 
 
-
+\vspace{-1mm}
 \begin{enumerate}[leftmargin=4mm]
 
 %\item All clients in $\textbf{P}$ sign a smart contract $\mathcal{SC}$ and deploy it to a blockchain. Then, the buyer, $ { A}_{\st {  m}}$, deposits $v$ amounts in the contract.
 
-\item\label{e-psi::call-F-PSI-stepOne}  All clients in $\cl=\{ A_{\st 1},...,   A_{\st m},  D\}$ together run step \ref{gen-FPSI-cont} of \fpsi (in Section \ref{Fair-PSI-Protocol}) to deploy \fpsi's contract $\mathcal{SC}_{\fpsi}$ and agree on a  master key, $mk$. 
+\item\label{e-psi::call-F-PSI-stepOne}  All clients in $\cl=\{ A_{\st 1},...,   A_{\st m},  D\}$ collectively initiate step \ref{gen-FPSI-cont} of \fpsi (in Section \ref{Fair-PSI-Protocol}) to deploy \fpsi's contract $\mathcal{SC}_{\fpsi}$ and agree on a  master key, $mk$. 
 
 \item\label{e-psi::deploy-SC-E-PSI} All clients in $\cl$  deploy a new smart contract, $\SCe$. The address of $\SCe$ is given to all clients. 
 
@@ -150,7 +158,7 @@ Next, we describe the protocol in more detail (Table \ref{table:notation-table} 
 
 \item\label{e-PSI::extractor-deposit} $D$ signs \SCpc with the extractors. $\SCe$ transfers $\Smin\cdot \rc$ amount (from the buyer deposit) to \SCpc for each extractor. This is the maximum amount to be paid to an honest extractor for honestly declaring the elements of the intersection. %Each honest extractor will be paid $\hat w'= r\cdot |{ { {S}}}_{\st\cap}|$, where 
 %
-Each extractor  deposits $\dc'=\dc+\Smin\cdot \fc$ amount in \SCpc at time $t_{\st 3}$. At time $t_{\st 4}$ all clients ensure that the extractors deposited enough coins; otherwise, they withdraw their deposit and abort. 
+Each extractor  deposits $\dc'=\dc+\Smin\cdot \fc$ amount in \SCpc at time $t_{\st 3}$. At time $t_{\st 4}$ all clients ensure that the extractors deposited a sufficient amount of coins; otherwise, they withdraw their deposit and abort. 
 
 %
 \item\label{e-psi::commit-to-mk} $D$ encrypts $mk$ under the public key of the dispute resolver (in \SCpc); let $ct_{\st mk}$ be the resulting ciphertext.  It also generates a commitment of $mk$ as follows: $z'=\mathtt{PRF}(mk, 0),\ com_{\st mk}=\comcom(mk, z')$. It stores $ct_{\st mk}$  and ${com}_{\st mk}$ in $\SCe$. 
@@ -253,13 +261,13 @@ It determines to which bin the encrypted value belongs, i.e., ${ {  {j}}}=\matht
 \end{enumerate}
 
 
- \vspace{-2.5mm}
+ \vspace{-3mm}
  In Appendix \ref{sec::Annesidora-challenges}, we elaborate on the primary challenges we had to confront during the protocol design, which encompassed rewarding clients proportionately to the intersection size and managing collusions among extractors. Additionally, we direct readers to Appendix \ref{sec::Discussion-Anesidora} for a more comprehensive discussion of \withRew, where we elucidate why a naive approach is inadequate and provide insights into the use of hash-based padding and double-layered commitment.
  
  
  
 
- \vspace{-2mm}
+ \vspace{-2.5mm}
  \begin{theorem}\label{theorem::E-PSI-security}
 If  $\mathtt{PRP}$, $\mathtt{PRF}$, the commitment scheme, smart contracts, the Merkle tree scheme, \fpsi and the counter-collusion contracts are secure and the public key encryption is semantically secure,  then  \epsi realises  $f^{\st \text{PSI}}$ with $\bar Q$-fairness-and-reward (w.r.t. Definition \ref{def::PSI-Q-fair-reward}) in the presence of $m-3$ static active-adversary clients $A_{\st j}$s and $two$ rational clients $A_{\st i}s$ or a static passive dealer $D$ or passive auditor $Aud$, or passive public which sees the intersection cardinality.
  \end{theorem}
@@ -268,7 +276,7 @@ If  $\mathtt{PRP}$, $\mathtt{PRF}$, the commitment scheme, smart contracts, the 
 
 We prove Theorem \ref{theorem::E-PSI-security} in Appendix \ref{sec::E-PSI-proof}. 
 
-
+\vspace{-1mm}
 
 
 %%%%%%%%

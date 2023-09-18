@@ -4,12 +4,12 @@
 
 
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 \subsection{\zspa's Extension: \zspa with an External Auditor (\zspaa)}
 \vspace{-1mm}
 
-Now, we present an extension of \zspa, called \zspaa, which allows a (trusted) third-party auditor, \aud, to assist in identifying misbehaving clients within the \zspa and generate a vector of random polynomials with a specific structure. Specifically, the functionality that \zspaa computes is defined as 
+Now, we introduce an extension of \zspa, called \zspaa, designed to enable a (trusted) third-party auditor, \aud, to assist in the identification of misbehaving clients within the \zspa and generate a vector of random polynomials with a specific structure. Specifically, the functionality that \zspaa computes is defined as 
 %
 $f^{\st \zspaa}(\underbrace{\bot,..., \bot}_{\st m}, b, $ $\bm\zeta)\rightarrow (\underbrace{(k, g, q),..., (k, g,q)}_{\st m},$ $\bm\mu^{\st (1)},..., \bm\mu^{\st (m)})$, where $g$ is the root of the Markle tree built on the pseudorandom values $z_{\st i, j}$, $q$ is the hash value of the key used to generate the pseudorandom values, $m\geq 2$, $b$ is constant value, $\bm\zeta$ is a random polynomial of degree $1$, each $\bm\mu^{\st (j)} $ has the form $\bm\mu^{\st (j)} = \bm\zeta\cdot \bm\xi^{\st (j)}-\bm\tau^{\st (j)}$,  $\bm\xi^{\st (j)}$ is a random polynomial of degree $b-2$, and $\bm\tau^{\st (j)}=\sum\limits^{\st b-1}_{\st i=0}z_{\st i,j}\cdot x^{\st i}$. 
 
@@ -21,7 +21,7 @@ Informally, \zspaa ensures that misbehaving parties are always detected, except 
 \input{Arbiter-algorithm}
 
 
-\vspace{-1mm}
+\vspace{-1.2mm}
 \begin{theorem}\label{theorem::ZSPA-A}
 If\ $\zspa$ is secure, $\mathtt{H}$ is second-preimage resistant, and the correctness of $\mathtt{PRF}$, $\mathtt{H}$, and Merkle tree hold,  then \zspaa securely computes $f^{\st \zspaa}$ in the presence of $m-1 $ malicious adversaries.% or (ii) a semi-honest auditor. 
 \end{theorem}
@@ -32,7 +32,7 @@ If\ $\zspa$ is secure, $\mathtt{H}$ is second-preimage resistant, and the correc
 
 We refer readers to Appendix \ref{sec::proof-of-zspa-a} for the proof of Theorem \ref{theorem::ZSPA-A}. 
 
-
+\vspace{-1.4mm}
 
 
 %\begin{theorem}\label{theorem::ZSPA-comp-correctness}

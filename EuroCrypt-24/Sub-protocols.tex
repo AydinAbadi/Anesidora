@@ -1,19 +1,19 @@
 % !TEX root =main.tex
 
 
-\vspace{-3mm}
+\vspace{-4.5mm}
 
 
 
 \section{Other Subroutines Used in \withFai}\label{sec::subroutines}
-\vspace{-1mm}
+\vspace{-1.4mm}
 
 In this section, we present three subroutines and a primitive that we have developed and use in the instantiation of \p, known as \withFai. 
 
 
 \vspace{-3mm}
 \subsection{Verifiable Oblivious Polynomial Randomisation (\vopr)}\label{sec::vopr}
-\vspace{-1mm}
+\vspace{-1.2mm}
 
 %In this section, we present ``Verifiable Oblivious Polynomial Randomisation'' (VOPR) protocol. 
 
@@ -37,7 +37,7 @@ The reason the sender imposes the above structure on (the coefficients of)  $\bm
 To check the correctness of the result, the sender selects and transmits a random value $z$ to the receiver.  The receiver computes  $\bm\theta(z)$ and $\bm\beta(z)$ and sends these two values  to the sender. The sender computes  $\bm\psi(z)$ and $\bm\alpha(z)$ and then checks if equation  $\bm\theta({ z})=\bm\psi({ z})\cdot \bm\beta({ z})+\bm\alpha({ z})$ holds. It accepts the result if the check passes.   Figure \ref{fig:VOPR} describes \vopr in detail. 
 
 
-\vspace{-4.5mm}
+\vspace{-6.3mm}
 \input{VOPR}
 
 Note that \vopr requires the sender to insert non-zero coefficients, i.e., $b_{\st i}\neq 0$ for all $i,0 \leq i \leq e'$. If the sender includes a zero-coefficient, then it will only obtain a random value (due to  $\ole^{\st +}$), making it fail to pass \vopr's verification phase. However, it is important to mention that this requirement does not affect the correctness of \withFai, as we will explain in Section \ref{Fair-PSI-Protocol} and Appendix \ref{sec::error-prob}.  
@@ -55,7 +55,7 @@ Let $f^{\st \vopr}$ be the functionality defined above. If the enhanced \ole (i.
 
 \vspace{-1mm}
 We refer readers to Appendix \ref{sec::proof-of-vopr} for the proof of Theorem \ref{theorem::VOPR}. 
-
+\vspace{-1mm}
 
 \input{ZSPA.tex}
 

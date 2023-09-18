@@ -5,11 +5,11 @@
 
 
 
-\vspace{-3mm}
+\vspace{-2.4mm}
 
 \subsection{Unforgeable Polynomials}
 
-\vspace{-1.5mm}
+\vspace{-1.2mm}
 
 In this section, we introduce the new concept of unforgeable polynomials. Informally, an unforgeable polynomial possesses a secret factor. To verify that an unforgeable polynomial has not been tampered with, a verifier can check whether the polynomial is divisible by the secret factor. 
 %
@@ -38,13 +38,15 @@ $Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma) ]\leq \negl(\lambda)$.
 %\end{proof} 
 
 %$Max\big(deg(\theta'), d+1\big)$
+
+\vspace{-3mm}
  An interesting feature of an unforgeable polynomial is that the verifier can perform the check without needing knowledge of the original polynomial $\bm\pi$. Another appealing aspect of the unforgeable polynomial is its  support for \emph{linear combination} and, consequently, \emph{batch verification}. Specifically, to transform $n$ arbitrary polynomials $[\bm\pi_{\st 1},..., \bm\pi_{\st n}]$ into unforgeable polynomials, one can construct  $\bm\theta_{\st i}=\bm\zeta\cdot \bm\pi_{\st i}+ \bm\gamma_{\st i} \bmod p$, where $\forall i, 1\leq i\leq n$.  
  
  
 To verify the integrity of all polynomials $[\bm\theta_{\st 1},..., \bm\theta_{\st n}]$, a verifier can (i) compute their sum $\bm \chi=\sum\limits_{\st i=1}^{\st n}\bm\theta_{\st i}$ and (ii) check whether $\bm \chi- \sum\limits_{\st i=1}^{\st n}\bm\gamma_{\st i} $ is divisible by $\bm \zeta$.  Informally, the security of an unforgeable polynomial states that an adversary (who is unaware of the two secret random polynomials for each $\bm\theta_{\st i}$) cannot tamper with any subset of the unforgeable polynomials without being detected, except with a negligible probability. We formally state it, below. 
  
  
-\vspace{-1mm}
+\vspace{-1.2mm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{theorem}[Unforgeable Polynomials' Linear Combination]\label{Unforgeable-Polynomials-Linear-Combination}
 %
@@ -76,7 +78,7 @@ $Pr[ \bm\zeta \ | \ (\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limit
 
 \vspace{-1.2mm}
 
-Appendix \ref{sec::proof-of-unforgeable-polys} presents the proofs of Theorems \ref{proof::unforgeable-poly} and \ref{Unforgeable-Polynomials-Linear-Combination}. In \withFai, we will use unforgeable polynomials to enable a smart contract to efficiently verify the integrity of the polynomials sent by clients, ensuring that they are indeed the outputs of \vopr.
+Appendix \ref{sec::proof-of-unforgeable-polys} contains the proofs of Theorems \ref{proof::unforgeable-poly} and \ref{Unforgeable-Polynomials-Linear-Combination}. In \withFai, we will employ unforgeable polynomials to enable a smart contract to efficiently verify the integrity of the polynomials sent by clients, ensuring that they are indeed the outputs of \vopr.
 
 
 
