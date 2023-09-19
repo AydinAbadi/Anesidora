@@ -12,7 +12,7 @@ At a high level, \zspa operates as follows. Initially, the parties sign a smart 
 %
 %Next, it commits to each value, where it uses $k_{\scriptscriptstyle 2}$ to generate the randomness of each commitment. 
 
-Next, it constructs a Merkel tree  atop the pseudorandom values and retains solely the root of the tree $g$ and the hash value $q$ of the key within the smart contract. Subsequently, each party, utilising the key, independently verifies if the values on the contract have been constructed correctly. If this verification passes, the party sends a signed message labeled as ``approved'' to the contract. Note that the contract exclusively accepts messages from registered parties. 
+Next, it constructs a Merkle tree  atop the pseudorandom values and retains solely the root of the tree $g$ and the hash value $q$ of the key within the smart contract. Subsequently, each party, utilising the key, independently verifies if the values on the contract have been constructed correctly. If this verification passes, the party sends a signed message labeled as ``approved'' to the contract. Note that the contract exclusively accepts messages from registered parties. 
 
 Hence, the functionality that \zspa computes is defined as $f^{\st \zspa}\underbrace{(\bot,..., \bot)}_{\st m}\rightarrow \underbrace{((k, g, q),..., (k, g,q))}_{\st m}$, where $g$ is the root of the Markle tree built on the pseudorandom values $z_{\st i, j}$, $q$ is the hash value of the key used to generate the pseudorandom values, and $m\geq 2$. Figure \ref{fig:ZSPA} presents \zspa in detail.  
 

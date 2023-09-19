@@ -212,7 +212,7 @@ In the event of such misbehaviour, all honest parties receive a refund of their 
 \subsection{Detailed Description of \fpsi.}
 \vspace{-1mm}
 
- Now, we will provide an in-depth explanation of how \fpsi  operates. (For a description of the main notations used, please refer to Table \ref{table:notation-table} in Appendix \ref{sec::notation-table}). 
+ Now, we will provide an in-depth explanation of how \fpsi  operates. (For a description of the main notations used, please refer to Table \ref{table:notation-table} on page \pageref{table:notation-table}). 
 
 \vspace{-2.5mm}
 \begin{enumerate}[leftmargin=.55cm]
@@ -226,7 +226,7 @@ In the event of such misbehaviour, all honest parties receive a refund of their 
 %
 \item \label{ZSPA} Every client $ C$ in $\cl\setminus D$, for every bin, agree on $b=3d+3$ vectors of pseudorandom blinding factors: $z_{\st i,j}$, such that the sum of each vector elements is zero, i.e., $\sum\limits^{\st m}_{\st j=1}z_{\st i,j}=0$, where $0\leq i\leq b-1$. To do that, they participate in step \ref{ZSPA::ZSPA-invocation} of \zspaa. By the end of this step, for each bin, they agree on a secret key $k$ (that will be used to generate the zero-sum values) as well as two values stored in $\mathcal{SC}_{\fpsi}$, i.e., $q$: the key's hash value and $g$: a Merkle tree's root. After time $t_{\st 1}$,  $D$ ensures that all other clients have agreed on the vectors (i.e., all provided ``approved''  to the contract). If the check fails, it halts. 
 %
-\item\label{F-PSI::each-client-deposit} Each client in $\cl$ deposits $\yc+\chc$ amount to $\mathcal{SC}_{\fpsi}$. After time $t_{\st 2}$, $\mathcal{SC}_{\fpsi}$ checks if in total $(\yc+\chc)\cdot (m+1)$ amount has been deposited. If the check fails, it refunds the clients' deposit is refunded and halts. 
+\item\label{F-PSI::each-client-deposit} Each client in $\cl$ deposits $\yc+\chc$ amount to $\mathcal{SC}_{\fpsi}$. After time $t_{\st 2}$, $\mathcal{SC}_{\fpsi}$ checks if in total $(\yc+\chc)\cdot (m+1)$ amount has been deposited. If the check fails, it refunds the clients' deposit and halts. 
 
 
 
@@ -235,12 +235,12 @@ In the event of such misbehaviour, all honest parties receive a refund of their 
 
 
 \item\label{JUS::check-non-zero-coeff}  $D$ picks a  random polynomial $\bm\zeta \stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $1$, for each bin.  
-It, for each client $C$, allocates to each bin two random polynomials: $\bm\omega^{\st(D,C)}, \bm\rho^{\st (D,C)}\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $d$, and  two  random polynomials: $\bm\gamma^{\st (D,C)}, \bm\delta^{\st (D,C)} \leftarrow \mathbb{F}_{\st p}[X]$ of degree $3d+1$. Also, each client $C$, for each bin, picks two  random polynomials: $\bm\omega^{\st (C,D)}, \bm\rho^{\st (C,D)}\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $d$, and checks polynomials $\bm\omega^{\st (C,D)}\cdot \bm\pi^{\st  {  {(C)}}}$ and  $\bm\rho^{\st (C,D)}$ do not contain zero coefficients. %It also evaluates each polynomial at every element of $\vv{\bm{x}}$ that results in  $\omega^{  {  {D,C}}}_{\st i}$ and $\rho^{  {  {D,C}}}_{\st i}$.
+It, for each client $C$, allocates to each bin two random polynomials: $\bm\omega^{\st(D,C)}, \bm\rho^{\st (D,C)}\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $d$, and  two  random polynomials: $\bm\gamma^{\st (D,C)}, \bm\delta^{\st (D,C)} \leftarrow \mathbb{F}_{\st p}[X]$ of degree $3d+1$. Also, each client $C$, for each bin, picks two  random polynomials: $\bm\omega^{\st (C,D)}, \bm\rho^{\st (C,D)}\stackrel{\st\$}\leftarrow \mathbb{F}_{\st p}[X]$ of degree $d$, and checks polynomials $\bm\omega^{\st (C,D)}\cdot \bm\pi^{\st  {  {(C)}}}$ and  $\bm\rho^{\st (C,D)}$ do not contain zero coefficients. Appendix \ref{sec::error-prob}, on page \pageref{sec::error-prob}, provides further discussion about this check. %It also evaluates each polynomial at every element of $\vv{\bm{x}}$ that results in  $\omega^{  {  {D,C}}}_{\st i}$ and $\rho^{  {  {D,C}}}_{\st i}$.
 
 
 
 
-\item\label{e-psi::D-randomises}  $D$ randomises other clients' polynomials. To do so, for every bin, it invokes an instance of {\vopr} (presented in Fig. \ref{fig:VOPR}) with  each client $  C$; where  $D$ sends $\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}$ and $\bm\gamma^{\st  {  {(D,C)}}}$, while client $ C$ sends $\bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(C)}}}$ to {\vopr}. Each client $C$, for every bin, receives a blind polynomial of the following form: 
+\item\label{e-psi::D-randomises}  $D$ randomises other clients' polynomials. To do so, for every bin, it invokes an instance of {\vopr} (presented in Fig. \ref{fig:VOPR}) with  each client $  C$; where  $D$ sends $\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}$ and $\bm\gamma^{\st  {  {(D,C)}}}$, while client $ C$ sends $\bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(C)}}}$ to {\vopr}. Each client $C$, for every bin, receives a blinded polynomial of the following form: 
 
  \vspace{-3mm}
 $$\bm\theta^{  {  {(C)}}}_{\st 1}=\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}\cdot \bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  {(C)}}}+\bm\gamma^{\st  {  {(D,C)}}}$$
@@ -249,7 +249,7 @@ $$\bm\theta^{  {  {(C)}}}_{\st 1}=\bm\zeta \cdot \bm\omega^{\st  {  {(D,C)}}}\cd
 
  from {\vopr}. If any party aborts, the deposit would be refunded to all parties.
 
-\item\label{e-psi::C-randomises} Each client $    {  C}$ randomises  $ {D}$'s polynomial. To do that, each client $    {  C}$, for each bin,  invokes an instance of {\vopr} with   $ {D}$,    where each client $    {  C}$  sends $\bm\rho^{\st  {  {(C,D)}}}$, while  ${D}$  sends $\bm\zeta\cdot\bm \rho^{\st  {  {(D,C)}}}\cdot \bm\pi^{  {  {(D)}}}$ and $\bm\delta^{\st  {  {(D,C)}}}$ to {\vopr}. Every client   $    {  C}$, for each bin,  receives a blind polynomial of the following form: 
+\item\label{e-psi::C-randomises} Each client $    {  C}$ randomises  $ {D}$'s polynomial. To do that, each client $    {  C}$, for each bin,  invokes an instance of {\vopr} with   $ {D}$,    where each client $    {  C}$  sends $\bm\rho^{\st  {  {(C,D)}}}$, while  ${D}$  sends $\bm\zeta\cdot\bm \rho^{\st  {  {(D,C)}}}\cdot \bm\pi^{  {  {(D)}}}$ and $\bm\delta^{\st  {  {(D,C)}}}$ to {\vopr}. Every client   $    {  C}$, for each bin,  receives a blinded polynomial of the following form: 
 %
 
  \vspace{-2.5mm}
@@ -261,7 +261,7 @@ $$\bm\theta^{  {  {(C)}}}_{\st 2}=\bm\zeta \cdot \bm\rho^{\st  {  {(D,C)}}}\cdot
  from {\vopr}. If a party aborts, all parties get their deposit back. 
 
 
-\item\label{blindPoly-C-sends-to-contract} Each client $ C$, for every bin, masks the sum of polynomials $\bm\theta^{\st  {  {(C)}}}_{\st 1}$ and $\bm\theta^{\st  {  {(C)}}}_{\st 2}$  using the blinding factors: $z_{\st i,c}$, generated in step \ref{ZSPA}. Specifically, it computes the following blind polynomial (for every bin):  
+\item\label{blindPoly-C-sends-to-contract} Each client $ C$, for every bin, blinds the sum of polynomials $\bm\theta^{\st  {  {(C)}}}_{\st 1}$ and $\bm\theta^{\st  {  {(C)}}}_{\st 2}$  using the blinding factors: $z_{\st i,c}$, generated in step \ref{ZSPA}. Specifically, it computes the following blinded polynomial (for every bin):  
 %
 $\bm\nu^{ \st {  {(C)}} }= \bm\theta^{ \st {  {(C)}}}_{\st 1}+\bm\theta^{\st  {  {(C)}}}_{\st 2}+\bm \tau^{\st  {  {(C)}} }$, 
 %
@@ -282,9 +282,9 @@ where $\bm\tau^{\st  {  {(C)}}}=\sum\limits^{\st 3d+2}_{\st i=0}z_{\st i,c}\cdot
 
 
 
-\item\label{f-psi::D-gen-random-poly} ${D}$ ensures all clients sent their inputs to $\mathcal{SC}_{\fpsi}$. If the check fails, it halts and the deposit is  refunded to all parties. It allocates a pseudorandom polynomial $\bm\gamma'$ of degree $3d$, to each bin. To do so, it uses $mk$ to derive a key for each bin: $k_{\st  { {indx}}}=\mathtt{PRF}(mk, {    {   {indx}}})$ and  uses $k_{\st  { {indx}}}$ to generate $3d+1$ pseudorandom coefficients $g_{\st  { {j,indx}}}=\mathtt{PRF}(k_{\st  { {indx}}}, j)$ where $ 0\leq j \leq 3d$. Also, for each bin, it allocates a  random polynomial  $\bm\omega'^{\st  {  {(D)}}}$ of degree $d$. 
+\item\label{f-psi::D-gen-random-poly} ${D}$ ensures all clients sent their inputs to $\mathcal{SC}_{\fpsi}$. If the check fails, it halts and the deposit is  refunded to all parties. Otherwise, it allocates a pseudorandom polynomial $\bm\gamma'$ of degree $3d$, to each bin. To do so, it uses $mk$ to derive a key for each bin: $k_{\st  { {indx}}}=\mathtt{PRF}(mk, {    {   {indx}}})$ and  uses $k_{\st  { {indx}}}$ to generate $3d+1$ pseudorandom coefficients $g_{\st  { {j,indx}}}=\mathtt{PRF}(k_{\st  { {indx}}}, j)$ where $ 0\leq j \leq 3d$. Also, for each bin, it allocates a  random polynomial  $\bm\omega'^{\st  {  {(D)}}}$ of degree $d$. 
 
-\item\label{f-psi::D-gen-switching-poly}  $ {D}$,  for every bin, computes a polynomial of the form:  
+\item\label{f-psi::D-gen-switching-poly}  $ {D}$,  for every bin, computes a switching polynomial of the form:  
 %
  \vspace{-4.1mm}
 
@@ -296,10 +296,10 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
 
  \item\label{compute-res-poly}  $\mathcal{SC}_{\fpsi}$ takes the following steps:
  \begin{enumerate}[leftmargin=.7mm]
- \item for every bin, sums all related polynomials  provided by all clients in $\bar{P}$ as follows:
+ \item for every bin, sums all related polynomials  provided by all clients in $\bar{P}$:
  %
  $\bm\phi= \bm\nu^{\st  {  {(D)}} }+\sum\limits^{\st  {   A}_{\st  {   m}}}_{\st   {  {C }= }   {   A}_{\st  {  1}}}\bm\nu^{\st  {  {(C)}} }
- = \bm\zeta\cdot \bigg(\bm\omega'^{\st  {  {(D)}}}\cdot \bm\pi^{\st  {  {(D)}} } +\sum\limits^{\st  {   A}_{  {   m}}}_{\st  {  {C }= }   {   A}_{\st  {  1}}}(\bm\omega^{\st  {  {(D,C)}}} \cdot \bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  (C)}}) +\bm\pi^{\st  {  {(D)}}}\cdot\sum\limits^{\st  {   A}_{ \st {   m}}}_{\st  {C= }   {   A}_{\st  {  1}}}(\bm\rho^{\st  {  {(D,C)}}} \cdot \bm\rho^{\st  {  {(C,D)}}}) + \bm\gamma'\bigg)$
+ = \\= \bm\zeta\cdot \bigg(\bm\omega'^{\st  {  {(D)}}}\cdot \bm\pi^{\st  {  {(D)}} } +\sum\limits^{\st  {   A}_{  {   m}}}_{\st  {  {C }= }   {   A}_{\st  {  1}}}(\bm\omega^{\st  {  {(D,C)}}} \cdot \bm\omega^{\st  {  {(C,D)}}}\cdot \bm\pi^{\st  {  (C)}}) +\bm\pi^{\st  {  {(D)}}}\cdot\sum\limits^{\st  {   A}_{ \st {   m}}}_{\st  {C= }   {   A}_{\st  {  1}}}(\bm\rho^{\st  {  {(D,C)}}} \cdot \bm\rho^{\st  {  {(C,D)}}}) + \bm\gamma'\bigg)$
 
  
  
@@ -329,8 +329,8 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
   \item derives a bin's pseudorandom polynomial, $\bm\gamma'$, from $mk$. 
   
   \item removes the blinding polynomial from each bin's polynomial: 
-  %
-  $\bm\phi'=\bm\phi-\bm\zeta\cdot \bm\gamma'$
+  \vspace{-.5mm}
+  $$\bm\phi'=\bm\phi-\bm\zeta\cdot \bm\gamma'$$
   
   \item\label{F-PSI::find-intersection} evaluates each bin's unblinded polynomial at every element $s_{\st i}$ belonging to that bin and considers the element in the intersection if the evaluation is zero: i.e., $\bm\phi'(s_{\st i})=0$.
  
@@ -347,7 +347,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  \begin{enumerate}[leftmargin=.7mm]
  
 
- \item\label{auditor}  \aud asks every client $    {  C}$ to send to it the  $\mathtt{PRF}$'s key (generated in step \ref{ZSPA}), for every bin. It inserts the keys to $\vv k$.  It generates a list $\bar L$ initially empty. Then, for every bin,  \aud takes step \ref{ZSPA-A::Auditor-computation} of \zspaa, i.e., invokes  $\mathtt{Audit}(m, \vv{{k}},  q, \bm\zeta, 3d+3, g)\rightarrow (L, \vv{{\mu}})$.  Every time it invokes $\mathtt{Audit}$, it appends the elements of returned $L$ to $\bar L$.  \aud for each bin sends  $ \vv{{\mu}}$ to $\mathcal{SC}_{\fpsi}$. It also sends  to $\mathcal{SC}_{\fpsi}$ the list $\bar L$ of all misbehaving clients detected so far.
+ \item\label{auditor}  \aud asks every client $    {  C}$ to send to it the  $\mathtt{PRF}$'s key (generated in step \ref{ZSPA}), for every bin. It inserts the keys to $\vv k$.  It generates a list $\bar L$ initially empty. Then, for every bin,  \aud takes step \ref{ZSPA-A::Auditor-computation} of \zspaa, i.e., invokes  $\mathtt{Audit}(m, \vv{{k}},  q, \bm\zeta, 3d+3, g)\rightarrow (L, \vv{{\mu}})$.  Every time it invokes $\mathtt{Audit}$, it appends the elements of returned $L$ to $\bar L$.  \aud for each bin sends  $ \vv{{\mu}}$ to $\mathcal{SC}_{\fpsi}$. It also sends  to $\mathcal{SC}_{\fpsi}$ the list $\bar L$ of all misbehaving clients detected so far. The above check allows \aud to identify clients who have misbehaved in \zspaa. 
  
 
  
@@ -355,7 +355,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  \begin{enumerate}
  \item\label{gen-unmaking-poly} computes polynomial $\bm\chi^{  {  {(D, C)}}}$ as follows. 
  %
- \vspace{-.2mm}
+ \vspace{-.1mm}
  %
  $$\bm\chi^{ \st {  {(D, C)}}}=\bm\zeta\cdot \bm\eta^{ \st {  {(D,C)}}}-(\bm\gamma^{ \st {  {(D,C)}}}+\bm\delta^{ \st {  {(D,C)}}})$$
  
@@ -379,7 +379,7 @@ It sends to $\mathcal{SC}_{\fpsi}$  polynomials $\bm\nu^{\st  {  {(D)}}}$ and $\
  \item computes  polynomial $\bm\iota^{\st  {  {(C)}}}$ as follows: 
  
  $\bm\iota^{ \st {  {(C)}}}=\bm\chi^{\st  {  {(D, C)}}}+\bm\nu^{\st  {  {(C)}}} +\bm\mu^{ \st {  {(C)}}}  
- =\bm\zeta\cdot(\bm\eta^{ \st {  {(D,C)}}} + \bm\omega^{ \st {  {(D,C)}}}\cdot \bm\omega^{ \st {  {(C,D)}}}\cdot \bm\pi^{ \st {  {(C)}}}+\bm\rho^{ \st {  {(D,C)}}}\cdot \bm\rho^{ \st {  {(C,D)}}}\cdot \bm\pi^{ \st {  {(D)}}}+\bm\xi^{ \st {  {(C)}}})$\\ 
+ =\\ = \bm\zeta\cdot(\bm\eta^{ \st {  {(D,C)}}} + \bm\omega^{ \st {  {(D,C)}}}\cdot \bm\omega^{ \st {  {(C,D)}}}\cdot \bm\pi^{ \st {  {(C)}}}+\bm\rho^{ \st {  {(D,C)}}}\cdot \bm\rho^{ \st {  {(C,D)}}}\cdot \bm\pi^{ \st {  {(D)}}}+\bm\xi^{ \st {  {(C)}}})$\\ 
 %
 %  \begin{equation*}
 %\begin{split}
@@ -457,7 +457,7 @@ Let polynomials $\bm\zeta$, $\bm\omega$, and $\bm\gamma$ be three secret uniform
  \end{theorem}
  
 
- \vspace{-2mm}
+ \vspace{-2.3mm}
 
 We refer readers to Appendix \ref{sec::F-PSI-proof} for the proof of Theorem \ref{theorem::F-PSI-security}. 
 

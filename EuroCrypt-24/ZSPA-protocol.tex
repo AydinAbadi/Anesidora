@@ -39,7 +39,7 @@ All participants run a coin-tossing protocol to agree on $\mathtt{PRF}$'s key, $
  $$\forall j, 1\leq j \leq m-1: z_{\scriptscriptstyle i,j}=\mathtt{PRF}(k,i||j), \hspace{5mm} z_{\scriptscriptstyle i,m}=-\sum\limits^{\scriptscriptstyle m-1}_{\scriptscriptstyle j=1}z_{\scriptscriptstyle i,j}$$
  %
 \vspace{-3mm}
-\item   constructs a Merkel tree on top of all pseudorandom values,  $\mkgen(z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle b',m})\rightarrow g$. 
+\item   constructs a Merkle tree on top of all pseudorandom values,  $\mkgen(z_{\scriptscriptstyle 0,1},...,z_{\scriptscriptstyle b',m})\rightarrow g$. 
 
 \item sends the tree's root: $g$,   and the key's hash: $q=\mathtt {H}(k)$ to $adr$. 
 

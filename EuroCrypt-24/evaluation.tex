@@ -21,7 +21,7 @@ In this section, we analyse the asymptotic costs of \epsi. We also compare its c
 \vspace{-1mm}
 \subsubsection{Client's and Dealer's Costs.}
 
-In step \ref{e-psi::call-F-PSI-stepOne}, the cost of each client (including dealer $D$) is $O(m)$ and mainly involves an invocation of \ct. 
+In step \ref{e-psi::call-F-PSI-stepOne}, the cost of each client (including $D$) is $O(m)$ and mainly involves an invocation of \ct. 
 % 
 In steps \ref{e-psi::deploy-SC-E-PSI}--\ref{e-PSI::extractor-deposit}, the clients' cost is negligible as it involves deploying smart contracts and reading from them. 
 %
@@ -32,29 +32,29 @@ In step \ref{Smart-PSI:encode-elem}, each client invokes \prp and $\mathtt{H}$ l
 
 
 In step \ref{e-psi::invoke-remainer-F-PSI}, each client   $A_{\st  1},...,    A_{\st   m}$ (excluding $D$): (i) invokes an instance of \zspaa which involves $O(h\cdot m)$ invocation of \ct, $3h\cdot m (d+1)$ invocation of \prf, $3h\cdot m (d+1)$ addition, and $O(h\cdot m\cdot d)$ invocation of $\mathtt{H}$ (in step \ref{ZSPA} of subroutine \fpsi), (ii) invokes $2h$ instances of \vopr, where each \vopr invocation involves $2d(1+d)$ invocations of $\ole^{\st +}$, multiplications, and additions  (in steps \ref{e-psi::D-randomises} and \ref{e-psi::C-randomises} of \fpsi), and (iii) performs $h(3d+2)$ modular addition (in step \ref{blindPoly-C-sends-to-contract} of  \fpsi).  
- %
- Also, if $Flag=True$, each client (including $D$) invokes $\prf$ $h (3d+1)$ times, and performs $h (3d+1)$ additions, and performs polynomial evaluations linear with $|S|$, where each evaluation involves  $O(d)$  additions and $O(d)$ multiplications.% (in step \ref{F-PSI::flag-is-true} of \fpsi). 
+ 
+ Also, if $Flag=True$, each client (including $D$) invokes $h (3d+1)$ instances of $\prf$,  performs $h (3d+1)$ additions, and performs polynomial evaluations linear with $|S|$, where each evaluation involves  $O(d)$  additions and $O(d)$ multiplications.% (in step \ref{F-PSI::flag-is-true} of \fpsi). 
  
  Step \ref{e-psi::commit-to-mk} involves only $D$ whose cost in this step is constant, as it involves invoking a public key encryption, \prf,  and commitment only once. Furthermore, $D$:  (a) invokes $2h\cdot m$ instances of \vopr  (in steps \ref{e-psi::D-randomises} and \ref{e-psi::C-randomises} of \fpsi), (b) invokes $\prf$ $h(3d+1)$ times (in step \ref{f-psi::D-gen-random-poly} of \fpsi), and (c) performs $h(d^{\st 2}+1)$ multiplications and $3h\cdot m\cdot d$ additions (in step \ref{f-psi::D-gen-switching-poly} of \fpsi). If $Flag=False$, then $D$ performs $O(h\cdot m\cdot d)$ multiplications and additions (in step \ref{F-PSI::flag-is-false} of \fpsi).  
 
 \vspace{-5mm}
  \subsubsection{Auditor's Cost.}
  
-If $Flag=False$, then \aud invokes $\prf$ $3h\cdot m(d+1)$ times  and  invokes $\mathtt{H}$ $O(h\cdot m\cdot d)$ times (in step \ref{F-PSI::flag-is-false} of \fpsi). 
+If $Flag=False$, then \aud invokes $3h\cdot m(d+1)$ instances of $\prf$ and  invokes $O(h\cdot m\cdot d)$ instances of $\mathtt{H}$ (in step \ref{F-PSI::flag-is-false} of \fpsi). 
 
 
 \vspace{-5mm}
  \subsubsection{Extractor's Cost.}
  
  
- In step \ref{merkel-tree-cons}, each extractor invokes the commitment scheme linear with the number of its set cardinality $|S|$ and constructs a Merkle tree on top of the commitments. %Therefore, its complexity is $O(|S|)$.  
+ In step \ref{merkel-tree-cons}, each extractor invokes the commitment scheme linearly with the number of its set cardinality $|S|$ and constructs a Merkle tree on top of the commitments. %Therefore, its complexity is $O(|S|)$.  
 %
-In step \ref{smart-PSI::extractors}, each extractor invokes $\mathtt{H}$ linear with its set cardinality $|S|$; it also performs polynomial evaluations linear with $|S|$. 
+In step \ref{smart-PSI::extractors}, each extractor invokes $\mathtt{H}$ linear with its set cardinality $|S|$. It also performs polynomial evaluations linear with $|S|$. 
 
 \vspace{-5mm}
  \subsubsection{Smart Contracts' Cost.}
 
-In step \ref{e-psi::invoke-remainer-F-PSI}, the subroutine smart contract $\mathcal{SC}_{\fpsi}$ performs $h\cdot m(3d+1)$ additions and $h$ polynomial divisions,  where each division includes dividing a polynomial of degree $3d+1$ by a polynomial of degree $1$ (in step \ref{compute-res-poly} of \fpsi). In step \ref{e-psi::SC-verification--derive-mk}, $\mathcal{SC}_{\epsi}$ invokes the commitment's verification algorithm $\comver$ once,  $\mathtt{H}$ at most $|S_{\st \cap}|$ times, and $\prf$ $|S_{\st \cap}| (3d+1)$ times. In step \ref{e-psi::SC-verification--check-three-vals}, $\mathcal{SC}_{\epsi}$ invokes  $\comver$ at most $|S_{\st \cap}|$ times, and calls $\mathtt{H}$ $O(|S_{\st \cap}|\cdot \log_{\st 2} |S|)$ times. In the same step, it  performs polynomial evaluation linear with  $|S_{\st \cap}|$. Thus, its overall complexity is $O( |S_{\st \cap}|(d+ \log_{\st 2} |S|))$.
+In step \ref{e-psi::invoke-remainer-F-PSI}, the subroutine smart contract $\mathcal{SC}_{\fpsi}$ performs $h\cdot m(3d+1)$ additions and $h$ polynomial divisions,  where each division includes dividing a polynomial of degree $3d+1$ by a polynomial of degree $1$ (in step \ref{compute-res-poly} of \fpsi). In step \ref{e-psi::SC-verification--derive-mk}, $\mathcal{SC}_{\epsi}$ invokes the commitment's verification algorithm $\comver$ only once,  $\mathtt{H}$ at most $|S_{\st \cap}|$ times, and $\prf$ $|S_{\st \cap}| (3d+1)$ times. In step \ref{e-psi::SC-verification--check-three-vals}, $\mathcal{SC}_{\epsi}$ invokes  $\comver$ at most $|S_{\st \cap}|$ times, and calls $\mathtt{H}$ $O(|S_{\st \cap}|\cdot \log_{\st 2} |S|)$ times. In the same step, it  performs polynomial evaluation linear with  $|S_{\st \cap}|$. Thus, its overall complexity is $O( |S_{\st \cap}|(d+ \log_{\st 2} |S|))$.
 %
 
 
@@ -87,11 +87,11 @@ In step \ref{e-psi::invoke-remainer-F-PSI}, the subroutine smart contract $\math
 
 \vspace{-2mm}
 
-In steps  \ref{e-psi::call-F-PSI-stepOne} and \ref{e-psi::gen-mk-prime}, the communication cost of the clients is dominated by the cost of \ct which is $O(m)$. In steps \ref{e-psi::deploy-SC-E-PSI}--\ref{e-psi::commit-to-mk}, the clients' cost is negligible, as it involves sending a few transactions to the smart contracts, e.g., $\mathcal{SC}_{\fpsi}$, $\mathcal{SC}_{\epsi}$, and \SCpc. Step \ref{merkel-tree-cons} involves only extractors whose cost is $O(h)$ as each of them only sends to $\mathcal{SC}_{\epsi}$  a single value for each bin. In step \ref{e-psi::invoke-remainer-F-PSI}, the clients' cost is dominated by \vopr's cost; specifically, each pair of clients and $D$ invokes \vopr $O(d^{\st 2})$ times for each bin; therefore, the cost of each client (excluding $D$) is $O(h\cdot d^{\st 2}\cdot \bar\xi)$ while the cost of $D$ is $O(h\cdot d^{\st 2}\cdot \bar\xi\cdot m)$, where $\bar\xi$ is the subroutine \ole's security parameter. 
+In steps  \ref{e-psi::call-F-PSI-stepOne} and \ref{e-psi::gen-mk-prime}, the communication cost of the clients is dominated by the cost of \ct which is $O(m)$. In steps \ref{e-psi::deploy-SC-E-PSI}--\ref{e-psi::commit-to-mk}, the clients' cost is negligible, as it involves sending a few transactions to the smart contracts, e.g., $\mathcal{SC}_{\fpsi}$, $\mathcal{SC}_{\epsi}$, and \SCpc. Step \ref{merkel-tree-cons} involves only extractors whose cost is $O(h)$ as each of them only sends to $\mathcal{SC}_{\epsi}$  a single value for each bin. In step \ref{e-psi::invoke-remainer-F-PSI}, the clients' cost is dominated by \vopr's cost; specifically, each pair of client and $D$ invokes $O(d^{\st 2})$ instances of \vopr for each bin. Therefore, the cost of each client (excluding $D$) is $O(h\cdot d^{\st 2}\cdot \bar\xi)$ while the cost of $D$ is $O(h\cdot d^{\st 2}\cdot \bar\xi\cdot m)$, where $\bar\xi$ is the subroutine \ole's security parameter. 
 %
 Step \ref{smart-PSI::extractors}  involves only the extractors, where each extractor's cost is dominated by the size of the Merkle tree's proof it sends to $\mathcal{SC}_{\epsi}$, i.e., $O(|S_{\scriptscriptstyle\cap}|\cdot \log_{\st 2}|S|)$, where $|S|$ is the extractor's set cardinality. 
 %
-In step \ref{F-PSI::flag-is-false}, \aud sends $h$ polynomials of degree $3d+1$ to $\mathcal{SC}_{\fpsi}$; so, its complexity is $O(h\cdot d)$. 
+In step \ref{F-PSI::flag-is-false}, \aud sends $h$ polynomials of degree $3d+1$ to $\mathcal{SC}_{\fpsi}$. Therefore, its complexity is $O(h\cdot d)$. 
 %
 The rest of the steps impose negligible communication costs. 
 
@@ -103,7 +103,7 @@ The rest of the steps impose negligible communication costs.
 Below, we demonstrate that \epsi provides multiple features that are not found in other PSIs while maintaining a comparable overall overhead to efficient PSIs.
 
 \vspace{-4.4mm}
-\subsubsection{Computation Complexity.} \epsi's computation complexity is similar to that of PSI in \cite{AbadiDMT22}, but is better than the multiparty PSI's complexity in \cite{DBLP:conf/ccs/KolesnikovMPRT17} as  the latter's complexity is quadratic with the number of parties, i.e., $O(|S|\cdot d\cdot m)$ versus $O(|S|\cdot m^{\st 2}+|S|\cdot m )$. \epsi's complexity  is better than the PSI's complexity in   \cite{NevoTY21}  that is quadratic with parameter $t$. Similar to the two-party PSIs in \cite{DebnathD16,RaghuramanR22}, \epsi's complexity is linear with $|S|$.  The two-party PSI in \cite{DBLP:conf/dbsec/DongCCR13} imposes a higher computation cost than \epsi does, as its complexity is quadratic with sets' cardinality. Hence, the complexity of \epsi is: (i) linear with the set size, similar to the above schemes except the one in \cite{DBLP:conf/dbsec/DongCCR13} and (ii) linear with the total number of parties, similar to  the above multi-party schemes, except the one in \cite{DBLP:conf/ccs/KolesnikovMPRT17}. 
+\subsubsection{Computation Complexity.} \epsi's computation complexity is similar to that of PSI in \cite{AbadiDMT22}, but is better than the multiparty PSI's complexity in \cite{DBLP:conf/ccs/KolesnikovMPRT17} as  the latter's complexity is quadratic with the number of parties, i.e., $O(|S|\cdot d\cdot m)$ versus $O(|S|\cdot m^{\st 2}+|S|\cdot m )$. \epsi's complexity  is better than the PSI's complexity in   \cite{NevoTY21}  that is quadratic with parameter $t$. Similar to the two-party PSIs in \cite{DebnathD16,RaghuramanR22}, \epsi's complexity is linear with $|S|$.  The two-party PSI in \cite{DBLP:conf/dbsec/DongCCR13} imposes a higher computation cost than \epsi does, as its complexity is quadratic with sets' cardinality. Hence, the complexity of \epsi is: (i) linear with the set size, similar to the above schemes except for the one in \cite{DBLP:conf/dbsec/DongCCR13} and (ii) linear with the total number of parties, similar to  the above multi-party schemes, except for the one in \cite{DBLP:conf/ccs/KolesnikovMPRT17}. 
 %
 %Hence, the computation complexity of \epsi is linear with the set cardinality and the number of parties, similar to the above schemes except for the ones in \cite{DBLP:conf/ccs/KolesnikovMPRT17,DBLP:conf/dbsec/DongCCR13} whose complexities are quadratic with the set cardinality or the number of parties. 
 
@@ -113,7 +113,7 @@ Below, we demonstrate that \epsi provides multiple features that are not found i
 Therefore, the communication complexity of \epsi is linear with the set cardinality and number of parties, similar to the above schemes except for the one in \cite{DBLP:conf/ccs/KolesnikovMPRT17} whose complexity is quadratic with the number of parties. 
 
 \vspace{-4.8mm}
-\subsubsection{Features.} \epsi stands out as the sole scheme encompassing five crucial features: fairness support, participant rewards, reliance on symmetric key primitives, multi-party capability, and security against active adversaries.  In contrast, the next most comprehensive scheme, introduced in \cite{NevoTY21} offers only three of these features. The remaining protocols provide support for just two of the mentioned features. For the sake of fair comparison, we highlight that our \epsi and  \fpsi are the only PSIs that use smart contracts (that require additional but standard blockchain-related assumptions). In contrast, the other protocols in the comparison do not utilise smart contracts. 
+\subsubsection{Features.} \epsi stands out as the sole scheme encompassing five vital features: fairness support, participant rewards, reliance on symmetric key primitives, multi-party capability, and security against active adversaries.  In contrast, the next most comprehensive scheme, introduced in \cite{NevoTY21}, offers only three of these features. The remaining protocols provide support for just two of the mentioned features. For the sake of fair comparison, we highlight that our \epsi and  \fpsi are the only PSIs that use smart contracts (that require additional but standard blockchain-related assumptions). In contrast, the other protocols in the comparison do not utilise smart contracts. 
 
 
 
