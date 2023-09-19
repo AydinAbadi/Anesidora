@@ -3,8 +3,8 @@
 
 \subsection{Traitor's Contract (\SCtc)}
 
-\SCtc incentivises a colluding server (who has had signed \SCcc) to betray its counterparty and report the collusion without being penalised by \SCpc.  The Traitor’s contract promises that the reporting server will not be
-punished by \SCpc which makes it safe for the reporting server to follow the collusion strategy (of \SCcc), and get away from the punishment imposed by \SCpc. Below, we restate \SCtc. 
+\SCtc incentivises a colluding server (who has signed \SCcc) to betray its counterpart and report the collusion without being penalised by \SCpc.  The Traitor’s contract promises that the reporting server will not be
+punished by \SCpc which makes it safe for the reporting server to follow the collusion strategy (of \SCcc), and get away from the punishment imposed by \SCpc. Below, we restate the description of \SCtc. 
 
 
 \begin{enumerate}
@@ -27,9 +27,9 @@ punished by \SCpc which makes it safe for the reporting server to follow the col
 %
 \begin{enumerate}
 %
-\item  if none of the servers cheated in \SCpc (according to the auditor), then amount $\wc \ +\ $\textcolor{blue}{ $\dc' \ + $} $\dc-\chc$ is refunded to \textcolor{blue}{$\mathcal{SC}_{\epsi}$} and TRA's deposit (i.e., $\chc$ amount) is transferred to $ { D}$. Nothing is paid to TRA. 
+\item  if none of the servers cheated in \SCpc (according to the auditor), then $\wc \ +\ $\textcolor{blue}{ $\dc' \ + $} $\dc-\chc$ amount is refunded to \textcolor{blue}{$\mathcal{SC}_{\epsi}$} and TRA's deposit (i.e., $\chc$ amount) is transferred to $ { D}$. Nothing is paid to TRA. 
 %
-\item if in \SCpc, the other server did not cheat and TRA  cheated; however, TRA provided a correct result in this contract, then \textcolor{blue}{ $\dc' \ + $} $\dc-\chc$ amount is transferred to  \textcolor{blue}{$\mathcal{SC}_{\epsi}$}. Also,    TRA gets its deposit back (i.e., $\chc$ amount) plus $\wc$ amounts for providing a correct result to this contract. 
+\item if in \SCpc, the other server did not cheat and TRA  cheated; however, TRA provided a correct result in this contract, then \textcolor{blue}{ $\dc' \ + $} $\dc-\chc$ amount is transferred to  \textcolor{blue}{$\mathcal{SC}_{\epsi}$}. Also,    TRA gets its deposit back (i.e., $\chc$ amount) plus $\wc$ amount for providing a correct result to this contract. 
 %
 \item if in \SCpc, both servers cheated; however, TRA delivered a correct computation result to this contract, then TRA gets its deposit back (i.e., $\chc$ amount), it also receives $\wc \ +\ $\textcolor{blue}{ $\dc' \ + $} $\dc-\chc$ amount.   
 %
@@ -41,7 +41,9 @@ punished by \SCpc which makes it safe for the reporting server to follow the col
 %
 \end{enumerate}
 
-TRA must take the following three steps to report collusion: (i) it waits until \SCcc is signed by the other server, (ii) it reports the collusion to $ { D}$ before signing \SCcc, and (iii) it signs \SCcc only after it signed \SCtc with $ { D}$. Note, the original analysis of \SCtc does not require \SCtc to remain secret. Therefore, in our  \epsi, parties TRA and $ { D}$ can sign this contract and   then store its address in $\mathcal{SC}_{\epsi}$. Alternatively, to keep this contract confidential, $ { D}$ can deploy a template \SCtc to the blockchain and store the commitment of the contract's address (instead of the plaintext address) in $\mathcal{SC}_{\epsi}$. When a traitor (TRA) wants to report collusion, it signs the deployed \SCtc with  $ { D}$ which provides the commitment opening to TRA. In this case, at the time when the deposit is distributed,   either $ { D}$ or TRA   provides the opening of the commitment to  $\mathcal{SC}_{\epsi}$ which checks whether it matches the commitment. If the check passes, then it distributes the deposit as before. 
+TRA must take the following three steps to report collusion: (i) it waits until \SCcc is signed by the other server, (ii) it reports the collusion to $ { D}$ before signing \SCcc, and (iii) it signs \SCcc only after it signed \SCtc with $ { D}$. 
+
+Note that the original analysis of \SCtc does not require \SCtc to remain secret. Therefore, in our  \epsi, parties TRA and $ { D}$ can sign this contract and   then store its address in $\mathcal{SC}_{\epsi}$. Alternatively, to keep this contract confidential, $ { D}$ can deploy a template \SCtc to the blockchain and store the commitment of the contract's address (instead of the plaintext address) in $\mathcal{SC}_{\epsi}$. When a traitor (TRA) wants to report collusion, it signs the deployed \SCtc with  $ { D}$ which provides the commitment opening to TRA. In this case, at the time when the deposit is distributed,   either $ { D}$ or TRA   provides the opening of the commitment to  $\mathcal{SC}_{\epsi}$ which checks whether it matches the commitment. If the check passes, then it distributes the deposit as before. 
 
 
 

@@ -6,7 +6,7 @@
 
 \subsection{Colluder's Contract (\SCcc)}
 
-Recall that \SCpc aimed at creating a dilemma between the two servers. However, this dilemma can be addressed if they can make an  enforceable promise.  This enforceable promise can be another smart contract, called Colluder's Contract (\SCcc).  This contract imposes additional rules that ultimately would affect the parties’ payoffs and would make collusion the most profitable strategy for the colluding parties. In \SCcc, the party who initiates the collusion would pay its counterparty a certain amount (or bribe) if both follow the collusion and provide an incorrect result of the computation to \SCpc.  Note, \SCcc requires both servers to send a fixed amount of deposit when signing the contract.  The party who deviates from collusion will be punished by losing the deposit. Below, we restate \SCcc. 
+Recall that \SCpc aimed at creating a dilemma between the two servers. However, this dilemma can be addressed if they can make an  enforceable promise.  This enforceable promise can be another smart contract, called Colluder's Contract (\SCcc).  This contract imposes additional rules that ultimately would affect the parties’ payoffs and would make collusion the most profitable strategy for the colluding parties. In \SCcc, the party who initiates the collusion would pay its counterpart a certain amount (or bribe) if both follow the collusion and provide an incorrect result of the computation to \SCpc.  Note, \SCcc requires both servers to send a fixed amount of deposit when signing the contract.  The party who deviates from collusion will be punished by losing the deposit. Below, we reiterate the description of \SCcc. 
 
 
 \begin{enumerate}
@@ -23,7 +23,7 @@ Recall that \SCpc aimed at creating a dilemma between the two servers. However, 
 %
 \begin{enumerate}
 %
-\item \underline{both follow the collusion}: if both LDR and FLR provided $res'$ to \SCpc, then $\tc$ and $\tc+\bc$ amounts are delivered to LDR and FLR respectively. Therefore, FLR receives its deposit plus the bribe $\bc$. 
+\item \underline{both follow the collusion}: if both LDR and FLR provided $res'$ to \SCpc, then $\tc$ and $\tc+\bc$ amounts are delivered to LDR and FLR respectively. Therefore, FLR receives its deposit plus the bribe, which is $\bc$ amount. 
 %
 \item \underline{only FLR deviates from the collusion}:  if LDR and FLR provide $res'$ and $res''\neq res'$ to \SCpc respectively, then $2\cdot \tc+\bc$ amount is transferred to LDR while nothing is sent to FLR. 
 %
@@ -35,7 +35,7 @@ Recall that \SCpc aimed at creating a dilemma between the two servers. However, 
 %
 \end{enumerate}
 
-We highlight that the amount of bribe a rational LDR is willing to pay is less than its computation cost (i.e., $\bc<\cc$); otherwise, such collusion would not bring a higher payoff. We refer readers to \cite{dong2017betrayal} for further discussion. 
+The amount of bribe a rational LDR is willing to pay is less than its computation cost (i.e., $\bc<\cc$). Otherwise, this collusion would not offer a higher payoff. We refer readers to \cite{dong2017betrayal} for further discussion. 
 
 
 

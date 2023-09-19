@@ -3,13 +3,13 @@
 
 \section{Formal Definitions of Predicates of \p}\label{sec::Formal-Definitions-of-F-PSI-Predicates}
 
- In this section, we present the formal definitions of predicates $\qinit, \qdel, \qUnFAbt$ and \qFAbt. We borrowed  the first three predicates from the ``fair and robust multi-party computation'' initially proposed in \cite{KiayiasZZ16}; nevertheless, we  (i) have introduced an additional predicate  \qFAbt and (ii) will provide more formal accurate definitions of these predicates. 
+ In this section, we present the formal definitions of predicates $\qinit, \qdel, \qUnFAbt$ and \qFAbt. We borrowed  the first three predicates from the ``fair and robust multi-party computation'' initially proposed in \cite{KiayiasZZ16}. Nevertheless, we  (i) have introduced an additional predicate  \qFAbt and (ii) will provide more formal accurate definitions of these predicates. 
  
  
  
  \begin{definition}
  %
-  [\qinit: Initiation predicate] Let $\mathcal{G}$ be a stable ledger, $adr_{\st sc}$ be smart contract $sc$'s address, $Adr$ be a set of $m+1$ distinct addresses, and $\xc$ be a fixed amount of coins. Then, predicate $\qinit(\mathcal{G}, adr_{\st sc}, m+1, Adr, \xc)$ returns $1$ if every address in $Adr$ has at least $\xc$ coins in $sc$; otherwise, it returns $0$. 
+  [\qinit: Initiation predicate] Let $\mathcal{G}$ be a stable ledger, $adr_{\st sc}$ be smart contract $sc$'s address, $Adr$ be a set of $m+1$ distinct addresses, and $\xc$ be a fixed amount of coins. Then, predicate $\qinit(\mathcal{G}, adr_{\st sc}, m+1, Adr, \xc)$ returns $1$ if every address in $Adr$ has at least $\xc$ coins in $sc$. Otherwise, it returns $0$. 
  %
  \end{definition}
 
@@ -46,6 +46,6 @@
  
 
     
-    We observed that predicate \qFAbt should have been defined in the generic framework in \cite{KiayiasZZ16} too; as the framework should have also captured the cases where an adversary may abort without learning any output after the onset of the protocol.  
+    We observed that predicate \qFAbt should have been defined in the generic framework in \cite{KiayiasZZ16} too. Because the framework should have also captured the cases where an adversary may abort without learning any output after the onset of the protocol.  
  
  

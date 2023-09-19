@@ -15,7 +15,7 @@ Hence, the goal of \SCpc is to create a Prisoner’s dilemma between the two ser
 %
 \item The parties agree on three deadlines $(T_{\st 1}, T_{\st 2}, T_{\st 3})$, where $T_{\st i+1} > T_{\st i}$.
 %
-\item $ { D}$ agrees to pay $\wc$ to each server for the correct and on-time computation. Therefore, $ { D}$ deposits $2\cdot \wc$ amount in the contract. \textcolor{blue}{This deposit is transferred from $\mathcal{SC}_{\epsi}$ to this contract}.
+\item $ { D}$ agrees to pay $\wc$ amount to each server for the correct and on-time computation. Therefore, $ { D}$ deposits $2\cdot \wc$ amount in the contract. \textcolor{blue}{This deposit is transferred from $\mathcal{SC}_{\epsi}$ to this contract}.
 %
 \item Each server deposits \textcolor{blue}{$\dc'=$ }$\dc$\textcolor{blue}{$\ +\ \Xc$} amount in the contract. 
 %
@@ -30,7 +30,7 @@ Hence, the goal of \SCpc is to create a Prisoner’s dilemma between the two ser
 \item if both servers failed to deliver the computation's result, then the contract transfers their deposits to \textcolor{blue}{$\mathcal{SC}_{\epsi}$}.
 %
 \item if both servers delivered the result, and the results are equal, then (after verifying the results) \textcolor{blue}{this contract} must pay the agreed
-amount $\wc$ and refund the deposit $\dc'$ to each server. 
+amount $\wc$ and refund the deposit of $\dc'$ amount to each server. 
 %
 \item\label{prisoner-cont-raise-disp} otherwise, $ { D}$ raises a dispute with the auditor.  
 %
@@ -65,7 +65,11 @@ amount $\wc$ and refund the deposit $\dc'$ to each server.
 \end{enumerate}
 
 
-Now, we explain why we have made the above changes to the original \SCpc of Dong \et \cite{dong2017betrayal}. In the original \SCpc (a) the client does not deposit any amount in this contract; instead, it directly sends its coins to a server (and auditor) according to the auditor's decision,  (b) the computation correctness is determined only within this contract (with the involvement of the auditor if required), and (c)  the auditor simply re-generates the computation's result given the computation's plaintext inputs.  Nevertheless, in \epsi, (1) \emph{all clients} need to deposit a certain amount in $\mathcal{SC}_{\epsi}$ and only the contracts must transfer the parties' deposit,  (2) $\mathcal{SC}_{\epsi}$ also needs to verify a part of the computation's correctness without the involvement of the auditor and accordingly distribute the parties deposit based on the verification's outcome,  and (3) the auditor must be able to re-generate the computation's result without being able to learn the computation's plaintext input, i.e., elements of the set. Therefore, we have included the address of $\mathcal{SC}_{\epsi}$ in \SCpc to let the parties' deposit move between the two contracts (if necessary) and have allowed \SCpc to distribute the parties' deposit; thus, the requirements in points (1) and (2) are met. To meet the requirement in point (3) above, we have included a new algorithm, called $\mathtt{resComp}(.)$, in \SCpc.  Shortly, we will provide more detail about this algorithm. Moreover, to make this contract compatible with \epsi, we increased the amount of each server's deposit by  $\Xc$. Nevertheless, this adjustment does not change the logic behind \SCpc's design and its analysis.  
+Now, we explain why we have made the above changes to the original \SCpc of Dong \et \cite{dong2017betrayal}. In the original \SCpc (a) the client does not deposit any amount in this contract; instead, it directly sends its coins to a server (and auditor) according to the auditor's decision,  (b) the computation correctness is determined only within this contract (with the involvement of the auditor if required), and (c)  the auditor simply re-generates the computation's result given the computation's plaintext inputs.  
+
+Nevertheless, in \epsi, (1) \emph{all clients} need to deposit a certain amount in $\mathcal{SC}_{\epsi}$ and only the contracts must transfer the parties' deposit,  (2) $\mathcal{SC}_{\epsi}$ also needs to verify a part of the computation's correctness without the involvement of the auditor and accordingly distribute the parties deposit based on the verification's outcome,  and (3) the auditor must be able to re-generate the computation's result without being able to learn the computation's plaintext input, i.e., elements of the set. 
+
+Therefore, we have included the address of $\mathcal{SC}_{\epsi}$ in \SCpc to enable the parties' deposit to be moved between the two contracts (if necessary). Moreover, we have allowed \SCpc to distribute the parties' deposit; thus, the requirements in points (1) and (2) are met. To meet the requirement in point (3) above, we have included a new algorithm, called $\mathtt{resComp}(.)$, in \SCpc.  Shortly, we will provide more detail about this algorithm. Moreover, to make this contract compatible with \epsi, we increased the amount of each server's deposit by  $\Xc$. Nevertheless, this adjustment does not change the logic behind \SCpc's design and its analysis.  
 
 
 
@@ -76,11 +80,11 @@ Now, we explain why we have made the above changes to the original \SCpc of Dong
 \subsubsection{Auditor's Result-Computation Algorithm.}\label{sec::auditor-res-Comp}
 
 
-In this work,  we use \SCpc to delegate the computation of intersection cardinality to two extractor clients, a.k.a. servers in the original \SCpc. In this setting, the contract's auditor is invoked when an inconsistency is detected in step \ref{smart-PSI-inconsistency} of \epsi. For the auditor to recompute the intersection cardinality, we have designed $\mathtt{resComp}(.)$ algorithm. The auditor uses this algorithm for every bin's index $indx$,  where $1\leq indx\leq h$ and $h$ is the hash table's length. We present this algorithm in Figure \ref{fig::resComp}.  The auditor collects the inputs of this algorithm as follows: (a)  reads random polynomial $\bm\zeta$, and blinded polynomial $\bm\phi$ from contract $\mathcal{SC}_{\fpsi}$, (b) reads the ciphertext if secret key $mk$ from $\mathcal{SC}_{\epsi}$, and (c) fetches public parameters $(des_{\mathtt{H}}, h)$ from the hash table's public description. 
+In this work,  we use \SCpc to delegate the computation of intersection cardinality to two extractor clients, a.k.a. servers in the original \SCpc. In this setting, the contract's auditor is invoked when an inconsistency is detected in step \ref{smart-PSI-inconsistency} of \epsi. For the auditor to recompute the intersection cardinality, we have designed $\mathtt{resComp}(.)$ algorithm. The auditor uses this algorithm for every bin's index $indx$,  where $1\leq indx\leq h$ and $h$ is the hash table's length. We present this algorithm in Figure \ref{fig::resComp}.  The auditor collects the inputs of this algorithm as follows: (a)  reads random polynomial $\bm\zeta$, and blinded polynomial $\bm\phi$ from contract $\mathcal{SC}_{\fpsi}$, (b) reads the ciphertext of secret key $mk$ from $\mathcal{SC}_{\epsi}$, and (c) retrieves public parameters $(des_{\mathtt{H}}, h)$ from the hash table's public description. 
 
 
 
-Note that in the original  \SCpc of Dong \et \cite{dong2017betrayal}, the auditor is assumed to be fully trusted. However, in this work, we have relaxed such an assumption. We have designed \epsi and $\mathtt{resComp}(.)$ in such a way that even a semi-honest auditor cannot learn anything about the actual elements of the sets, as they have been encrypted under a key unknown to the auditor. 
+Note that in the original  \SCpc, the auditor is assumed to be fully trusted. However, in this work, we have relaxed this assumption. We have designed \epsi and $\mathtt{resComp}(.)$ in such a way that even a semi-honest auditor cannot learn anything about the actual elements of the sets, as they have been encrypted under a key unknown to the auditor. 
 
 
 
