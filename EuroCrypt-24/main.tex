@@ -6,6 +6,7 @@
 %\documentclass[A4paper,11pt,orivec]{llncs}
 \documentclass[runningheads]{llncs}
 %
+\usepackage[shortlabels]{enumitem}
 \pagestyle{plain}
 \usepackage[T1]{fontenc}
 \usepackage{xspace}
@@ -127,8 +128,8 @@
 \usepackage{makeidx}  % allows for indexgeneration
 %\usepackage{amsfonts,amsmath,amssymb,graphicx,setspace,tipx}
 %\usepackage{amsthm,amssymb}
-\usepackage{amsmath}
 
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[ruled,linesnumbered]{algorithm2e}
 \usepackage{subfig}
@@ -155,6 +156,19 @@
 \usepackage{blindtext}
 \usepackage{multicol}
 \usepackage{tablefootnote}
+
+
+
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}
+
+
+
+
+
+
+
 
 \newcommand{\prp}{\ensuremath{\mathtt{PRP}}\xspace}
 
@@ -225,7 +239,7 @@
 
 
 \begin{abstract}
-In Private Set Intersection protocols (PSIs), a non-empty result always reveals information about the private input sets of the parties. Moreover, in various variants of PSI, not all parties necessarily receive or are interested in the result. However, to date, the literature has assumed that those parties not receiving or not interested in the result still contribute their private input sets to the PSI for free of charge, although doing so would cost them their privacy. In this work, we introduce a novel multi-party PSI, called ``\withRew'', which \emph{rewards} parties for contributing their private input sets to the protocol.  % 
+In Private Set Intersection protocols (PSIs), a non-empty result always reveals information about the private input sets of the parties. Moreover, in various variants of PSI, not all parties necessarily receive or are interested in the result. However, to date, the literature has assumed that those parties not receiving or not interested in the result still contribute their private input sets to the PSI free of charge, although doing so would cost them their privacy. In this work, we introduce a novel multi-party PSI, called ``\withRew'', which \emph{rewards} parties for contributing their private input sets to the protocol.  % 
 \withRew is designed with efficiency in mind, primarily relying on symmetric key primitives.  Its complexities scale linearly with the number of parties and set cardinality. It maintains security even when the majority of parties are compromised by malicious colluding adversaries. Along the way, we devised ``\withFai'', a pioneering  \textit{fair multi-party PSI} and introduced the concept of \textit{unforgeable polynomials}, which may hold independent significance.
 \end{abstract}
 
@@ -244,8 +258,9 @@ In Private Set Intersection protocols (PSIs), a non-empty result always reveals 
 \input{commitment}
 \input{hash-table}
 \input{Merkle-tree}
-\input{OLE-plus}
+
 \input{coin-tossing}
+\input{OLE-plus}
 \input{PSI-FC-predicates}
 \input{VOPR-proof}
 

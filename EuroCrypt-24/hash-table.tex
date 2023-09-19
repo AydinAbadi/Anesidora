@@ -1,5 +1,6 @@
 % !TEX root =main.tex
 
+\vspace{-4mm}
 \section{Hash Tables}\label{Preliminary-Hash-Table}
 
 We set the table's parameters appropriately to ensure the number of elements in each bin does not exceed a predefined capacity. Given the maximum number of elements $c$ and the bin's maximum size $d$, we can determine the number of bins by analysing hash tables under the balls into bins model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}.
@@ -13,7 +14,6 @@ In this model, the expectation is  $\mu=\frac{c}{h}$, where $c$ is the number of
 Pr[\exists i, X_{\scriptscriptstyle i}>d]\leq \sum\limits^{\scriptscriptstyle h}_{\scriptscriptstyle i=1}Pr[X_{\scriptscriptstyle i}>d] = h\cdot  \Big(\frac{e^{\scriptscriptstyle \sigma}}{(1+\sigma)^{\scriptscriptstyle (1+\sigma)}}\Big)^{\scriptscriptstyle \frac{c}{h}}
 \end{equation}
 
-Thus, for a hash table of length $h=O(c)$, there is always an  \emph{almost constant} expected number of elements, $d$,  mapped to the same bin  with a high probability \cite{DBLP:conf/ccs/PapamanthouTT08}, e.g., $1-2^{\scriptscriptstyle -40}$.
-
-
+Thus, for a hash table of length $h=O(c)$, there is always an  \emph{almost constant} expected number of elements, $d$,  mapped to the same bin  with a high probability \cite{DBLP:conf/ccs/PapamanthouTT08}, e.g., $1-2^{\scriptscriptstyle -40}$. 
+%
 Appendix \ref{sec::conc-parameters} provides an explanation of how to establish concrete parameters for a hash table.

@@ -20,4 +20,6 @@ A Merkle tree is a data structure that supports a compact commitment of a set of
 
 \end{itemize}
 
-The Merkle tree-based scheme has two properties: \emph{correctness} and \emph{security}. Informally, the correctness requires that if both parties run the algorithms correctly, then a proof is always accepted by  $\mathcal{V}$. The security requires that a computationally bounded malicious $\mathcal{P}$ cannot convince  $\mathcal{V}$ into accepting an incorrect proof, e.g., proof for a non-member block. The security relies on the assumption that it is computationally infeasible to find the hash function's collision. Usually, for the sake of simplicity, it is assumed that the number of blocks, $n$, is a power of $2$. The height of the tree, constructed on $m$ blocks, is $\log_{\st 2}(n)$. 
+The Merkle tree-based scheme has two properties: \emph{correctness} and \emph{security}. Informally, the correctness requires that if both parties run the algorithms correctly, then a proof is always accepted by  $\mathcal{V}$. The security requires that a computationally bounded malicious $\mathcal{P}$ cannot convince  $\mathcal{V}$ into accepting an incorrect proof, e.g., proof for a non-member block. 
+%
+The security relies on the assumption that it is computationally infeasible to find the hash function's collision. Usually, for the sake of simplicity, it is assumed that the number of blocks, $n$, is a power of $2$. The height of the tree, constructed on $m$ blocks, is $\log_{\st 2}(n)$. 
