@@ -39,13 +39,13 @@ Cryptocurrencies, such as Bitcoin \cite{bitcoin} and Ethereum \cite{ethereum},  
 To enable a party, such as a client, to efficiently delegate computation to multiple potentially colluding third parties, like servers, Dong   \et \cite{dong2017betrayal}  
 introduced two primary smart contracts: the ``Prisoner's Contract'' ($\SCpc$) and the ``Traitor's Contract'' (\SCtc).  
 %
-$\SCpc$ jointly signed by both the client and the servers and is designed to incentivise accurate computation. This contract mandates that each server must submit a deposit before the computation is delegated. Furthermore, it is equipped with an external auditor that can be invoked to identify any misbehaving server when they provide dissimilar results. 
+$\SCpc$ is jointly signed by both the client and the servers and is designed to incentivise accurate computation. This contract mandates that each server must submit a deposit before the computation is delegated. Furthermore, it is equipped with an external auditor that can be invoked to identify any misbehaving server when they provide dissimilar results. 
 
 If a server behaves honestly, it is eligible to withdraw its deposit. However, if the auditor detects a cheating server, a portion of its deposit is transferred to the client. In the scenario where one server is honest while the other one cheats, the honest server receives a reward sourced from the deposit of the cheating server.
 
 However, the dilemma, created by \SCpc between the two servers, can be resolved if they are able to establish an enforceable promise, such as through a ``Colluder's Contract'' (\SCcc). In this contract,  one party, referred to as the ``ringleader'', commits to paying a bribe to its counterpart if both parties engage in collusion and deliver an incorrect result to \SCpc. 
 %
-To counter \SCcc, Dong   \et proposed \SCtc, which provides incentives for a colluding server to expose the other server and report the collusion without facing penalties from \SCpc. In this study, we have made slight adjustments and employed these contracts. The relevant parameters for these contracts are outlined in \ref{table:notation-table}. For a comprehensive description of the parameters and contracts, we direct readers to Appendix \ref{appendix::Counter-Collusion-Contracts}. 
+To counter \SCcc, Dong   \et proposed \SCtc, which provides incentives for a colluding server to expose the other server and report the collusion without facing penalties from \SCpc. In this study, we have made slight adjustments and employed these contracts. The relevant parameters for these contracts are outlined in Table \ref{table:notation-table}. For a comprehensive description of the parameters and contracts, we direct readers to Appendix \ref{appendix::Counter-Collusion-Contracts}. 
 
 
 
@@ -78,7 +78,7 @@ To counter \SCcc, Dong   \et proposed \SCtc, which provides incentives for a col
 %
 
 %
-\vspace{-3mm}
+\vspace{-4mm}
 \subsection{Pseudorandom Function and Permutation}
 \vspace{-1mm}
 
@@ -99,28 +99,37 @@ The definition of a pseudorandom permutation, $\mathtt {PRP}: \{0,1\}^{\st \lamb
 \vspace{-4mm}
 
 \subsection{Hash Tables}
-\vspace{-1mm}
+\vspace{-1.4mm}
 
-A hash table is an array of bins, each capable of containing a set of elements, and is paired with a hash function. To insert an element, we initially compute the element's hash and subsequently place the element into the bin corresponding to the computed hash value. In this paper, we ensure that the number of elements in each bin does not surpass a predefined capacity. By considering the maximum number of elements as $c$ and the maximum size of a bin as $d$, we can calculate the number of bins, denoted as $h$, through an analysis of hash tables using the the ``balls into the bins'' model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}. In Appendix \ref{Preliminary-Hash-Table}, we provide an explanation of how the hash table parameters are configured.
+A hash table is an array of bins, each capable of containing a set of elements, and is paired with a hash function. To insert an element, we initially compute the element's hash and subsequently place the element into the bin corresponding to the computed hash value. In this paper, we ensure that the number of elements in each bin does not surpass a predefined capacity. By considering the maximum number of elements as $c$ and the maximum size of a bin as $d$, we can calculate the number of bins, denoted as $h$, through an analysis of hash tables using the the ``balls into the bins'' model  \cite{DBLP:conf/stoc/BerenbrinkCSV00}. In Appendix \ref{Preliminary-Hash-Table}, we provide an explanation of how the hash table parameters are configured. In this paper, we use hash tables to partition parties sets into smaller sets to achieve efficiency.
 
 
 
 %\subsection{Merkel Tree}
 
-\vspace{-3mm}
+\vspace{-4.2mm}
 
 \input{Merkle-tree-short}
 
-\vspace{-3mm}
+\vspace{-4.5mm}
 
 \subsection{Polynomial Representation of Sets}\label{sec::poly-rep}
 \vspace{-1mm}
 
-The idea of using a polynomial to represent a set's elements was proposed by Freedman  \et in \cite{DBLP:conf/eurocrypt/FreedmanNP04}. Since then,   the idea has been widely used,  e.g., in \cite{GhoshS19,DBLP:conf/crypto/KissnerS05}. In this representation, set elements $S=\{s_{\st 1},...,s_{\st d}\}$ are defined over a finite field $\mathbb{F}_{\st p}$ and  set $S$ is represented as a polynomial of   form: $\mathbf{p}(x)=\prod\limits ^{\st {d}}_{\st i=1}(x-s_{\st i})$, where $\mathbf{p}(x) \in \mathbb{F}_{\st p}[X]$ and $\mathbb{F}_{\st p}[X]$ is a polynomial ring.  Often a   polynomial,  $\mathbf{p}(x)$, of degree $d$ is  represented in the ``coefficient form'' as follows:  $\mathbf{p}(x)=a_{\st 0}+a_{\st 1}\cdot x+...+ a_{\st d}\cdot x^{\st d}$. The form $\prod\limits ^{\st {d}}_{\st i=1}(x-s_{\st i})$ is a special case of the coefficient form. As shown in \cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05}, for two sets $S^{\st (A)}$ and $S^{\st (B)}$ represented by polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ respectively, their product, which is polynomial $\mathbf{p}_{\st A}\cdot \mathbf{p}_{\st  B}$,  represents the set union, while their greatest common divisor, $gcd($$\mathbf{p}_{\st A}$$,\mathbf{p}_{\st B})$, represents the set intersection. For two polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ of degree $d$, and two random polynomials $\bm\gamma_{\st A}$ and  $\bm\gamma_{\st B}$ of degree $d$, it is proven in~\cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05} that: $\bm\theta=\bm\gamma_{\st A}\cdot \mathbf{p}_{\st A}+\bm\gamma_{\st B}\cdot\mathbf{p}_{\st B}=\bm\mu\cdot gcd(\mathbf{p}_{\st A},\mathbf{p}_{\st B})$, where $\bm\mu$ is a uniformly random polynomial, and polynomial $\bm\theta$ contains only information about the elements in  $S^{\st (A)}\cap S^{\st (B)}$, and contains no information about other elements in $S^{\st (A)}$ or $S^{\st (B)}$.  
+The idea of representing a set's elements using a polynomial was originally proposed by Freedman  \et in \cite{DBLP:conf/eurocrypt/FreedmanNP04}. Since its introduction, this idea has gained widespread adoption  e.g., in \cite{GhoshS19,DBLP:conf/crypto/KissnerS05}. In this representation, set elements $S=\{s_{\st 1},...,s_{\st d}\}$ are defined over a field $\mathbb{F}_{\st p}$ and  set $S$ is represented as a polynomial of   form: $\mathbf{p}(x)=\prod\limits ^{\st {d}}_{\st i=1}(x-s_{\st i})$, where $\mathbf{p}(x) \in \mathbb{F}_{\st p}[X]$ and $\mathbb{F}_{\st p}[X]$ is a polynomial ring.  Often a   polynomial,  $\mathbf{p}(x)$, of degree $d$ is  represented in the ``coefficient form'' as follows:  $\mathbf{p}(x)=a_{\st 0}+a_{\st 1}\cdot x+...+ a_{\st d}\cdot x^{\st d}$.  The form $\prod\limits ^{\st {d}}_{\st i=1}(x-s_{\st i})$ is a special case of the coefficient form. As shown in \cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05}, for sets $S^{\st (A)}$ and $S^{\st (B)}$ represented by polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ respectively, their product, $\mathbf{p}_{\st A}\cdot \mathbf{p}_{\st  B}$,  represents the set union, while their greatest common divisor, $gcd($$\mathbf{p}_{\st A}$$,\mathbf{p}_{\st B})$, represents the intersection. 
 
-Given a polynomial $\bm\theta$ that encodes sets intersection, one can find the set elements in the intersection via one of the following approaches. First, via polynomial evaluation: the party who already has one of the original input sets, say  $\mathbf{p}_{\st A}$,  evaluates $\bm\theta$ at every element $s_{\st i}$ of $\mathbf{p}_{\st A}$ and considers $s_{\st i}$ in the intersection if $\mathbf{p}_{\st A}(s_{\st i})=0$. Second,   via polynomial root extraction:   the party who does not have one of the original input sets, extracts the roots of $\bm\theta$,  which contain  the roots of (i) random polynomial  $\bm\mu$ and (ii) the polynomial that represents the intersection, i.e., $gcd(\mathbf{p}_{\st A},\mathbf{p}_{\st B})$. In this approach, to distinguish errors (i.e., roots of $\bm\mu$) from the intersection, PSIs in \cite{eopsi,DBLP:conf/crypto/KissnerS05} use the \emph{``hash-based padding technique''}. In this technique, every element $u_{\st i}$ in the set universe $\mathcal{U}$, becomes $s_{\st i}=u_{\st i}||\mathtt{H}(u_{\st i})$, where $\mathtt{H}$ is a cryptographic hash function with a sufficiently large output size. Given a field's arbitrary element, $s \in \mathbb{F}_p$ and $\mathtt{H}$'s output size $|\mathtt{H}(.)|$, we can parse $s$ into $x_{\st 1}$ and $x_{\st 2}$, such that $s=x_{\st 1}||x_{\st 2}$ and  $|x_{\st 2}|=|\mathtt{H}(.)|$. In a  PSI that uses polynomial representation and this padding technique, after we extract each root of  $\bm\theta$, say $s$, we parse it into $(x_{\st 1}, x_{\st 2})$ and check $x_{\st 2}\stackrel{?}=\mathtt{H}(x_{\st 1})$.  If the equation holds, then we consider $s$ as an element of the intersection. 
+For polynomials $\mathbf{p}_{\st A}$ and $\mathbf{p}_{\st B}$ of degree $d$, and random polynomials $\bm\gamma_{\st A}$ and  $\bm\gamma_{\st B}$ of degree $d$, it is proven in~\cite{BonehGHWW13,DBLP:conf/crypto/KissnerS05} that: $\bm\theta=\bm\gamma_{\st A}\cdot \mathbf{p}_{\st A}+\bm\gamma_{\st B}\cdot\mathbf{p}_{\st B}=\bm\mu\cdot gcd(\mathbf{p}_{\st A},\mathbf{p}_{\st B})$, where $\bm\mu$ is a uniformly random polynomial, and polynomial $\bm\theta$ contains only information about the elements in  $S^{\st (A)}\cap S^{\st (B)}$, and contains no information about other elements in $S^{\st (A)}$ or $S^{\st (B)}$.  {In this paper, the parties employ this technique to compute polynomial $\bm\theta$ that encodes the intersection}. 
 
+Given a polynomial $\bm\theta$ that encodes sets intersection, one can find the set elements in the intersection via one of the following two approaches: 
 
+\vspace{-2.4mm}
+\begin{enumerate}
+\item\label{Polynomial-evaluation}  \textit{polynomial evaluation}: the party in possession of one of the original input sets, for example  $\mathbf{p}_{\st A}$,  evaluates $\bm\theta$ at every element $s_{\st i}$ of $\mathbf{p}_{\st A}$ and considers $s_{\st i}$ in the intersection if $\mathbf{p}_{\st A}(s_{\st i})=0$. 
+
+\item\label{Root-extraction}  \textit{root extraction}:   the party who does not have one of the original input sets, extracts the roots of $\bm\theta$,  which contain  the roots of (i) random polynomial  $\bm\mu$ and (ii) the polynomial that represents the intersection, i.e., $gcd(\mathbf{p}_{\st A},\mathbf{p}_{\st B})$. 
+\end{enumerate}
+\vspace{-4mm}
+Within approach \ref{Root-extraction}, to distinguish errors (i.e., roots of $\bm\mu$) from the intersection, PSIs in \cite{eopsi,DBLP:conf/crypto/KissnerS05} use the \emph{``hash-based padding technique''}. In this technique, every element $u_{\st i}$ in the set universe $\mathcal{U}$, becomes $s_{\st i}=u_{\st i}||\mathtt{H}(u_{\st i})$, where $\mathtt{H}$ is a cryptographic hash function with a sufficiently large output size. Given a field's arbitrary element, $s \in \mathbb{F}_p$ and $\mathtt{H}$'s output size $|\mathtt{H}(.)|$, we can parse $s$ into $x_{\st 1}$ and $x_{\st 2}$, such that $s=x_{\st 1}||x_{\st 2}$ and  $|x_{\st 2}|=|\mathtt{H}(.)|$. In a  PSI that uses polynomial representation and this padding technique, after we extract each root of  $\bm\theta$, say $s$, we parse it into $(x_{\st 1}, x_{\st 2})$ and check $x_{\st 2}\stackrel{?}=\mathtt{H}(x_{\st 1})$.  If the equation holds, then we consider $s$ as an element of the intersection. In \withFai and \withRew, the clients will use approach \ref{Polynomial-evaluation}: polynomial evaluation, while in \withRew the auditor of the counter collusion contracts will use approach \ref{Root-extraction}: root extraction. 
 
 
 %\TZ{What is meant by ``$\bm\theta$ contains only information about $S^{\st (A)}\cap S^{\st (B)}$"?}--> addressed.. 
@@ -129,14 +138,14 @@ Given a polynomial $\bm\theta$ that encodes sets intersection, one can find the 
 %in this form can be converted into coefficient form via polynomial interpolation, e.g., using Lagrange interpolation~\cite{aho19}. Moreover,  one can add or multiply two polynomials,  in point-value form, by adding or multiplying their corresponding y-coordinates. In this case, the  polynomial interpolated from the result would be the two polynomials' addition or product. Often PSIs  that use this representation  assume that all $x_{\st i}$ are picked from $\mathbb{F} \setminus \mathcal{U}$.
 
 
-\vspace{-3mm}
+\vspace{-3.5mm}
 
 \subsection{Horner's Method}
 \vspace{-1mm}
 
 Horner's method \cite{DBLP:journals/ibmrd/Dorn62} allows for efficiently evaluating polynomials at a given point, e.g., $x_{\st 0}$. Specifically, given a polynomial of the form: $\bm\tau(x)= a_{\st 0}+a_{\st 1}\cdot x+a_{\st 2}\cdot x^{\st 2}+...+a_{\st d}\cdot x^{\st d}$ and a point: $x_{\st 0}$, one can efficiently evaluate the polynomial at $x_{\st 0}$ iteratively, in the following fashion: $\bm\tau(x_{\st 0})=a_{\st 0}+x_{\st 0}(a_{\st 1} + x_{\st 0}(a_{\st 2}+...+x_{\st 0}(a_{\st d-1}+x_{\st 0}\cdot a_{\st d})...)))$. Evaluating  a polynomial of degree $d$ naively requires  $d$ additions and $\frac{(d^{\st 2}+d)}{2}$ multiplications. However, using Horner's method the evaluation requires only $d$ additions and $2d$ multiplications. We use this method in this paper. 
 
-\vspace{-3mm}
+\vspace{-3.4mm}
 
 \subsection{Oblivious Linear Function Evaluation}\label{sec::OLE-plus}
 \vspace{-1mm}

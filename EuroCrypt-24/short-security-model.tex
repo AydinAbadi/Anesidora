@@ -44,8 +44,9 @@ $
 $}}
  % \end{center}
   %
-  where party $i$’s view (during the execution of $\Gamma$) on input pair  $(x, y)$ is denoted by $\mathsf{View}_{\st i}^{\st \Gamma}(x,y)$ and equals $(w, r^{\st i}, m_{\st 1}^{\st i}, ..., m_{\st t}^{\st i})$, where $w\in\{x,y\}$ is the input of $i^{\st th}$ party, $r_{\st i}$ is the outcome of this party's internal random coin tosses, and $m_{\st j}^{\st i}$ represents the $j^{\st th}$ message this party receives.  %The output of the $i^{\st th}$ party during the execution of $\Gamma$ on $(x, y)$ is denoted by $\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y)$ and can be generated from its own view of the execution.  The joint output of both parties is denoted by $\mathsf{Output}^{\st \Gamma}(x,y):=(\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y), \mathsf{Output}_{\st 2}^{\st \Gamma}(x,y))$.
+  where party $i$’s view (during the execution of $\Gamma$) on input pair  $(x, y)$ is denoted by $\mathsf{View}_{\st i}^{\st \Gamma}(x,y)$ and equals $(w, r^{\st i}, m_{\st 1}^{\st i}, ..., m_{\st t}^{\st i})$, $w\in\{x,y\}$ is the input of $i^{\st th}$ party, $r_{\st i}$ is the outcome of this party's internal random coin tosses, and $m_{\st j}^{\st i}$ represents the $j^{\st th}$ message this party receives.  %The output of the $i^{\st th}$ party during the execution of $\Gamma$ on $(x, y)$ is denoted by $\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y)$ and can be generated from its own view of the execution.  The joint output of both parties is denoted by $\mathsf{Output}^{\st \Gamma}(x,y):=(\mathsf{Output}_{\st 1}^{\st \Gamma}(x,y), \mathsf{Output}_{\st 2}^{\st \Gamma}(x,y))$.
 %
+  \vspace{-3mm}
 \end{definition}
  
 
@@ -80,9 +81,8 @@ $
 \{\mathsf {Ideal}^{\st f}_{\st \mathsf{Sim}(z), i}(x,y)\}_{\st x,y,z}\stackrel{c}{\equiv} \{\mathsf{Real}_{\st \mathcal{A}(z), i}^{\st \Gamma}(x,y) \}_{\st x,y,z},
 $, 
 %
- where the ideal execution of $f$ on inputs $(x,$ $ y)$ and $z$ is denoted by $\mathsf{Ideal}^{\st f}_{\st\mathcal{A}(z), i}(x,$ $y)$ and is defined as the output pair of the honest party and $\mathcal{A}$ from the ideal execution.   \end{definition}
- 
- 
- The real execution of $\Gamma$ is denoted by $\mathsf{Real}^{\st \Gamma}_{\st\mathcal{A}(z), i}(x,y)$, it is defined as the joint output of the parties engaging in the real execution of $\Gamma$, in the presence of $\mathcal{A}$.
+ where the ideal execution of $f$ on inputs $(x,$ $ y)$ and $z$ is denoted by $\mathsf{Ideal}^{\st f}_{\st\mathcal{A}(z), i}(x,$ $y)$ and is defined as the output pair of the honest party and $\mathcal{A}$ from the ideal execution. The real execution of $\Gamma$ is denoted by $\mathsf{Real}^{\st \Gamma}_{\st\mathcal{A}(z), i}(x,y)$, it is defined as the joint output of the parties engaging in the real execution of $\Gamma$, in the presence of $\mathcal{A}$. 
+ \vspace{-3mm}
+ \end{definition}
 
   
