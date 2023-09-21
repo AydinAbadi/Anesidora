@@ -60,7 +60,7 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 %%%%%%%%
 
  \vspace{-6.3mm}
-\section{Concrete Construction of \ep}
+\section{\withRew: Concrete Construction of \ep}
 
  \vspace{-2mm}
  
@@ -103,13 +103,13 @@ Each client encrypts its set elements (under $mk'$ using deterministic encryptio
 
 %
 
-Following this, the extractors make a commitment to the encryption of their set elements and publicly disclose the outcome. Subsequently, all clients (including $D$) proceed with the remaining steps outlined in \fpsi using their input polynomials. This process results in the creation of a blinded polynomial, the correctness of which is verified by \scf. There will be two cases: 
+Following this, the extractors make a commitment to the encryption of their set elements and publicly disclose the outcome. Subsequently, all clients (including $D$) proceed with the remaining steps outlined in \fpsi using their input polynomials. This process results in the creation of a blinded polynomial (for each bin), the correctness of which is verified by \scf. There will be two cases: 
 
 \vspace{-2mm}
 \begin{enumerate}[leftmargin=4.5mm]
 \item If  \scf confirms the correctness of the result,  all parties receive the deposits they initially placed in \scf. In this case, each extractor finds the set elements in the intersection. Additionally, each extractor provides proof to $\SCe$ that the encryptions of the elements in the intersection match the commitments they previously published. If $\SCe$ accepts the proofs from both extractors, it compensates each client  with a reward. This reward is funded from the buyer's deposit. The extractors receive refunds of their deposits and are also remunerated for their honest execution of the task. 
 %
-However, should  $\SCe$ decline to accept one of the extractors' proofs (or if one extractor betrays the other), it then activates the auditor, specified in the counter-collusion contracts, to identify the misbehaving extractor. Subsequently, $\SCe$ pays a reward to each honest client, with the reward sourced from the misbehaving extractor's deposit. Also, $\SCe$ provides a refund of the buyer's deposit. 
+However, should  $\SCe$ decline to accept one of the extractors' proofs (or if one extractor betrays the other),  $\SCe$ then activates the auditor, specified in the counter-collusion contracts, to identify the misbehaving extractor. Subsequently, $\SCe$ pays a reward to each honest client, with the reward sourced from the misbehaving extractor's deposit. Also, $\SCe$ provides a refund of the buyer's deposit. 
 
 \item If \scf does not approve the result's correctness and \aud identified misbehaving clients, honest clients will receive (1) their deposit back from \fpsi's contract, and (2)  compensation and reward, funded by the misbehaving clients. Also, the buyer and extractors will have their deposits refunded by $\SCe$. Figure \ref{fig:parties-interactions-in-ANE} in Appendix \ref{sec::Workflow-of-withRew}  illustrates the interaction among the parties in \withRew. 
 \end{enumerate}
@@ -240,8 +240,10 @@ It determines to which bin the encrypted value belongs, i.e., ${ {  {j}}}=\matht
 \item\label{e-psi::SC-verification--derive-mk}  verifies the opening of the commitment for $mk$, i.e., $\comver(com_{\st mk},$ $\hat{x})=1$. If the verification passes, it generates the index of the bin to which $ \bar{e}_{\st i}$ belongs, i.e., ${ {  {j}}}=\mathtt{H}(\bar {e}_{\st i})$. It  uses $mk$ to derive the pseudorandom polynomial $\bm\gamma'$ for $j$-th bin. 
 
 
- \item\label{e-psi::SC-verification--check-three-vals} checks whether (i) the opening of commitment is valid,  (ii) the Merkle tree proof is valid, and (iii) the encrypted element is the resulting polynomial's root. Specifically, it ensures that the following relation holds: $\Big(\comver(com_{\st i,j}, \hat{x}')=1\Big) \hspace{0mm} \wedge \hspace{-0.5mm} \Big(\mkver(h_{\st i},g)=1\Big) \hspace{-.5mm} \wedge \hspace{0mm}  \Big(\bm\phi( \bar{e}_{\st i})-\bm\zeta( \bar{e}_{\st i})\cdot \bm\gamma'( \bar{e}_{\st i})=0\Big)$
-
+ \item\label{e-psi::SC-verification--check-three-vals} checks whether (i) the opening of commitment is valid,  (ii) the Merkle tree proof is valid, and (iii) the encrypted element is the resulting polynomial's root. Specifically, it ensures that the following relation holds: 
+ \vspace{-.01mm}
+ $$\Big(\comver(com_{\st i,j}, \hat{x}')=1\Big) \hspace{0mm} \wedge \hspace{-0.5mm} \Big(\mkver(h_{\st i},g)=1\Big) \hspace{-.5mm} \wedge \hspace{0mm}  \Big(\bm\phi( \bar{e}_{\st i})-\bm\zeta( \bar{e}_{\st i})\cdot \bm\gamma'( \bar{e}_{\st i})=0\Big)$$
+ \vspace{-2mm}
 
 %$$\mathtt{Ver_{\st com}}(\mathtt{a}^{\st { {{(I)}}} }_{\st {  {j,i}}},\mathtt{m}^{\st { {{(I)}}} }_{\st i})=1\ \ \ \ \wedge \ \ \ \ \mathtt{Ver_{\st MT}}(\mathtt{h}^{\st { {{(I)}}} }_{\st i},g^{\st { {{(I)}}} })=1 \ \ \ \ \wedge \ \ \ \  \phi( \bar{e}^{\st { {{(I)}}} }_{\st i})-\zeta( \bar{e}^{\st { {{(I)}}} }_{\st i})\cdot \gamma'_{\st {  {j,i}}}=0$$
 

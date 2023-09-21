@@ -8,9 +8,9 @@
 \vspace{-1.4mm}
 
 
-Now, we present the concept of multi-party PSI with Fair Compensation  (\p) which ensures that  either all clients receive the result or that honest parties are financially compensated in the event of an unfair protocol abortion, wherein only dishonest parties gain access to the result.  
+Now, we present the concept of multi-party PSI with Fair Compensation  (\p) which ensures that  either all clients receive the result or honest parties are financially compensated in the event of an unfair protocol abortion, wherein only dishonest parties gain access to the result.  
 %
-In a  $\mathcal{PSI}^{\st \mathcal{FC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially \emph{malicious} (i.e., active adversaries), where  all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest (i.e., a passive adversary), and (3) an auditor, \aud, potentially semi-honest, where all parties except \aud have input set. For simplicity, we assume that one can determine whether a given address belongs to \aud. The fundamental functionality computed by any  multi-party PSI can be defined as  $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m+1})\rightarrow\underbrace{(S_{\st\cap},..., S_{\st\cap})}_{\st m+1}$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m+1}$.  
+In a  $\mathcal{PSI}^{\st \mathcal{FC}}$, three types of parties are involved; namely, (1) a set of clients $\{A_{\st 1},...,A_{\st m}\}$ potentially \emph{malicious} (i.e., active adversaries), where  all but one may collude with each other, (2) a non-colluding dealer, $D$, potentially semi-honest (i.e., a passive adversary), and (3) an auditor, \aud, potentially semi-honest, where all parties except \aud have input set. For simplicity, we assume that one can determine whether a given address belongs to \aud. The fundamental functionality computed by any  multi-party PSI can be defined as  $f^{\st\text{PSI}} (S_{\st 1},..., S_{\st m})\rightarrow(\underbrace{S_{\st\cap},..., S_{\st\cap}}_{\st m})$, where $S_{\st\cap}= S_{\st 1} \cap S_{\st 2}, ...,\cap\  S_{\st m}$.  
 
 At a high level, the standard simulation-based paradigm ensures only privacy and output correctness \cite{DBLP:books/cu/Goldreich2004}. To enhance the standard simulation-based model and accommodate additional security requirements (such as fairness, compensation, or transactions' correctness) researchers often follow these steps: (i) define a set of predicates and (ii) define a wrapper that encapsulates and  parameterises the original paradigm with the defined predicates. This approach can be observed in \cite{KiayiasZZ16,BadertscherMTZ17,BadertscherGKRZ19}. Consequently, to formally define a \p, we parameterise $f^{\st\text{PSI}}$ with four predicates,  $Q:=(\qinit, \qdel, \qUnFAbt, \qFAbt)$, which ensure that certain financial conditions are met. We borrow three of these predicates (i.e., $\qinit, \qdel, \qUnFAbt$) from \cite{KiayiasZZ16}. Nevertheless, we will (i) introduce an additional predicate  \qFAbt and (ii) provide more formal accurate definitions of these predicates. Below, we provide a brief description of these predicates.% (in Appendix \ref{sec::Formal-Definitions-of-F-PSI-Predicates}). 
 
@@ -39,7 +39,7 @@ At a high level, the standard simulation-based paradigm ensures only privacy and
 %
 %We observed that the latter predicate should have been defined in the generic framework in \cite{KiayiasZZ16} too; as the framework should have also captured the cases where an adversary may abort without learning any output after the onset of the protocol.  
 
-By requiring any protocol that realises \p to implement a wrapped version of $f^{\st\text{PSI}}$ that includes $Q$, we will ensure that an honest set owner only aborts in an unfair manner if \qUnFAbt returns  $1$, it only aborts in a fair manner if \qFAbt returns  $1$, and outputs a valid value if \qdel returns $1$. We refer readers to Appendix \ref{sec::Formal-Definitions-of-F-PSI-Predicates} for formal definitions of these predicates.   Next, we present a formal definition of \p. 
+By requiring any protocol that realises \p, to implement a wrapped version of $f^{\st\text{PSI}}$ that includes $Q$, we will ensure that an honest set owner only aborts in an unfair manner if \qUnFAbt returns  $1$, it only aborts in a fair manner if \qFAbt returns  $1$, and outputs a valid value if \qdel returns $1$. We refer readers to Appendix \ref{sec::Formal-Definitions-of-F-PSI-Predicates} for formal definitions of these predicates.   Next, we present a formal definition of \p. 
  
 
 % 
@@ -117,7 +117,7 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 
 
  \vspace{-2.3mm}
-\section{Concrete Construction of \p}
+\section{\withFai: Concrete Construction of \p}
 
 \vspace{-.3mm}
  
@@ -160,7 +160,7 @@ where  $z$ is an auxiliary input given to $\mathcal{A}$ and  $\mathcal{W}(f^{\st
 
 At a very high level, \withFai (\fpsi) operates as follows. Initially, each client encodes its set elements into a polynomial. Subsequently, all clients collectively sign a smart contract \scf and make a predefined coin deposit into it. One of the clients, designated as the dealer, $D$, takes on the responsibility of randomising the polynomials of the remaining clients and applying a specific structure to their respective polynomials. The clients also randomise $D$'s polynomials. Following this, all clients transmit their randomised polynomials to \scf.  
 
- \scf consolidates all the polynomials and verifies whether the resultant polynomial still adheres to the structure imposed by $D$. If it determines that the resultant polynomial lacks the prescribed structure, it then triggers an auditor, \aud, to identify clients who may have acted improperly and impose penalties on them. However, if the resultant polynomial indeed maintains the required structure,  \scf produces an encoded polynomial and reimburses the deposits made by the clients. In this scenario, all clients can utilise the resulting polynomial (as provided by \scf) to determine the intersection. Figure \ref{fig:parties-interactions-in-Jus} in Appendix \ref{sec::Justitia-workflow} outlines the interaction among the parties. 
+ \scf consolidates all the polynomials and verifies whether the resultant polynomial still adheres to the structure imposed by $D$. If it determines that the resultant polynomial lacks the prescribed structure, it then triggers an auditor, \aud, to identify clients who may have acted improperly and impose penalties on them. However, if the resultant polynomial indeed maintains the required structure,  \scf produces an encoded polynomial and reimburses the deposits made by the clients. In this scenario, all clients can utilise the encoded polynomial (provided by \scf) to determine the intersection. Figure \ref{fig:parties-interactions-in-Jus} in Appendix \ref{sec::Justitia-workflow} outlines the interaction among the parties. 
 
 
 
@@ -190,7 +190,9 @@ One of the novelties of \fpsi is its lightweight verification mechanism, which e
 
 Now, we will delve into a more detailed description of \fpsi. Initially, all clients sign and deploy \scf, each contributing a predetermined deposit amount to it. Subsequently, they collectively execute a coin-tossing protocol \ct to reach a consensus on a key, $mk$. This key will be used to generate a series of blinding polynomials, concealing the final result from the public. 
 %
-Following this, each client independently maps its set elements to a hash table and represents the contents of each bin in the hash table as a polynomial, $\bm\pi$. Afterward, for each bin, the following steps are undertaken.  All clients, excluding $D$, participate in \zspaa to reach an agreement on a set of pseudorandom blinding factors, ensuring that their sum equals zero. 
+Following this, each client independently maps its set elements to a hash table and represents the contents of each bin (in the hash table) as a polynomial, $\bm\pi$. 
+
+Afterward, for each bin, the following steps are undertaken.  All clients, excluding $D$, participate in \zspaa to reach an agreement on a set of pseudorandom blinding factors, ensuring that their sum equals zero. 
 %
 Next, $D$ takes on the task of randomising each client's polynomial $\bm\pi$ and constructing an unforgeable polynomial on it. To achieve this, $D$ and every other client, $C$, participate in \vopr. This process results in
 $C$ receiving a polynomial. Following this, $D$ and each $C$ invoke \vopr once more, this time to randomise $D$'s polynomial, resulting in $C$ obtaining another unforgeable polynomial. 
@@ -200,12 +202,12 @@ Note that the output of \vopr does not reveal any information about any client's
   
   Each $C$ adds the two polynomials together, applies blinding (using the output of  \zspaa), and then forwards the result to \scf. 
 %
- Once all clients have transmitted their input polynomials to \scf, $D$ sends a \textbf{switching polynomial}  to \scf.  This switching polynomial allows \scf to obliviously alter the secret blinding polynomials previously employed by $D$ during the execution of \vopr. This alteration ensures that each client's original polynomial $\bm \pi$ is blinded with a different blinding polynomial, which can be independently generated and removed by all clients themselves using the key $mk$.  %The switching polynomial is constructed in a way that does not affect the verification of unforgeable polynomials. 
+ Once all clients have transmitted their input polynomials to \scf, $D$ sends a \textbf{switching polynomial}  to \scf.  This switching polynomial allows \scf to obliviously alter the secret blinding polynomials previously employed by $D$ during the execution of \vopr. This alteration ensures that each client's original polynomial $\bm \pi$ is blinded with a different blinding polynomial, which can be independently generated and removed by the clients themselves using the key $mk$.  %The switching polynomial is constructed in a way that does not affect the verification of unforgeable polynomials. 
 
 Following this, $D$ transmits a secret polynomial $\bm\zeta$ to \scf. This polynomial enables \scf to validate the correctness of unforgeable polynomials. Subsequently, \scf\ sum all clients' polynomials together and checks if $\bm\zeta$ can divide the sum. \scf approves the clients' inputs if the polynomial can divide the sum; otherwise, it invokes \aud to identify misbehaving parties.  
 
 
-In the event of such misbehaviour, all honest parties receive a refund of their deposits, while the deposits of the misbehaving parties are redistributed among the honest ones. If all clients behave honestly,  then each client can independently ascertain the intersection. To achieve this, they use $mk$ to remove the blinding polynomial from the sum (that the contract generated), evaluate the unblinded polynomial at each of their set elements, and consider an element to be part of the intersection if the evaluation yields zero. 
+In case of misbehavior, all honest parties receive a refund of their deposits, while the deposits of the misbehaving parties are redistributed among the honest ones. If all clients behave honestly,  then each client can independently ascertain the intersection. To achieve this, they use $mk$ to remove the blinding polynomial from the sum (that the contract generated), evaluate the unblinded polynomial at each of their set elements, and consider an element to be part of the intersection if the evaluation yields zero. 
 %The efficiency of the verification in our protocol  mainly stems from our  observation that if an adversary who know only $xx$ modified the polynomial of the form $xx$ then $\zeta$ will not divide result polynomial after unblinding will not divide with a high probability.  
 
 \vspace{-3.5mm}

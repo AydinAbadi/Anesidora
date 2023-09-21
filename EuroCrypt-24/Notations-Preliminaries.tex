@@ -1,11 +1,11 @@
 % !TEX root =main.tex
 
-\vspace{-5mm}
+\vspace{-4.5mm}
 
 \section{Preliminaries}
 
 
-\vspace{-3mm}
+\vspace{-2.4mm}
 \input{notation-Table}
 %\subsection{Notations}
 
@@ -143,7 +143,7 @@ Within approach \ref{Root-extraction}, to distinguish errors (i.e., roots of $\b
 \subsection{Horner's Method}
 \vspace{-1mm}
 
-Horner's method \cite{DBLP:journals/ibmrd/Dorn62} allows for efficiently evaluating polynomials at a given point, e.g., $x_{\st 0}$. Specifically, given a polynomial of the form: $\bm\tau(x)= a_{\st 0}+a_{\st 1}\cdot x+a_{\st 2}\cdot x^{\st 2}+...+a_{\st d}\cdot x^{\st d}$ and a point: $x_{\st 0}$, one can efficiently evaluate the polynomial at $x_{\st 0}$ iteratively, in the following fashion: $\bm\tau(x_{\st 0})=a_{\st 0}+x_{\st 0}(a_{\st 1} + x_{\st 0}(a_{\st 2}+...+x_{\st 0}(a_{\st d-1}+x_{\st 0}\cdot a_{\st d})...)))$. Evaluating  a polynomial of degree $d$ naively requires  $d$ additions and $\frac{(d^{\st 2}+d)}{2}$ multiplications. However, using Horner's method the evaluation requires only $d$ additions and $2d$ multiplications. We use this method in this paper. 
+Horner's method \cite{DBLP:journals/ibmrd/Dorn62} enables the the efficient evaluation of polynomials at a specified point, e.g., $x_{\st 0}$. In particular, when dealing with a polynomial in the following form: $\bm\tau(x)= a_{\st 0}+a_{\st 1}\cdot x+a_{\st 2}\cdot x^{\st 2}+...+a_{\st d}\cdot x^{\st d}$ and a given point: $x_{\st 0}$, one can efficiently evaluate the polynomial at $x_{\st 0}$ iteratively using  the following method: $\bm\tau(x_{\st 0})=a_{\st 0}+x_{\st 0}(a_{\st 1} + x_{\st 0}(a_{\st 2}+...+x_{\st 0}(a_{\st d-1}+x_{\st 0}\cdot a_{\st d})...)))$. Evaluating  a polynomial of degree $d$ naively requires  $d$ additions and $\frac{(d^{\st 2}+d)}{2}$ multiplications. However, using Horner's method the evaluation requires only $d$ additions and $2d$ multiplications. We use this method in this paper. 
 
 \vspace{-3.4mm}
 

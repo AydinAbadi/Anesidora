@@ -8,7 +8,7 @@
 \section{Other Subroutines Used in \withFai}\label{sec::subroutines}
 \vspace{-1.4mm}
 
-In this section, we present three subroutines and a primitive that we have developed and use in the instantiation of \p, known as \withFai. 
+In this section, we present three subroutines and a primitive that we have developed and used in the instantiation of \p, known as \withFai. 
 
 
 \vspace{-3mm}
@@ -30,17 +30,17 @@ In the computation phase,  to compute polynomial $\bm\theta$, the two parties in
 %For simplicity, let $i=0$. 
 %
 for every $j$  (where $0\leq j\leq e'$) the sender sends $g_{\st i}$ and $a_{\st i,j}$ to an instance of  $\ole^{\st +}$, while the receiver sends $b_{\st j}$ to the same instance,  which returns $c_{\st i,j}=g_{\st i}\cdot b_{\st j}+ a_{\st i,j}$ to the receiver. This process is repeated for every $i$, where $0 \leq i \leq e$. Then, the receiver uses $c_{\st i,j}$ values to construct the resulting polynomial, $\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha$.  
-%
-The reason the sender imposes the above structure on (the coefficients of)  $\bm\alpha$ during the setup, is to enable the parties to securely compute $\bm\theta$ via  $\ole^{\st +}$. Specifically, by imposing this structure (1) the sender  can blind each product $g_{\st i}\cdot b_{\st j}$  with  random value $a_{\st i,j}$ which is a component of $\bm\alpha$'s coefficient and (2) the receiver can construct a result polynomial in the form $\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha$. 
+
+The sender imposes the above structure on (the coefficients of)  $\bm\alpha$ during the setup to enable the parties to securely compute $\bm\theta$ via  $\ole^{\st +}$.  This structure serves two key purposes: (1) allowing the sender  to blind each product $g_{\st i}\cdot b_{\st j}$  with  random value $a_{\st i,j}$ which is a component of $\bm\alpha$'s coefficient and (2) enabling the receiver to construct a result polynomial in the form $\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha$. 
 
 
-To check the correctness of the result, the sender selects and transmits a random value $z$ to the receiver.  The receiver computes  $\bm\theta(z)$ and $\bm\beta(z)$ and sends these two values  to the sender. The sender computes  $\bm\psi(z)$ and $\bm\alpha(z)$ and then checks if equation  $\bm\theta({ z})=\bm\psi({ z})\cdot \bm\beta({ z})+\bm\alpha({ z})$ holds. It accepts the result if the check passes.   Figure \ref{fig:VOPR} describes \vopr in detail. 
+To verify the correctness of the result, the sender selects a random value, $z$, and transmits it to the receiver.   Subsequently, the receiver computes  $\bm\theta(z)$ and $\bm\beta(z)$ and sends these two values  to the sender. The sender computes  $\bm\psi(z)$ and $\bm\alpha(z)$ and proceeds to validate the equation $\bm\theta({ z})=\bm\psi({ z})\cdot \bm\beta({ z})+\bm\alpha({ z})$. If the check is successful, the sender accepts the result. Figure \ref{fig:VOPR} describes \vopr in detail. 
 
 
 \vspace{-6.3mm}
 \input{VOPR}
 
-Note that \vopr requires the sender to insert non-zero coefficients, i.e., $b_{\st i}\neq 0$ for all $i,0 \leq i \leq e'$. If the sender includes a zero-coefficient, then it will only obtain a random value (due to  $\ole^{\st +}$), making it fail to pass \vopr's verification phase. However, it is important to mention that this requirement does not affect the correctness of \withFai, as we will explain in Section \ref{Fair-PSI-Protocol} and Appendix \ref{sec::error-prob}.  
+Note that \vopr requires the sender to insert non-zero coefficients, i.e., $b_{\st i}\neq 0$ for all $i,0 \leq i \leq e'$. If the sender includes a zero-coefficient, then it will only obtain a random value (due to  $\ole^{\st +}$), making it fail to pass \vopr's verification phase. However, this requirement does not affect the correctness of \withFai, as we will explain in Section \ref{Fair-PSI-Protocol} and Appendix \ref{sec::error-prob}.  
 
 \vspace{-2mm}
 
@@ -49,7 +49,7 @@ Note that \vopr requires the sender to insert non-zero coefficients, i.e., $b_{\
 %\vspace{-1mm}
 \begin{theorem}\label{theorem::VOPR}
 %
-Let $f^{\st \vopr}$ be the functionality defined above. If the enhanced \ole (i.e., $\ole^{\st +}$) is secure against malicious (or active) adversaries, then the  Verifiable Oblivious Polynomial Randomisation (\vopr), presented in Figure \ref{fig:VOPR}, securely computes $f^{\st \vopr}$ in the presence of (i) semi-honest sender and honest receiver or (ii) malicious receiver and honest sender. 
+Let $f^{\st \vopr}$ be the functionality defined above. If the enhanced \ole (i.e., $\ole^{\st +}$) is secure against malicious (or active) adversaries, then the  \vopr, presented in Figure \ref{fig:VOPR}, securely computes $f^{\st \vopr}$ in the presence of (i) semi-honest sender and honest receiver or (ii) malicious receiver and honest sender. 
 %
 \end{theorem}
 
