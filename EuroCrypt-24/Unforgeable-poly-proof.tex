@@ -7,13 +7,15 @@
 
 
 
-We first prove Theorem \ref{proof::unforgeable-poly}, i.e., unforgeable polynomials.  
+Our initial step is to prove Theorem \ref{proof::unforgeable-poly}, which concerns unforgeable polynomials.  
 
 
 \begin{proof}
 
-Let $\bm\tau=\bm\delta-\bm\gamma$ and $\bm\zeta=a\cdot x+b$. Since $\bm\gamma$ is a random polynomial of degree $d+1$ and unknown to the adversary, given $(\bm\theta, \bm\pi)$,  the adversary cannot learn anything about the factor $\bm\zeta$; as from its point of view every polynomial of degree $1$ in $\mathbb{F}_{\st p}[X]$ is equally likely to be $\bm\zeta$. Moreover,  polynomial $\bm\tau$ has at most $Max\big(deg(\bm\delta), d+1\big)$ irreducible non-constant factors.  For $\bm\zeta $ to divide $\bm\tau$,  one of the factors of $\bm\tau$ must be equal to $\bm\zeta$. We  also know that $\bm\zeta$ has been picked uniformly at random (i.e., $a,b
-\stackrel{\st \$}\leftarrow \mathbb F_{\st p}$). Thus, the probability that $\bm\zeta $ divides $\bm\tau$ is negligible in the security parameter, $\lambda$. Specifically,
+Let $\bm\tau=\bm\delta-\bm\gamma$ and $\bm\zeta=a\cdot x+b$. Since $\bm\gamma$ is a random polynomial of degree $d+1$ and unknown to the adversary, when given $(\bm\theta, \bm\pi)$,  the adversary cannot gain any information about the factor $\bm\zeta$.  From its perspective, every polynomial of degree $1$ in $\mathbb{F}_{\st p}[X]$ is equally likely to be $\bm\zeta$. 
+
+Furthermore,  the polynomial $\bm\tau$ has at most $Max\big(deg(\bm\delta), d+1\big)$ irreducible non-constant factors.  For $\bm\zeta $ to divide $\bm\tau$,  one of the factors of $\bm\tau$ must be equal to $\bm\zeta$. We  also know that $\bm\zeta$ has been picked uniformly at random (i.e., $a,b
+\stackrel{\st \$}\leftarrow \mathbb F_{\st p}$). Thus, the probability that $\bm\zeta $ divides $\bm\tau$ is negligible with respect to the security parameter, $\lambda$. Specifically,
 
 $$Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma)]\leq \frac{Max\big(deg(\bm\delta), d+1\big)} {2^{\st \lambda}}=\negl(\lambda)$$
 \end{proof} 
@@ -26,13 +28,13 @@ $$Pr[ \bm\zeta \ | \ (\bm\delta-\bm\gamma)]\leq \frac{Max\big(deg(\bm\delta), d+
  
 
  
-Next, we prove Theorem \ref{Unforgeable-Polynomials-Linear-Combination}, i.e., unforgeable polynomials' linear combination.  
+Next, we prove Theorem \ref{Unforgeable-Polynomials-Linear-Combination}, concerning unforgeable polynomials' linear combination.  
  
  
 
 %%%%
 \begin{proof}  
-This proof is a generalisation of that of Theorem \ref{proof::unforgeable-poly}.  
+This proof serves as a generalisation of that for Theorem \ref{proof::unforgeable-poly}.  
 Let $\bm\tau_{\st j}=\bm\delta_{\st j}-\bm\gamma_{\st j}$ and $\bm\zeta=a\cdot x+b$. Since  every $\bm\gamma_{\st j}$ is a random polynomial of degree $d+1$ and unknown to the adversary, given $(\vv{\bm\theta}, \vv{\bm\pi})$,  the adversary cannot learn anything about the factor $\bm\zeta$. Each polynomial $\bm\tau_{\st j}$ has at most $Max\big(deg(\bm\delta_{\st j}), d+1\big)$ irreducible non-constant factors. 
 %
 %In order for $\bm\zeta$ to divide polynomial $\sum\limits_{\st j=1}^{\st t}\bm\delta_{\st j} + \sum\limits_{\st j=t+1}^{\st n}\bm\theta_{\st j} - \sum\limits_{\st j=1}^{\st n}\bm\gamma_{\st j}$  one of the factors of every $\bm\tau_{\st j}$ needs to equal $\bm\zeta$, where $1 \leq j \leq t$. 

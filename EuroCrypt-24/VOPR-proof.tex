@@ -68,7 +68,8 @@ It picks two random polynomials: ${\bm\psi}=\sum\limits^{\st e}_{\st i=0}{g}_{\s
 \item sends  $ \psi_{\st  z}$ and $\alpha_{\st z}$ to $\mathcal{A}_{\st R}$. 
 %
 \item checks if the following relation hold:
-%
+
+\vspace{-1mm}
 \begin{equation}\label{equ::beta}
  \beta_{\st \bar z}={\bm\beta}( z) \hspace{6mm} \wedge \hspace{6mm} \theta_{\st  z}={\bm\theta}( z) \hspace{6mm}\wedge\hspace{6mm} {\bm\theta}( z)=  \psi_{\st  z}\cdot \beta_{\st  z}+\alpha_{\st  z}
  \end{equation}
@@ -111,16 +112,16 @@ Next, we turn our attention to the sender's output. We will demonstrate that the
 %
 %Note that the messages distributions the sender receive from the ideal call to $f_{\st \text{OLE}^{\st +}}$ are identical in both models. 
 %
-Our focus will be on the probability that it aborts in each model, as it does not receive any other output. In the ideal model, $\mathsf{Sim}^{\st \vopr}_{\st R}$ is given the honestly generated result polynomial ${\bm \theta}$ (computed by TTP) and the adversary's input polynomial ${\bm \beta}$. $\mathsf{Sim}^{\st \vopr}_{\st R}$ aborts with a probability of 1 if Relation \ref{equ::beta} does not hold. However, in the real model, the honest sender (in addition to its inputs) is given only $\beta_{\st  z}$ and $\theta_{\st  z}$ and is not given polynomials ${\bm\beta}$ and  ${\bm\theta}$; it wants to check if the following equation holds, $\theta_{\st z} =  \psi_{\st z}\cdot  \beta_{\st z}+ \alpha_{\st z}$. 
+Our focus will be on the probability that it aborts in each model, as it does not receive any other output. In the ideal model, $\mathsf{Sim}^{\st \vopr}_{\st R}$ is given the honestly generated result polynomial ${\bm \theta}$ (computed by TTP) and the adversary's input polynomial ${\bm \beta}$. $\mathsf{Sim}^{\st \vopr}_{\st R}$ aborts with a probability of 1 if Relation \ref{equ::beta} (on page \pageref{equ::beta}) does not hold. However, in the real model, the honest sender (in addition to its inputs) is given only $\beta_{\st  z}$ and $\theta_{\st  z}$ and is not given polynomials ${\bm\beta}$ and  ${\bm\theta}$; it wants to check if the following equation holds, $\theta_{\st z} =  \psi_{\st z}\cdot  \beta_{\st z}+ \alpha_{\st z}$. 
 
 Note that polynomial $\bm\theta=\bm\psi\cdot \bm\beta+\bm\alpha$ (resulted from ${c}_{\st i,j}$) is well-structured, as it satisfies the following three conditions (regardless of the adversary's input $\bm\beta$ to $\ole^{\st +}$): 
 \begin{enumerate}[i.]
 
 \item $deg(\bm\theta)=Max \Big(deg(\bm\beta)+deg(\bm\psi), deg(\bm\alpha) \Big)$, as $\mathbb{F}_{\st p}[X]$ is an integral domain and ($\bm\psi,\bm\alpha$) are random polynomials.
 
-\item  the roots of the product polynomial $\bm\nu=\bm\psi\cdot \bm\beta$ contains exactly both polynomials' roots, by Theorem \ref{theorem:coef-poly-prod}.
+\item  the roots of the product polynomial $\bm\nu=\bm\psi\cdot \bm\beta$ contains exactly both polynomials' roots, by Theorem \ref{theorem:coef-poly-prod}, on page \pageref{theorem:coef-poly-prod}.
 
-\item  the roots of $\bm\nu+\bm\alpha$ is the intersection of the roots of $\bm\nu$ and $\bm\alpha$, as demostrated in \cite{DBLP:conf/crypto/KissnerS05}. 
+\item  the roots of $\bm\nu+\bm\alpha$ is the intersection of the roots of $\bm\nu$ and $\bm\alpha$, as demonstrated in \cite{DBLP:conf/crypto/KissnerS05}. 
  
  \end{enumerate}
  

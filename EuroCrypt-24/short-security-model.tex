@@ -8,7 +8,7 @@
 \vspace{-2mm}
 
 
-The paper employs a simulation-based secure computation model \cite{DBLP:books/cu/Goldreich2004} to define and prove its protocols, addressing both active (malicious) and passive (semi-honest) adversaries. Definitions for both adversary types are outlined, assuming a static adversary and a secure, i.e., private and authenticated, off-chain communication channel between clients.
+The paper employs a simulation-based secure computation model \cite{DBLP:books/cu/Goldreich2004} to define and prove its protocols, addressing both active (malicious) and passive (semi-honest) adversaries. Definitions for both adversary types are outlined, assuming a static adversary and a secure, i.e., private and authenticated, off-chain communication channel between clients. Appendix \ref{sec::sec-model-long} present further details. 
 
 
 %In this paper, we use the simulation-based model of secure computation \cite{DBLP:books/cu/Goldreich2004} to define and prove our protocols. Since both types of active and passive adversaries are involved in our protocols, we outline definitions for both types.  We consider a static adversary and assume there is a secure (off-chain) channel between the clients.% and we consider a standard public blockchain, e.g., Ethereum.
@@ -16,7 +16,7 @@ The paper employs a simulation-based secure computation model \cite{DBLP:books/c
  
   \vspace{-4mm}
   
- \subsubsection{Two-party Computation.} A two-party protocol $\Gamma$ problem is captured by specifying a random process that maps pairs of inputs to pairs of outputs, one for each party. Such process is referred to as a functionality  $f:\{0,1\}^{\st *}\times\{0,1\}^{\st *}\rightarrow\{0,1\}^{\st *}\times\{0,1\}^{\st *}$, where $f:=(f_{\st 1},f_{\st 2})$. For every input pair $(x,y)$, the output pair is a random variable $(f_{\st 1} (x,y), f_{\st 2} (x,y))$, such that the party with input $x$ obtains $f_{\st 1} (x,y)$ while the party with input $y$ receives $f_{\st 2} (x,y)$. When $f$ is deterministic, then $f_{\st 1} =f_{\st 2}$. If $f$ is asymmetric and only one party (say the first one) receives the result, $f$ is defined as $f:=(f_{\st 1}(x,y), \bot)$. 
+ \subsubsection{Two-party Computation.} A two-party protocol, denoted as $\Gamma$, is characterised by specifying a random process that maps pairs of inputs to pairs of outputs, one for each party. This process is referred to as a functionality  $f:\{0,1\}^{\st *}\times\{0,1\}^{\st *}\rightarrow\{0,1\}^{\st *}\times\{0,1\}^{\st *}$, where $f:=(f_{\st 1},f_{\st 2})$. For every input pair $(x,y)$, the output pair is a random variable $(f_{\st 1} (x,y), f_{\st 2} (x,y))$, such that the party with input $x$ obtains $f_{\st 1} (x,y)$ while the party with input $y$ receives $f_{\st 2} (x,y)$. When $f$ is deterministic, then $f_{\st 1} =f_{\st 2}$. If $f$ is asymmetric and only one party (say the first one) receives the result, $f$ is defined as $f:=(f_{\st 1}(x,y), \bot)$. 
  
   
   \vspace{-3mm}
@@ -33,7 +33,7 @@ In this setting, a protocol is secure if whatever can be computed by a party in 
  \vspace{-1mm}
  
 \begin{definition}
-Let $f$ be the deterministic functionality which was defined above. Protocol $\Gamma$ security computes $f$ in the presence of a static  passive adversary if there exist polynomial time algorithms $(\mathsf {Sim}_{\st 1}, \mathsf {Sim}_{\st 2})$ such that: 
+Let $f$ represent the deterministic functionality defined above. Protocol $\Gamma$ security computes $f$ in the presence of a static  passive adversary if there exist polynomial time algorithms $(\mathsf {Sim}_{\st 1}, \mathsf {Sim}_{\st 2})$ such that: 
 %
 %\begin{center}
 {\small{

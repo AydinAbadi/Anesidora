@@ -7,7 +7,10 @@
 
 \subsection{Input and Output Privacy}
 
-Intuitively, all parties locally blind/encrypt all (set element related) messages before they send them the smart contract \scf. Also, the resulting polynomial that \scf computes is in a blinded form. Thus, (i) no party (including the protocol's participants) can learn other parties input set elements and (ii) the non-participants of the protocol cannot learn anything about the protocol's output, not even the intersection cardinality. 
+Intuitively, all parties locally blind/encrypt all (set element related) messages before they send them the smart contract \scf. Moreover, the resultant polynomial that \scf computes is in a blinded form and it reveals only the intersection of the sets after it is unblinded (as discussed in Section \ref{sec::poly-rep}, on page \pageref{sec::poly-rep}).
+
+
+Hence, (i) no party (including the protocol's participants) can learn other parties input set elements and (ii) the non-participants of the protocol cannot learn anything about the protocol's output, not even the intersection cardinality. 
 
 
 \subsection{Strawman Approaches}
@@ -17,12 +20,13 @@ Intuitively, all parties locally blind/encrypt all (set element related) message
 
 
 \subsubsection{Charging the Buyer a Flat Fee.}
-One may want to add a straightforward payment mechanism to an existing multi-party PSI in such a way that a buyer always must pay a fixed amount, e.g., depending on the total number of clients and the minimum size of the sets. However, this approach is problematic, because it:
+
+One might wish to incorporate a straightforward payment mechanism into an existing multi-party PSI such that a buyer is always required to pay a fixed amount, which could depend on factors such as the total number of clients and the minimum size of the sets. However, this approach presents challenges, because:
 
 \begin{enumerate}
-\item forces the buyer to always pay even if some malicious clients misbehave during the protocol execution and affect the results' correctness which would allow malicious clients to learn the result at the buyer's expense without letting it learn the correct result, as there exists no fair multi-party PSI in the literature to ensure either all parties learn a correct result or neither does. 
+\item it compels the buyer to make payments even if certain malicious clients misbehave during the protocol execution and compromise the accuracy of the results. This situation could enable malicious clients to gain access to the result at the buyer's expense without allowing the buyer to obtain the correct result. Unfortunately, there is no fair multi-party PSI in the existing literature that guarantees either all parties learn the correct result or none of them do. 
 
-\item forces the buyer to always pay independent of the exact size of the intersection. If it has to pay more than the amount it would have paid for the exact cardinality of the intersection then the buyer would be discouraged to participate in the protocol in the first place. On the other hand, if the buyer has to pay less than what it would have paid for the size of the intersection, then other clients would be discouraged to participate in the protocol. 
+\item it compels the buyer to make payments regardless of the precise size of the intersection. If the buyer ends up paying more than the amount it would have paid for the exact cardinality of the intersection, it might become discouraged from participating in the protocol altogether. Conversely, if the buyer has to pay less than what it would have paid for the size of the intersection, it may discourage other clients from participating in the protocol.
 
 \end{enumerate}
 

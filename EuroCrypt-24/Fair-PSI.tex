@@ -24,15 +24,15 @@ At a high level, the standard simulation-based paradigm ensures only privacy and
 
 \vspace{-1.7mm}
 \begin{itemize}
-    \item[$\bullet$]  \qinit  defines the conditions under which a protocol realising \p should begin execution, i.e., when all set owners have sufficient deposit. 
+    \item[$\bullet$] \underline{\qinit:  Initiation predicate}. It defines the conditions under which a protocol realising \p should begin execution, i.e., when all set owners have sufficient deposit. 
  
-  \item[$\bullet$] \qdel determines the circumstances in which parties receive their output, specifically when honest parties receive their deposit back.
+  \item[$\bullet$] \underline{\qdel: Delivery predicate}. It defines the circumstances in which parties receive their output, specifically when honest parties receive their deposit back.
  
-  \item[$\bullet$] \qUnFAbt specifies the conditions under which the simulator can force parties to abort if the adversary learns the output, i.e., when an honest party receives its deposit back along with a predefined amount of compensation.
+  \item[$\bullet$] \underline{\qUnFAbt: UnFair-Abort predicate}. It specifies the conditions under which the simulator can force parties to abort if the adversary learns the output, i.e., when an honest party receives its deposit back along with a predefined amount of compensation.
  
  
  
- \item[$\bullet$] \qFAbt specifies the conditions under which the simulator can compel parties to abort if the adversary receives no output, i.e., when honest parties receive their deposits back. 
+ \item[$\bullet$] \underline{\qFAbt: Fair-Abort predicate}. It specifies the conditions under which the simulator can compel parties to abort if the adversary receives no output, i.e., when honest parties receive their deposits back. 
  
    \end{itemize}
    \vspace{-2.8mm}
