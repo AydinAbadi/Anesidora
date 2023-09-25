@@ -3,4 +3,6 @@
 
 \subsubsection{Confidentiality of polynomial $\zeta$.} 
 
-The dealer is the only party who picks and knows the secret polynomial $\zeta$. This polynomial remains secret until all parties provide their messages to the smart contract. Then, the dealer in step \ref{f-psi::D-gen-switching-poly} on page~\pageref{f-psi::D-gen-switching-poly} sends $\zeta$ to the smart contract. After this point it is not secret, however, the know of $\zeta$ would not benefit malicious parties at this point, as they have all provided their inputs to the smart contract. 
+ The dealer is the sole entity responsible for selecting and possessing knowledge of the secret polynomial $\zeta$.  This polynomial remains confidential until all parties submit their messages to the smart contract. Subsequently, in step \ref{f-psi::D-gen-switching-poly} on page~\pageref{f-psi::D-gen-switching-poly}, the dealer transmits $\zeta$ to the smart contract. After this juncture, $\zeta$ is no longer a secret. However, malicious parties gain no advantage from knowing $\zeta$, as they have already submitted their inputs to the smart contract.
+
+

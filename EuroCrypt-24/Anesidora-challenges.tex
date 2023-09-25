@@ -14,16 +14,27 @@ In PSIs, the main private information about the clients which is revealed to a r
 
 Moreover, this approach requires all clients to extract the intersection, which would increase the overall costs.  Some clients may not even be interested in or available to do so. This task could also be conducted by a single entity, such as the dealer; but this approach would introduce a single point of failure and all clients have to depend on this entity.  
 %
-To address these challenges, we allow any two clients to become extractors.  Each of them finds and sends to the contract the (encrypted) elements in the intersection. It is paid by the contract if the contract concludes that it is honest. This lets us avoid (i) the honest majority assumption, (ii) requiring all clients to find the intersection, and (iii) relying on a single trusted/semi-honest party to complete the task. 
+To address these challenges, we allow any two clients to become extractors.  Each of them finds and sends to the contract the (encrypted) elements in the intersection. The contract compensates them if it determines their honesty. This approach allows us to avoid (i) relying on the assumption of an honest majority, (ii) requiring all clients to find the intersection, and (iii) depending on a single trusted or semi-honest party to perform the task. 
 
 
 
 
 
- \vspace{-1mm}
+
 \subsection{Dealing with Extractors' Collusion.}
 %
-Using two extractors itself introduces another challenge; namely, they may collude with each other (and the buyer) to provide a consistent but incorrect result. This behaviour can not be detected by a verifier unless it always conducts the delegated task itself, which would defeat the purpose of delegation. To efficiently address this challenge, we use the counter-collusion smart contracts (from Section \ref{Counter-Collusion-Smart-Contracts}) that creates distrust among the extractors and incentivises them to act honestly. 
+
+
+Introducing two extractors brings about another challenge: the possibility of collusion between them (as well as with the buyer) to present a consistent but erroneous result. This kind of behaviour cannot be discerned by a verifier unless the verifier consistently undertakes the delegated task themselves, which would defeat the purpose of delegation. To efficiently confront this challenge, we implement counter-collusion smart contracts (as detailed in Section \ref{Counter-Collusion-Smart-Contracts}) that creates distrust among the extractors and provide incentives for them to behave honestly. 
+
+
+
+
+
+
+
+
+
 
 
 

@@ -6,13 +6,31 @@
 
 \subsubsection{Hash Table Parameters.}
 
-As stated in Appendix \ref{Preliminary-Hash-Table}, a hash table has the following main parameters: (1) $h$: the number of bins, (2) $d$: the bin’s maximum size (or capacity), (3) $c$: the maximum number of elements that are mapped to the hash table, and (4) $pr$: the probability that the number of elements mapped to a bin does not exceed a predefined capacity. Note that in the context of PSI, $c$ is the maximum of the sizes of all sets.
 
-The literature (e.g., in \cite{Feather2020-full,DBLP:conf/ccs/KolesnikovMPRT17,DBLP:conf/uss/Pinkas0SZ15}) has already studied the concrete parameters of a hash table, even in the context of PSI. For instance, as demonstrated in Section 6 and Appendix J.1 in \cite{Feather2020-full}, when $c$ is in the range $[2^{\st 10},\ 2^{\st 20}]$ and $pr=2^{\st -40}$, then $d=100$. Furthermore, we have $h\approx\frac{4c}{d}$. To provide a concrete value, we would have $h=41943$, when $c=2^{\st 20}$ and $d=100$. 
+As detailed in Appendix \ref{Preliminary-Hash-Table}, a hash table is characterised by several key parameters:
+
+\begin{itemize}
+
+\item[$\bullet$] $h$: the number of bins.
+
+\item[$\bullet$] $d$: the maximum size (or capacity) of each bin.
+
+\item[$\bullet$] $c$: the maximum number of elements that are mapped to the hash table.
+
+\item[$\bullet$] $pr$: the probability that the number of elements mapped to a bin does not exceed a predefined capacity.
+ 
+ \end{itemize}
+ 
+ It is important to note that in the context of PSI, the parameter $c$ represents the maximum of the sizes of all sets involved. 
+ 
+ The literature, as evidenced in sources such as \cite{Feather2020-full,DBLP:conf/ccs/KolesnikovMPRT17,DBLP:conf/uss/Pinkas0SZ15}) has extensively examined the specific parameters of a hash table, even within the context of PSI. For instance, as illustrated in Section 6 and Appendix J.1 of \cite{Feather2020-full}, when $c$ falls within the range of  $[2^{\st 10},\ 2^{\st 20}]$ and $pr$ is set to $2^{\st -40}$, then $d$ is $100$. Furthermore, we have $h\approx\frac{4c}{d}$. To provide a concrete value, when $c=2^{\st 20}$ and $d=100$, we would have $h=41943$. 
+
+
+
 
 \subsubsection{Field Size.} 
 %
-In this paper, all arithmetic operations are defined over a finite field $\mathbb{F}_{\st p}$, where $\log_{\st 2}(p)=\lambda$ represents the security parameter. The outputs of $\mathtt {PRF}(.)$ and  $\mathtt {PRP}(.) $ are also of size $\lambda$. Concrete value of $\lambda$ can be set based on the maximum bit size of set elements. For instance, one can choose $\lambda = 60$ and $\lambda = 128$, when the maximum bit size of set elements is slightly less than $60$ and $128$ respectively. 
+In this paper, all arithmetic operations are defined over a finite field $\mathbb{F}_{\st p}$, where $\log_{\st 2}(p)=\lambda$ represents the security parameter. The outputs of $\mathtt {PRF}(.)$ and  $\mathtt {PRP}(.) $ are also of size $\lambda$. Concrete value of $\lambda$ can be set based on the maximum bit size of set elements. For instance, one can choose $\lambda = 60$, when the maximum bit size of set elements is slightly less than $60$ or  $\lambda = 128$ if it is slightly less than $128$. 
 
 
 
