@@ -206,7 +206,10 @@ In the real model, if there is an abort after the parties ensure there is enough
 
 In the real model, if $Flag=True$, then all parties can locally extract the intersection, regardless of the extractors' behaviour. In this case, each honest party receives $\yc'$ amount that it initially deposited in $\mathcal{SC}_{\fpsi}$. Moreover, each honest party receives \emph{at least} $|S_{\st\cap}|\cdot \lc$ amount as a reward, for contributing to the result. In this case, the honest buyer always collects the leftover of its deposit. Specifically, if both extractors act honestly, and the intersection cardinality is smaller than $|\Smin|$, then the buyer collects its deposit leftover, after paying all honest parties. If any extractor misbehaves, then the honest buyer fully recovers its deposit (and the misbehaving extractor pays the rest). 
 
-Even in the case that an extractor misbehaves and then becomes a traitor to correct its past misbehaviour, the buyer collects its deposit leftover if the intersection cardinality is smaller than $|\Smin|$.  In the ideal model, when $Flag=True$, then $\mathsf{Sim}^{\st \epsi}_{\st A}$ can extract the intersection by summing the output of \vopr provided by all parties and removing the blinding polynomials. In this case, it sends back each party's deposit placed in $\mathcal{SC}_{\fpsi}$, i.e., $\yc'$ amount. Also, in this case, each honest party receives at least $|S_{\st\cap}|\cdot \lc$ amount as a reward and the honest buyer always collects the leftover of its deposit. Thus, in both models in the case of $Flag=True$, we would have $\qdelwr(.)\rightarrow 1$. 
+
+
+
+Even in the event that an extractor misbehaves and subsequently acts as a traitor to rectify its prior misconduct,  the buyer recovers the remaining deposit if the intersection's cardinality is less than $|\Smin|$.  In the ideal model, when $Flag=True$, then $\mathsf{Sim}^{\st \epsi}_{\st A}$ can extract the intersection by summing the output of \vopr provided by all parties and removing the blinding polynomials. In this case, it sends back each party's deposit placed in $\mathcal{SC}_{\fpsi}$, i.e., $\yc'$ amount. Also, in this case, each honest party receives at least $|S_{\st\cap}|\cdot \lc$ amount as a reward and the honest buyer always collects the leftover of its deposit. Thus, in both models in the case of $Flag=True$, we would have $\qdelwr(.)\rightarrow 1$. 
 
 
 
@@ -231,7 +234,7 @@ $$ \mathsf{View}_{\st D}^{\st \epsi} \Big(S^{\st (D)}, (S^{\st (1)},..., S^{\st 
  %
   S_{\st \cap}\}$$
 
-where  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{View}^{\st \vopr}_{\st D}$ refer to $D$'s real-model view during the execution of \ct and \vopr respectively. Also, $r_{\st D}$ is the outcome of internal random coins of $D$, $adr_{\st sc}$ is the address of contract, $\mathcal{SC}_{\epsi}$, $(j, ...,j')\in \{1,..., h\}$, $z'=\mathtt{PRF}(\bar{mk}, 0)$, $sz=|S_{\st \cap}|$, and $h_{\st i}$ is a Merkle tree proof asserting that $com_{\st i,j}$ is a leaf node of a Merkle tree with root node $g$. The simulator $\mathsf{Sim}^{\st \epsi}_{\st D}$, which receives all parties' input sets, works as follows. 
+where  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{View}^{\st \vopr}_{\st D}$ refer to $D$'s real-model view during the execution of \ct and \vopr respectively. Furthermore, $r_{\st D}$ is the outcome of internal random coins of $D$, $adr_{\st sc}$ is the address of contract, $\mathcal{SC}_{\epsi}$, $(j, ...,j')\in \{1,..., h\}$, $z'=\mathtt{PRF}(\bar{mk}, 0)$, $sz=|S_{\st \cap}|$, and $h_{\st i}$ is a Merkle tree proof asserting that $com_{\st i,j}$ is a leaf node of a Merkle tree with root node $g$. The simulator $\mathsf{Sim}^{\st \epsi}_{\st D}$, which receives all parties' input sets, operates as follows. 
 
 \begin{enumerate}
 
@@ -287,29 +290,31 @@ where  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{View}^{\st \vopr}_{\st D}$
 \end{enumerate}
  
 
- Now, we will discuss why the two views are computationally indistinguishable.  $D$'s input $S^{\st (D)}$ is
- identical in both models, so they have identical distributions.  The contract's address has the same distribution in both models. The same holds for the integers $\Smin\cdot \vc$ and $ 2\cdot \dc'$. Also, because the real-model semi-honest adversary samples its randomness according to the protocol’s description, the random coins in both models (i.e., $r_{\st D}$  and $r'_{\st D}$) have identical distribution. Due to the security of \fpsi, $\mathsf{View}^{\st \fpsi}_{\st D}$ and $\mathsf{Sim}^{\st \fpsi}_{\st D}$ have identical distribution, so do  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{Sim}^{\st \ct}_{\st D}$ due to the security of \ct. The intersection elements in both models have identical distributions and the encryption scheme is schematically secure. Therefore, each intersection element's representation (i.e., $\bar{e}_{\st i}$ in the real model and $\bar{e}_{\st i, j}$ in the deal model) are computationally indistinguishable. Each $q_{\st i}$ in the real model and $q_{\st i, j}$ in the ideal model have identical distributions as they have been picked uniformly at random. Each commitment $com_{\st i,j}$ in the real model is computationally indistinguishable from commitment $com'_{\st i',j}$ in the ideal model. 
+Now, let us delve into the reasons why the two views are computationally indistinguishable. $D$'s input $S^{\st (D)}$ is
+ identical in both models, so they have identical distributions.  The contract's address has the same distribution in both models. The same holds for the integers $\Smin\cdot \vc$ and $ 2\cdot \dc'$. Moreover, because the real-model semi-honest adversary samples its randomness according to the protocol’s description, the random coins in both models (i.e., $r_{\st D}$  and $r'_{\st D}$) have identical distribution. Due to the security of \fpsi, $\mathsf{View}^{\st \fpsi}_{\st D}$ and $\mathsf{Sim}^{\st \fpsi}_{\st D}$ have identical distribution, so do  $\mathsf{View}^{\st \ct}_{\st D}$ and $\mathsf{Sim}^{\st \ct}_{\st D}$ due to the security of \ct. The intersection elements in both models have identical distributions and the encryption scheme is schematically secure. Therefore, each intersection element's representation (i.e., $\bar{e}_{\st i}$ in the real model and $\bar{e}_{\st i, j}$ in the deal model) are computationally indistinguishable. Each $q_{\st i}$ in the real model and $q_{\st i, j}$ in the ideal model have identical distributions as they have been picked uniformly at random. Each commitment $com_{\st i,j}$ in the real model is computationally indistinguishable from commitment $com'_{\st i',j}$ in the ideal model. 
  
  
  
  
- In the real model, each Merkle tree proof $h_{\st i}$ contains two leaf nodes (along with intermediary nodes that are the hash values of a subset of leaf nodes) that are themselves the commitment values. Also, for each $h_{\st i}$, only one of the leaf node's openings (that contains an element in the intersection) is seen by $D$. The same holds in the ideal model, with the difference that for each Merkle tree proof $h_{\st i, j}$ the leaf node whose opening is not provided is a random value, instead of an actual commitment. 
+ In the real model, each Merkle tree proof $h_{\st i}$ contains two leaf nodes (along with intermediary nodes that are the hash values of a subset of leaf nodes) that are themselves the commitment values. Furthermore, for each $h_{\st i}$, only one of the leaf node's openings (that contains an element in the intersection) is seen by $D$. The same holds in the ideal model, with the difference that for each Merkle tree proof $h_{\st i, j}$ the leaf node whose opening is not provided is a random value, instead of an actual commitment. 
  
- However, due to the hiding property of the commitment scheme, in the real and ideal models,  these two leaf nodes (whose openings are not provided) and accordingly the two proofs are computationally indistinguishable. In both models, values $mk$ and $z'$ are random values, so they have identical distributions. Furthermore, the intersection $S_{\st \cap}$ is identical in both models. Thus, we conclude that the two views are computationally indistinguishable.
+ However, due to the hiding property of the commitment scheme, in the real and ideal models,  these two leaf nodes (whose openings are not provided) and accordingly the two proofs are computationally indistinguishable. In both models, values $mk$ and $z'$ are random values, so they have identical distributions. Furthermore, the intersection $S_{\st \cap}$ is identical in both models. 
+ 
+ Thus, we conclude that the two views are computationally indistinguishable.
  
  
  \
 
-\noindent\textbf{Case 3: Corrupt auditor}.  In this case, the real-model view of the auditor is defined as  
+\noindent\textbf{Case 3: Corrupt auditor}.  In this case, the real-model view of the auditor is defined as  follows: 
 
 $$ \mathsf{View}_{\st Aud}^{\st \epsi} \Big(\bot, S^{\st (D)}, (S^{\st (1)},..., S^{\st (m)})\Big)=$$
 
 $$ \{\mathsf{View}^{\st \fpsi}_{\st Aud}, adr_{\st sc}, \Smin\cdot \vc, 2\cdot \dc', (com_{\st 1,j}, \bar{e}_{\st 1}, q_{\st 1}, h_{\st 1})..., (com_{\st sz, j'}, \bar{e}_{\st sz}, q_{\st {sz}},$$ $$ h_{\st sz}), g, \hat{x}:=({mk}, z')\}$$
 
 
-  Due to the security of \fpsi, \aud's view $\mathsf{View}^{\st \fpsi}_{\st Aud}$ during the execution of \fpsi can be easily simulated. As we have shown in Case 2, for the remaining transcript, its real-model view can be simulated too. However, there is a difference between Case 3 and Case 2; namely, in the former case, \aud does not have the $\mathtt{PRP}$'s key $mk'$ used to encrypt each set element. However, due to the security of  $\mathtt{PRP}$, it cannot distinguish each encrypted encoded element from a uniformly random element and cannot distinguish $\mathtt{PRP}(mk',.)$ from a uniform permutation. Therefore, each value $\bar{e}_{\st j}$ in the real model has identical distribution to each value $\bar{e}_{\st i,j}$ (as defined in Case 2) in the ideal model, as both are the outputs of $\mathtt{PRP}$. 
+  Due to the security of \fpsi, \aud's view $\mathsf{View}^{\st \fpsi}_{\st Aud}$ during the execution of \fpsi can be easily simulated. As we have shown in Case 2, for the remaining transcript, its real-model view can be simulated too. There is a difference between Case 3 and Case 2; namely, in the former case, \aud does not have the $\mathtt{PRP}$'s key $mk'$ used to encrypt each set element. However, due to the security of  $\mathtt{PRP}$, it cannot distinguish each encrypted encoded element from a uniformly random element and cannot distinguish $\mathtt{PRP}(mk',.)$ from a uniform permutation. Therefore, each value $\bar{e}_{\st j}$ in the real model has identical distribution to each value $\bar{e}_{\st i,j}$ (as defined in Case 2) in the ideal model, as both are the outputs of $\mathtt{PRP}$. 
 
-
+We conclude that the two views are computationally indistinguishable.
 
 
 %by using the proof that we have already provided for Case 1 (i.e.,  $m-1$ client $A_{\st j}$s are corrupt), we can easily construct a simulator that generates a view computationally distinguishable from the real world semi-honest auditor. 
@@ -328,7 +333,7 @@ $$ \{\mathsf{View}^{\st \fpsi}_{\st Aud}, adr_{\st sc}, \Smin\cdot \vc, 2\cdot \
  
  
  
-  Due to the security of \fpsi, the public's view $\mathsf{View}^{\st \fpsi}_{\st Pub}$ during \fpsi's execution can be simulated in the same way which is done in Case 4, in Section \ref{sec::F-PSI-proof}. The rest of the public's view overlaps with \aud's view in Case 3, excluding $\mathsf{View}^{\st \fpsi}_{\st Aud}$. Therefore, we can use the argument provided in Case 3 to show that the rest of the public's view can be simulated.     
+  Due to the security of \fpsi, the public's view $\mathsf{View}^{\st \fpsi}_{\st Pub}$ during \fpsi's execution can be simulated n the same manner as described in Case 4 on page \pageref{sec::F-PSI-proof}. The rest of the public's view overlaps with \aud's view in Case 3, excluding $\mathsf{View}^{\st \fpsi}_{\st Aud}$. Therefore, we can use the argument provided in Case 3 to show that the rest of the public's view can be simulated.     
    We  conclude that the public's real and ideal views are computationally indistinguishable. 
  %
 \end{proof}

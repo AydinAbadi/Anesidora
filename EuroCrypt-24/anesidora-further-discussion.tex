@@ -9,7 +9,11 @@
 
 \subsection{Strawman Approach}
 
-There is a simpler but costlier approach to finding the intersection without involving the extractors; that is the smart contract finds the (encoded) elements of the intersection and distributes the parties' deposit according to the number of elements it finds. This approach is simpler, as we do not need the involvement of (i) the extractors and (ii) the three counter collusion contracts. Nevertheless, it is costlier, because the contract itself needs to factorise the unblinded resulting polynomial and find the roots, which would cost it $O(d^{\st 2})$ for each bin, where $d$ is the size of each bin. Our proposed approach however moves such a computation off-chain, leading to a lower monetary computation cost. 
+
+There is a simpler but more expensive approach to finding the intersection without the participation of the extractors. In this approach, the smart contract identifies the (encoded) elements of the intersection and distributes the parties' deposits based on the number of elements it discovers. While this method is simpler, as it eliminates the need for both (i) the involvement of the extractors and (ii) the three counter-collusion contracts, it comes at a higher cost.
+
+This increased cost arises because the contract itself must factorise the unblinded resulting polynomial and locate the roots, incurring an $O(d^{\st 2})$ computational cost for each bin, where $d$ is the size of each bin. In contrast, our proposed approach offloads such computations off-chain, resulting in a lower monetary computation cost.
+
 %\end{remark}
 
 
@@ -56,16 +60,24 @@ Compared to \fpsi, there is a minor difference in finding the result in \epsi. S
 %\begin{remark} 
 
 \subsection{The Use of Double-layered Commitments}
-In \epsi, each extractor uses double-layered commitments (i.e., it first commits to the encryption of each element and then constructs a Merkle tree on top of all commitments) for efficiency and privacy purposes. Constructing a Merkle tree on top of the commitments allows the extractor to store only a single value in $\SCe$ would impose a much lower storage cost compared to the case where it would store all commitments in $\SCe$. Also, committing to the elements' encryption lets it hide from other clients the encryption of those elements that are not in the intersection. Recall that encrypting each element is not sufficient to protect one client's elements from the rest of the clients, as they all know the decryption key. 
+In \epsi, each extractor employs double-layered commitments, which involves initially committing to the encryption of each element and subsequently constructing a Merkle tree on top of all these commitments. This approach is adopted for efficiency and privacy reasons.
+
+
+Constructing a Merkle tree on top of the commitments enables the extractor to store just a single value in $\SCe$  resulting in significantly lower storage costs compared to the alternative scenario where all commitments would need to be stored in $\SCe$. Additionally, committing to the encryption of the elements allows the extractor to conceal from other clients the encryption of those elements that do not belong to the intersection. It is important to note that simply encrypting each element would not suffice to protect one client's elements from the other clients, as they all possess knowledge of the decryption key.
+
+
 
 
 
 \subsection{Inserting Garbage Inputs}
-To increase their reward, malicious clients may be tempted to insert ``garbage'' elements into their sets with the hope that those garbage elements appear in the result and accordingly they receive a higher reward. However, they would not succeed as long as there exists a semi-honest client (e.g., dealer $D$) which uses actual set elements. In this case, by the set intersection definition, those garbage elements will not appear in the intersection. 
+
+To potentially increase their reward, malicious clients might be tempted to insert ``garbage'' elements into their sets,  hoping that these spurious elements will appear in the result, thus yielding a greater reward. However, their efforts would be in vain as long as a semi-honest client (such as dealer $D$) includes genuine set elements. In this scenario, according to the set intersection definition, those garbage elements will not be part of the intersection.
+
+
 
 
 \subsection{Using Generic Reward Function}
-In \epsi, for the sake of simplicity, we let each party receive a fixed reward, i.e., $\lc$, for every element it contributes to the intersection. It is possible to make the process more flexible/generic. For instance, we could define a Reward Function $RF$ that takes $\lc$, an (encoded) set element $e_{\st i}$ in the intersection, its distribution/value $val_{\st e_{\st i}}$, and output a reward $rew_{\st e_{\st i}}$ that each party should receive for contributing that element to the intersection, i.e., $RF(\lc, e_{\st i}, val_{\st e_{\st i}})\rightarrow rew_{\st e_{\st i}}$.
+In \epsi, for the sake of simplicity, we allowed each party receive a fixed reward, i.e., $\lc$, for every element it contributes to the intersection. It is possible to make the process more flexible/generic. For instance, we could define a Reward Function $RF$ that takes $\lc$, an (encoded) set element $e_{\st i}$ in the intersection, its distribution/value $val_{\st e_{\st i}}$, and output a reward $rew_{\st e_{\st i}}$ that each party should receive for contributing that element to the intersection, i.e., $RF(\lc, e_{\st i}, val_{\st e_{\st i}})\rightarrow rew_{\st e_{\st i}}$.
 
 
 
